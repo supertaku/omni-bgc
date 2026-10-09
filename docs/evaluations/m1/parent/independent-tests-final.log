@@ -1,0 +1,20 @@
+test_categorical_raster_gate (test_independent_contracts.IndependentContracts.test_categorical_raster_gate) ... ok
+test_conflicting_names_quarantined (test_independent_contracts.IndependentContracts.test_conflicting_names_quarantined) ... ok
+test_cross_subject_coordinate_rejected (test_independent_contracts.IndependentContracts.test_cross_subject_coordinate_rejected) ... ok
+test_expired_rights_denied (test_independent_contracts.IndependentContracts.test_expired_rights_denied) ... ok
+test_fact_cannot_recycle_identity (test_independent_contracts.IndependentContracts.test_fact_cannot_recycle_identity) ... ok
+test_menu_needs_its_own_use_policy (test_independent_contracts.IndependentContracts.test_menu_needs_its_own_use_policy) ... ok
+test_metadata_gate_parity (test_independent_contracts.IndependentContracts.test_metadata_gate_parity) ... ok
+test_non_utc_review_denied (test_independent_contracts.IndependentContracts.test_non_utc_review_denied) ... ok
+test_pending_evidence_does_not_support_export (test_independent_contracts.IndependentContracts.test_pending_evidence_does_not_support_export) ... ok
+test_positive_control_and_same_name_branches (test_independent_contracts.IndependentContracts.test_positive_control_and_same_name_branches) ... ok
+test_raster_source_kind_normalized (test_independent_contracts.IndependentContracts.test_raster_source_kind_normalized) ... ok
+test_relationship_target_must_match_normalized_parent (test_independent_contracts.IndependentContracts.test_relationship_target_must_match_normalized_parent) ... ok
+test_replace_entity_cannot_change_kind (test_independent_contracts.IndependentContracts.test_replace_entity_cannot_change_kind) ... ok
+test_required_policy_reference_and_source_id (test_independent_contracts.IndependentContracts.test_required_policy_reference_and_source_id) ... ok
+test_snapshot_same_bytes_still_requires_own_policy (test_independent_contracts.IndependentContracts.test_snapshot_same_bytes_still_requires_own_policy) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.361s
+
+OK

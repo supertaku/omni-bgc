@@ -1,0 +1,15 @@
+# Preserve exact bytes for new checksum-reviewed contracts and evidence.
+# Historical M0 artifacts keep their original Git attribute behavior.
+/docs/data-source-register/** -text
+/docs/evaluations/m1/** -text
+/docs/evaluations/m2/** -text
+/docs/evaluations/program/** -text
+/data/** -text
+/packages/** -text
+/pipelines/** -text
+/tests/** -text
+/assets/branding/** -text
+
+# Captured Windows command output retains CRLF and intentional terminal blanks.
+/docs/evaluations/m1/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/program/**/*.log whitespace=-blank-at-eof,cr-at-eol

@@ -1,0 +1,20 @@
+Bytecode makes the app startup faster, disabling bytecode is highly discouraged and should only be used for debugging purposes.
+Starting Metro Bundler
+
+| (node:28472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:28472) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+Android Bundled 15973ms index.ts (685 modules)
+
+› Assets (3):
+node_modules\@maplibre\maplibre-react-native\lib\module\assets\heading.png (3 variations | 450B)
+
+› android bundles (2):
+_expo/static/js/android/index-24b29e54f5ca3b43233c18875e8267fa.js (1MB)
+_expo/static/js/android/index-24b29e54f5ca3b43233c18875e8267fa.js.map (4.6MB)
+
+› Files (1):
+metadata.json (340B)
+
+Exported: artifacts/security-export

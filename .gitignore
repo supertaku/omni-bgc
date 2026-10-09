@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Raw acquisitions and generated packs require separate redistribution review.
+data/raw/
+data/generated/

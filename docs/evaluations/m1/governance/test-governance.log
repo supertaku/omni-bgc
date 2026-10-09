@@ -1,0 +1,18 @@
+test_audited_prior_raw_is_bounded (test_governance.GovernanceTests.test_audited_prior_raw_is_bounded) ... ok
+test_boundary_edge_and_outside (test_governance.GovernanceTests.test_boundary_edge_and_outside) ... ok
+test_conditional_data_not_menu_or_image_grant (test_governance.GovernanceTests.test_conditional_data_not_menu_or_image_grant) ... ok
+test_every_missing_review_switch_blocks (test_governance.GovernanceTests.test_every_missing_review_switch_blocks) ... ok
+test_expired_review_blocks (test_governance.GovernanceTests.test_expired_review_blocks) ... ok
+test_future_or_incomplete_times_and_reversed_intervals_block (test_governance.GovernanceTests.test_future_or_incomplete_times_and_reversed_intervals_block) ... ok
+test_header_only_migration (test_governance.GovernanceTests.test_header_only_migration) ... ok
+test_internal_osm_can_pass_without_distribution_clearance (test_governance.GovernanceTests.test_internal_osm_can_pass_without_distribution_clearance) ... ok
+test_public_raster_cannot_be_overridden (test_governance.GovernanceTests.test_public_raster_cannot_be_overridden) ... ok
+test_reject_headers_and_duplicate_ids (test_governance.GovernanceTests.test_reject_headers_and_duplicate_ids) ... ok
+test_roundtrip_preserves_quoted_unicode_ids_and_version (test_governance.GovernanceTests.test_roundtrip_preserves_quoted_unicode_ids_and_version) ... ok
+test_snapshot_identity_is_bound (test_governance.GovernanceTests.test_snapshot_identity_is_bound) ... ok
+test_unknown_stale_revoked_and_unacquired_block (test_governance.GovernanceTests.test_unknown_stale_revoked_and_unacquired_block) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.004s
+
+OK

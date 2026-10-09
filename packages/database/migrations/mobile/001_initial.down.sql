@@ -1,0 +1,14 @@
+PRAGMA foreign_keys=OFF;
+BEGIN IMMEDIATE;
+DROP TABLE pack_metadata;
+DROP TABLE search_fts;
+DROP TABLE search_document;
+DROP TABLE point_bbox;
+DROP TABLE point;
+DROP TABLE fact_lineage;
+DROP TABLE source_snapshot;
+DROP TABLE fact;
+DROP TABLE entity;
+DROP TABLE schema_migration;
+COMMIT;
+PRAGMA foreign_keys=ON;

@@ -1,0 +1,29 @@
+{
+  "scope": "unchanged M0 Android JS export, minified production-mode JS, Hermes bytecode disabled for inspection",
+  "source_count": 692,
+  "advisory_package_source_matches": {
+    "braces": [],
+    "node-forge": [],
+    "uuid": [],
+    "micromatch": [],
+    "xcode": [],
+    "@expo/code-signing-certificates": []
+  },
+  "online_audit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 8,
+    "high": 16,
+    "critical": 0,
+    "total": 24
+  },
+  "bundle_map_sha256": "53d731721058296d8cb6e142c9e3a7e6b67a657f20629d27b02ea7ff5445d784",
+  "package_lock_sha256": "3158e39e8fdde0d2175c86efe0f5d932ced5a5ea8923be7b4132d7dbc262fb9c",
+  "production_security_accepted": false,
+  "limits": [
+    "Not a release APK",
+    "No reachability conclusion for future code or native libraries",
+    "Host build/development tooling remains vulnerable",
+    "Offline npm audit zero is not an authoritative vulnerability check"
+  ]
+}

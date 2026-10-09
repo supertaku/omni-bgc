@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "reviewed_at_utc": "2026-10-09T09:56:44.040665+00:00",
+  "manifest_records_verified": 19,
+  "parent_revised_paths": [
+    "pipelines/sources/governance.py",
+    "pipelines/sources/test_governance.py"
+  ],
+  "canonical_rows": 0,
+  "canonical_columns": 23,
+  "historical_rows_preserved": 11,
+  "policy_response_metadata_checked": 5,
+  "source_permissions_approved": 0,
+  "buffer_materialization": "DEFERRED_M3",
+  "service_area_sha256": "07775a690ac1d99f94e436d9461b48ed1c28822c95bc6cb05e0614c3cf55dd31",
+  "limits": [
+    "No policy response body independently rehashed: bodies deliberately discarded",
+    "No dataset ingest or legal clearance",
+    "No field or route safety validation"
+  ]
+}

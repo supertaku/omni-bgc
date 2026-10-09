@@ -1,0 +1,92 @@
+Starting Metro Bundler
+
+| (node:32424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:32424) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+
+Failed to generate Hermes bytecode for: C:\Users\joshu\Documents\Omni-BGC\apps\mobile\index.ts
+
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:869:13: warning: the variable "Promise" was not declared in anonymous function
+    var z = Promise,
+            ^~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:3520:25: warning: the variable "ErrorUtils" was not declared in anonymous function
+    var globalHandler = ErrorUtils.getGlobalHandler();
+                        ^~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:3567:39: warning: the variable "FormData" was not declared in anonymous function
+  (0, _FormData.installFormDataPatch)(FormData);
+                                      ^~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:3568:45: warning: the variable "AbortSignal" was not declared in anonymous function
+  (0, _AbortSignal.installAbortSignalPatch)(AbortSignal);
+                                            ^~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:6158:71: warning: the variable "performance" was not declared in anonymous function
+      this._timeStamp = initTimestamp !== undefined ? initTimestamp : performance.now();
+                                                                      ^~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:18496:7: warning: the variable "setTimeout" was not declared in function "logUncaughtError"
+      setTimeout(function () {
+      ^~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:21274:31: warning: the variable "nativeFabricUIManager" was not declared in anonymous function
+  var _nativeFabricUIManage = nativeFabricUIManager,
+                              ^~~~~~~~~~~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:21338:21: warning: the variable "clearTimeout" was not declared in anonymous function
+    cancelTimeout = clearTimeout;
+                    ^~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:26202:15: warning: the variable "Blob" was not declared in anonymous function
+          new Blob();
+              ^~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:26341:24: warning: the variable "FileReader" was not declared in function "readBlobAsArrayBuffer"
+      var reader = new FileReader();
+                       ^~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:26396:44: warning: the variable "URLSearchParams" was not declared in anonymous function
+        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+                                           ^~~~~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:26649:23: warning: the variable "XMLHttpRequest" was not declared in anonymous function
+        var xhr = new XMLHttpRequest();
+                      ^~~~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:30933:22: warning: the variable "DOMException" was not declared in function "timeout"
+    var reason = new DOMException('The signal timed out.', 'TimeoutError');
+                     ^~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:31670:35: warning: the variable "TransformStream" was not declared in anonymous function
+  class TextDecoderStream extends TransformStream {
+                                  ^~~~~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:31672:25: warning: the variable "TextDecoder" was not declared in anonymous function
+      var decoder = new TextDecoder(label, options);
+                        ^~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:31709:25: warning: the variable "TextEncoder" was not declared in anonymous function
+      var encoder = new TextEncoder();
+                        ^~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:33584:19: warning: the variable "URL" was not declared in function "getBundleUrl"
+    var url = new URL(scriptURL);
+                  ^~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:33995:50: warning: the variable "Request" was not declared in anonymous arrow function
+      return 'body' in input || input instanceof Request || input[Symbol.toStringTag] === 'Request';
+                                                 ^~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:37469:13: warning: the variable "clearImmediate" was not declared in anonymous arrow function
+            clearImmediate(flushQueueImmediate);
+            ^~~~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:39097:32: warning: the variable "requestAnimationFrame" was not declared in anonymous function
+        this._animationFrame = requestAnimationFrame(() => this.onUpdate());
+                               ^~~~~~~~~~~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:55753:22: warning: the variable "ReadableStream" was not declared in function "wrapWithConsumption"
+    var stream = new ReadableStream({
+                     ^~~~~~~~~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:56024:18: warning: the variable "Headers" was not declared in anonymous function
+      return new Headers(this._rawHeaders);
+                 ^~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:56655:16: warning: Direct call to eval(), but lexical scope is not supported.
+        return eval(body);
+               ^~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:57728:21: warning: the variable "Image" was not declared in anonymous arrow function
+      var img = new Image();
+                    ^~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:65320:56: warning: the variable "WeakRef" was not declared in function "registerDatabaseForDevToolsAsync"
+    registeredDatabases.set(database.databasePath, new WeakRef(database));
+                                                       ^~~~~~~
+C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js:65986:43: warning: the variable "WebSocket" was not declared in anonymous function
+      if (this.wsStore.ws?.readyState === WebSocket.CLOSED) {
+                                          ^~~~~~~~~
+Failed to write file C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.hbc: permission denied
+
+Android Bundling failed 14880ms index.ts (685 modules)
+
+Error: C:\Users\joshu\Documents\Omni-BGC\apps\mobile\node_modules\hermes-compiler/hermesc/win64-bin/hermesc.exe -emit-binary -out C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.hbc C:\Users\joshu\AppData\Local\Packages\sandbox.{24215d41-b1d3-4610-99ba-cd0140ef9480}\AC\Temp\expo-bundler-0.23863111455655317-1791538576163\index.js -O -output-source-map exited with non-zero code: 6

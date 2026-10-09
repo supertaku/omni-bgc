@@ -1,0 +1,4 @@
+
+> omni-bgc-m0-mobile@0.0.0 typecheck
+> tsc --noEmit
+
