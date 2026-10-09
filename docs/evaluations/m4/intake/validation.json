@@ -1,0 +1,11 @@
+{
+  "status": "TOOLING_PENDING_PARENT_REVIEW",
+  "milestone_status": "BLOCKED",
+  "real_approved_pois": 0,
+  "real_menu_supported_restaurants": 0,
+  "real_verified_entrances": 0,
+  "census_denominator": null,
+  "python": "3.13.7",
+  "sqlite": "3.50.4",
+  "synthetic_fixture_only": true
+}
