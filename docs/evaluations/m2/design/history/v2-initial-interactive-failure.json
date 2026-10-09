@@ -1,0 +1,36 @@
+{
+  "version": "M2-interactive-draft-v2",
+  "date": "2026-10-09",
+  "node": "v24.19.0",
+  "playwright": "1.62.1",
+  "browser": "154.0.8037.98",
+  "results": [
+    {
+      "name": "search/filter/result/details/Back/focus/keyboard",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n1 !== 0\n"
+    },
+    {
+      "name": "denied/manual-origin/adjust/undo/cancel/confirmation/entrance/route-unavailable",
+      "pass": true
+    },
+    {
+      "name": "saved/manual itinerary/order/user duration/removal/session-only",
+      "pass": true
+    },
+    {
+      "name": "same-name tenant choice and full-name large-text fixed actions",
+      "pass": true
+    },
+    {
+      "name": "Assistant honest state, Open Map and large-text Filters available",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "participants": 0,
+  "figmaFiles": 0,
+  "nativeKeyboard": false,
+  "pass": false
+}

@@ -1,0 +1,6093 @@
+{
+  "date": "2026-10-09",
+  "node": "v24.19.0",
+  "playwright": "1.62.1",
+  "browser": "154.0.8037.98",
+  "renderer": "Desktop Chrome headless; CSS px approximates dp; not native evidence",
+  "contrast": [
+    {
+      "name": "body",
+      "foreground": "ink",
+      "background": "surface",
+      "min": 4.5,
+      "ratio": 15.724683225138385,
+      "pass": true
+    },
+    {
+      "name": "secondary",
+      "foreground": "muted",
+      "background": "surface",
+      "min": 4.5,
+      "ratio": 7.199665264981674,
+      "pass": true
+    },
+    {
+      "name": "canvas text",
+      "foreground": "ink",
+      "background": "canvas",
+      "min": 4.5,
+      "ratio": 14.523161948652215,
+      "pass": true
+    },
+    {
+      "name": "primary button",
+      "foreground": "surface",
+      "background": "route",
+      "min": 4.5,
+      "ratio": 6.712050105653388,
+      "pass": true
+    },
+    {
+      "name": "selected chip",
+      "foreground": "route",
+      "background": "selectedSurface",
+      "min": 4.5,
+      "ratio": 5.807767148846924,
+      "pass": true
+    },
+    {
+      "name": "warning",
+      "foreground": "warningInk",
+      "background": "warningSurface",
+      "min": 4.5,
+      "ratio": 7.64106021809547,
+      "pass": true
+    },
+    {
+      "name": "error",
+      "foreground": "dangerInk",
+      "background": "dangerSurface",
+      "min": 4.5,
+      "ratio": 7.114435237417458,
+      "pass": true
+    },
+    {
+      "name": "control border",
+      "foreground": "border",
+      "background": "surface",
+      "min": 3,
+      "ratio": 4.3219312239441825,
+      "pass": true
+    },
+    {
+      "name": "focus ring",
+      "foreground": "route",
+      "background": "canvas",
+      "min": 3,
+      "ratio": 6.199183112066443,
+      "pass": true
+    },
+    {
+      "name": "route on park",
+      "foreground": "routeCasing",
+      "background": "park",
+      "min": 3,
+      "ratio": 9.323307066736296,
+      "pass": true
+    }
+  ],
+  "results": [
+    {
+      "state": "idle",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/idle-390x844-100.png",
+      "controls": [
+        {
+          "label": "Search places or dishes",
+          "x": 16,
+          "y": 32,
+          "width": 358,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "All",
+          "x": 16,
+          "y": 96,
+          "width": 56.453125,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Food",
+          "x": 80.453125,
+          "y": 96,
+          "width": 70.46875,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Coffee",
+          "x": 158.921875,
+          "y": 96,
+          "width": 80.859375,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "More",
+          "x": 247.78125,
+          "y": 96,
+          "width": 70.453125,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "⌖",
+          "x": 326,
+          "y": 692,
+          "width": 48,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 152
+        },
+        {
+          "x": 326,
+          "y": 692,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.6837586584032082,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Search places or dishes",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "All",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Food",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Coffee",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "More",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Pilot coverage only • Details in Search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "⌖",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "28px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "filter",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/filter-390x844-100.png",
+      "controls": [
+        {
+          "label": "Food, selected",
+          "x": 20,
+          "y": 508,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Coffee",
+          "x": 20,
+          "y": 568,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Clear filters",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Show results",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 379.71875,
+          "width": 390,
+          "height": 376.28125,
+          "clientHeight": 376,
+          "scrollHeight": 376
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 379.71875,
+          "width": 390,
+          "height": 376.28125,
+          "clientHeight": 376,
+          "scrollHeight": 376,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Filters",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Search only approved records in the installed pack.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Food, selected",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Coffee",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Clear filters",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Show results",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "search",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/search-390x844-100.png",
+      "controls": [
+        {
+          "label": "query",
+          "x": 20,
+          "y": 151.578125,
+          "width": 350,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "List, selected",
+          "x": 20,
+          "y": 219.578125,
+          "width": 172,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 200,
+          "y": 219.578125,
+          "width": 170,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Show place",
+          "x": 37,
+          "y": 494.84375,
+          "width": 316,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Filters",
+          "x": 20,
+          "y": 571.84375,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 20,
+          "y": 631.84375,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Places or dishes",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "List, selected",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Coverage is incomplete. No result does not mean no place exists.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Synthetic result for layout review",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Tenant • Level 2 • Fixture Building A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Show place",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Filters",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "search-empty",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/search-empty-390x844-100.png",
+      "controls": [
+        {
+          "label": "Clear filters",
+          "x": 20,
+          "y": 173.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Edit search",
+          "x": 20,
+          "y": 233.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 20,
+          "y": 293.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "No matching records",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Try a name, category or fewer filters. This offline pack does not cover every place.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Clear filters",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Edit search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "place-peek",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/place-peek-390x844-100.png",
+      "controls": [
+        {
+          "label": "Expand details",
+          "x": 20,
+          "y": 626.90625,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Directions",
+          "x": 20,
+          "y": 688,
+          "width": 163.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Save",
+          "x": 191.5,
+          "y": 688,
+          "width": 163.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 384.640625,
+          "width": 390,
+          "height": 371.359375,
+          "clientHeight": 371,
+          "scrollHeight": 371
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 384.640625,
+          "width": 390,
+          "height": 371.359375,
+          "clientHeight": 371,
+          "scrollHeight": 371,
+          "class": "sheet peek place-sheet"
+        },
+        {
+          "x": 20,
+          "y": 416.640625,
+          "width": 335,
+          "height": 258.359375,
+          "clientHeight": 258,
+          "scrollHeight": 270,
+          "class": "sheet-scroll stack"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture tenant • Level 2 • Entrance not verified",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "14px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "Menu evidence unknown. No dishes or prices available.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Choose an origin to see a walking distance.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Expand details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Directions",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Save",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "long-name",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/long-name-390x844-100.png",
+      "controls": [
+        {
+          "label": "Expand details",
+          "x": 20,
+          "y": 709.40625,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Directions",
+          "x": 20,
+          "y": 688,
+          "width": 163.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Save",
+          "x": 191.5,
+          "y": 688,
+          "width": 163.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 384.640625,
+          "width": 390,
+          "height": 371.359375,
+          "clientHeight": 371,
+          "scrollHeight": 371
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 384.640625,
+          "width": 390,
+          "height": 371.359375,
+          "clientHeight": 371,
+          "scrollHeight": 371,
+          "class": "sheet peek place-sheet"
+        },
+        {
+          "x": 20,
+          "y": 416.640625,
+          "width": 335,
+          "height": 258.359375,
+          "clientHeight": 258,
+          "scrollHeight": 353,
+          "class": "sheet-scroll stack"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A: an intentionally very long tenant name with a very long building name and an upper-level entrance",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture tenant • Level 2 • Entrance not verified",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "14px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "Menu evidence unknown. No dishes or prices available.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Choose an origin to see a walking distance.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Expand details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Directions",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Save",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "place-expanded",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/place-expanded-390x844-100.png",
+      "controls": [
+        {
+          "label": "Choose an origin",
+          "x": 20,
+          "y": 718.3125,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Save",
+          "x": 20,
+          "y": 778.3125,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Collapse details",
+          "x": 20,
+          "y": 838.3125,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 182.09375,
+          "width": 390,
+          "height": 573.90625,
+          "clientHeight": 574,
+          "scrollHeight": 724
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 182.09375,
+          "width": 390,
+          "height": 573.90625,
+          "clientHeight": 574,
+          "scrollHeight": 724,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Synthetic tenant • Level 2 • Fixture Building A",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "14px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "No verified entrance. Routing is unavailable until an approved entrance exists.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Menu",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "No menu evidence available.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Hours",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Unknown. We cannot confirm whether this place is open.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Access",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Accessibility has not been verified.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Sources",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture only. No source record or verification date.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Choose an origin",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Save",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Collapse details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "menu-empty",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/menu-empty-390x844-100.png",
+      "controls": [
+        {
+          "label": "Back to place",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 537.328125,
+          "width": 390,
+          "height": 218.671875,
+          "clientHeight": 219,
+          "scrollHeight": 219
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 537.328125,
+          "width": 390,
+          "height": 218.671875,
+          "clientHeight": 219,
+          "scrollHeight": 219,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Menu not available",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "An approved place record exists, but no approved menu record is installed. This does not mean the place has no menu.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to place",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "menu-stale",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/menu-stale-390x844-100.png",
+      "controls": [
+        {
+          "label": "View sources",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to place",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 384.546875,
+          "width": 390,
+          "height": 371.453125,
+          "clientHeight": 371,
+          "scrollHeight": 371
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 384.546875,
+          "width": 390,
+          "height": 371.453125,
+          "clientHeight": 371,
+          "scrollHeight": 371,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Older menu information",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Verification is older than the menu validity window. Availability and prices may have changed.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Fixture-only state: no menu items or dates have been invented.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "View sources",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to place",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "menu-long",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/menu-long-390x844-100.png",
+      "controls": [
+        {
+          "label": "Back to place",
+          "x": 20,
+          "y": 1614.875,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 182.09375,
+          "width": 390,
+          "height": 573.90625,
+          "clientHeight": 574,
+          "scrollHeight": 1501
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 182.09375,
+          "width": 390,
+          "height": 573.90625,
+          "clientHeight": 574,
+          "scrollHeight": 1501,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Menu evidence",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture-only content stress test. No real items or prices.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item B",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item C",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item D",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item E",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item F",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item G",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture menu item H",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Intentionally long description to exercise wrapping and scrolling. Ingredients, availability, currency, prices and dates require approved evidence.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to place",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "business-stale",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/business-stale-390x844-100.png",
+      "controls": [
+        {
+          "label": "View sources",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to results",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 429.328125,
+          "width": 390,
+          "height": 326.671875,
+          "clientHeight": 327,
+          "scrollHeight": 327
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 429.328125,
+          "width": 390,
+          "height": 326.671875,
+          "clientHeight": 327,
+          "scrollHeight": 327,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Place information is old",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "The place record is stale. Hours and continued operation are unconfirmed.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "No current open/closed claim is available.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "View sources",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to results",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "ambiguous",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/ambiguous-390x844-100.png",
+      "controls": [
+        {
+          "label": "Select fixture A",
+          "x": 37,
+          "y": 264.859375,
+          "width": 316,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Select fixture B",
+          "x": 37,
+          "y": 432.75,
+          "width": 316,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to search",
+          "x": 20,
+          "y": 509.75,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Choose the place",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Same-name matches need building and floor context. These are synthetic fixtures.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Fixture tenant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture Building A • Level 2",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Select fixture A",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Fixture tenant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture Building B • Level 1",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Select fixture B",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Back to search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "entrances",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/entrances-390x844-100.png",
+      "controls": [
+        {
+          "label": "Fixture entrance A, unverified",
+          "x": 20,
+          "y": 440.828125,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Fixture entrance B, restricted",
+          "x": 20,
+          "y": 500.828125,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to place",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 312.546875,
+          "width": 390,
+          "height": 443.453125,
+          "clientHeight": 443,
+          "scrollHeight": 443
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 312.546875,
+          "width": 390,
+          "height": 443.453125,
+          "clientHeight": 443,
+          "scrollHeight": 443,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Choose an entrance",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture-only selection. Verified door location and access status are required for routing.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture entrance A, unverified",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture entrance B, restricted",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "No eligible approved entrance exists in this fixture.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Never route to a building center.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to place",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "permission",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/permission-390x844-100.png",
+      "controls": [
+        {
+          "label": "Use device location",
+          "x": 20,
+          "y": 508,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Choose on map",
+          "x": 20,
+          "y": 568,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Choose a landmark",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Cancel",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 336.125,
+          "width": 390,
+          "height": 419.875,
+          "clientHeight": 420,
+          "scrollHeight": 420
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 336.125,
+          "width": 390,
+          "height": 419.875,
+          "clientHeight": 420,
+          "scrollHeight": 420,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Choose your origin",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Location is optional. Use it once or choose a point on the map.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Your precise position stays on this device.",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "14px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "Use device location",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Choose on map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Choose a landmark",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Cancel",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "denied",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/denied-390x844-100.png",
+      "controls": [
+        {
+          "label": "Choose on map",
+          "x": 20,
+          "y": 508,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Choose a landmark",
+          "x": 20,
+          "y": 568,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Location settings",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 379.71875,
+          "width": 390,
+          "height": 376.28125,
+          "clientHeight": 376,
+          "scrollHeight": 376
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 379.71875,
+          "width": 390,
+          "height": 376.28125,
+          "clientHeight": 376,
+          "scrollHeight": 376,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Choose an origin manually",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Device location is unavailable. You can still search and choose a route origin.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Choose on map",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Choose a landmark",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Location settings",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "manual-origin",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/manual-origin-390x844-100.png",
+      "controls": [
+        {
+          "label": "Confirm origin",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Undo",
+          "x": 20,
+          "y": 688,
+          "width": 163.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Cancel",
+          "x": 191.5,
+          "y": 688,
+          "width": 163.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Confirm your origin",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Move the map beneath the target, then confirm. No route uses this draft point.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Confirm origin",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Undo",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Cancel",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "location-stale",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/location-stale-390x844-100.png",
+      "controls": [
+        {
+          "label": "Choose on map",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Try location again",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 384.546875,
+          "width": 390,
+          "height": 371.453125,
+          "clientHeight": 371,
+          "scrollHeight": 371
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 384.546875,
+          "width": 390,
+          "height": 371.453125,
+          "clientHeight": 371,
+          "scrollHeight": 371,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Location needs confirmation",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Last-known location is stale. It will not be used as a live origin.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Confirm a map point or request a fresh fix. Accuracy and observation time appear when known.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Choose on map",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Try location again",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "route-preview",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/route-preview-390x844-100.png",
+      "controls": [
+        {
+          "label": "Start route",
+          "x": 20,
+          "y": 568,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Change origin",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to place",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 276.546875,
+          "width": 390,
+          "height": 479.453125,
+          "clientHeight": 479,
+          "scrollHeight": 479
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 276.546875,
+          "width": 390,
+          "height": 479.453125,
+          "clientHeight": 479,
+          "scrollHeight": 479,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Check your route",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Origin: confirmed manual point",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Destination: approved entrance required",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture only. No validated walking route exists in this prototype.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "No time or distance estimate is available.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Start route",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Change origin",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to place",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "navigation",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/navigation-390x844-100.png",
+      "controls": [
+        {
+          "label": "Show written steps",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "End route",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256,
+          "class": "sheet peek"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture-only route state",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "14px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "Next instruction",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Instruction text supplied by a validated route.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Route mode",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Diagram only • Not geographic • No distance estimate",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Show written steps",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "End route",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "route-unavailable",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/route-unavailable-390x844-100.png",
+      "controls": [
+        {
+          "label": "Change origin",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to place",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 406.9375,
+          "width": 390,
+          "height": 349.0625,
+          "clientHeight": 349,
+          "scrollHeight": 349
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 406.9375,
+          "width": 390,
+          "height": 349.0625,
+          "clientHeight": 349,
+          "scrollHeight": 349,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Route unavailable",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "No validated path to an approved entrance is available.",
+          "color": "rgb(154, 37, 37)",
+          "background": "rgb(255, 240, 239)",
+          "fontSize": "16px",
+          "ratio": 7.114435237417458
+        },
+        {
+          "text": "Try another verified entrance or choose another origin. No unsafe shortcut is inferred.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Change origin",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Back to place",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "outside",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/outside-390x844-100.png",
+      "controls": [
+        {
+          "label": "Choose an origin in coverage",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "View coverage",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Outside supported coverage",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Your chosen origin is outside the installed pack's supported routing boundary.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Choose an origin in coverage",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "View coverage",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "transit",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/transit-390x844-100.png",
+      "controls": [
+        {
+          "label": "View sources",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 360.546875,
+          "width": 390,
+          "height": 395.453125,
+          "clientHeight": 395,
+          "scrollHeight": 395
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 360.546875,
+          "width": 390,
+          "height": 395.453125,
+          "clientHeight": 395,
+          "scrollHeight": 395,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Transit information",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Posted timetable is stale. Do not treat it as a live arrival estimate.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Fixture-only stop details. Route, service date and source appear only with approved records.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "No approved walking link to this stop.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "View sources",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "transit-empty",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/transit-empty-390x844-100.png",
+      "controls": [
+        {
+          "label": "View pack details",
+          "x": 20,
+          "y": 628,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 20,
+          "y": 688,
+          "width": 335,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 499.71875,
+          "width": 390,
+          "height": 256.28125,
+          "clientHeight": 256,
+          "scrollHeight": 256,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "No transit records installed",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "This pack has no approved transit feed. This does not mean buses do not operate here.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "View pack details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "saved",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/saved-390x844-100.png",
+      "controls": [
+        {
+          "label": "Find a place",
+          "x": 20,
+          "y": 151.578125,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Add a stop",
+          "x": 20,
+          "y": 330.25,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 20,
+          "y": 390.25,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Saved",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "No places saved on this device.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Find a place",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Manual itinerary",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "22px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Add approved places, reorder stops, and choose your own visit durations. Leg estimates appear only after validated routes exist.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Add a stop",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "pack",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/pack-390x844-100.png",
+      "controls": [
+        {
+          "label": "View coverage",
+          "x": 20,
+          "y": 335.53125,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Sources and attribution",
+          "x": 20,
+          "y": 395.53125,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Saved places",
+          "x": 20,
+          "y": 455.53125,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Settings",
+          "x": 20,
+          "y": 515.53125,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 20,
+          "y": 575.53125,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Offline pack",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Pilot coverage only. Completeness has not been established.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Geometry, places, menus and transit each show installed version, size, source dates and coverage when an approved pack exists.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "No production pack is installed in this fixture.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "View coverage",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Sources and attribution",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Saved places",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Settings",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "pack-missing",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/pack-missing-390x844-100.png",
+      "controls": [
+        {
+          "label": "Retry pack check",
+          "x": 20,
+          "y": 173.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Choose an available pack",
+          "x": 20,
+          "y": 233.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Sources and attribution",
+          "x": 20,
+          "y": 293.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Map pack missing",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "The installed geometry pack is unavailable. No map can be displayed.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Retry pack check",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Choose an available pack",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Sources and attribution",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "pack-corrupt",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/pack-corrupt-390x844-100.png",
+      "controls": [
+        {
+          "label": "Use last valid pack",
+          "x": 20,
+          "y": 197.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Retry update",
+          "x": 20,
+          "y": 257.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Pack details",
+          "x": 20,
+          "y": 317.96875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Pack check failed",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "The replacement pack failed integrity validation. Keep the last valid pack.",
+          "color": "rgb(154, 37, 37)",
+          "background": "rgb(255, 240, 239)",
+          "fontSize": "16px",
+          "ratio": 7.114435237417458
+        },
+        {
+          "text": "Use last valid pack",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Retry update",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Pack details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "assistant",
+      "width": 390,
+      "height": 844,
+      "scale": 1,
+      "screenshot": "screenshots/assistant-390x844-100.png",
+      "controls": [
+        {
+          "label": "Open Map",
+          "x": 20,
+          "y": 249.046875,
+          "width": 350,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 199,
+          "y": 764,
+          "width": 175,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 759,
+          "width": 390,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8708530805687204,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 390,
+          "height": 735,
+          "clientHeight": 735,
+          "scrollHeight": 735,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "AI Assistant coming later",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Search places, choose an origin and plan your own stops in Map.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "16px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Open Map",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "No chat input or generated responses in this phase.",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "idle",
+      "width": 360,
+      "height": 800,
+      "scale": 2,
+      "screenshot": "screenshots/idle-360x800-200.png",
+      "controls": [
+        {
+          "label": "Search",
+          "x": 16,
+          "y": 32,
+          "width": 328,
+          "height": 72,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "All",
+          "x": 16,
+          "y": 112,
+          "width": 76.890625,
+          "height": 68.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Filters",
+          "x": 100.890625,
+          "y": 112,
+          "width": 121.109375,
+          "height": 68.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "⌖",
+          "x": 296,
+          "y": 640,
+          "width": 48,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 184,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 24,
+          "width": 360,
+          "height": 204.796875
+        },
+        {
+          "x": 296,
+          "y": 640,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "x": 0,
+          "y": 707,
+          "width": 360,
+          "height": 93
+        }
+      ],
+      "unobstructedViewportFraction": 0.5895,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "All",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Filters",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Pilot coverage only",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "⌖",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "28px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "long-name",
+      "width": 360,
+      "height": 800,
+      "scale": 2,
+      "screenshot": "screenshots/long-name-360x800-200.png",
+      "controls": [
+        {
+          "label": "Expand details",
+          "x": 20,
+          "y": 1158.953125,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Directions",
+          "x": 20,
+          "y": 542.40625,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Save",
+          "x": 20,
+          "y": 617.203125,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 184,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 707,
+          "width": 360,
+          "height": 93
+        }
+      ],
+      "unobstructedViewportFraction": 0.85375,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 144,
+          "width": 360,
+          "height": 560,
+          "clientHeight": 560,
+          "scrollHeight": 560
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 144,
+          "width": 360,
+          "height": 560,
+          "clientHeight": 560,
+          "scrollHeight": 560,
+          "class": "sheet peek place-sheet"
+        },
+        {
+          "x": 20,
+          "y": 176,
+          "width": 305,
+          "height": 353.40625,
+          "clientHeight": 353,
+          "scrollHeight": 1062,
+          "class": "sheet-scroll stack"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A: an intentionally very long tenant name with a very long building name and an upper-level entrance",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture tenant • Level 2 • Entrance not verified",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "28px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "Menu evidence unknown. No dishes or prices available.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "32px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Choose an origin to see a walking distance.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Expand details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Directions",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "32px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Save",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "search",
+      "width": 360,
+      "height": 800,
+      "scale": 2,
+      "screenshot": "screenshots/search-360x800-200.png",
+      "controls": [
+        {
+          "label": "query",
+          "x": 16,
+          "y": 266.359375,
+          "width": 328,
+          "height": 70.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "List, selected",
+          "x": 16,
+          "y": 349.15625,
+          "width": 328,
+          "height": 68.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 425.953125,
+          "width": 328,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Show place",
+          "x": 33,
+          "y": 1007.90625,
+          "width": 294,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Filters",
+          "x": 16,
+          "y": 1103.703125,
+          "width": 328,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Back to map",
+          "x": 16,
+          "y": 1182.5,
+          "width": 328,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 184,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 707,
+          "width": 360,
+          "height": 93
+        }
+      ],
+      "unobstructedViewportFraction": 0.85375,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 360,
+          "height": 683,
+          "clientHeight": 683,
+          "scrollHeight": 1237,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "56px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Places or dishes",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "32px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "List, selected",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Coverage is incomplete. No result does not mean no place exists.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "32px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Synthetic result for layout review",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Tenant • Level 2 • Fixture Building A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Show place",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "32px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Filters",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Back to map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "assistant",
+      "width": 360,
+      "height": 800,
+      "scale": 2,
+      "screenshot": "screenshots/assistant-360x800-200.png",
+      "controls": [
+        {
+          "label": "Open Map",
+          "x": 16,
+          "y": 565.40625,
+          "width": 328,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 184,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 707,
+          "width": 360,
+          "height": 93
+        }
+      ],
+      "unobstructedViewportFraction": 0.85375,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 24,
+          "width": 360,
+          "height": 683,
+          "clientHeight": 683,
+          "scrollHeight": 782,
+          "class": "page"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Design fixture only • No real place data",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "AI Assistant coming later",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "56px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Search places, choose an origin and plan your own stops in Map.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "32px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "Open Map",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "32px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "No chat input or generated responses in this phase.",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Map",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "manual-origin",
+      "width": 360,
+      "height": 800,
+      "scale": 2,
+      "screenshot": "screenshots/manual-origin-360x800-200.png",
+      "controls": [
+        {
+          "label": "Confirm origin",
+          "x": 20,
+          "y": 533.984375,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Undo",
+          "x": 20,
+          "y": 612.78125,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Cancel",
+          "x": 20,
+          "y": 687.578125,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 184,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 707,
+          "width": 360,
+          "height": 93
+        }
+      ],
+      "unobstructedViewportFraction": 0.85375,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 144,
+          "width": 360,
+          "height": 560,
+          "clientHeight": 560,
+          "scrollHeight": 630
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 144,
+          "width": 360,
+          "height": 560,
+          "clientHeight": 560,
+          "scrollHeight": 630,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Confirm your origin",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Move the map beneath the target, then confirm. No route uses this draft point.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Confirm origin",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "32px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Undo",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Cancel",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "place-expanded",
+      "width": 360,
+      "height": 800,
+      "scale": 2,
+      "screenshot": "screenshots/place-expanded-360x800-200.png",
+      "controls": [
+        {
+          "label": "Choose an origin",
+          "x": 20,
+          "y": 1369.328125,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Save",
+          "x": 20,
+          "y": 1448.125,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Collapse details",
+          "x": 20,
+          "y": 1526.921875,
+          "width": 305,
+          "height": 66.796875,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 184,
+          "y": 712,
+          "width": 160,
+          "height": 64,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 707,
+          "width": 360,
+          "height": 93
+        }
+      ],
+      "unobstructedViewportFraction": 0.85375,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 0,
+          "y": 144,
+          "width": 360,
+          "height": 560,
+          "clientHeight": 560,
+          "scrollHeight": 1470
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 0,
+          "y": 144,
+          "width": 360,
+          "height": 560,
+          "clientHeight": 560,
+          "scrollHeight": 1470,
+          "class": "sheet "
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "28px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Synthetic tenant • Level 2 • Fixture Building A",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "28px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "No verified entrance. Routing is unavailable until an approved entrance exists.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "32px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Menu",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "No menu evidence available.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Hours",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Unknown. We cannot confirm whether this place is open.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Access",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Accessibility has not been verified.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Sources",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "44px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture only. No source record or verification date.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Choose an origin",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "32px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Save",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Collapse details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "32px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "32px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "idle",
+      "width": 360,
+      "height": 800,
+      "scale": 1,
+      "screenshot": "screenshots/idle-360x800-100.png",
+      "controls": [
+        {
+          "label": "Search places or dishes",
+          "x": 16,
+          "y": 32,
+          "width": 328,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "All",
+          "x": 16,
+          "y": 96,
+          "width": 56.453125,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Food",
+          "x": 80.453125,
+          "y": 96,
+          "width": 70.46875,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Coffee",
+          "x": 158.921875,
+          "y": 96,
+          "width": 80.859375,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "More",
+          "x": 247.78125,
+          "y": 96,
+          "width": 70.453125,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "⌖",
+          "x": 296,
+          "y": 648,
+          "width": 48,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 720,
+          "width": 160,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 184,
+          "y": 720,
+          "width": 160,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 360,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 24,
+          "width": 360,
+          "height": 152
+        },
+        {
+          "x": 296,
+          "y": 648,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "x": 0,
+          "y": 715,
+          "width": 360,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.6657500000000001,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Search places or dishes",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "All",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Food",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Coffee",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "More",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Pilot coverage only • Details in Search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "⌖",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "28px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "place-peek",
+      "width": 800,
+      "height": 600,
+      "scale": 1,
+      "screenshot": "screenshots/place-peek-800x600-100.png",
+      "controls": [
+        {
+          "label": "Expand details",
+          "x": 464,
+          "y": 288.65625,
+          "width": 285,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Directions",
+          "x": 464,
+          "y": 220,
+          "width": 138.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Save",
+          "x": 610.5,
+          "y": 220,
+          "width": 138.5,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 520,
+          "width": 380,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 404,
+          "y": 520,
+          "width": 380,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 515,
+          "width": 800,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.8183333333333334,
+      "sheetCount": 1,
+      "sheets": [
+        {
+          "x": 444,
+          "y": 24,
+          "width": 340,
+          "height": 264,
+          "clientHeight": 264,
+          "scrollHeight": 264
+        }
+      ],
+      "scrollRegions": [
+        {
+          "x": 444,
+          "y": 24,
+          "width": 340,
+          "height": 264,
+          "clientHeight": 264,
+          "scrollHeight": 264,
+          "class": "sheet peek place-sheet"
+        },
+        {
+          "x": 464,
+          "y": 56,
+          "width": 285,
+          "height": 151,
+          "clientHeight": 151,
+          "scrollHeight": 293,
+          "class": "sheet-scroll stack"
+        }
+      ],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Fixture A",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "22px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Fixture tenant • Level 2 • Entrance not verified",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "14px",
+          "ratio": 7.199665264981674
+        },
+        {
+          "text": "Menu evidence unknown. No dishes or prices available.",
+          "color": "rgb(105, 69, 0)",
+          "background": "rgb(255, 241, 207)",
+          "fontSize": "16px",
+          "ratio": 7.64106021809547
+        },
+        {
+          "text": "Choose an origin to see a walking distance.",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Expand details",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Directions",
+          "color": "rgb(255, 255, 255)",
+          "background": "rgb(23, 86, 192)",
+          "fontSize": "16px",
+          "ratio": 6.712050105653388
+        },
+        {
+          "text": "Save",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "state": "idle",
+      "width": 800,
+      "height": 600,
+      "scale": 1,
+      "screenshot": "screenshots/idle-800x600-100.png",
+      "controls": [
+        {
+          "label": "Search places or dishes",
+          "x": 16,
+          "y": 32,
+          "width": 392,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "All",
+          "x": 16,
+          "y": 96,
+          "width": 56.453125,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Food",
+          "x": 80.453125,
+          "y": 96,
+          "width": 70.46875,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Coffee",
+          "x": 158.921875,
+          "y": 96,
+          "width": 80.859375,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "More",
+          "x": 247.78125,
+          "y": 96,
+          "width": 70.453125,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "⌖",
+          "x": 376,
+          "y": 448,
+          "width": 48,
+          "height": 48,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Map",
+          "x": 16,
+          "y": 520,
+          "width": 380,
+          "height": 56,
+          "verticalContentOverflow": false
+        },
+        {
+          "label": "Assistant",
+          "x": 404,
+          "y": 520,
+          "width": 380,
+          "height": 56,
+          "verticalContentOverflow": false
+        }
+      ],
+      "occluders": [
+        {
+          "x": 0,
+          "y": 0,
+          "width": 800,
+          "height": 24
+        },
+        {
+          "x": 0,
+          "y": 24,
+          "width": 424,
+          "height": 152
+        },
+        {
+          "x": 376,
+          "y": 448,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "x": 0,
+          "y": 515,
+          "width": 800,
+          "height": 85
+        }
+      ],
+      "unobstructedViewportFraction": 0.6792666666666667,
+      "sheetCount": 0,
+      "sheets": [],
+      "scrollRegions": [],
+      "footerOverlap": false,
+      "horizontalOverflow": false,
+      "fixtureOnly": true,
+      "textContrast": [
+        {
+          "text": "Map viewport placeholderNo geographic geometry in this review fixture",
+          "color": "rgb(72, 89, 107)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 6.649539651918471
+        },
+        {
+          "text": "Search places or dishes",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "All",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Food",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Coffee",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "More",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Pilot coverage only • Details in Search",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(247, 246, 240)",
+          "fontSize": "14px",
+          "ratio": 14.523161948652215
+        },
+        {
+          "text": "⌖",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "28px",
+          "ratio": 15.724683225138385
+        },
+        {
+          "text": "Map",
+          "color": "rgb(23, 86, 192)",
+          "background": "rgb(232, 239, 251)",
+          "fontSize": "16px",
+          "ratio": 5.807767148846924
+        },
+        {
+          "text": "Assistant",
+          "color": "rgb(16, 36, 58)",
+          "background": "rgb(255, 255, 255)",
+          "fontSize": "16px",
+          "ratio": 15.724683225138385
+        }
+      ],
+      "errors": [],
+      "pass": true
+    }
+  ],
+  "navigationCheck": {
+    "assistantHonesty": true,
+    "returnsToIdle": true
+  },
+  "externalRequests": [],
+  "pass": true
+}

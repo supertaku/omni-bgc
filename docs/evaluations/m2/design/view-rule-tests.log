@@ -1,0 +1,16 @@
+✔ fixture query, filters and same-name selection preserve explicit fixture context (2.247ms)
+✔ manual origin cancellation, adjust/undo and confirmation do not imply approved route (0.2863ms)
+✔ saved fixtures and manually ordered durations remain user-controlled and bounded (0.9636ms)
+✔ Back reverses fixture screen stack while Home cancels draft and retains user edits (0.1888ms)
+✔ independent overlays replace selection and never stack (0.9967ms)
+✔ denied location does not block manual origin but draft cannot route (2.4408ms)
+✔ cancel removes unconfirmed origin; tab switch removes overlay and never adds AI input (0.106ms)
+✔ new origin cannot coexist with route chrome; unknown primary tabs rejected (0.1187ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 150.4404

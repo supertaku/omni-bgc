@@ -3,6 +3,9 @@
 /docs/data-source-register/** -text
 /docs/evaluations/m1/** -text
 /docs/evaluations/m2/** -text
+/docs/evaluations/m3/** -text
+/docs/evaluations/m4/** -text
+/docs/evaluations/m5/** -text
 /docs/evaluations/program/** -text
 /data/** -text
 /packages/** -text
@@ -13,3 +16,6 @@
 # Captured Windows command output retains CRLF and intentional terminal blanks.
 /docs/evaluations/m1/**/*.log whitespace=-blank-at-eof,cr-at-eol
 /docs/evaluations/program/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/m2/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/m3/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/m4/**/*.log whitespace=-blank-at-eof,cr-at-eol

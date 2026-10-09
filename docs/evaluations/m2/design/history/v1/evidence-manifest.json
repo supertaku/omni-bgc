@@ -1,0 +1,343 @@
+{
+  "date": "2026-10-09",
+  "status": "draft-pending-parent-review",
+  "scope": "M2 design lane only; manifest excludes itself",
+  "fileCount": 67,
+  "artifacts": [
+    {
+      "path": "assets/branding/m2/README.md",
+      "bytes": 1141,
+      "sha256": "a280a1d7120db73fa3b2b964cd70257769980b361a61169535d044dd9cd360af"
+    },
+    {
+      "path": "assets/branding/m2/icon-compass-pin.svg",
+      "bytes": 562,
+      "sha256": "641998bf11d1db507603e605ed6fc7785a945ffe38c5f926370e24b950eedc63"
+    },
+    {
+      "path": "assets/branding/m2/icon-open-compass.svg",
+      "bytes": 653,
+      "sha256": "83fa3b0921d7ffa56df68f9877446ed29741a32895209b402d3f8bbfa4c8c495"
+    },
+    {
+      "path": "assets/branding/m2/review.html",
+      "bytes": 1493,
+      "sha256": "673da690daf7e6564cb75d69b7fe8674a5bc61b1e2c2196f837d6e4076c68b28"
+    },
+    {
+      "path": "assets/branding/m2/wordmark-horizontal.svg",
+      "bytes": 845,
+      "sha256": "0e6275b76b0edd2e5b8d268cd9633dda75672fcb8b10f6caf355a989430aa937"
+    },
+    {
+      "path": "assets/branding/m2/wordmark-stacked.svg",
+      "bytes": 585,
+      "sha256": "fe6f6370b0e68f223839bfc31f9675aa42394c219a537a251c2cd12ecfeb2f5f"
+    },
+    {
+      "path": "docs/architecture/M2_UX_FOUNDATION.md",
+      "bytes": 9529,
+      "sha256": "8074edbe9b0a6588839a95174cbe438f50084a6b949e07ebb46ca72b9f06e913"
+    },
+    {
+      "path": "docs/evaluations/m2/design/DRAFT_DECISIONS_AND_JOURNAL.md",
+      "bytes": 3908,
+      "sha256": "22a37a66e30adb47982e9be605efca43a7ce7338a8ba00cfb13541c29fe72f9e"
+    },
+    {
+      "path": "docs/evaluations/m2/design/HANDOFF.md",
+      "bytes": 7426,
+      "sha256": "a76319cc3a7fed2ff6a3150eec10b82d2de6dfa3da2fcd7c318af86e3648d1ef"
+    },
+    {
+      "path": "docs/evaluations/m2/design/RESEARCH_PROTOCOL.md",
+      "bytes": 5045,
+      "sha256": "3e7fa98003a901d7328d02be3e2c44aae42eecb8af5db2f25dfa106645a840ff"
+    },
+    {
+      "path": "docs/evaluations/m2/design/TASK_PLAN.md",
+      "bytes": 1420,
+      "sha256": "7af1efaef571eba20db585273e01ac51b5364d83d5ae460f2503b3daf7d1894c"
+    },
+    {
+      "path": "docs/evaluations/m2/design/audit-results.json",
+      "bytes": 160331,
+      "sha256": "51948ae7724e6c56b0c572a7af2d4fc298ef50652caf2e3a984fa8cdece51947"
+    },
+    {
+      "path": "docs/evaluations/m2/design/hash-evidence.cjs",
+      "bytes": 1075,
+      "sha256": "af546964a556fd6d989260804bf319c69a8950809391384de8cb3afee2fcd2f1"
+    },
+    {
+      "path": "docs/evaluations/m2/design/layout-audit.log",
+      "bytes": 684,
+      "sha256": "6f6c5c65730be361b45eb64675f4c4b65b6cd2e1f7d96149a61f0e259cb9099f"
+    },
+    {
+      "path": "docs/evaluations/m2/design/render-and-audit.cjs",
+      "bytes": 8409,
+      "sha256": "d6f5cd9f793bc3b5756041b3304e037b6889c7705cd982ed44e30ca578e73a69"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/ambiguous-390x844-100.png",
+      "bytes": 27859,
+      "sha256": "38d245b679ef93e9e0b2b23db3651ce043ff5a03d1f8cb13154ddbdd0fe45015"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/assistant-360x800-200-scrolled.png",
+      "bytes": 50210,
+      "sha256": "44ea3b93052575495c3dde81390a729db336cc54d01ae3714c8f07db78ce8d15"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/assistant-360x800-200.png",
+      "bytes": 50895,
+      "sha256": "05747c8d354db5a47103b7e3bab146f377116135798fc73c337fcc56933dc710"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/assistant-390x844-100.png",
+      "bytes": 23078,
+      "sha256": "a031ff191c495a4827f9d46d95b54defd78b408ae930c54814bb926084ac1c69"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/branding-original-variants.png",
+      "bytes": 40786,
+      "sha256": "6c5f9cbba59e2bcbf3d8b61cdcfb1ee7a7a339fd444313ce302e5e830cf71218"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/business-stale-390x844-100.png",
+      "bytes": 22667,
+      "sha256": "7062c3f7c322772aa0287e8d1e788c89f7b432a57e7a47740d581452c2c2c400"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/denied-390x844-100.png",
+      "bytes": 25716,
+      "sha256": "4876080178c6281b0aca76727f1b1bca013c2cd30b9d382f1a8a823b4d4457a2"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/entrances-390x844-100.png",
+      "bytes": 24571,
+      "sha256": "e1e827cc7991ecc861711cb87934953aefde2b767498070b180b03d73cca26ce"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/filter-390x844-100.png",
+      "bytes": 21766,
+      "sha256": "e77ff63e0d4e857913d7e90ad22f0dc66ab8822ae7c3ac0882fd14e60add972d"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/idle-360x800-100.png",
+      "bytes": 18816,
+      "sha256": "1979af76173508e3fdf8599c889d8034f183bdabfff156c0262ad562e467c018"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/idle-360x800-200.png",
+      "bytes": 35422,
+      "sha256": "36aa3212a931af11c1dfce19811d9be3f1fdfbff265f4acb2d2080f9fb679502"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/idle-390x844-100.png",
+      "bytes": 19290,
+      "sha256": "4484fbc018e032da517b34fdfd5bfd0a31bf8ace3d5f949096d75dde9714be1f"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/idle-800x600-100.png",
+      "bytes": 20432,
+      "sha256": "a42934003a02c8b42ff505b55d85f518f20b0e5380b243e3161d2467e8441015"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/location-stale-390x844-100.png",
+      "bytes": 25342,
+      "sha256": "29107225febe48ffff8d1a6e045f7e18e50f4303a7ca8794deaa91a4ba5afb68"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/long-name-360x800-200-scrolled.png",
+      "bytes": 36095,
+      "sha256": "81917b64c791a09dd27d05f59d9ea4b660818d95261c9e94e81cc2c2987d4cfa"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/long-name-360x800-200.png",
+      "bytes": 34393,
+      "sha256": "eae2f1f4dbdfbc38c2dd9f6b09571514bc4a7b9bd161fae1c7ef7a757a3ca87e"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/long-name-390x844-100.png",
+      "bytes": 30025,
+      "sha256": "7ccc58c796be88f53b3a5f02e8df1a913eb98c3cf1e9870cd5c2f9698ae1bf42"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/manual-origin-360x800-200-scrolled.png",
+      "bytes": 35910,
+      "sha256": "8512306be59439ff7dec236c5cc35096c5d3da2b165f20fc8934261083819123"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/manual-origin-360x800-200.png",
+      "bytes": 36398,
+      "sha256": "cdc50bfa7293656fe958408d51d8cebb773d5e6780a68552caefa2222f204773"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/manual-origin-390x844-100.png",
+      "bytes": 19898,
+      "sha256": "eddad9a2821db707a60e92cb2d87b1927dc2f9b733331bbc0f2a2e252efdb953"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/menu-empty-390x844-100.png",
+      "bytes": 18952,
+      "sha256": "d89857fb16f445a0689a10e938cb57aa6439b632c432da3330929c6ea20d4408"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/menu-long-390x844-100.png",
+      "bytes": 35638,
+      "sha256": "1d4b5e826f35146a65a5034f67562a829e45a26d403d2c7516cbb03ab5a41f50"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/menu-stale-390x844-100.png",
+      "bytes": 25186,
+      "sha256": "ea30cf3a64d5160ecef79c39668be55c9ce222cd547ca5b97f96731827021623"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/navigation-390x844-100.png",
+      "bytes": 25416,
+      "sha256": "166c093febbd7993521f5ca3eced782fba25a9a6f6457071d4c6ec2eca5c464b"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/outside-390x844-100.png",
+      "bytes": 22536,
+      "sha256": "912159fcf34808855134ae19de588b8247a21aa59c3339697393f43edd0c8e88"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/pack-390x844-100.png",
+      "bytes": 29473,
+      "sha256": "afb9c037fe5a823910c72824e927f48771899d8c9149f1dc90c90d8a62d2c8a0"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/pack-corrupt-390x844-100.png",
+      "bytes": 19507,
+      "sha256": "6f6ddba5e4df113e61dee4a39176110872837d6f492e800c02bdbe002cc5aa90"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/pack-missing-390x844-100.png",
+      "bytes": 21054,
+      "sha256": "f4500e7ed1f3d9284d128c990d40260d9bd05e1961209bddf4efe2179d525b24"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/permission-390x844-100.png",
+      "bytes": 20895,
+      "sha256": "003ed2b9d74d5248d3dad75a2b41c0194bc0713f7c960749894e9fbcc244c640"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/place-expanded-360x800-200-scrolled.png",
+      "bytes": 42686,
+      "sha256": "8a6216a49a5cc3d3e65bb74b9e0cca1a3db25d4f5e673fd3e19869cb5c977787"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/place-expanded-360x800-200.png",
+      "bytes": 41716,
+      "sha256": "6c66774435a16ca61e738cb275fd7566614586ec9585775803462f64fb0a8572"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/place-expanded-390x844-100.png",
+      "bytes": 28301,
+      "sha256": "1a1b675926c1a93e34f09e6cca300ce1dcf760421d276edaa8c5406d62ed594b"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/place-peek-390x844-100.png",
+      "bytes": 24104,
+      "sha256": "39b163e361c70f92ad9f68cdca2ad5aa6d3a414d109412e0ba6411813d119477"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/place-peek-800x600-100.png",
+      "bytes": 22119,
+      "sha256": "585c881b7f34bd60bf1aebd82905f45fd2abc69b92cbc66c6f5ec833eaa7a2ec"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/route-preview-390x844-100.png",
+      "bytes": 23507,
+      "sha256": "c7f90e10abcf6614d5601cf9911fbac46c5602c731aa3de860c2b742032ca49b"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/route-unavailable-390x844-100.png",
+      "bytes": 22381,
+      "sha256": "b55f938a41c58190b955edacf24979384fd874b5723c809defee93acc88284a6"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/saved-390x844-100.png",
+      "bytes": 23657,
+      "sha256": "d22895249a30ff87dcfe2912058dab453a69be863d982884e43520100c4d0bab"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/search-360x800-200-scrolled.png",
+      "bytes": 46786,
+      "sha256": "708d68e40bf9d85028777e0ffe09bf1d23ff2ba1df7130247b50c39ba8b223f7"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/search-360x800-200.png",
+      "bytes": 51452,
+      "sha256": "6b2bb13317328609e23d6b1c375d542c22ce9a5fd0991a7a6900d2872ecb0004"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/search-390x844-100.png",
+      "bytes": 29262,
+      "sha256": "5ab72d172f27d4cdf8708f6b9f3c124fe6a8cdff8e229119f2849e7c97ad2b3a"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/search-empty-390x844-100.png",
+      "bytes": 20278,
+      "sha256": "51794064bd99a7864c9b01fc8f650ab21cd39513e926c7272f99a25082960c62"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/transit-390x844-100.png",
+      "bytes": 23924,
+      "sha256": "a548ffdb9f609ff4fcffd1a799a4e58531cd787f187d1f7861932616569c2892"
+    },
+    {
+      "path": "docs/evaluations/m2/design/screenshots/transit-empty-390x844-100.png",
+      "bytes": 21405,
+      "sha256": "0b4ccd82018a09bbb4a7d0a609bdc949bd81c3423c2bfe458b9b9554342ffe50"
+    },
+    {
+      "path": "docs/evaluations/m2/design/view-rule-tests.log",
+      "bytes": 468,
+      "sha256": "705018a04d2163834bce63885e537debea4a3018cdc2af1a7d955dee23295975"
+    },
+    {
+      "path": "packages/ui/README.md",
+      "bytes": 1430,
+      "sha256": "ef4e0be8f4088ba5a60df1bddf9641fbae81d5537ad3f09ea92c5a6c992ff83d"
+    },
+    {
+      "path": "packages/ui/package.json",
+      "bytes": 249,
+      "sha256": "4f8d1465e13ce12344f904d3891ac1bc25ea3d65bd2dd996726973f1501da385"
+    },
+    {
+      "path": "packages/ui/preview/index.html",
+      "bytes": 325,
+      "sha256": "34788b201cacf572bee1965ecb263394f898b56c753fa0bdfc8af987b2323d6d"
+    },
+    {
+      "path": "packages/ui/preview/preview.css",
+      "bytes": 6112,
+      "sha256": "a61772da8de258a0e8a6a88a3e195beb9393ec87559122fc6d8440e458563825"
+    },
+    {
+      "path": "packages/ui/preview/preview.js",
+      "bytes": 11896,
+      "sha256": "b022272351db01a521aeea31785740200844f629025c132d49dd2b1186c1fbe8"
+    },
+    {
+      "path": "packages/ui/test/view-state.test.mjs",
+      "bytes": 1875,
+      "sha256": "75beed851556939043d773b9d655df82dd53457177290cd11dc59b86f9241949"
+    },
+    {
+      "path": "packages/ui/tokens.json",
+      "bytes": 1721,
+      "sha256": "e3b239e6cb62f44f1dd82445e002b58539398f7749283432e55437626023ffb3"
+    },
+    {
+      "path": "packages/ui/view-state.mjs",
+      "bytes": 1783,
+      "sha256": "ee9a879e61e5e1c7e11ff675dd03401fe86d61a9ce39dc0c388ed5003733b7dc"
+    }
+  ]
+}
