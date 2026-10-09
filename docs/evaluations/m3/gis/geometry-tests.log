@@ -1,0 +1,13 @@
+test_conflicting_node_coordinates_removed (__main__.GeometryTests.test_conflicting_node_coordinates_removed) ... ok
+test_duplicate_source_ids_quarantined (__main__.GeometryTests.test_duplicate_source_ids_quarantined) ... ok
+test_embedded_coordinate_lineage (__main__.GeometryTests.test_embedded_coordinate_lineage) ... ok
+test_invalid_and_nonfinite (__main__.GeometryTests.test_invalid_and_nonfinite) ... ok
+test_invalid_polygon_not_repaired (__main__.GeometryTests.test_invalid_polygon_not_repaired) ... ok
+test_missing_refs_rejected (__main__.GeometryTests.test_missing_refs_rejected) ... ok
+test_roundtrip_and_metric_buffer (__main__.GeometryTests.test_roundtrip_and_metric_buffer) ... ok
+test_unclosed_building_rejected (__main__.GeometryTests.test_unclosed_building_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.005s
+
+OK

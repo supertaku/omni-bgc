@@ -1,0 +1,10 @@
+test_changed_bound_artifact_denied (__main__.GateTests.test_changed_bound_artifact_denied) ... ok
+test_exact_accepted_intake (__main__.GateTests.test_exact_accepted_intake) ... ok
+test_internal_approval_not_distribution (__main__.GateTests.test_internal_approval_not_distribution) ... ok
+test_missing_accept_denied (__main__.GateTests.test_missing_accept_denied) ... ok
+test_missing_policy_accept_denied (__main__.GateTests.test_missing_policy_accept_denied) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.137s
+
+OK

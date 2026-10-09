@@ -1,0 +1,9 @@
+{
+  "parent_decision": "ACCEPT",
+  "scope": "M3 reproducible internal candidate geometry and topology only",
+  "edges_original_raw_coordinates_checked": 3249,
+  "navigation_approved": false,
+  "distribution_authorized": false,
+  "field_verification": "NOT_RUN",
+  "production_acceptance": false
+}

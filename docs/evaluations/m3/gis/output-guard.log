@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "C:\Users\joshu\Documents\Omni-BGC\pipelines\gis\ingest.py", line 195, in <module>
+    if __name__=='__main__':run()
+                            ~~~^^
+  File "C:\Users\joshu\Documents\Omni-BGC\pipelines\gis\ingest.py", line 164, in run
+    raise ValueError('output_must_be_child_of_ignored_data_generated_m3')
+ValueError: output_must_be_child_of_ignored_data_generated_m3

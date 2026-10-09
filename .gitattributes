@@ -12,6 +12,11 @@
 /pipelines/** -text
 /tests/** -text
 /assets/branding/** -text
+/docs/architecture/M2_UX_FOUNDATION.md -text
+/docs/architecture/M3_GIS_INGEST.md -text
+/docs/architecture/M4_PLACE_INTAKE.md -text
+/apps/mobile/src/** -text
+/apps/mobile/plugins/** -text
 
 # Captured Windows command output retains CRLF and intentional terminal blanks.
 /docs/evaluations/m1/**/*.log whitespace=-blank-at-eof,cr-at-eol
