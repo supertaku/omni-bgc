@@ -1,0 +1,6 @@
+{
+  "version": 8,
+  "name": "M0 empty local renderer proof — no BGC data",
+  "sources": {},
+  "layers": [{"id": "background", "type": "background", "paint": {"background-color": "#d1e5d5"}}]
+}

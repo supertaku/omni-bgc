@@ -1,0 +1,10 @@
+{
+  "version": "11.5.0",
+  "peerDependencies": {
+    "expo": ">=54.0.0",
+    "react": ">=19.1.0",
+    "@types/react": ">=19.1.0",
+    "react-native": ">=0.80.0",
+    "@types/geojson": "^7946.0.0"
+  }
+}

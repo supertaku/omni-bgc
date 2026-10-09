@@ -1,0 +1,4 @@
+The following packages should be updated for best compatibility with the installed expo version:
+  @types/react@19.2.2 - expected version: ~19.2.4
+Your project may not work correctly until you install the expected versions of the packages.
+Found outdated dependencies

@@ -1,0 +1,5 @@
+--------- beginning of main
+10-09 17:00:52.264 10141 10141 W libc    : Access denied finding property "persist.vendor.track.malloc.enable"
+10-09 17:00:52.264 10141 10141 W libc    : Access denied finding property "persist.vendor.fd.monitor.enable"
+10-09 17:00:52.269 10141 10141 I crash_dump64: crash_dump start
+10-09 17:00:52.270 10141 10141 I crash_dump64: Fork in crash_dump. child pid: 10143

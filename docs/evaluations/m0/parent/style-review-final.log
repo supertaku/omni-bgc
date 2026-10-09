@@ -1,0 +1,2 @@
+PASS: local background style; external source/glyph/sprite negative cases rejected
+PASS parent adversarial case: protocol-relative nested remote import rejected

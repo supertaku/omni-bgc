@@ -1,0 +1,22 @@
+
+> omni-bgc-m0-mobile@0.0.0 start
+> node --dns-result-order=ipv4first ./node_modules/expo/bin/cli start --dev-client --localhost --max-workers 2
+
+Starting project at C:\Users\joshu\Documents\Omni-BGC\apps\mobile
+Logs: C:\Users\joshu\Documents\Omni-BGC\apps\mobile\.expo\dev\logs\start.log
+Metro is running in CI mode, reloads are disabled. Remove CI=true to enable watch mode.
+Starting Metro Bundler
+
+Waiting on http://localhost:8081
+
+Logs for your project will appear below.
+| (node:13332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+| (node:13332) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+| (Use `node --trace-warnings ...` to show where the warning was created)
+Android Bundled 14955ms index.ts (811 modules)
+ LOG  M0_MAP PASS fully rendered local background
+ LOG  M0_SQLITE PASS SQLite 3.50.3: FTS5 hit=1, absent=0, integrity=ok
+Android Bundled 47ms index.ts (1 module)
+ LOG  M0_MAP PASS fully rendered local background
+ LOG  M0_SQLITE PASS SQLite 3.50.3: FTS5 hit=1, absent=0, integrity=ok

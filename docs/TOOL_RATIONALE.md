@@ -1,0 +1,56 @@
+# Omni-BGC — Tool and Technology Journal
+
+Every material dependency must be recorded with: **problem**, **choice**, **why**, **how**, **alternative**, **cost/risks**, **verification**, **ADR link**. Do not interpret “chosen” as “already installed.”
+
+| Tool | Problem solved | Why we chose it / alternative | How it will be used | Verification before approval |
+|---|---|---|---|---|
+| React Native | Shared native app | More reuse than separate Kotlin/Swift, native performance through integrations | TS screens and domain layer | Native build and frame pacing |
+| Expo custom development build | Native libraries plus fast iterations | Expo Go lacks custom MapLibre native runtime; bare RN possible if Expo blocks | Build debug APK, connect Metro | Physical Android run |
+| MapLibre RN | Geo-referenced styled map | Native camera/layers, against image-only canvas/3D engine | Style JSON, vector layers, GeoJSON POIs | Cold offline, density, memory |
+| SQLite/FTS5 | Structured data, menu/name search | Compact cross-platform DB; remote Postgres not suitable for offline runtime | Prepacked mobile database + migrations | FTS queries, perf, corruption tests |
+| Spatial R-tree | Nearby queries | Better scaling than full POI scan | Bounding candidate box then geodesic filter | Query correctness near borders |
+| Geofabrik PBF + Osmium/GDAL | Legal/reproducible geodata extract | Raw data export; avoids public tile policy violation | Clip versioned PBF to approved polygon/buffer | Source hash + attribution/license |
+| GeoPandas/Shapely | Coordinate and geometry ETL | Python-readable, reproducible vs manual-only GIS | Repair, transform, validate polygons | Automated geometry/topology checks |
+| QGIS | Visual geospatial QA | Easier to inspect topological edge cases | Human/editor GIS inspection and QA exports | Screenshot with provenance |
+| OSMnx/NetworkX | Walking graph seed | Mature OSM-based graph tools; raw ways still need review | Build and inspect graph, export flattened mobile graph | No wall crossings, validated routes |
+| Tippecanoe / tile pipeline | Offline compact styled base map | Vector styling and data-driven layers vs static painted bitmap | Convert approved layers to local tiles | Rendering size/zoom performance |
+| MapLibre OfflineManager | Offline resources by bounded region | Supported RN API, but internet required for initial pack download | Download from authorized tile origin | Full resource test, cache persistence |
+| PMTiles | Self-contained local tile archive | Android MapLibre Native supports file source; iOS+RN needs proof | Candidate shipped or downloaded static archive | iOS/Android bridge spike; no assumed support |
+| Expo Location | Optional location input | Standard native permission/access API | Foreground fix and accuracy metadata | Denied, stale, inaccurate, cold fix |
+| Figma | Flow and visual iteration | Quick measurable review before hardcoded UI | Component library, screen variants | Five task-based usability tests |
+| Reanimated + gesture sheet | Smooth contextual UI | Native-driven gestures and sheet behavior | Draggable cards avoiding map gesture conflicts | Device gesture/focus accessibility tests |
+| Automated tests + Maestro | Regression control | Native field behavior hard to assess through unit tests alone | Smoke tests, geo fixtures and video | Re-run gate per milestone |
+| GitHub Actions | Quality enforcement | Repeatability and auditability | PR checks, dataset validation | Required branch protections |
+| SHA-256 + manifest | Corruption and wrong version detection | Deterministic packages and safe updates | Verify then atomic swap; rollback | Interrupt/power-loss simulations |
+
+The official reference URLs and decision statuses are in `IMPLEMENTATION_PLAN.md` and `DECISION_JOURNAL.md`.
+
+## M0 actual tool use — 2026-10-09
+
+| Choice / versions observed | WHY / HOW | Rejected alternative / limits | Evidence / decision |
+|---|---|---|---|
+| Sol Medium mobile/source; Sol High GIS; Luna Low journal | Three independent implementation/audit owners at most; requested supported model overrides with non-overlapping write paths; parent independently inspected and reran checks | Terra is not exposed by this harness. Parent's inherited model/effort cannot be changed or introspected through these tools. No unsupported routing claim or automatic subagent approval | `evaluations/m0/parent/TASK_PLAN.md`; DEC-022/023/024 |
+| PowerShell 7.6.5, rg 15.2.0, Git 2.41.0.windows.1 | Bounded file/tool discovery and exact logs; SHA-256 baseline records the initial workspace | No Git metadata exists here, so no commit/branch/merge is invented and no Git initialization performed | `evaluations/m0/parent/initial-files.json` |
+| Node 22.20.0 / npm 11.18.0; candidate Expo 57.0.27 / RN 0.86.3 / React 19.2.3 / TS 6.0.3 | Exact template and package recommendations, pinned local native feasibility spike; typecheck and Expo dependency/config checks | Full product scaffolding/M1 deferred. Initial React type mismatch and doctor config-sync warning corrected with exact compatible types and explicit CNG workflow; original failed logs retained | `evaluations/m0/mobile/COMPATIBILITY.md`, logs; DEC-028 |
+| MapLibre RN 11.5.0, native Android 13.6.1 / iOS 6.31.0 | Prove native renderer with bundled, empty background style; require render event and actual device evidence | Demo/public raster tile URLs rejected. Static local-resource checks do not prove production tiles/fonts/sprites or PMTiles. iOS documentation support is not iOS build proof | `apps/mobile/fixtures/local-style.json`; DEC-006/013/028 |
+| Expo SQLite 57.0.4, FTS5 enabled, vector extension disabled | One synthetic diagnostic record; parameter-bound query checks exact positive/zero result and integrity; native status displayed | Host SQLite and typecheck cannot substitute for native query evidence. No production schema/search implementation or embeddings introduced | `apps/mobile/App.tsx`; DEC-014/028 |
+| Studio JBR 21.0.5, Gradle 9.3.1, AGP 8.12.0, Kotlin 2.1.20, NDK 27.1.12297006, ADB 1.0.41 / platform-tools 37.0.0 | Existing SDK/JBR and task-local environment/cache for candidate native compilation; physical API36 ARM64 device check after connection | No global JDK/SDK/environment changes. Default PATH Java probe stalled and was interrupted. Emulator-only artifact cannot establish physical-phone support | Mobile raw logs and final M0 gate |
+| Python 3.13.7; existing prior venv Shapely 2.1.2 / GEOS 3.13.1 / pyproj 3.7.2 / PROJ 9.5.1 | Read-only hashes/counts, geometry structure and explicit local-metre inverse transform, isolated `-I -B` runs; PROJ network observed disabled | Full GeoPandas/OSMnx/GDAL/QGIS installation unnecessary for recon and would not establish field correctness. Prior source modules not run/imported | `evaluations/m0/gis/COMMANDS_AND_JOURNAL.md`; DEC-029 |
+| Official web docs/policies; local SHA-256 manifests | Verify current native support and source permission boundaries; retain dated citations, checksum real local bytes | Public access not permission; no raw acquisition, bulk crawler, media scrape or tile fetch. No invented raw SHA for URL/search result | `evaluations/m0/sources/evidence.md`; DEC-030 |
+| Parent independent scripts and image viewer | Recheck source header/rights states, all67prior hashes/snapshot counts/entity mismatch/coordinate sample; protocol-relative import adversarial check; inspect concept board/mask | No participant/TalkBack/production UX claim from heuristic or code review. Rejected concept's4tabs/extra controls/apparent live chat as specification | `evaluations/m0/parent/`; final M0 gate |
+
+`npm audit fix --force` was rejected: suggested SDK/React Native downgrades conflict with the coherent native candidate. All23 advisories remain open with exact dependency-chain evidence; successful compilation will not resolve them. Production security approval is withheld.
+
+### M0 native fixes actually exercised
+
+- Short mobile-local Gradle cache `.g` and bounded workers solve the independently reproduced Ninja path limit; cache relocation verified workspace containment, generated intermediates archived/regenerated, historical failures retained. Rejected global long-path settings. Parent cached/offline ARM64 rerun succeeds in11s.
+- Expo splash-screen57.0.9 supplies SDK-matched development support. Its initial missing-class message was caught and was not proven the cause of the ErrorActivity; actual screenshot showed transport failure. Process-scoped Node IPv4-first/localhost Metro and USB reverse yielded native execution; no global DNS/firewall or phone security setting altered.
+- Sol High native reviewer used existing NDK LLVM18.0.2 readelf/addr2line to match the exact SQLite BuildId and resolve FTS-owned finalize frames. WHY: distinguish heap abort from MapLibre/peer speculation. HOW: app-scoped crash buffer, installed wrapper/source and native symbols, primary upstream issue. No source patch/build/device action by reviewer.
+- Expo SQLite's typed @hidden finalize-sweep option=false is scoped to57.0.4 and the M0 fixture. Rejected omitting connection closure. Two completed native close cycles, persisted query result and integrity assertions plus fresh-phone dwell now pass. Future custom statements must finalize explicitly; production/iOS/upgrade review remains open.
+- Parent app-scoped ADB/Python review force-stops/relaunches only the approved diagnostic package, observes native markers and same process through60s, and captures its screen. No device serial, general phone logs or precise location exported. See independent-physical-review.json. Full UI/assistive-tech and standalone offline release tests remain deferred.
+
+### M0 final evidence reconciliation
+
+The final splash-supported lockfile audit reports **24 dependency advisories:16high/8moderate** in `evaluations/m0/mobile/logs/npm-audit-final.json`. Earlier23:16high/7moderate results above and in DEC-028 are historical snapshots; no advisory was resolved by native build/runtime success. Compatible remediation and actual reachability remain open before distribution. WHY: report the tested final dependency graph rather than a superseded audit; HOW: read final structured audit metadata and verify it in parent artifact integrity. Blind `audit fix --force` remains rejected because its proposed Expo44/RN0.72 graph conflicts with this candidate.
+
+Parent final integrity uses standard-library SHA256 against source, GIS, mobile evidence and native APK/source/lockfile manifests; separately verifies protected original bytes and saved lifecycle markers, and records final authored paths. WHY: make accepted evidence concrete and reviewable without invented Git history; HOW: `evaluations/m0/parent/review_artifacts.py`, `artifact-integrity.json` and `final-artifacts.json`. Generated caches/native intermediates and live Metro logs are excluded from the authored manifest; immutable Metro snapshot is included by the mobile evidence manifest. Rejected inference: hash identity does not establish license, fresh dependency bootstrap, leak-free runtime or production readiness.

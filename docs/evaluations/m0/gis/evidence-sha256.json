@@ -1,0 +1,26 @@
+{
+  "audit-results.json": {
+    "bytes": 89666,
+    "sha256": "27d800300c3e7373b0fbab42535061120979bc9bbd5d97cff29bb568c28b8ddc"
+  },
+  "audit_previous_project.py": {
+    "bytes": 19826,
+    "sha256": "e35a782c8415a7bddb54d4952734ea0804fa08196e231df710fa298ee1b32874"
+  },
+  "COMMANDS_AND_JOURNAL.md": {
+    "bytes": 6631,
+    "sha256": "270449ec74d30588229c8479447c2709ed0c9f5da5d0321ff9263c3218fb1560"
+  },
+  "file-inventory.csv": {
+    "bytes": 16523,
+    "sha256": "3473ce206175222f86e91aa7fbb0f5a8005476d9acdc7cfb038d21162fcf74a7"
+  },
+  "GIS_REUSE_AUDIT.md": {
+    "bytes": 14353,
+    "sha256": "dfc17b7add82cd38b56e0613d49738abf427488101465d81f67d4e1b8de1ff80"
+  },
+  "TASK_PLAN.md": {
+    "bytes": 1445,
+    "sha256": "0bde3463575294591bda3e69e784f9ea233b791d75400801672b5ccca2cb6c18"
+  }
+}

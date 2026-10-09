@@ -1,0 +1,2022 @@
+braces@3.0.3
+node_modules/braces
+  braces@"^3.0.3" from micromatch@4.0.8
+  node_modules/micromatch
+    micromatch@"^4.0.4" from metro-file-map@0.84.5
+    node_modules/metro-file-map
+      metro-file-map@"0.84.5" from metro@0.84.5
+      node_modules/metro
+        metro@"0.84.5" from metro-config@0.84.5
+        node_modules/metro-config
+          metro-config@"0.84.5" from metro@0.84.5
+          metro-config@"0.84.5" from @expo/metro@56.0.2
+          node_modules/@expo/metro
+            @expo/metro@"~56.0.2" from expo@57.0.27
+            node_modules/expo
+              expo@"57.0.27" from the root project
+              peer expo@"*" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-menu-interface@57.0.0
+              node_modules/expo-dev-menu-interface
+                expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                node_modules/expo-dev-menu
+                  expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-menu@57.0.19
+              node_modules/expo-dev-menu
+                expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-manifests@57.0.2
+              node_modules/expo-manifests
+                expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-sqlite@57.0.4
+              node_modules/expo-sqlite
+                expo-sqlite@"57.0.4" from the root project
+              peer expo@"*" from expo-updates-interface@57.0.2
+              node_modules/expo-updates-interface
+                expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+              peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+              node_modules/@maplibre/maplibre-react-native
+                @maplibre/maplibre-react-native@"11.5.0" from the root project
+              peer expo@"*" from expo-asset@57.0.19
+              node_modules/expo/node_modules/expo-asset
+                expo-asset@"~57.0.19" from expo@57.0.27
+              peerOptional expo@"*" from babel-preset-expo@57.0.14
+              node_modules/expo/node_modules/babel-preset-expo
+                babel-preset-expo@"~57.0.14" from expo@57.0.27
+              peer expo@"*" from expo-file-system@57.0.7
+              node_modules/expo/node_modules/expo-file-system
+                expo-file-system@"~57.0.7" from expo@57.0.27
+              peer expo@"*" from expo-font@57.0.4
+              node_modules/expo/node_modules/expo-font
+                expo-font@"~57.0.4" from expo@57.0.27
+                peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from expo-constants@57.0.21
+              node_modules/expo/node_modules/expo-constants
+                expo-constants@"~57.0.21" from expo@57.0.27
+                expo-constants@"~57.0.21" from expo-asset@57.0.19
+                node_modules/expo/node_modules/expo-asset
+                  expo-asset@"~57.0.19" from expo@57.0.27
+                peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from expo-keep-awake@57.0.2
+              node_modules/expo/node_modules/expo-keep-awake
+                expo-keep-awake@"~57.0.2" from expo@57.0.27
+              peer expo@"*" from @expo/log-box@57.0.4
+              node_modules/expo/node_modules/@expo/log-box
+                @expo/log-box@"^57.0.4" from expo@57.0.27
+                @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+              peerOptional expo@"*" from @expo/metro-config@57.0.13
+              node_modules/expo/node_modules/@expo/metro-config
+                @expo/metro-config@"~57.0.13" from expo@57.0.27
+                @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/dom-webview@57.0.1
+              node_modules/expo/node_modules/@expo/dom-webview
+                @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                node_modules/expo/node_modules/@expo/log-box
+                  @expo/log-box@"^57.0.4" from expo@57.0.27
+                  @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            @expo/metro@"~56.0.2" from @expo/metro-config@57.0.13
+            node_modules/expo/node_modules/@expo/metro-config
+              @expo/metro-config@"~57.0.13" from expo@57.0.27
+              @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+            @expo/metro@"~56.0.2" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+          metro-config@"^0.84.3" from @react-native/community-cli-plugin@0.86.3
+          node_modules/@react-native/community-cli-plugin
+            @react-native/community-cli-plugin@"0.86.3" from react-native@0.86.3
+            node_modules/react-native
+              react-native@"0.86.3" from the root project
+              peer react-native@"*" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+              peer react-native@"*" from expo@57.0.27
+              node_modules/expo
+                expo@"57.0.27" from the root project
+                peer expo@"*" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-menu-interface@57.0.0
+                node_modules/expo-dev-menu-interface
+                  expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                  node_modules/expo-dev-menu
+                    expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-menu@57.0.19
+                node_modules/expo-dev-menu
+                  expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-manifests@57.0.2
+                node_modules/expo-manifests
+                  expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-sqlite@57.0.4
+                node_modules/expo-sqlite
+                  expo-sqlite@"57.0.4" from the root project
+                peer expo@"*" from expo-updates-interface@57.0.2
+                node_modules/expo-updates-interface
+                  expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+                node_modules/@maplibre/maplibre-react-native
+                  @maplibre/maplibre-react-native@"11.5.0" from the root project
+                peer expo@"*" from expo-asset@57.0.19
+                node_modules/expo/node_modules/expo-asset
+                  expo-asset@"~57.0.19" from expo@57.0.27
+                peerOptional expo@"*" from babel-preset-expo@57.0.14
+                node_modules/expo/node_modules/babel-preset-expo
+                  babel-preset-expo@"~57.0.14" from expo@57.0.27
+                peer expo@"*" from expo-file-system@57.0.7
+                node_modules/expo/node_modules/expo-file-system
+                  expo-file-system@"~57.0.7" from expo@57.0.27
+                peer expo@"*" from expo-font@57.0.4
+                node_modules/expo/node_modules/expo-font
+                  expo-font@"~57.0.4" from expo@57.0.27
+                  peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from expo-constants@57.0.21
+                node_modules/expo/node_modules/expo-constants
+                  expo-constants@"~57.0.21" from expo@57.0.27
+                  expo-constants@"~57.0.21" from expo-asset@57.0.19
+                  node_modules/expo/node_modules/expo-asset
+                    expo-asset@"~57.0.19" from expo@57.0.27
+                  peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from expo-keep-awake@57.0.2
+                node_modules/expo/node_modules/expo-keep-awake
+                  expo-keep-awake@"~57.0.2" from expo@57.0.27
+                peer expo@"*" from @expo/log-box@57.0.4
+                node_modules/expo/node_modules/@expo/log-box
+                  @expo/log-box@"^57.0.4" from expo@57.0.27
+                  @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                peerOptional expo@"*" from @expo/metro-config@57.0.13
+                node_modules/expo/node_modules/@expo/metro-config
+                  @expo/metro-config@"~57.0.13" from expo@57.0.27
+                  @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/dom-webview@57.0.1
+                node_modules/expo/node_modules/@expo/dom-webview
+                  @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                  @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                  node_modules/expo/node_modules/@expo/log-box
+                    @expo/log-box@"^57.0.4" from expo@57.0.27
+                    @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer react-native@"*" from expo-dev-menu@57.0.19
+              node_modules/expo-dev-menu
+                expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+              peer react-native@"*" from expo-modules-core@57.0.21
+              node_modules/expo-modules-core
+                expo-modules-core@"~57.0.21" from expo@57.0.27
+                node_modules/expo
+                  expo@"57.0.27" from the root project
+                  peer expo@"*" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-menu-interface@57.0.0
+                  node_modules/expo-dev-menu-interface
+                    expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                    node_modules/expo-dev-menu
+                      expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                      expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                      node_modules/expo-dev-launcher
+                        expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                        node_modules/expo-dev-client
+                          expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-menu@57.0.19
+                  node_modules/expo-dev-menu
+                    expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-manifests@57.0.2
+                  node_modules/expo-manifests
+                    expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-sqlite@57.0.4
+                  node_modules/expo-sqlite
+                    expo-sqlite@"57.0.4" from the root project
+                  peer expo@"*" from expo-updates-interface@57.0.2
+                  node_modules/expo-updates-interface
+                    expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                  peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+                  node_modules/@maplibre/maplibre-react-native
+                    @maplibre/maplibre-react-native@"11.5.0" from the root project
+                  peer expo@"*" from expo-asset@57.0.19
+                  node_modules/expo/node_modules/expo-asset
+                    expo-asset@"~57.0.19" from expo@57.0.27
+                  peerOptional expo@"*" from babel-preset-expo@57.0.14
+                  node_modules/expo/node_modules/babel-preset-expo
+                    babel-preset-expo@"~57.0.14" from expo@57.0.27
+                  peer expo@"*" from expo-file-system@57.0.7
+                  node_modules/expo/node_modules/expo-file-system
+                    expo-file-system@"~57.0.7" from expo@57.0.27
+                  peer expo@"*" from expo-font@57.0.4
+                  node_modules/expo/node_modules/expo-font
+                    expo-font@"~57.0.4" from expo@57.0.27
+                    peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                    node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                      @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from expo-constants@57.0.21
+                  node_modules/expo/node_modules/expo-constants
+                    expo-constants@"~57.0.21" from expo@57.0.27
+                    expo-constants@"~57.0.21" from expo-asset@57.0.19
+                    node_modules/expo/node_modules/expo-asset
+                      expo-asset@"~57.0.19" from expo@57.0.27
+                    peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                    node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                      @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from expo-keep-awake@57.0.2
+                  node_modules/expo/node_modules/expo-keep-awake
+                    expo-keep-awake@"~57.0.2" from expo@57.0.27
+                  peer expo@"*" from @expo/log-box@57.0.4
+                  node_modules/expo/node_modules/@expo/log-box
+                    @expo/log-box@"^57.0.4" from expo@57.0.27
+                    @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                  peerOptional expo@"*" from @expo/metro-config@57.0.13
+                  node_modules/expo/node_modules/@expo/metro-config
+                    @expo/metro-config@"~57.0.13" from expo@57.0.27
+                    @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/dom-webview@57.0.1
+                  node_modules/expo/node_modules/@expo/dom-webview
+                    @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                    @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                    node_modules/expo/node_modules/@expo/log-box
+                      @expo/log-box@"^57.0.4" from expo@57.0.27
+                      @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+              peer react-native@"*" from expo-modules-jsi@57.1.1
+              node_modules/expo-modules-jsi
+                expo-modules-jsi@"~57.1.1" from expo-modules-core@57.0.21
+                node_modules/expo-modules-core
+                  expo-modules-core@"~57.0.21" from expo@57.0.27
+                  node_modules/expo
+                    expo@"57.0.27" from the root project
+                    peer expo@"*" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    peer expo@"*" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                    peer expo@"*" from expo-dev-menu-interface@57.0.0
+                    node_modules/expo-dev-menu-interface
+                      expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                      expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                      node_modules/expo-dev-menu
+                        expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                        node_modules/expo-dev-client
+                          expo-dev-client@"57.0.19" from the root project
+                        expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                        node_modules/expo-dev-launcher
+                          expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                          node_modules/expo-dev-client
+                            expo-dev-client@"57.0.19" from the root project
+                    peer expo@"*" from expo-dev-menu@57.0.19
+                    node_modules/expo-dev-menu
+                      expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                      expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                      node_modules/expo-dev-launcher
+                        expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                        node_modules/expo-dev-client
+                          expo-dev-client@"57.0.19" from the root project
+                    peer expo@"*" from expo-manifests@57.0.2
+                    node_modules/expo-manifests
+                      expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                      expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                      node_modules/expo-dev-launcher
+                        expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                        node_modules/expo-dev-client
+                          expo-dev-client@"57.0.19" from the root project
+                    peer expo@"*" from expo-sqlite@57.0.4
+                    node_modules/expo-sqlite
+                      expo-sqlite@"57.0.4" from the root project
+                    peer expo@"*" from expo-updates-interface@57.0.2
+                    node_modules/expo-updates-interface
+                      expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                    peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+                    node_modules/@maplibre/maplibre-react-native
+                      @maplibre/maplibre-react-native@"11.5.0" from the root project
+                    peer expo@"*" from expo-asset@57.0.19
+                    node_modules/expo/node_modules/expo-asset
+                      expo-asset@"~57.0.19" from expo@57.0.27
+                    peerOptional expo@"*" from babel-preset-expo@57.0.14
+                    node_modules/expo/node_modules/babel-preset-expo
+                      babel-preset-expo@"~57.0.14" from expo@57.0.27
+                    peer expo@"*" from expo-file-system@57.0.7
+                    node_modules/expo/node_modules/expo-file-system
+                      expo-file-system@"~57.0.7" from expo@57.0.27
+                    peer expo@"*" from expo-font@57.0.4
+                    node_modules/expo/node_modules/expo-font
+                      expo-font@"~57.0.4" from expo@57.0.27
+                      peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                      node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                        @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                        node_modules/expo/node_modules/@expo/cli
+                          @expo/cli@"^57.0.28" from expo@57.0.27
+                    peer expo@"*" from expo-constants@57.0.21
+                    node_modules/expo/node_modules/expo-constants
+                      expo-constants@"~57.0.21" from expo@57.0.27
+                      expo-constants@"~57.0.21" from expo-asset@57.0.19
+                      node_modules/expo/node_modules/expo-asset
+                        expo-asset@"~57.0.19" from expo@57.0.27
+                      peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                      node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                        @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                        node_modules/expo/node_modules/@expo/cli
+                          @expo/cli@"^57.0.28" from expo@57.0.27
+                    peer expo@"*" from expo-keep-awake@57.0.2
+                    node_modules/expo/node_modules/expo-keep-awake
+                      expo-keep-awake@"~57.0.2" from expo@57.0.27
+                    peer expo@"*" from @expo/log-box@57.0.4
+                    node_modules/expo/node_modules/@expo/log-box
+                      @expo/log-box@"^57.0.4" from expo@57.0.27
+                      @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                    peerOptional expo@"*" from @expo/metro-config@57.0.13
+                    node_modules/expo/node_modules/@expo/metro-config
+                      @expo/metro-config@"~57.0.13" from expo@57.0.27
+                      @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                    peer expo@"*" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                    peer expo@"*" from @expo/dom-webview@57.0.1
+                    node_modules/expo/node_modules/@expo/dom-webview
+                      @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                      @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                      node_modules/expo/node_modules/@expo/log-box
+                        @expo/log-box@"^57.0.4" from expo@57.0.27
+                        @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                        node_modules/expo/node_modules/@expo/cli
+                          @expo/cli@"^57.0.28" from expo@57.0.27
+                    peer expo@"*" from @expo/router-server@57.0.12
+                    node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                      @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+              peer react-native@"*" from expo-sqlite@57.0.4
+              node_modules/expo-sqlite
+                expo-sqlite@"57.0.4" from the root project
+              peerOptional react-native@"*" from @expo/devtools@57.0.1
+              node_modules/@expo/devtools
+                @expo/devtools@"~57.0.1" from expo@57.0.27
+                node_modules/expo
+                  expo@"57.0.27" from the root project
+                  peer expo@"*" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-menu-interface@57.0.0
+                  node_modules/expo-dev-menu-interface
+                    expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                    node_modules/expo-dev-menu
+                      expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                      expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                      node_modules/expo-dev-launcher
+                        expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                        node_modules/expo-dev-client
+                          expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-menu@57.0.19
+                  node_modules/expo-dev-menu
+                    expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-manifests@57.0.2
+                  node_modules/expo-manifests
+                    expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-sqlite@57.0.4
+                  node_modules/expo-sqlite
+                    expo-sqlite@"57.0.4" from the root project
+                  peer expo@"*" from expo-updates-interface@57.0.2
+                  node_modules/expo-updates-interface
+                    expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                  peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+                  node_modules/@maplibre/maplibre-react-native
+                    @maplibre/maplibre-react-native@"11.5.0" from the root project
+                  peer expo@"*" from expo-asset@57.0.19
+                  node_modules/expo/node_modules/expo-asset
+                    expo-asset@"~57.0.19" from expo@57.0.27
+                  peerOptional expo@"*" from babel-preset-expo@57.0.14
+                  node_modules/expo/node_modules/babel-preset-expo
+                    babel-preset-expo@"~57.0.14" from expo@57.0.27
+                  peer expo@"*" from expo-file-system@57.0.7
+                  node_modules/expo/node_modules/expo-file-system
+                    expo-file-system@"~57.0.7" from expo@57.0.27
+                  peer expo@"*" from expo-font@57.0.4
+                  node_modules/expo/node_modules/expo-font
+                    expo-font@"~57.0.4" from expo@57.0.27
+                    peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                    node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                      @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from expo-constants@57.0.21
+                  node_modules/expo/node_modules/expo-constants
+                    expo-constants@"~57.0.21" from expo@57.0.27
+                    expo-constants@"~57.0.21" from expo-asset@57.0.19
+                    node_modules/expo/node_modules/expo-asset
+                      expo-asset@"~57.0.19" from expo@57.0.27
+                    peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                    node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                      @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from expo-keep-awake@57.0.2
+                  node_modules/expo/node_modules/expo-keep-awake
+                    expo-keep-awake@"~57.0.2" from expo@57.0.27
+                  peer expo@"*" from @expo/log-box@57.0.4
+                  node_modules/expo/node_modules/@expo/log-box
+                    @expo/log-box@"^57.0.4" from expo@57.0.27
+                    @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                  peerOptional expo@"*" from @expo/metro-config@57.0.13
+                  node_modules/expo/node_modules/@expo/metro-config
+                    @expo/metro-config@"~57.0.13" from expo@57.0.27
+                    @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/dom-webview@57.0.1
+                  node_modules/expo/node_modules/@expo/dom-webview
+                    @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                    @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                    node_modules/expo/node_modules/@expo/log-box
+                      @expo/log-box@"^57.0.4" from expo@57.0.27
+                      @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+              peer react-native@">=0.80.0" from @maplibre/maplibre-react-native@11.5.0
+              node_modules/@maplibre/maplibre-react-native
+                @maplibre/maplibre-react-native@"11.5.0" from the root project
+              peer react-native@"0.86.3" from @react-native/virtualized-lists@0.86.3
+              node_modules/@react-native/virtualized-lists
+                @react-native/virtualized-lists@"0.86.3" from react-native@0.86.3
+              peer react-native@"*" from expo-asset@57.0.19
+              node_modules/expo/node_modules/expo-asset
+                expo-asset@"~57.0.19" from expo@57.0.27
+              peer react-native@"*" from expo-file-system@57.0.7
+              node_modules/expo/node_modules/expo-file-system
+                expo-file-system@"~57.0.7" from expo@57.0.27
+              peer react-native@"*" from expo-font@57.0.4
+              node_modules/expo/node_modules/expo-font
+                expo-font@"~57.0.4" from expo@57.0.27
+                peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer react-native@"*" from expo-constants@57.0.21
+              node_modules/expo/node_modules/expo-constants
+                expo-constants@"~57.0.21" from expo@57.0.27
+                expo-constants@"~57.0.21" from expo-asset@57.0.19
+                node_modules/expo/node_modules/expo-asset
+                  expo-asset@"~57.0.19" from expo@57.0.27
+                peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer react-native@"*" from @expo/log-box@57.0.4
+              node_modules/expo/node_modules/@expo/log-box
+                @expo/log-box@"^57.0.4" from expo@57.0.27
+                @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+              peerOptional react-native@"*" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+              peer react-native@"*" from @expo/dom-webview@57.0.1
+              node_modules/expo/node_modules/@expo/dom-webview
+                @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                node_modules/expo/node_modules/@expo/log-box
+                  @expo/log-box@"^57.0.4" from expo@57.0.27
+                  @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+        metro@"0.84.5" from metro-transform-worker@0.84.5
+        node_modules/metro-transform-worker
+          metro-transform-worker@"0.84.5" from metro@0.84.5
+          metro-transform-worker@"0.84.5" from @expo/metro@56.0.2
+          node_modules/@expo/metro
+            @expo/metro@"~56.0.2" from expo@57.0.27
+            node_modules/expo
+              expo@"57.0.27" from the root project
+              peer expo@"*" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-menu-interface@57.0.0
+              node_modules/expo-dev-menu-interface
+                expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                node_modules/expo-dev-menu
+                  expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-menu@57.0.19
+              node_modules/expo-dev-menu
+                expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-manifests@57.0.2
+              node_modules/expo-manifests
+                expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-sqlite@57.0.4
+              node_modules/expo-sqlite
+                expo-sqlite@"57.0.4" from the root project
+              peer expo@"*" from expo-updates-interface@57.0.2
+              node_modules/expo-updates-interface
+                expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+              peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+              node_modules/@maplibre/maplibre-react-native
+                @maplibre/maplibre-react-native@"11.5.0" from the root project
+              peer expo@"*" from expo-asset@57.0.19
+              node_modules/expo/node_modules/expo-asset
+                expo-asset@"~57.0.19" from expo@57.0.27
+              peerOptional expo@"*" from babel-preset-expo@57.0.14
+              node_modules/expo/node_modules/babel-preset-expo
+                babel-preset-expo@"~57.0.14" from expo@57.0.27
+              peer expo@"*" from expo-file-system@57.0.7
+              node_modules/expo/node_modules/expo-file-system
+                expo-file-system@"~57.0.7" from expo@57.0.27
+              peer expo@"*" from expo-font@57.0.4
+              node_modules/expo/node_modules/expo-font
+                expo-font@"~57.0.4" from expo@57.0.27
+                peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from expo-constants@57.0.21
+              node_modules/expo/node_modules/expo-constants
+                expo-constants@"~57.0.21" from expo@57.0.27
+                expo-constants@"~57.0.21" from expo-asset@57.0.19
+                node_modules/expo/node_modules/expo-asset
+                  expo-asset@"~57.0.19" from expo@57.0.27
+                peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from expo-keep-awake@57.0.2
+              node_modules/expo/node_modules/expo-keep-awake
+                expo-keep-awake@"~57.0.2" from expo@57.0.27
+              peer expo@"*" from @expo/log-box@57.0.4
+              node_modules/expo/node_modules/@expo/log-box
+                @expo/log-box@"^57.0.4" from expo@57.0.27
+                @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+              peerOptional expo@"*" from @expo/metro-config@57.0.13
+              node_modules/expo/node_modules/@expo/metro-config
+                @expo/metro-config@"~57.0.13" from expo@57.0.27
+                @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/dom-webview@57.0.1
+              node_modules/expo/node_modules/@expo/dom-webview
+                @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                node_modules/expo/node_modules/@expo/log-box
+                  @expo/log-box@"^57.0.4" from expo@57.0.27
+                  @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            @expo/metro@"~56.0.2" from @expo/metro-config@57.0.13
+            node_modules/expo/node_modules/@expo/metro-config
+              @expo/metro-config@"~57.0.13" from expo@57.0.27
+              @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+            @expo/metro@"~56.0.2" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+        metro@"0.84.5" from @expo/metro@56.0.2
+        node_modules/@expo/metro
+          @expo/metro@"~56.0.2" from expo@57.0.27
+          node_modules/expo
+            expo@"57.0.27" from the root project
+            peer expo@"*" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-dev-menu-interface@57.0.0
+            node_modules/expo-dev-menu-interface
+              expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+              node_modules/expo-dev-menu
+                expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-dev-menu@57.0.19
+            node_modules/expo-dev-menu
+              expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-manifests@57.0.2
+            node_modules/expo-manifests
+              expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-sqlite@57.0.4
+            node_modules/expo-sqlite
+              expo-sqlite@"57.0.4" from the root project
+            peer expo@"*" from expo-updates-interface@57.0.2
+            node_modules/expo-updates-interface
+              expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+            peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+            node_modules/@maplibre/maplibre-react-native
+              @maplibre/maplibre-react-native@"11.5.0" from the root project
+            peer expo@"*" from expo-asset@57.0.19
+            node_modules/expo/node_modules/expo-asset
+              expo-asset@"~57.0.19" from expo@57.0.27
+            peerOptional expo@"*" from babel-preset-expo@57.0.14
+            node_modules/expo/node_modules/babel-preset-expo
+              babel-preset-expo@"~57.0.14" from expo@57.0.27
+            peer expo@"*" from expo-file-system@57.0.7
+            node_modules/expo/node_modules/expo-file-system
+              expo-file-system@"~57.0.7" from expo@57.0.27
+            peer expo@"*" from expo-font@57.0.4
+            node_modules/expo/node_modules/expo-font
+              expo-font@"~57.0.4" from expo@57.0.27
+              peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from expo-constants@57.0.21
+            node_modules/expo/node_modules/expo-constants
+              expo-constants@"~57.0.21" from expo@57.0.27
+              expo-constants@"~57.0.21" from expo-asset@57.0.19
+              node_modules/expo/node_modules/expo-asset
+                expo-asset@"~57.0.19" from expo@57.0.27
+              peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from expo-keep-awake@57.0.2
+            node_modules/expo/node_modules/expo-keep-awake
+              expo-keep-awake@"~57.0.2" from expo@57.0.27
+            peer expo@"*" from @expo/log-box@57.0.4
+            node_modules/expo/node_modules/@expo/log-box
+              @expo/log-box@"^57.0.4" from expo@57.0.27
+              @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+            peerOptional expo@"*" from @expo/metro-config@57.0.13
+            node_modules/expo/node_modules/@expo/metro-config
+              @expo/metro-config@"~57.0.13" from expo@57.0.27
+              @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from @expo/dom-webview@57.0.1
+            node_modules/expo/node_modules/@expo/dom-webview
+              @expo/dom-webview@"~57.0.1" from expo@57.0.27
+              @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+              node_modules/expo/node_modules/@expo/log-box
+                @expo/log-box@"^57.0.4" from expo@57.0.27
+                @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from @expo/router-server@57.0.12
+            node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+              @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+          @expo/metro@"~56.0.2" from @expo/metro-config@57.0.13
+          node_modules/expo/node_modules/@expo/metro-config
+            @expo/metro-config@"~57.0.13" from expo@57.0.27
+            @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+          @expo/metro@"~56.0.2" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+        metro@"^0.84.3" from @react-native/community-cli-plugin@0.86.3
+        node_modules/@react-native/community-cli-plugin
+          @react-native/community-cli-plugin@"0.86.3" from react-native@0.86.3
+          node_modules/react-native
+            react-native@"0.86.3" from the root project
+            peer react-native@"*" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+            peer react-native@"*" from expo@57.0.27
+            node_modules/expo
+              expo@"57.0.27" from the root project
+              peer expo@"*" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-menu-interface@57.0.0
+              node_modules/expo-dev-menu-interface
+                expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                node_modules/expo-dev-menu
+                  expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-dev-menu@57.0.19
+              node_modules/expo-dev-menu
+                expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-manifests@57.0.2
+              node_modules/expo-manifests
+                expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+              peer expo@"*" from expo-sqlite@57.0.4
+              node_modules/expo-sqlite
+                expo-sqlite@"57.0.4" from the root project
+              peer expo@"*" from expo-updates-interface@57.0.2
+              node_modules/expo-updates-interface
+                expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+              peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+              node_modules/@maplibre/maplibre-react-native
+                @maplibre/maplibre-react-native@"11.5.0" from the root project
+              peer expo@"*" from expo-asset@57.0.19
+              node_modules/expo/node_modules/expo-asset
+                expo-asset@"~57.0.19" from expo@57.0.27
+              peerOptional expo@"*" from babel-preset-expo@57.0.14
+              node_modules/expo/node_modules/babel-preset-expo
+                babel-preset-expo@"~57.0.14" from expo@57.0.27
+              peer expo@"*" from expo-file-system@57.0.7
+              node_modules/expo/node_modules/expo-file-system
+                expo-file-system@"~57.0.7" from expo@57.0.27
+              peer expo@"*" from expo-font@57.0.4
+              node_modules/expo/node_modules/expo-font
+                expo-font@"~57.0.4" from expo@57.0.27
+                peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from expo-constants@57.0.21
+              node_modules/expo/node_modules/expo-constants
+                expo-constants@"~57.0.21" from expo@57.0.27
+                expo-constants@"~57.0.21" from expo-asset@57.0.19
+                node_modules/expo/node_modules/expo-asset
+                  expo-asset@"~57.0.19" from expo@57.0.27
+                peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from expo-keep-awake@57.0.2
+              node_modules/expo/node_modules/expo-keep-awake
+                expo-keep-awake@"~57.0.2" from expo@57.0.27
+              peer expo@"*" from @expo/log-box@57.0.4
+              node_modules/expo/node_modules/@expo/log-box
+                @expo/log-box@"^57.0.4" from expo@57.0.27
+                @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+              peerOptional expo@"*" from @expo/metro-config@57.0.13
+              node_modules/expo/node_modules/@expo/metro-config
+                @expo/metro-config@"~57.0.13" from expo@57.0.27
+                @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/dom-webview@57.0.1
+              node_modules/expo/node_modules/@expo/dom-webview
+                @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                node_modules/expo/node_modules/@expo/log-box
+                  @expo/log-box@"^57.0.4" from expo@57.0.27
+                  @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+              peer expo@"*" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer react-native@"*" from expo-dev-menu@57.0.19
+            node_modules/expo-dev-menu
+              expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+            peer react-native@"*" from expo-modules-core@57.0.21
+            node_modules/expo-modules-core
+              expo-modules-core@"~57.0.21" from expo@57.0.27
+              node_modules/expo
+                expo@"57.0.27" from the root project
+                peer expo@"*" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-menu-interface@57.0.0
+                node_modules/expo-dev-menu-interface
+                  expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                  node_modules/expo-dev-menu
+                    expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-menu@57.0.19
+                node_modules/expo-dev-menu
+                  expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-manifests@57.0.2
+                node_modules/expo-manifests
+                  expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-sqlite@57.0.4
+                node_modules/expo-sqlite
+                  expo-sqlite@"57.0.4" from the root project
+                peer expo@"*" from expo-updates-interface@57.0.2
+                node_modules/expo-updates-interface
+                  expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+                node_modules/@maplibre/maplibre-react-native
+                  @maplibre/maplibre-react-native@"11.5.0" from the root project
+                peer expo@"*" from expo-asset@57.0.19
+                node_modules/expo/node_modules/expo-asset
+                  expo-asset@"~57.0.19" from expo@57.0.27
+                peerOptional expo@"*" from babel-preset-expo@57.0.14
+                node_modules/expo/node_modules/babel-preset-expo
+                  babel-preset-expo@"~57.0.14" from expo@57.0.27
+                peer expo@"*" from expo-file-system@57.0.7
+                node_modules/expo/node_modules/expo-file-system
+                  expo-file-system@"~57.0.7" from expo@57.0.27
+                peer expo@"*" from expo-font@57.0.4
+                node_modules/expo/node_modules/expo-font
+                  expo-font@"~57.0.4" from expo@57.0.27
+                  peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from expo-constants@57.0.21
+                node_modules/expo/node_modules/expo-constants
+                  expo-constants@"~57.0.21" from expo@57.0.27
+                  expo-constants@"~57.0.21" from expo-asset@57.0.19
+                  node_modules/expo/node_modules/expo-asset
+                    expo-asset@"~57.0.19" from expo@57.0.27
+                  peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from expo-keep-awake@57.0.2
+                node_modules/expo/node_modules/expo-keep-awake
+                  expo-keep-awake@"~57.0.2" from expo@57.0.27
+                peer expo@"*" from @expo/log-box@57.0.4
+                node_modules/expo/node_modules/@expo/log-box
+                  @expo/log-box@"^57.0.4" from expo@57.0.27
+                  @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                peerOptional expo@"*" from @expo/metro-config@57.0.13
+                node_modules/expo/node_modules/@expo/metro-config
+                  @expo/metro-config@"~57.0.13" from expo@57.0.27
+                  @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/dom-webview@57.0.1
+                node_modules/expo/node_modules/@expo/dom-webview
+                  @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                  @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                  node_modules/expo/node_modules/@expo/log-box
+                    @expo/log-box@"^57.0.4" from expo@57.0.27
+                    @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+            peer react-native@"*" from expo-modules-jsi@57.1.1
+            node_modules/expo-modules-jsi
+              expo-modules-jsi@"~57.1.1" from expo-modules-core@57.0.21
+              node_modules/expo-modules-core
+                expo-modules-core@"~57.0.21" from expo@57.0.27
+                node_modules/expo
+                  expo@"57.0.27" from the root project
+                  peer expo@"*" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-menu-interface@57.0.0
+                  node_modules/expo-dev-menu-interface
+                    expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                    node_modules/expo-dev-menu
+                      expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                      expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                      node_modules/expo-dev-launcher
+                        expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                        node_modules/expo-dev-client
+                          expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-dev-menu@57.0.19
+                  node_modules/expo-dev-menu
+                    expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-manifests@57.0.2
+                  node_modules/expo-manifests
+                    expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                  peer expo@"*" from expo-sqlite@57.0.4
+                  node_modules/expo-sqlite
+                    expo-sqlite@"57.0.4" from the root project
+                  peer expo@"*" from expo-updates-interface@57.0.2
+                  node_modules/expo-updates-interface
+                    expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                  peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+                  node_modules/@maplibre/maplibre-react-native
+                    @maplibre/maplibre-react-native@"11.5.0" from the root project
+                  peer expo@"*" from expo-asset@57.0.19
+                  node_modules/expo/node_modules/expo-asset
+                    expo-asset@"~57.0.19" from expo@57.0.27
+                  peerOptional expo@"*" from babel-preset-expo@57.0.14
+                  node_modules/expo/node_modules/babel-preset-expo
+                    babel-preset-expo@"~57.0.14" from expo@57.0.27
+                  peer expo@"*" from expo-file-system@57.0.7
+                  node_modules/expo/node_modules/expo-file-system
+                    expo-file-system@"~57.0.7" from expo@57.0.27
+                  peer expo@"*" from expo-font@57.0.4
+                  node_modules/expo/node_modules/expo-font
+                    expo-font@"~57.0.4" from expo@57.0.27
+                    peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                    node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                      @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from expo-constants@57.0.21
+                  node_modules/expo/node_modules/expo-constants
+                    expo-constants@"~57.0.21" from expo@57.0.27
+                    expo-constants@"~57.0.21" from expo-asset@57.0.19
+                    node_modules/expo/node_modules/expo-asset
+                      expo-asset@"~57.0.19" from expo@57.0.27
+                    peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                    node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                      @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from expo-keep-awake@57.0.2
+                  node_modules/expo/node_modules/expo-keep-awake
+                    expo-keep-awake@"~57.0.2" from expo@57.0.27
+                  peer expo@"*" from @expo/log-box@57.0.4
+                  node_modules/expo/node_modules/@expo/log-box
+                    @expo/log-box@"^57.0.4" from expo@57.0.27
+                    @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                  peerOptional expo@"*" from @expo/metro-config@57.0.13
+                  node_modules/expo/node_modules/@expo/metro-config
+                    @expo/metro-config@"~57.0.13" from expo@57.0.27
+                    @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/dom-webview@57.0.1
+                  node_modules/expo/node_modules/@expo/dom-webview
+                    @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                    @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                    node_modules/expo/node_modules/@expo/log-box
+                      @expo/log-box@"^57.0.4" from expo@57.0.27
+                      @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                      node_modules/expo/node_modules/@expo/cli
+                        @expo/cli@"^57.0.28" from expo@57.0.27
+                  peer expo@"*" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+            peer react-native@"*" from expo-sqlite@57.0.4
+            node_modules/expo-sqlite
+              expo-sqlite@"57.0.4" from the root project
+            peerOptional react-native@"*" from @expo/devtools@57.0.1
+            node_modules/@expo/devtools
+              @expo/devtools@"~57.0.1" from expo@57.0.27
+              node_modules/expo
+                expo@"57.0.27" from the root project
+                peer expo@"*" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-menu-interface@57.0.0
+                node_modules/expo-dev-menu-interface
+                  expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+                  node_modules/expo-dev-menu
+                    expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                    expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                    node_modules/expo-dev-launcher
+                      expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                      node_modules/expo-dev-client
+                        expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-dev-menu@57.0.19
+                node_modules/expo-dev-menu
+                  expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-manifests@57.0.2
+                node_modules/expo-manifests
+                  expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                  expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+                  node_modules/expo-dev-launcher
+                    expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                    node_modules/expo-dev-client
+                      expo-dev-client@"57.0.19" from the root project
+                peer expo@"*" from expo-sqlite@57.0.4
+                node_modules/expo-sqlite
+                  expo-sqlite@"57.0.4" from the root project
+                peer expo@"*" from expo-updates-interface@57.0.2
+                node_modules/expo-updates-interface
+                  expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+                peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+                node_modules/@maplibre/maplibre-react-native
+                  @maplibre/maplibre-react-native@"11.5.0" from the root project
+                peer expo@"*" from expo-asset@57.0.19
+                node_modules/expo/node_modules/expo-asset
+                  expo-asset@"~57.0.19" from expo@57.0.27
+                peerOptional expo@"*" from babel-preset-expo@57.0.14
+                node_modules/expo/node_modules/babel-preset-expo
+                  babel-preset-expo@"~57.0.14" from expo@57.0.27
+                peer expo@"*" from expo-file-system@57.0.7
+                node_modules/expo/node_modules/expo-file-system
+                  expo-file-system@"~57.0.7" from expo@57.0.27
+                peer expo@"*" from expo-font@57.0.4
+                node_modules/expo/node_modules/expo-font
+                  expo-font@"~57.0.4" from expo@57.0.27
+                  peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from expo-constants@57.0.21
+                node_modules/expo/node_modules/expo-constants
+                  expo-constants@"~57.0.21" from expo@57.0.27
+                  expo-constants@"~57.0.21" from expo-asset@57.0.19
+                  node_modules/expo/node_modules/expo-asset
+                    expo-asset@"~57.0.19" from expo@57.0.27
+                  peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+                  node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                    @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from expo-keep-awake@57.0.2
+                node_modules/expo/node_modules/expo-keep-awake
+                  expo-keep-awake@"~57.0.2" from expo@57.0.27
+                peer expo@"*" from @expo/log-box@57.0.4
+                node_modules/expo/node_modules/@expo/log-box
+                  @expo/log-box@"^57.0.4" from expo@57.0.27
+                  @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                peerOptional expo@"*" from @expo/metro-config@57.0.13
+                node_modules/expo/node_modules/@expo/metro-config
+                  @expo/metro-config@"~57.0.13" from expo@57.0.27
+                  @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/dom-webview@57.0.1
+                node_modules/expo/node_modules/@expo/dom-webview
+                  @expo/dom-webview@"~57.0.1" from expo@57.0.27
+                  @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+                  node_modules/expo/node_modules/@expo/log-box
+                    @expo/log-box@"^57.0.4" from expo@57.0.27
+                    @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                    node_modules/expo/node_modules/@expo/cli
+                      @expo/cli@"^57.0.28" from expo@57.0.27
+                peer expo@"*" from @expo/router-server@57.0.12
+                node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                  @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                  node_modules/expo/node_modules/@expo/cli
+                    @expo/cli@"^57.0.28" from expo@57.0.27
+            peer react-native@">=0.80.0" from @maplibre/maplibre-react-native@11.5.0
+            node_modules/@maplibre/maplibre-react-native
+              @maplibre/maplibre-react-native@"11.5.0" from the root project
+            peer react-native@"0.86.3" from @react-native/virtualized-lists@0.86.3
+            node_modules/@react-native/virtualized-lists
+              @react-native/virtualized-lists@"0.86.3" from react-native@0.86.3
+            peer react-native@"*" from expo-asset@57.0.19
+            node_modules/expo/node_modules/expo-asset
+              expo-asset@"~57.0.19" from expo@57.0.27
+            peer react-native@"*" from expo-file-system@57.0.7
+            node_modules/expo/node_modules/expo-file-system
+              expo-file-system@"~57.0.7" from expo@57.0.27
+            peer react-native@"*" from expo-font@57.0.4
+            node_modules/expo/node_modules/expo-font
+              expo-font@"~57.0.4" from expo@57.0.27
+              peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer react-native@"*" from expo-constants@57.0.21
+            node_modules/expo/node_modules/expo-constants
+              expo-constants@"~57.0.21" from expo@57.0.27
+              expo-constants@"~57.0.21" from expo-asset@57.0.19
+              node_modules/expo/node_modules/expo-asset
+                expo-asset@"~57.0.19" from expo@57.0.27
+              peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer react-native@"*" from @expo/log-box@57.0.4
+            node_modules/expo/node_modules/@expo/log-box
+              @expo/log-box@"^57.0.4" from expo@57.0.27
+              @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+            peerOptional react-native@"*" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+            peer react-native@"*" from @expo/dom-webview@57.0.1
+            node_modules/expo/node_modules/@expo/dom-webview
+              @expo/dom-webview@"~57.0.1" from expo@57.0.27
+              @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+              node_modules/expo/node_modules/@expo/log-box
+                @expo/log-box@"^57.0.4" from expo@57.0.27
+                @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+      metro-file-map@"0.84.5" from @expo/metro@56.0.2
+      node_modules/@expo/metro
+        @expo/metro@"~56.0.2" from expo@57.0.27
+        node_modules/expo
+          expo@"57.0.27" from the root project
+          peer expo@"*" from expo-dev-client@57.0.19
+          node_modules/expo-dev-client
+            expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-dev-launcher@57.0.20
+          node_modules/expo-dev-launcher
+            expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-dev-menu-interface@57.0.0
+          node_modules/expo-dev-menu-interface
+            expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+            node_modules/expo-dev-menu
+              expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-dev-menu@57.0.19
+          node_modules/expo-dev-menu
+            expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-manifests@57.0.2
+          node_modules/expo-manifests
+            expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-sqlite@57.0.4
+          node_modules/expo-sqlite
+            expo-sqlite@"57.0.4" from the root project
+          peer expo@"*" from expo-updates-interface@57.0.2
+          node_modules/expo-updates-interface
+            expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+          peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+          node_modules/@maplibre/maplibre-react-native
+            @maplibre/maplibre-react-native@"11.5.0" from the root project
+          peer expo@"*" from expo-asset@57.0.19
+          node_modules/expo/node_modules/expo-asset
+            expo-asset@"~57.0.19" from expo@57.0.27
+          peerOptional expo@"*" from babel-preset-expo@57.0.14
+          node_modules/expo/node_modules/babel-preset-expo
+            babel-preset-expo@"~57.0.14" from expo@57.0.27
+          peer expo@"*" from expo-file-system@57.0.7
+          node_modules/expo/node_modules/expo-file-system
+            expo-file-system@"~57.0.7" from expo@57.0.27
+          peer expo@"*" from expo-font@57.0.4
+          node_modules/expo/node_modules/expo-font
+            expo-font@"~57.0.4" from expo@57.0.27
+            peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+            node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+              @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from expo-constants@57.0.21
+          node_modules/expo/node_modules/expo-constants
+            expo-constants@"~57.0.21" from expo@57.0.27
+            expo-constants@"~57.0.21" from expo-asset@57.0.19
+            node_modules/expo/node_modules/expo-asset
+              expo-asset@"~57.0.19" from expo@57.0.27
+            peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+            node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+              @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from expo-keep-awake@57.0.2
+          node_modules/expo/node_modules/expo-keep-awake
+            expo-keep-awake@"~57.0.2" from expo@57.0.27
+          peer expo@"*" from @expo/log-box@57.0.4
+          node_modules/expo/node_modules/@expo/log-box
+            @expo/log-box@"^57.0.4" from expo@57.0.27
+            @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+          peerOptional expo@"*" from @expo/metro-config@57.0.13
+          node_modules/expo/node_modules/@expo/metro-config
+            @expo/metro-config@"~57.0.13" from expo@57.0.27
+            @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from @expo/dom-webview@57.0.1
+          node_modules/expo/node_modules/@expo/dom-webview
+            @expo/dom-webview@"~57.0.1" from expo@57.0.27
+            @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+            node_modules/expo/node_modules/@expo/log-box
+              @expo/log-box@"^57.0.4" from expo@57.0.27
+              @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from @expo/router-server@57.0.12
+          node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+            @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+        @expo/metro@"~56.0.2" from @expo/metro-config@57.0.13
+        node_modules/expo/node_modules/@expo/metro-config
+          @expo/metro-config@"~57.0.13" from expo@57.0.27
+          @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+        @expo/metro@"~56.0.2" from @expo/cli@57.0.28
+        node_modules/expo/node_modules/@expo/cli
+          @expo/cli@"^57.0.28" from expo@57.0.27
+
+node-forge@1.4.0
+node_modules/node-forge
+  node-forge@"^1.3.3" from @expo/code-signing-certificates@0.0.6
+  node_modules/@expo/code-signing-certificates
+    @expo/code-signing-certificates@"^0.0.6" from @expo/cli@57.0.28
+    node_modules/expo/node_modules/@expo/cli
+      @expo/cli@"^57.0.28" from expo@57.0.27
+  node-forge@"^1.3.3" from @expo/cli@57.0.28
+  node_modules/expo/node_modules/@expo/cli
+    @expo/cli@"^57.0.28" from expo@57.0.27
+
+uuid@7.0.3
+node_modules/uuid
+  uuid@"^7.0.3" from xcode@3.0.1
+  node_modules/xcode
+    xcode@"^3.0.1" from @expo/config-plugins@57.0.10
+    node_modules/@expo/config-plugins
+      @expo/config-plugins@"~57.0.10" from expo@57.0.27
+      node_modules/expo
+        expo@"57.0.27" from the root project
+        peer expo@"*" from expo-dev-client@57.0.19
+        node_modules/expo-dev-client
+          expo-dev-client@"57.0.19" from the root project
+        peer expo@"*" from expo-dev-launcher@57.0.20
+        node_modules/expo-dev-launcher
+          expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+          node_modules/expo-dev-client
+            expo-dev-client@"57.0.19" from the root project
+        peer expo@"*" from expo-dev-menu-interface@57.0.0
+        node_modules/expo-dev-menu-interface
+          expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+          node_modules/expo-dev-client
+            expo-dev-client@"57.0.19" from the root project
+          expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+          node_modules/expo-dev-menu
+            expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+        peer expo@"*" from expo-dev-menu@57.0.19
+        node_modules/expo-dev-menu
+          expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+          node_modules/expo-dev-client
+            expo-dev-client@"57.0.19" from the root project
+          expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+          node_modules/expo-dev-launcher
+            expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+        peer expo@"*" from expo-manifests@57.0.2
+        node_modules/expo-manifests
+          expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+          node_modules/expo-dev-client
+            expo-dev-client@"57.0.19" from the root project
+          expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+          node_modules/expo-dev-launcher
+            expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+        peer expo@"*" from expo-sqlite@57.0.4
+        node_modules/expo-sqlite
+          expo-sqlite@"57.0.4" from the root project
+        peer expo@"*" from expo-updates-interface@57.0.2
+        node_modules/expo-updates-interface
+          expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+          node_modules/expo-dev-client
+            expo-dev-client@"57.0.19" from the root project
+        peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+        node_modules/@maplibre/maplibre-react-native
+          @maplibre/maplibre-react-native@"11.5.0" from the root project
+        peer expo@"*" from expo-asset@57.0.19
+        node_modules/expo/node_modules/expo-asset
+          expo-asset@"~57.0.19" from expo@57.0.27
+        peerOptional expo@"*" from babel-preset-expo@57.0.14
+        node_modules/expo/node_modules/babel-preset-expo
+          babel-preset-expo@"~57.0.14" from expo@57.0.27
+        peer expo@"*" from expo-file-system@57.0.7
+        node_modules/expo/node_modules/expo-file-system
+          expo-file-system@"~57.0.7" from expo@57.0.27
+        peer expo@"*" from expo-font@57.0.4
+        node_modules/expo/node_modules/expo-font
+          expo-font@"~57.0.4" from expo@57.0.27
+          peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+          node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+            @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+        peer expo@"*" from expo-constants@57.0.21
+        node_modules/expo/node_modules/expo-constants
+          expo-constants@"~57.0.21" from expo@57.0.27
+          expo-constants@"~57.0.21" from expo-asset@57.0.19
+          node_modules/expo/node_modules/expo-asset
+            expo-asset@"~57.0.19" from expo@57.0.27
+          peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+          node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+            @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+        peer expo@"*" from expo-keep-awake@57.0.2
+        node_modules/expo/node_modules/expo-keep-awake
+          expo-keep-awake@"~57.0.2" from expo@57.0.27
+        peer expo@"*" from @expo/log-box@57.0.4
+        node_modules/expo/node_modules/@expo/log-box
+          @expo/log-box@"^57.0.4" from expo@57.0.27
+          @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+        peerOptional expo@"*" from @expo/metro-config@57.0.13
+        node_modules/expo/node_modules/@expo/metro-config
+          @expo/metro-config@"~57.0.13" from expo@57.0.27
+          @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+        peer expo@"*" from @expo/cli@57.0.28
+        node_modules/expo/node_modules/@expo/cli
+          @expo/cli@"^57.0.28" from expo@57.0.27
+        peer expo@"*" from @expo/dom-webview@57.0.1
+        node_modules/expo/node_modules/@expo/dom-webview
+          @expo/dom-webview@"~57.0.1" from expo@57.0.27
+          @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+          node_modules/expo/node_modules/@expo/log-box
+            @expo/log-box@"^57.0.4" from expo@57.0.27
+            @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+        peer expo@"*" from @expo/router-server@57.0.12
+        node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+          @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+      @expo/config-plugins@"~57.0.10" from @expo/config@57.0.10
+      node_modules/@expo/config
+        @expo/config@"~57.0.10" from expo@57.0.27
+        node_modules/expo
+          expo@"57.0.27" from the root project
+          peer expo@"*" from expo-dev-client@57.0.19
+          node_modules/expo-dev-client
+            expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-dev-launcher@57.0.20
+          node_modules/expo-dev-launcher
+            expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-dev-menu-interface@57.0.0
+          node_modules/expo-dev-menu-interface
+            expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+            node_modules/expo-dev-menu
+              expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-dev-menu@57.0.19
+          node_modules/expo-dev-menu
+            expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-manifests@57.0.2
+          node_modules/expo-manifests
+            expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+          peer expo@"*" from expo-sqlite@57.0.4
+          node_modules/expo-sqlite
+            expo-sqlite@"57.0.4" from the root project
+          peer expo@"*" from expo-updates-interface@57.0.2
+          node_modules/expo-updates-interface
+            expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+          peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+          node_modules/@maplibre/maplibre-react-native
+            @maplibre/maplibre-react-native@"11.5.0" from the root project
+          peer expo@"*" from expo-asset@57.0.19
+          node_modules/expo/node_modules/expo-asset
+            expo-asset@"~57.0.19" from expo@57.0.27
+          peerOptional expo@"*" from babel-preset-expo@57.0.14
+          node_modules/expo/node_modules/babel-preset-expo
+            babel-preset-expo@"~57.0.14" from expo@57.0.27
+          peer expo@"*" from expo-file-system@57.0.7
+          node_modules/expo/node_modules/expo-file-system
+            expo-file-system@"~57.0.7" from expo@57.0.27
+          peer expo@"*" from expo-font@57.0.4
+          node_modules/expo/node_modules/expo-font
+            expo-font@"~57.0.4" from expo@57.0.27
+            peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+            node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+              @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from expo-constants@57.0.21
+          node_modules/expo/node_modules/expo-constants
+            expo-constants@"~57.0.21" from expo@57.0.27
+            expo-constants@"~57.0.21" from expo-asset@57.0.19
+            node_modules/expo/node_modules/expo-asset
+              expo-asset@"~57.0.19" from expo@57.0.27
+            peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+            node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+              @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from expo-keep-awake@57.0.2
+          node_modules/expo/node_modules/expo-keep-awake
+            expo-keep-awake@"~57.0.2" from expo@57.0.27
+          peer expo@"*" from @expo/log-box@57.0.4
+          node_modules/expo/node_modules/@expo/log-box
+            @expo/log-box@"^57.0.4" from expo@57.0.27
+            @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+          peerOptional expo@"*" from @expo/metro-config@57.0.13
+          node_modules/expo/node_modules/@expo/metro-config
+            @expo/metro-config@"~57.0.13" from expo@57.0.27
+            @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from @expo/dom-webview@57.0.1
+          node_modules/expo/node_modules/@expo/dom-webview
+            @expo/dom-webview@"~57.0.1" from expo@57.0.27
+            @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+            node_modules/expo/node_modules/@expo/log-box
+              @expo/log-box@"^57.0.4" from expo@57.0.27
+              @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+          peer expo@"*" from @expo/router-server@57.0.12
+          node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+            @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+        @expo/config@"~57.0.9" from @expo/local-build-cache-provider@57.0.8
+        node_modules/@expo/local-build-cache-provider
+          @expo/local-build-cache-provider@"^57.0.8" from expo@57.0.27
+          node_modules/expo
+            expo@"57.0.27" from the root project
+            peer expo@"*" from expo-dev-client@57.0.19
+            node_modules/expo-dev-client
+              expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-dev-launcher@57.0.20
+            node_modules/expo-dev-launcher
+              expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-dev-menu-interface@57.0.0
+            node_modules/expo-dev-menu-interface
+              expo-dev-menu-interface@"~57.0.0" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-dev-menu-interface@"~57.0.0" from expo-dev-menu@57.0.19
+              node_modules/expo-dev-menu
+                expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+                expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+                node_modules/expo-dev-launcher
+                  expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                  node_modules/expo-dev-client
+                    expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-dev-menu@57.0.19
+            node_modules/expo-dev-menu
+              expo-dev-menu@"~57.0.18" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-dev-menu@"~57.0.18" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-manifests@57.0.2
+            node_modules/expo-manifests
+              expo-manifests@"~57.0.2" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+              expo-manifests@"~57.0.2" from expo-dev-launcher@57.0.20
+              node_modules/expo-dev-launcher
+                expo-dev-launcher@"~57.0.20" from expo-dev-client@57.0.19
+                node_modules/expo-dev-client
+                  expo-dev-client@"57.0.19" from the root project
+            peer expo@"*" from expo-sqlite@57.0.4
+            node_modules/expo-sqlite
+              expo-sqlite@"57.0.4" from the root project
+            peer expo@"*" from expo-updates-interface@57.0.2
+            node_modules/expo-updates-interface
+              expo-updates-interface@"~57.0.2" from expo-dev-client@57.0.19
+              node_modules/expo-dev-client
+                expo-dev-client@"57.0.19" from the root project
+            peerOptional expo@">=54.0.0" from @maplibre/maplibre-react-native@11.5.0
+            node_modules/@maplibre/maplibre-react-native
+              @maplibre/maplibre-react-native@"11.5.0" from the root project
+            peer expo@"*" from expo-asset@57.0.19
+            node_modules/expo/node_modules/expo-asset
+              expo-asset@"~57.0.19" from expo@57.0.27
+            peerOptional expo@"*" from babel-preset-expo@57.0.14
+            node_modules/expo/node_modules/babel-preset-expo
+              babel-preset-expo@"~57.0.14" from expo@57.0.27
+            peer expo@"*" from expo-file-system@57.0.7
+            node_modules/expo/node_modules/expo-file-system
+              expo-file-system@"~57.0.7" from expo@57.0.27
+            peer expo@"*" from expo-font@57.0.4
+            node_modules/expo/node_modules/expo-font
+              expo-font@"~57.0.4" from expo@57.0.27
+              peer expo-font@"^57.0.4" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from expo-constants@57.0.21
+            node_modules/expo/node_modules/expo-constants
+              expo-constants@"~57.0.21" from expo@57.0.27
+              expo-constants@"~57.0.21" from expo-asset@57.0.19
+              node_modules/expo/node_modules/expo-asset
+                expo-asset@"~57.0.19" from expo@57.0.27
+              peer expo-constants@"^57.0.21" from @expo/router-server@57.0.12
+              node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+                @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from expo-keep-awake@57.0.2
+            node_modules/expo/node_modules/expo-keep-awake
+              expo-keep-awake@"~57.0.2" from expo@57.0.27
+            peer expo@"*" from @expo/log-box@57.0.4
+            node_modules/expo/node_modules/@expo/log-box
+              @expo/log-box@"^57.0.4" from expo@57.0.27
+              @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+            peerOptional expo@"*" from @expo/metro-config@57.0.13
+            node_modules/expo/node_modules/@expo/metro-config
+              @expo/metro-config@"~57.0.13" from expo@57.0.27
+              @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from @expo/cli@57.0.28
+            node_modules/expo/node_modules/@expo/cli
+              @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from @expo/dom-webview@57.0.1
+            node_modules/expo/node_modules/@expo/dom-webview
+              @expo/dom-webview@"~57.0.1" from expo@57.0.27
+              @expo/dom-webview@"^57.0.1" from @expo/log-box@57.0.4
+              node_modules/expo/node_modules/@expo/log-box
+                @expo/log-box@"^57.0.4" from expo@57.0.27
+                @expo/log-box@"^57.0.4" from @expo/cli@57.0.28
+                node_modules/expo/node_modules/@expo/cli
+                  @expo/cli@"^57.0.28" from expo@57.0.27
+            peer expo@"*" from @expo/router-server@57.0.12
+            node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server
+              @expo/router-server@"^57.0.12" from @expo/cli@57.0.28
+              node_modules/expo/node_modules/@expo/cli
+                @expo/cli@"^57.0.28" from expo@57.0.27
+        @expo/config@"~57.0.10" from @expo/prebuild-config@57.0.17
+        node_modules/@expo/prebuild-config
+          @expo/prebuild-config@"^57.0.17" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+        @expo/config@"~57.0.10" from @expo/metro-config@57.0.13
+        node_modules/expo/node_modules/@expo/metro-config
+          @expo/metro-config@"~57.0.13" from expo@57.0.27
+          @expo/metro-config@"~57.0.13" from @expo/cli@57.0.28
+          node_modules/expo/node_modules/@expo/cli
+            @expo/cli@"^57.0.28" from expo@57.0.27
+        @expo/config@"~57.0.10" from @expo/cli@57.0.28
+        node_modules/expo/node_modules/@expo/cli
+          @expo/cli@"^57.0.28" from expo@57.0.27
+      @expo/config-plugins@"~57.0.9" from @expo/inline-modules@0.1.7
+      node_modules/@expo/inline-modules
+        @expo/inline-modules@"^0.1.7" from @expo/cli@57.0.28
+        node_modules/expo/node_modules/@expo/cli
+          @expo/cli@"^57.0.28" from expo@57.0.27
+      @expo/config-plugins@"~57.0.10" from @expo/prebuild-config@57.0.17
+      node_modules/@expo/prebuild-config
+        @expo/prebuild-config@"^57.0.17" from @expo/cli@57.0.28
+        node_modules/expo/node_modules/@expo/cli
+          @expo/cli@"^57.0.28" from expo@57.0.27
+      @expo/config-plugins@"~57.0.10" from @expo/cli@57.0.28
+      node_modules/expo/node_modules/@expo/cli
+        @expo/cli@"^57.0.28" from expo@57.0.27

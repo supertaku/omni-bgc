@@ -1,0 +1,16 @@
+sqlite3Fts5IndexClose
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:251080
+fts5FreeVtab
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:254057
+fts5DisconnectMethod
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:254068
+sqlite3VtabUnlock
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:157740
+sqlite3VtabDisconnect
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:157808
+disconnectAllVtab
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:183825
+sqlite3Close
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:183875
+exsqlite3_finalize
+C:/Users/joshu/Documents/Omni-BGC/apps/mobile/node_modules/expo-sqlite/vendor/sqlite3/sqlite3.c:91571
