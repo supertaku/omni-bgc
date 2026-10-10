@@ -1,0 +1,59 @@
+{
+  "reviewer": "independent business research agent",
+  "status": "CHANGES_REQUESTED",
+  "scope": "Read-only parent source audit, disposable synthetic fixtures, no parent source edits",
+  "results": [
+    {
+      "probe": "currency_without_budget",
+      "result": "FAIL_EXPECTED_FILTER",
+      "returned_ids": [
+        "00000000-0000-4000-8000-000000000005",
+        "00000000-0000-4000-8000-000000000007"
+      ],
+      "expected_count": 1
+    },
+    {
+      "probe": "expired_building_parent",
+      "result": "PARENT_SEMANTICS_REVIEW",
+      "returned_count": 2,
+      "returned_parent_ids": [
+        "00000000-0000-4000-8000-000000000001",
+        "00000000-0000-4000-8000-000000000001"
+      ],
+      "note": "Current place results include raw parent ID although building name evidence expired; define unknown-parent display or exclusion policy."
+    },
+    {
+      "probe": "stale_menu",
+      "result": "PASS",
+      "returned_count": 0
+    },
+    {
+      "probe": "duplicate_json_key",
+      "result": "FAIL_EXPECTED_REJECTION",
+      "parsed": [
+        {
+          "id": "second"
+        }
+      ],
+      "note": "Duplicate upstream identity keys are silently overwritten; adapter should reject ambiguity."
+    },
+    {
+      "probe": "wgs84_range_edges",
+      "result": "PASS"
+    },
+    {
+      "probe": "business_aggregation",
+      "result": "PASS",
+      "candidate_count": 60,
+      "source_count": 30,
+      "unmapped_zones": {},
+      "unmapped_categories": {}
+    }
+  ],
+  "reviewed_file_sha256": {
+    "pipelines/etl/research/capture.py": "c7fc945b9990809bff9a0695b15bf2210b53d263d62129bdbf6851c641875f49",
+    "pipelines/etl/research/program.py": "7b7217d51f7226ff9f7ecf95a73e79bd36615b1a70d3a3ecac923fc50cb7f167",
+    "packages/database/retrieval.py": "eeea152f27dd3e85f3862e9731f1eb4891ab332b2245a002afe1d84d560f96a4",
+    "pipelines/etl/review-dashboard/dashboard.py": "286688d6163369a91e0f0647196283d22c8c36eb7c518569955da670601ac186"
+  }
+}

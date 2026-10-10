@@ -1,0 +1,25 @@
+{
+  "parent_decision": "ACCEPT",
+  "decision_origin": "Direct parent message in current M4 comprehensive chat, 2026-10-10 Asia/Manila",
+  "scope": "Exact retained historical raw OSM full acquisition envelope discovery for internal BGC-wide research context only",
+  "raw_sha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+  "sidecar_sha256": "d749bce5e9e27874a46d995c8a24412761aa761040f424c12ed0c34200fac611",
+  "query_sha256": "149903439170856adca4521e7f637002e6a84cf14cb99c49bfebf11e67f643de",
+  "prior_boundary_sha256": "82d4e301fbbec3326d92ce11d548190c4dc0a23e7cafe2faf70b5068488364f0",
+  "previous_intake_approval": "docs/evaluations/m3/parent/INTAKE_APPROVAL.json",
+  "source_envelope_is_official_boundary": false,
+  "district_completeness_claim": false,
+  "internal_processing_allowed": true,
+  "distribution_authorized": false,
+  "approved_world_facts": 0,
+  "constraints": [
+    "Recheck raw, sidecar, query and historical boundary identities before parsing raw",
+    "Only raw originals; no prior processed geometry/entity/code reuse",
+    "Minimize contributor and contact metadata",
+    "No centroid, entrance, graph or route inference",
+    "All records historical candidates; no canonical identity promotion",
+    "Real derived data only in ignored data/generated/m4/comprehensive/geography",
+    "Parent independently reviews hashes/counts before implementation acceptance",
+    "Offline publication and human rights gates unchanged"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "mode": "SYNTHETIC_HOST_ONLY",
+  "python": "3.13.7",
+  "sqlite": "3.50.4",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "results": [
+    {
+      "synthetic_entities": 1000,
+      "fact_count": 3000,
+      "sqlite_bytes": 1880064,
+      "sqlite_sha256": "f0b3f4911311a807f7882673d7005ae4be81b8682e385bfa788591048aed7e07",
+      "warm_host_queries": {
+        "place_details": {
+          "median_ms": 0.335,
+          "max_ms": 0.705,
+          "samples": 7,
+          "result_count": 1
+        },
+        "lexical_search": {
+          "median_ms": 0.563,
+          "max_ms": 1.202,
+          "samples": 7,
+          "result_count": 1
+        },
+        "nearby_100m": {
+          "median_ms": 0.11,
+          "max_ms": 0.222,
+          "samples": 7,
+          "result_count": 0
+        }
+      }
+    },
+    {
+      "synthetic_entities": 10000,
+      "fact_count": 30000,
+      "sqlite_bytes": 18026496,
+      "sqlite_sha256": "61a087e97c27f86483af7e72165ad3a46a079d60f4598d6077e7068d34fe4795",
+      "warm_host_queries": {
+        "place_details": {
+          "median_ms": 0.31,
+          "max_ms": 0.851,
+          "samples": 7,
+          "result_count": 1
+        },
+        "lexical_search": {
+          "median_ms": 0.711,
+          "max_ms": 1.196,
+          "samples": 7,
+          "result_count": 1
+        },
+        "nearby_100m": {
+          "median_ms": 5.163,
+          "max_ms": 5.877,
+          "samples": 7,
+          "result_count": 69
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "No Android/iOS runtime, cold-start, power, RAM or user-position measurements",
+    "No menu/graph/real-source distribution or coverage estimate",
+    "Details/search/proximity now restrict entity lineage; full listing/menu scans and the native current-store query still need measured scale QA",
+    "Observed host timing is not a mobile acceptance threshold or projected real pack size"
+  ]
+}

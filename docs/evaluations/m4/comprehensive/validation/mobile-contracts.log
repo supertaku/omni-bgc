@@ -1,0 +1,23 @@
+PASS FTS escapes operators and limits Unicode tokens
+PASS Saved input has no origin field and validates duration
+PASS Production parser is empty without current projection facts
+PASS Parser preserves UUID citation aliases and unknown coordinates
+PASS Parser rejects cross-pack conflicting names
+PASS Explicit entrance requires subject-bound field coordinate and access
+PASS Transit parser needs complete supported shape/calendar/stop sequence
+PASS Manifest rejects unknown grants, traversal, HTTP, stale, size
+PASS Menu rights are source/use specific
+PASS Exact dependency missing blocks candidate
+PASS Same-version replacement hash cannot break dependents
+PASS Reused version with altered manifest rejects even without dependents
+PASS Invalid calendar dates cannot normalize into accepted UTC
+PASS Empty trust registry cannot authorize remote manifests
+PASS failed cursor consumption still awaits finalize
+PASS ownership queue drains after failure
+PASS actual oversized stream cancels before full body read
+PASS exact bounded stream consumes and releases
+PASS Style exact local glyph/sprite/PMTiles URLs preserve license links
+PASS Style rejects traversal and undeclared glyph/2x atlas
+PASS Style rejects external resource while allowing HTTPS attribution text
+PASS denied/uninstalled active style remains null
+22 mobile pure contract tests PASS; native behavior NOT_RUN

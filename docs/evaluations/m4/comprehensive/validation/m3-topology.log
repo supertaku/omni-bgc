@@ -1,0 +1,13 @@
+test_barrier_and_boundary_excursion (test_topology.TopologyTests.test_barrier_and_boundary_excursion) ... ok
+test_coincident_distinct_nodes_not_merged (test_topology.TopologyTests.test_coincident_distinct_nodes_not_merged) ... ok
+test_crossing_lines_do_not_create_junction (test_topology.TopologyTests.test_crossing_lines_do_not_create_junction) ... ok
+test_explicit_foot_yes_not_field_approval (test_topology.TopologyTests.test_explicit_foot_yes_not_field_approval) ... ok
+test_highway_area_is_not_route (test_topology.TopologyTests.test_highway_area_is_not_route) ... ok
+test_restricted_unknown_and_road_edges_stay_blocked (test_topology.TopologyTests.test_restricted_unknown_and_road_edges_stay_blocked) ... ok
+test_shared_source_node_connects (test_topology.TopologyTests.test_shared_source_node_connects) ... ok
+test_zero_segment_rejected_without_invented_node (test_topology.TopologyTests.test_zero_segment_rejected_without_invented_node) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.003s
+
+OK

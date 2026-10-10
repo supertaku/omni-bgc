@@ -1,0 +1,332 @@
+{
+  "run_at_utc": "2026-10-10T04:04:55.296491+00:00",
+  "python": "3.13.7",
+  "sqlite": "3.50.4",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "gis_interpreter": "C:\\Users\\joshu\\Documents\\BGC\\.venv\\Scripts\\python.exe",
+  "runs": [
+    {
+      "name": "governance",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "pipelines/sources"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 14,
+      "cases_reported": 14,
+      "skips_reported": 0,
+      "duration_seconds": 0.181,
+      "log": "governance.log"
+    },
+    {
+      "name": "m1",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/m1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 25,
+      "cases_reported": 25,
+      "skips_reported": 0,
+      "duration_seconds": 0.763,
+      "log": "m1.log"
+    },
+    {
+      "name": "m3-gis",
+      "command": [
+        "C:\\Users\\joshu\\Documents\\BGC\\.venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/m3"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 16,
+      "cases_reported": 16,
+      "skips_reported": 1,
+      "duration_seconds": 0.708,
+      "log": "m3-gis.log"
+    },
+    {
+      "name": "m3-topology",
+      "command": [
+        "C:\\Users\\joshu\\Documents\\BGC\\.venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/routing/m3"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 8,
+      "cases_reported": 8,
+      "skips_reported": 0,
+      "duration_seconds": 0.626,
+      "log": "m3-topology.log"
+    },
+    {
+      "name": "m4-intake",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/m4"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 30,
+      "cases_reported": 30,
+      "skips_reported": 0,
+      "duration_seconds": 0.718,
+      "log": "m4-intake.log"
+    },
+    {
+      "name": "mobile-projection",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/mobile"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 10,
+      "cases_reported": 10,
+      "skips_reported": 0,
+      "duration_seconds": 0.201,
+      "log": "mobile-projection.log"
+    },
+    {
+      "name": "research",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/research"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 13,
+      "cases_reported": 13,
+      "skips_reported": 0,
+      "duration_seconds": 0.332,
+      "log": "research.log"
+    },
+    {
+      "name": "research-gis",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/research-gis"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 12,
+      "cases_reported": 12,
+      "skips_reported": 0,
+      "duration_seconds": 0.265,
+      "log": "research-gis.log"
+    },
+    {
+      "name": "retrieval-export",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/retrieval"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 20,
+      "cases_reported": 20,
+      "skips_reported": 0,
+      "duration_seconds": 0.978,
+      "log": "retrieval-export.log"
+    },
+    {
+      "name": "canonical-portable",
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/canonical"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 15,
+      "cases_reported": 15,
+      "skips_reported": 0,
+      "duration_seconds": 0.823,
+      "log": "canonical-portable.log"
+    },
+    {
+      "name": "mobile-contracts",
+      "command": [
+        "node",
+        "tests/data-quality/mobile/contracts.mjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": null,
+      "cases_reported": 22,
+      "skips_reported": 0,
+      "duration_seconds": 0.675,
+      "log": "mobile-contracts.log"
+    },
+    {
+      "name": "mobile-resume",
+      "command": [
+        "node",
+        "tests/data-quality/mobile/resume.mjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": null,
+      "cases_reported": 11,
+      "skips_reported": 0,
+      "duration_seconds": 0.375,
+      "log": "mobile-resume.log"
+    },
+    {
+      "name": "mobile-retrieval",
+      "command": [
+        "node",
+        "--test",
+        "tests/data-quality/mobile/retrieval.mjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 1,
+      "cases_reported": 7,
+      "skips_reported": 0,
+      "duration_seconds": 0.698,
+      "log": "mobile-retrieval.log"
+    },
+    {
+      "name": "routing-js",
+      "command": [
+        "node",
+        "--test",
+        "tests/routing/mobile/engine.test.cjs",
+        "tests/routing/mobile/loader.test.cjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 27,
+      "cases_reported": 27,
+      "skips_reported": 0,
+      "duration_seconds": 0.898,
+      "log": "routing-js.log"
+    },
+    {
+      "name": "ui-model",
+      "command": [
+        "node",
+        "--test",
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\packages\\ui\\test\\fixture-flow.test.mjs",
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\packages\\ui\\test\\view-state.test.mjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 8,
+      "cases_reported": 8,
+      "skips_reported": 0,
+      "duration_seconds": 0.272,
+      "log": "ui-model.log"
+    },
+    {
+      "name": "itinerary",
+      "command": [
+        "node",
+        "--test",
+        "docs/evaluations/mobile-ui/test-itinerary.cjs"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": 4,
+      "cases_reported": 4,
+      "skips_reported": 0,
+      "duration_seconds": 0.472,
+      "log": "itinerary.log"
+    },
+    {
+      "name": "mobile-typecheck",
+      "command": [
+        "cmd",
+        "/c",
+        "npm",
+        "run",
+        "typecheck",
+        "--prefix",
+        "apps/mobile"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "tests_reported": null,
+      "cases_reported": null,
+      "skips_reported": 0,
+      "duration_seconds": 4.355,
+      "log": "mobile-typecheck.log"
+    }
+  ],
+  "device_validation": "NOT_RUN",
+  "postgresql_runtime": "NOT_RUN",
+  "approved_real_records": 0,
+  "exported_real_records": 0
+}

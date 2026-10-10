@@ -1,0 +1,20 @@
+test_edited_bytes_rejected (__main__.DisposableMigrationTests.test_edited_bytes_rejected) ... ok
+test_embed_checked_loaded_bytes (__main__.DisposableMigrationTests.test_embed_checked_loaded_bytes) ... ok
+test_manifest_and_single_transaction (__main__.DisposableMigrationTests.test_manifest_and_single_transaction) ... ok
+test_missing_runtime_fails_explicitly (__main__.DisposableMigrationTests.test_missing_runtime_fails_explicitly) ... ok
+test_no_remote_connection_or_shell (__main__.DisposableMigrationTests.test_no_remote_connection_or_shell) ... ok
+test_refuse_non_disposable_or_sql_injection_names (__main__.DisposableMigrationTests.test_refuse_non_disposable_or_sql_injection_names) ... ok
+test_remote_libpq_defaults_cannot_override_loopback (__main__.DisposableMigrationTests.test_remote_libpq_defaults_cannot_override_loopback) ... ok
+test_deterministic_identifiers_and_text_revision_changes (__main__.DocumentSpanTests.test_deterministic_identifiers_and_text_revision_changes) ... ok
+test_invalid_bounds_duplicate_cycle_overlap_denied (__main__.DocumentSpanTests.test_invalid_bounds_duplicate_cycle_overlap_denied) ... ok
+test_nested_intro_and_outro_preserved_without_duplicates (__main__.DocumentSpanTests.test_nested_intro_and_outro_preserved_without_duplicates) ... ok
+test_oversized_section_split_retains_exact_text (__main__.DocumentSpanTests.test_oversized_section_split_retains_exact_text) ... ok
+test_unicode_offsets_and_exact_sha256 (__main__.DocumentSpanTests.test_unicode_offsets_and_exact_sha256) ... ok
+test_migration_outer_sql_and_plpgsql_parse (__main__.PostgreSQLSyntaxTests.test_migration_outer_sql_and_plpgsql_parse) ... ok
+test_runtime_fixture_syntax_and_rollback (__main__.PostgreSQLSyntaxTests.test_runtime_fixture_syntax_and_rollback) ... ok
+test_sql_function_bodies_parse (__main__.PostgreSQLSyntaxTests.test_sql_function_bodies_parse) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.217s
+
+OK

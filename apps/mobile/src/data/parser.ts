@@ -13,7 +13,8 @@ export function validateSaved(value: SavedState): SavedState {
   if (value.startTime !== null && (typeof value.startTime !== 'string' || !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(value.startTime))) throw new Error('Invalid local start time');
   return { placeIds: [...value.placeIds], itinerary: value.itinerary.map(s => ({ ...s })), startTime: value.startTime };
 }
-export type FactRow = { fact_id?:string; entity_id: string; kind: string; parent_id: string | null; property: string; value_json: string | null; knowledge: string; source_id: string; license: string; attribution: string; observed_at: string; verified_at: string; locator: string; verification_method?:string; };
+export type FactRow = { fact_id?:string; snapshot_id?:string; raw_sha256?:string; evidence_id?:string; entity_id: string; kind: string; parent_id: string | null; property: string; value_json: string | null; knowledge: string; source_id: string; license: string; attribution: string; observed_at: string; verified_at: string; locator: string; verification_method?:string; };
+function sourceCitation(r:FactRow):Citation {return {sourceId:r.source_id,label:r.attribution,license:r.license,observedAt:r.observed_at,verifiedAt:r.verified_at,status:'approved',factId:r.fact_id,snapshotId:r.snapshot_id,rawSha256:r.raw_sha256,evidenceId:r.evidence_id,locator:r.locator,verificationMethod:r.verification_method};}
 export type EntranceLink={place_id:string;entrance_id:string;access_fact_id:string};
 export type TransitLink={route_id:string;shape_fact_id:string;calendar_fact_id:string;sequence:number;stop_id:string;sequence_fact_id:string};
 function coordinate(value: unknown): Coordinate | null {
@@ -32,14 +33,15 @@ export function parsePlaces(input: FactRow[], links:EntranceLink[]=[]): Place[] 
     if (!e) { e={kind:r.kind,parent:r.parent_id,facts:new Map()}; entities.set(r.entity_id,e); }
     // SQL excludes property conflicts; aliases intentionally have multiple supported values.
     const key=r.property === 'alias' ? `alias:${r.value_json}` : r.property;
-    if (!e.facts.has(key)) e.facts.set(key,{value,citation:{sourceId:r.source_id,label:r.attribution,license:r.license,observedAt:r.observed_at,verifiedAt:r.verified_at,status:'approved'}});
+    if (!e.facts.has(key)) e.facts.set(key,{value,citation:sourceCitation(r)});
   }
   const result: Place[]=[];
   for (const [id,e] of entities) {
     if (e.kind !== 'place') continue;
     const name=e.facts.get('name')?.value; if (typeof name !== 'string' || !name.trim()) continue;
-    const building=e.parent ? entities.get(e.parent)?.facts.get('name')?.value : undefined;
-    const place: Place={id,name,category:typeof e.facts.get('category')?.value === 'string' ? e.facts.get('category')!.value as string : 'unknown',coordinate:coordinate(e.facts.get('coordinate')?.value),aliases:[...e.facts.entries()].filter(([k,v])=>k.startsWith('alias:') && typeof v.value==='string').map(([,v])=>v.value as string),entrances:[],citations:[...e.facts.values()].map(f=>f.citation).filter((c,i,a)=>a.findIndex(x=>x.sourceId===c.sourceId && x.observedAt===c.observedAt)===i),status:'approved',menus:[]};
+    const parent=e.parent ? entities.get(e.parent) : undefined;
+    const building=parent?.kind==='building' && e.facts.get('building')?.value===e.parent ? parent.facts.get('name')?.value : undefined;
+    const place: Place={id,name,category:typeof e.facts.get('category')?.value === 'string' ? e.facts.get('category')!.value as string : 'unknown',coordinate:coordinate(e.facts.get('coordinate')?.value),aliases:[...e.facts.entries()].filter(([k,v])=>k.startsWith('alias:') && typeof v.value==='string').map(([,v])=>v.value as string),entrances:[],citations:[...e.facts.values()].map(f=>f.citation),status:'approved',menus:[]};
     if (typeof building==='string') place.building=building;
     const floor=e.facts.get('floor')?.value; if (typeof floor==='string') place.floor=floor;
     for(const link of links.filter(l=>l.place_id===id)){
@@ -53,11 +55,24 @@ export function parsePlaces(input: FactRow[], links:EntranceLink[]=[]): Place[] 
       place.citations.push(...[...entrance.facts.values()].map(f=>f.citation));
     }
     for (const [itemId,item] of entities) {
-      if (item.kind !== 'menu_item' || !item.parent || entities.get(item.parent)?.parent !== id) continue;
+      if (item.kind !== 'menu_item' || !item.parent) continue;
+      const parentMenu=entities.get(item.parent);
+      const menuName=parentMenu?.facts.get('name')?.value;
+      if (parentMenu?.kind!=='menu' || parentMenu.parent!==id || typeof menuName!=='string' || !menuName.trim()
+        || parentMenu.facts.get('place')?.value!==id || item.facts.get('menu')?.value!==item.parent) continue;
       const n=item.facts.get('name'); if (!n || typeof n.value!=='string') continue;
-      const menu: Place['menus'][number]={id:itemId,name:n.value,citation:n.citation};
+      const menu: Place['menus'][number]={id:itemId,name:n.value,citation:n.citation,relationshipCitations:[parentMenu.facts.get('place')!.citation,item.facts.get('menu')!.citation]};
       const price=item.facts.get('price');
-      if (price && typeof price.value==='object' && price.value!==null) { const p=price.value as {amount?:unknown;currency?:unknown}; if ((typeof p.amount==='string' || typeof p.amount==='number') && typeof p.currency==='string') { menu.price=`${p.currency} ${p.amount}`; menu.checkedAt=price.citation.verifiedAt ?? undefined; } }
+      if (price && typeof price.value==='object' && price.value!==null) {
+        const p=price.value as {amount?:unknown;currency?:unknown};
+        const amount=typeof p.amount==='string'||typeof p.amount==='number'?String(p.amount):'';
+        if (/^\d{1,12}(?:\.\d{1,2})?$/.test(amount)&&typeof p.currency==='string'&&/^[A-Z]{3}$/.test(p.currency)) {
+          menu.price=`${p.currency} ${amount}`; menu.priceValue={amount,currency:p.currency}; menu.checkedAt=price.citation.verifiedAt ?? undefined;menu.priceCitation=price.citation;
+        }
+      }
+      const tag=item.facts.get('tag')?.value;
+      if(typeof tag==='string')menu.tags=[tag];else if(Array.isArray(tag)&&tag.every(t=>typeof t==='string'))menu.tags=[...tag];
+      if(menu.tags)menu.tagCitation=item.facts.get('tag')!.citation;
       place.menus.push(menu);
       place.citations.push(n.citation);if(price)place.citations.push(price.citation);
     }
@@ -69,7 +84,7 @@ export function parseTransit(facts:FactRow[],links:TransitLink[]):TransitRoute[]
   const asserted=(id:string)=>facts.find(f=>f.fact_id===id&&f.knowledge==='asserted');
   const get=(subject:string,prop:string)=>facts.find(f=>f.entity_id===subject&&f.property===prop&&f.knowledge==='asserted');
   const value=(f:FactRow|undefined):unknown=>{try{return f?.value_json?JSON.parse(f.value_json):null;}catch{return null;}};
-  const citation=(f:FactRow):Citation=>({sourceId:f.source_id,label:f.attribution,license:f.license,observedAt:f.observed_at,verifiedAt:f.verified_at,status:'approved'});
+  const citation=sourceCitation;
   const result:TransitRoute[]=[];
   for(const routeId of new Set(links.map(l=>l.route_id))){
     const routeLinks=links.filter(l=>l.route_id===routeId).sort((a,b)=>a.sequence-b.sequence);

@@ -1,0 +1,5424 @@
+{
+  "format_version": 1,
+  "status": "PROVISIONAL",
+  "canonical_migration_versions": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "logical_domains": [
+    {
+      "logical_domain": "service_area",
+      "canonical_object": "omni.service_area",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "geographic_feature",
+      "canonical_object": "omni.geographic_feature",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "building",
+      "canonical_object": "omni.building",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "building_complex",
+      "canonical_object": "omni.building_complex",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "building_floor",
+      "canonical_object": "omni.building_floor",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "premises_unit",
+      "canonical_object": "omni.premises_unit",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "entrance",
+      "canonical_object": "omni.entrance",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "accessibility_feature",
+      "canonical_object": "omni.accessibility_feature",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "pedestrian_node",
+      "canonical_object": "omni.pedestrian_node",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "pedestrian_edge",
+      "canonical_object": "omni.pedestrian_edge",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "crossing",
+      "canonical_object": "omni.crossing",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transport_stop_location",
+      "canonical_object": "omni.transport_stop_location",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "organization",
+      "canonical_object": "omni.organization",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "brand",
+      "canonical_object": "omni.brand",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "business_branch",
+      "canonical_object": "omni.business_branch",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "place",
+      "canonical_object": "omni.place",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "place_category",
+      "canonical_object": "omni.place_category",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "place_category_assignment",
+      "canonical_object": "omni.place_category_assignment",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "branch_occupancy",
+      "canonical_object": "omni.branch_occupancy",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "place_alias",
+      "canonical_object": "omni.place_alias",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "place_contact",
+      "canonical_object": "omni.place_contact",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "opening_hours",
+      "canonical_object": "omni.opening_hours",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "opening_hours_exception",
+      "canonical_object": "omni.opening_hours_exception",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "place_service",
+      "canonical_object": "omni.place_service",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "place_amenity",
+      "canonical_object": "omni.place_amenity",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu",
+      "canonical_object": "omni.menu",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu_section",
+      "canonical_object": "omni.menu_section",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu_item",
+      "canonical_object": "omni.menu_item",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu_variant",
+      "canonical_object": "omni.menu_variant",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu_modifier",
+      "canonical_object": "omni.menu_modifier",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu_price",
+      "canonical_object": "omni.menu_price",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu_dietary_attribute",
+      "canonical_object": "omni.menu_dietary_attribute",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "menu_allergen_claim",
+      "canonical_object": "omni.menu_allergen_claim",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "branch_menu_assignment",
+      "canonical_object": "omni.branch_menu_assignment",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_agency",
+      "canonical_object": "omni.transit_agency",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_route",
+      "canonical_object": "omni.transit_route",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_route_variant",
+      "canonical_object": "omni.transit_route_variant",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_stop",
+      "canonical_object": "omni.transit_stop",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_stop_sequence",
+      "canonical_object": "omni.transit_stop_sequence",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_service_calendar",
+      "canonical_object": "omni.transit_service_calendar",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_fare",
+      "canonical_object": "omni.transit_fare",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "transit_transfer",
+      "canonical_object": "omni.transit_transfer",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "source",
+      "canonical_object": "omni.source",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "source_snapshot",
+      "canonical_object": "omni.source_snapshot",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "acquisition_run",
+      "canonical_object": "omni.acquisition_run",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "fact",
+      "canonical_object": "omni.fact",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "fact_evidence",
+      "canonical_object": "omni.fact_evidence",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "fact_history",
+      "canonical_object": "omni.fact_history",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "verification_record",
+      "canonical_object": "omni.verification_record",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "license_permission",
+      "canonical_object": "omni.license_permission",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "source_attribution",
+      "canonical_object": "omni.source_attribution",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "identity_candidate",
+      "canonical_object": "omni.identity_candidate",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "identity_resolution",
+      "canonical_object": "omni.identity_resolution",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "review_decision",
+      "canonical_object": "omni.review_decision",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "publication_batch",
+      "canonical_object": "omni.publication_batch",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "dataset_version",
+      "canonical_object": "omni.dataset_version",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "export_manifest",
+      "canonical_object": "omni.export_manifest",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "knowledge_document",
+      "canonical_object": "omni.knowledge_document",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "document_section",
+      "canonical_object": "omni.document_section",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "retrieval_passage",
+      "canonical_object": "omni.retrieval_passage",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "document_entity_link",
+      "canonical_object": "omni.document_entity_link",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "retrieval_eligibility",
+      "canonical_object": "omni.retrieval_eligibility",
+      "object_type": "view",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    },
+    {
+      "logical_domain": "retrieval_evaluation_case",
+      "canonical_object": "omni.retrieval_evaluation_case",
+      "object_type": "table",
+      "runtime_status": "NOT_RUN",
+      "public_access": "denied; use reviewed publication projection"
+    }
+  ],
+  "entity_id_type": "immutable UUID; preserves accepted M1 IDs",
+  "temporal_type": "timestamptz; explicit UTC as-of query",
+  "fact_value_type": "jsonb with typed domain projections and subject/property guards",
+  "geographic_exchange": "EPSG:4326 longitude,latitude; SRID enforced; source transformation independently verified",
+  "document_offsets": "Unicode code points; immutable extracted text UTF-8 SHA256",
+  "schema_objects": [
+    {
+      "object": "omni.entity",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "review",
+          "sql_type": "review_state",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "location_quality",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "recorded_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "object": "omni.source",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "source_id",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "owner",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "source_url_or_document",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "source_kind",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "category",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "data_license",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "redistribution_allowed",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "images_allowed",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "menu_text_allowed",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "document_text_allowed",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "attribution_text",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "jurisdiction",
+          "sql_type": "text",
+          "constraints": []
+        },
+        {
+          "name": "retention_terms",
+          "sql_type": "text",
+          "constraints": []
+        },
+        {
+          "name": "consent_reference",
+          "sql_type": "text",
+          "constraints": []
+        },
+        {
+          "name": "reviewer",
+          "sql_type": "text",
+          "constraints": []
+        },
+        {
+          "name": "review_timestamp",
+          "sql_type": "timestamptz",
+          "constraints": []
+        },
+        {
+          "name": "review_status",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "object": "omni.source_snapshot",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "source_id",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "source_version",
+          "sql_type": "text",
+          "constraints": []
+        },
+        {
+          "name": "data_extract_version",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "raw_sha256",
+          "sql_type": "sha256_hex",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "retained_relative_path",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "fetched_at_utc",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "source_published_at",
+          "sql_type": "timestamptz",
+          "constraints": []
+        },
+        {
+          "name": "source_crs",
+          "sql_type": "text",
+          "constraints": []
+        },
+        {
+          "name": "valid_until",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "source",
+          "target_columns": [
+            "source_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.acquisition_run",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "source_id",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "snapshot_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "idempotency_key",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "started_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "finished_at",
+          "sql_type": "timestamptz",
+          "constraints": []
+        },
+        {
+          "name": "state",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "tool_version",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "diagnostics",
+          "sql_type": "jsonb",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "source",
+          "target_columns": [
+            "source_id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "source_snapshot",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.source_use_policy",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "source_id",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "raw_sha256",
+          "sql_type": "sha256_hex",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "permitted_use",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "offline_cache_allowed",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "policy_evidence",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "valid_until",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "reviewed_at_utc",
+          "sql_type": "timestamptz",
+          "constraints": []
+        },
+        {
+          "name": "license_obligations_satisfied",
+          "sql_type": "boolean",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "human_rights_review",
+          "sql_type": "boolean",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "parent_engineering_review",
+          "sql_type": "boolean",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "user_distribution_authorized",
+          "sql_type": "boolean",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "snapshot_id",
+            "source_id",
+            "raw_sha256"
+          ],
+          "references": "source_snapshot",
+          "target_columns": [
+            "id",
+            "source_id",
+            "raw_sha256"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.evidence",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "snapshot_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "locator",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "observed_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "valid_until",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "review",
+          "sql_type": "review_state",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "reviewer",
+          "sql_type": "text",
+          "constraints": []
+        },
+        {
+          "name": "verified_at",
+          "sql_type": "timestamptz",
+          "constraints": []
+        },
+        {
+          "name": "verification_method",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "confidence_reason",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "source_snapshot",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.fact",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "subject_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "property",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "knowledge",
+          "sql_type": "knowledge_state",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "value_json",
+          "sql_type": "jsonb",
+          "constraints": []
+        },
+        {
+          "name": "review",
+          "sql_type": "review_state",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "freshness",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "valid_from",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "valid_until",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "recorded_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.fact_evidence",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "evidence_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "role",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "evidence",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.fact_history",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "old_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "new_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "recorded_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "actor",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "reason",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.external_reference",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "entity_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "source_id",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "external_id",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "source",
+          "target_columns": [
+            "source_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.review_decision",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "subject_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "actor",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "decision",
+          "sql_type": "review_state",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "reason",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "evidence_ids",
+          "sql_type": "uuid[]",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "recorded_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.review_queue",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "subject_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "reason",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "status",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "resolution_decision_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "review_decision",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.identity_candidate",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "left_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "right_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "score",
+          "sql_type": "numeric",
+          "constraints": [
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "signals",
+          "sql_type": "jsonb",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.identity_resolution",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "candidate_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "decision",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "review_decision_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "identity_candidate",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "review_decision",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.audit_event",
+      "type": "table",
+      "migration": "001_governance.sql",
+      "columns": [
+        {
+          "name": "sequence",
+          "sql_type": "bigint",
+          "constraints": [
+            "CONSTR_IDENTITY",
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "table_name",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "action",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "actor",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "happened_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "before_json",
+          "sql_type": "jsonb",
+          "constraints": []
+        },
+        {
+          "name": "after_json",
+          "sql_type": "jsonb",
+          "constraints": []
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "object": "omni.service_area",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "boundary_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "authority",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.zone",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "service_area_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "service_area",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.building_complex",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.building",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "zone_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "complex_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "zone",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "building_complex",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.building_wing",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "building_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "building",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.floor",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "building_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "wing_id",
+          "sql_type": "uuid",
+          "constraints": []
+        },
+        {
+          "name": "label",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "building",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "wing_id",
+            "building_id"
+          ],
+          "references": "building_wing",
+          "target_columns": [
+            "id",
+            "building_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.building_floor",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.premises_unit",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "building_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "floor_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "label",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "building",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "floor_id",
+            "building_id"
+          ],
+          "references": "floor",
+          "target_columns": [
+            "id",
+            "building_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.organization",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.business",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "organization_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "identity_role",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "organization",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.brand",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.place",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "business_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "branch_role",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "business",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.business_branch",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.branch_occupancy",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "building_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "floor_id",
+          "sql_type": "uuid",
+          "constraints": []
+        },
+        {
+          "name": "unit_id",
+          "sql_type": "uuid",
+          "constraints": []
+        },
+        {
+          "name": "occupancy_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "valid_from",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "valid_until",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "building",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "floor_id",
+            "building_id"
+          ],
+          "references": "floor",
+          "target_columns": [
+            "id",
+            "building_id"
+          ]
+        },
+        {
+          "columns": [
+            "unit_id",
+            "building_id",
+            "floor_id"
+          ],
+          "references": "premises_unit",
+          "target_columns": [
+            "id",
+            "building_id",
+            "floor_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.entrance",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "building_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "floor_id",
+          "sql_type": "uuid",
+          "constraints": []
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "building",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "floor_id",
+            "building_id"
+          ],
+          "references": "floor",
+          "target_columns": [
+            "id",
+            "building_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.place_entrance",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "entrance_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "access_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entrance",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.geographic_feature",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "feature_type",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "zone_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "zone",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.geometry_claim",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "entity_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "geom",
+          "sql_type": "geometry(geometry, 4326)",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "source_crs",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "transformation",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.point_geometry",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "coordinate_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "entity_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "geom",
+          "sql_type": "geometry(point, 4326)",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "source_crs",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "transformation",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.accessibility_feature",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "entrance_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "feature_type",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "access_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entrance",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.category",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "label",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "parent_code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "taxonomy_version",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "review",
+          "sql_type": "review_state",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "category",
+          "target_columns": [
+            "code"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.place_category",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "category_code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "category",
+          "target_columns": [
+            "code"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.place_category_assignment",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.place_alias",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "alias_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.place_contact",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "contact_type",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.operating_hours",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "weekday",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "hours_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.opening_hours",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.holiday_exception",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "local_date",
+          "sql_type": "date",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "hours_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.opening_hours_exception",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.place_service",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "service_code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.place_amenity",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "amenity_code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.public_facility",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "facility_type",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "category",
+          "target_columns": [
+            "code"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.branch_menu_assignment",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "menu_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "assignment_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "menu",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_section",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "menu_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "sequence",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "menu",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_item",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_item_assignment",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "menu_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "item_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "section_id",
+          "sql_type": "uuid",
+          "constraints": []
+        },
+        {
+          "name": "assignment_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "menu",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "menu_item",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "section_id",
+            "menu_id"
+          ],
+          "references": "menu_section",
+          "target_columns": [
+            "id",
+            "menu_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_variant",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "item_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "menu_item",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_modifier",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "item_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "menu_item",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_price",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "place_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "menu_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "item_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "variant_id",
+          "sql_type": "uuid",
+          "constraints": []
+        },
+        {
+          "name": "amount_minor",
+          "sql_type": "bigint",
+          "constraints": [
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "currency",
+          "sql_type": "char(3)",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "knowledge",
+          "sql_type": "knowledge_state",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "place",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "menu",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "menu_item",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "variant_id",
+            "item_id"
+          ],
+          "references": "menu_variant",
+          "target_columns": [
+            "id",
+            "item_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_dietary_attribute",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "item_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "attribute_code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "menu_item",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.menu_allergen_claim",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "item_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "allergen_code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "menu_item",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_agency",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_route",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "agency_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_agency",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_route_variant",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "route_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "pattern_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_route",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_stop",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "zone_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "zone",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transport_stop_location",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "stop_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "coordinate_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "entrance_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "transit_stop",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "point_geometry",
+          "target_columns": [
+            "coordinate_fact_id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entrance",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_stop_sequence",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "variant_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "sequence",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "stop_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "transit_route_variant",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_stop",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_service_calendar",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "starts_on",
+          "sql_type": "date",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "ends_on",
+          "sql_type": "date",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "weekdays",
+          "sql_type": "boolean[]",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "calendar_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_trip",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "variant_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "calendar_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_route_variant",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_service_calendar",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_stop_time",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "trip_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "sequence",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "stop_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "arrival_seconds",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "departure_seconds",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "transit_trip",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_stop",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_fare",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "route_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "amount_minor",
+          "sql_type": "bigint",
+          "constraints": [
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "currency",
+          "sql_type": "char(3)",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "fare_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_route",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.transit_transfer",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "from_stop_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "to_stop_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "minimum_seconds",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "transit_stop",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "transit_stop",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.route_node",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "entrance_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "coordinate_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "level_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entrance",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "point_geometry",
+          "target_columns": [
+            "coordinate_fact_id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.pedestrian_node",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.route_edge",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "from_node_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "to_node_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "geometry_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "length_m",
+          "sql_type": "numeric",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "length_crs",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "topology_review",
+          "sql_type": "review_state",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "public_access_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "route_node",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "route_node",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "geometry_claim",
+          "target_columns": [
+            "fact_id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.pedestrian_edge",
+      "type": "view",
+      "migration": "002_domains.sql"
+    },
+    {
+      "object": "omni.route_access_restriction",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "edge_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "restriction_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "route_edge",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.crossing",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "edge_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "crossing_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "route_edge",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.knowledge_document",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "kind",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "snapshot_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "locator",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "title_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "content_sha256",
+          "sql_type": "sha256_hex",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "extracted_text",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "extraction_tool_version",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "language_code",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "document_version",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "text_length",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "observed_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "valid_until",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [
+            "id",
+            "kind"
+          ],
+          "references": "entity",
+          "target_columns": [
+            "id",
+            "kind"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "source_snapshot",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.document_section",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "document_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "parent_id",
+          "sql_type": "uuid",
+          "constraints": []
+        },
+        {
+          "name": "ordinal",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "heading",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "start_offset",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "end_offset",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "knowledge_document",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "parent_id",
+            "document_id"
+          ],
+          "references": "document_section",
+          "target_columns": [
+            "id",
+            "document_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.retrieval_passage",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "document_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "section_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "start_offset",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "end_offset",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "body",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "citation_id",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_UNIQUE"
+          ]
+        },
+        {
+          "name": "evidence_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "content_sha256",
+          "sql_type": "sha256_hex",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "review",
+          "sql_type": "review_state",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "knowledge_document",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "evidence",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [
+            "section_id",
+            "document_id"
+          ],
+          "references": "document_section",
+          "target_columns": [
+            "id",
+            "document_id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.document_entity_link",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "document_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "entity_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "link_fact_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "knowledge_document",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "entity",
+          "target_columns": [
+            "id"
+          ]
+        },
+        {
+          "columns": [],
+          "references": "fact",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.retrieval_evaluation_case",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "query",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "filters",
+          "sql_type": "jsonb",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "expected_entity_ids",
+          "sql_type": "uuid[]",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "expected_citation_ids",
+          "sql_type": "text[]",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        },
+        {
+          "name": "assertion",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "synthetic",
+          "sql_type": "boolean",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT"
+          ]
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "object": "omni.publication_batch",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "as_of_utc",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "actor",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "state",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "rights_manifest_sha256",
+          "sql_type": "sha256_hex",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "review_reference",
+          "sql_type": "meaningful_text",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "object": "omni.dataset_version",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "publication_batch_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "schema_version",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "api_version",
+          "sql_type": "integer",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "created_at",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "valid_until",
+          "sql_type": "timestamptz",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "publication_batch",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.export_manifest",
+      "type": "table",
+      "migration": "002_domains.sql",
+      "columns": [
+        {
+          "name": "dataset_version_id",
+          "sql_type": "uuid",
+          "constraints": [
+            "CONSTR_PRIMARY",
+            "CONSTR_FOREIGN"
+          ]
+        },
+        {
+          "name": "file_sha256",
+          "sql_type": "sha256_hex",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "size_bytes",
+          "sql_type": "bigint",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "counts",
+          "sql_type": "jsonb",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        },
+        {
+          "name": "license_bundle",
+          "sql_type": "jsonb",
+          "constraints": [
+            "CONSTR_NOTNULL"
+          ]
+        }
+      ],
+      "foreign_keys": [
+        {
+          "columns": [],
+          "references": "dataset_version",
+          "target_columns": [
+            "id"
+          ]
+        }
+      ]
+    },
+    {
+      "object": "omni.property_policy",
+      "type": "table",
+      "migration": "003_publication.sql",
+      "columns": [
+        {
+          "name": "property",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_PRIMARY"
+          ]
+        },
+        {
+          "name": "permitted_use",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "value_type",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_CHECK"
+          ]
+        },
+        {
+          "name": "cardinality",
+          "sql_type": "text",
+          "constraints": [
+            "CONSTR_NOTNULL",
+            "CONSTR_DEFAULT",
+            "CONSTR_CHECK"
+          ]
+        }
+      ],
+      "foreign_keys": []
+    },
+    {
+      "object": "omni.verification_record",
+      "type": "view",
+      "migration": "003_publication.sql"
+    },
+    {
+      "object": "omni.license_permission",
+      "type": "view",
+      "migration": "003_publication.sql"
+    },
+    {
+      "object": "omni.source_attribution",
+      "type": "view",
+      "migration": "003_publication.sql"
+    },
+    {
+      "object": "omni.retrieval_eligibility",
+      "type": "view",
+      "migration": "003_publication.sql"
+    }
+  ]
+}

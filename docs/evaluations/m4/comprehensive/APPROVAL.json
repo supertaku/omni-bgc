@@ -1,0 +1,93 @@
+{
+  "recorded_at_utc": "2026-10-10T07:56:30.818004+00:00",
+  "reviewer": "parent engineering/GIS/data/mobile/QA reviewer",
+  "decision": "ACCEPT_BOUNDED_ENGINEERING_AND_INTERNAL_RESEARCH_ONLY",
+  "branch": "codex/m1-m14",
+  "baseline_head": "f77a5f0305984a3db8b4f462ac3ddbab7081aac4",
+  "decision_ids": [
+    "DEC-040",
+    "DEC-041",
+    "DEC-042"
+  ],
+  "scope": [
+    "locally authored research bibliography and unknown-rights pointers",
+    "exact approved historical-envelope discovery, no district/legal/currentness inference",
+    "portable permitted format capture and tested local proposal builder/readers",
+    "additive provisional canonical schema/runner/documents with grammar checks",
+    "native source changes accepted for host-test scope only"
+  ],
+  "gates": {
+    "research_completeness": "PARTIAL",
+    "architectural_correctness": "PARTIAL",
+    "acquisition_correctness": "PARTIAL",
+    "publication_correctness": "BLOCKED",
+    "application_integration": "BLOCKED"
+  },
+  "observations": {
+    "data_source_leads": 44,
+    "web_candidate_pointers": 80,
+    "historical_osm_candidate_source_objects": 20103,
+    "empty_zone_category_pointer_cells": 219,
+    "real_approved_records": 0,
+    "real_exported_records": 0,
+    "navigation_eligible_edges": 0,
+    "coverage_denominator": null,
+    "consolidated_passed_cases": 241,
+    "portable_optional_skips": 1,
+    "separate_historical_gis_cases_passed": 16,
+    "strict_package_typecheck_exit": 0
+  },
+  "independent_reviews": [
+    "geography/CANONICAL_INDEPENDENT_REVIEW.md",
+    "business/SOFTWARE_REVIEW.md"
+  ],
+  "native_runtime": "NOT_RUN_NO_CONNECTED_ANDROID_DEVICE",
+  "canonical_runtime": "NOT_RUN_PSQL_UNAVAILABLE",
+  "unchanged_accepted_interfaces": [
+    {
+      "path": "docs/data-source-register/source-register.csv",
+      "sha256": "7f30d7abb357ceec819e2b816bb962d76032d517460101763b657526c694d2a6",
+      "unchanged_from_HEAD": true
+    },
+    {
+      "path": "packages/database/migrations/staging/001_initial.up.sql",
+      "sha256": "8c87388d05975d17838d0cf42573b8033a65707cf456aec625229b22ded9b666",
+      "unchanged_from_HEAD": true
+    },
+    {
+      "path": "packages/database/migrations/mobile/001_initial.up.sql",
+      "sha256": "ba4d9cd7fc58751cce829140b393d62505aa4c4bf2cc57a64ef391a2e177623a",
+      "unchanged_from_HEAD": true
+    },
+    {
+      "path": "packages/database/migrations/mobile/002_local_state.up.sql",
+      "sha256": "39a4d66a9cccebdc47ff99867cddd1d5ed85286cae83b61f13f0ea3c5e0aca0f",
+      "unchanged_from_HEAD": true
+    },
+    {
+      "path": "packages/database/migrations/mobile/003_read_projection.up.sql",
+      "sha256": "726fbcf36777fc610a70aa4938bad31ce6f088917b18c3bbc2272a945b828604",
+      "unchanged_from_HEAD": true
+    },
+    {
+      "path": "packages/database/export_mobile.py",
+      "sha256": "7d3a4dc78c26968b67d74463e7e08e707d7925697d8c44c198b3f3bd8cacfa54",
+      "unchanged_from_HEAD": true
+    },
+    {
+      "path": "data/manifests/offline-pilot-inventory.json",
+      "sha256": "2fa53a5bd54425bad58b86d592fd69baf687ac048a982e3e1e7489ed96cae808",
+      "unchanged_from_HEAD": true
+    }
+  ],
+  "publication_authorized": false,
+  "source_rights_granted": false,
+  "canonical_operational_replacement_accepted": false,
+  "main_merge_or_commit_performed": false,
+  "known_limits": [
+    "incomplete dedicated category/zone searches and unknown census",
+    "no real merchant/operator/official boundary acquisition",
+    "canonical bridge/roles/recovery and typed operational payload validators incomplete",
+    "real facts/rights/field topology/native lifecycle and security gates open"
+  ]
+}

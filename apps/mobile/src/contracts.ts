@@ -1,8 +1,9 @@
 export type Coordinate = readonly [longitude: number, latitude: number];
 export type Origin = { coordinate: Coordinate; method: 'manual' | 'gps' | 'landmark'; confirmed: boolean; accuracyM?: number; observedAt?: string };
-export type Citation = { sourceId: string; label: string; license: string; observedAt: string; verifiedAt: string | null; status: 'approved' | 'candidate' | 'stale' };
+export type Citation = { sourceId: string; label: string; license: string; observedAt: string; verifiedAt: string | null; status: 'approved' | 'candidate' | 'stale'; factId?: string; snapshotId?: string; rawSha256?: string; evidenceId?: string; locator?: string; verificationMethod?: string };
 export type Entrance = { id: string; label: string; coordinate: Coordinate | null; eligible: boolean; reason?: string; floor?: string };
-export type Place = { id: string; name: string; category: string; coordinate: Coordinate | null; building?: string; floor?: string; aliases: string[]; entrances: Entrance[]; citations: Citation[]; status: 'approved' | 'candidate' | 'stale'; menus: { id: string; name: string; price?: string; checkedAt?: string; allergens?: string[]; citation: Citation }[] };
+export type MenuItem = { id: string; name: string; price?: string; priceValue?: { amount: string; currency: string }; checkedAt?: string; tags?: string[]; allergens?: string[]; citation: Citation; priceCitation?: Citation; tagCitation?: Citation; relationshipCitations?: Citation[] };
+export type Place = { id: string; name: string; category: string; coordinate: Coordinate | null; building?: string; floor?: string; aliases: string[]; entrances: Entrance[]; citations: Citation[]; status: 'approved' | 'candidate' | 'stale'; menus: MenuItem[] };
 export type TransitRoute = { id: string; name: string; stops: { id: string; name: string; coordinate: Coordinate; citation: Citation; citations?: Citation[] }[]; shape: Coordinate[]; operatingTimes?: string; citation: Citation; citations?: Citation[] };
 export type SavedState = { placeIds: string[]; itinerary: { placeId: string; durationMinutes: number }[]; startTime: string | null };
 export type RouteResult = { available: false; reason: string } | { available: true; coordinates: Coordinate[]; lengthM: number; instructions: string[]; graphVersion: string };

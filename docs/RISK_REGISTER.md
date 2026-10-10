@@ -22,3 +22,18 @@ M0 history is preserved. Engineering acceptance does not approve production or p
 | P-R16 | Build defect reproduced:261character Ninja transform path; cache shortened within workspace to249equivalent; generated CMake caches archived | Retain failed/retry/resumed logs and verify final APK; no global system/source changes |
 
 Production remains unaccepted while security, native lifecycle, field correctness, source permissions or coverage are open. See `milestone-handoffs/PRE_AI_ENGINEERING.md` and `evaluations/program/STATUS.md`.
+
+M4 comprehensive supplement (2026-10-10): previous pilot counts/history remain
+historical. Current discovery is44sourceleads/80webpointers plus20,103historical
+OSM sourceobjects; these overlap and are not a census. Approved/exported/safe
+graph counts remain0. Current requested Android validation supersedes the prior
+skip for this assignment, but ADB now reports0attacheddevices: NOT_RUN_NO_DEVICE.
+
+| ID | Current M4 status / risk | Closure gate |
+|---|---|---|
+| M4-R01 | PARTIAL:219zone/category cells without a webpointer; district boundary and denominator unknown | Dedicated searches, authorized authoritative polygons, independent tenant/street/building inventories and field evidence |
+| M4-R02 | BLOCKED:44websources have unresolved data/content rights; no real merchant/operator acquisition | Source/snapshot/use-bound grants and retained permission bytes, human review, no contact/payment without user authorization |
+| M4-R03 | PARTIAL:4canonical migrations/parser tests pass; PostgreSQL/PostGISruntime absent; bridge/roles/recovery unimplemented | Execute live constraints/idempotency/privileges and backup/restore, implement exact audited SQLite bridge |
+| M4-R04 | PARTIAL:host reference details/search/proximity scale optimized; native/full-menu scans unmeasured | Current-device volume/FTS/citations/expiry/offline-update/lifecycle/memory/power tests and pagination/SQL profiling |
+| M4-R05 | QUARANTINED:old entity checksum remains unexplained; historic raw not current truth | Owner source/regeneration explanation or reviewed fresh source; never rewrite mismatch or infer safe routes |
+| M4-R06 | INTERNAL PROPOSALS ONLY:retained fact/evidence membership gated; catalogue empty | Real reviewed export, rights/notice inspection, current field QA and concrete distribution authorization |

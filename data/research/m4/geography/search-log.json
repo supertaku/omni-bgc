@@ -1,0 +1,23 @@
+{
+  "checked_on": "2026-10-10",
+  "method": "Targeted primary-source web search and individual metadata/document inspection; no bulk acquisition",
+  "searches": [
+    {"topic":"district extent and planning zones","queries":["site.bcda.gov.ph Bonifacio Global City hectares boundary"],"result":"Official 2025 master-plan procurement search excerpt; direct PDF 403; no legal polygon obtained"},
+    {"topic":"permanent parks, buildings and public amenities","queries":["site.bgc.com.ph BGC bus routes map parking parks","site.bgc.com.ph Greenway","site.bgc.com.ph Parkade"],"result":"Official directory/FAQ and Track 30th rules; source/object and facility rights unknown"},
+    {"topic":"current static BGC transit","queries":["site.bgc.com.ph BGC Bus routes","site.bgc.com.ph GTFS","site.gov.ph GTFS Philippines static bus data"],"result":"No current official BGC GTFS discovered. Operator FAQ terminals only; older modified Sakay feed not current official data"},
+    {"topic":"public facility and accessibility context","queries":["site.themindmuseum.org accessibility wheelchair","site.stlukes.com.ph Global City emergency","site.mrt3.com Ayala station"],"result":"Official visitor/address/floor/rail context leads; no surveyed public entrance or accessibility connector"},
+    {"topic":"cycling and mobility","queries":["site.taguig.gov.ph BGC cycling park pedestrian facilities","site.taguig.gov.ph bike 108"],"result":"No usable official current BGC-specific rack/repair-station dataset found; unofficial city-wide counts excluded"},
+    {"topic":"government GIS","queries":["site.namria.gov.ph Geoportal Philippines data license","site.geoportal.gov.ph download restrictions","site.geoportal.gov.ph terms"],"result":"NAMRIA portal/user-manual leads; layer-specific license/CRS/download eligibility unknown; no account/application submitted"},
+    {"topic":"rights discovery","queries":["site.bgc.com.ph privacy terms","site.bgc.com.ph Terms and Conditions","site.geofabrik.de download traffic license","site.overturemaps.org buildings license"],"result":"No explicit BGC content redistribution grant located; unrelated BGC company terms excluded; Geofabrik/Overture metadata inspected only"},
+    {"topic":"technical static/offline contracts","queries":["GTFS Schedule reference","MapLibre Android PMTiles official docs"],"result":"Current official documentation read; technical standard/capability does not approve any data or native device behavior"}
+  ],
+  "failed_access": [
+    {"url":"https://bgc.com.ph/go/transportation/","outcome":"web tool internal error; abandoned guessed path"},
+    {"source_id":"geo-bcda-masterplan","outcome":"direct PDF 403; no bypass"},
+    {"path":"C:/Users/joshu/Documents/BGC","operation":"git rev-parse read-only history availability","outcome":"filesystem permission denied; historical entity cause remains unexplained"}
+  ],
+  "excluded_result_sources": ["Google Maps","Reddit","commercial commute aggregators","blogs","unrelated BGC financial company terms"],
+  "no_new_dataset_downloads": true,
+  "contacts_sent": 0,
+  "robots_or_public_visibility_treated_as_license": false
+}

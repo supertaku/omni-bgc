@@ -20,6 +20,9 @@ jobs:
       - name: Install pinned GIS test libraries
         run: python -m pip install Shapely==2.2.0 pyproj==3.7.2
 
+      - name: Install pinned PostgreSQL syntax parser
+        run: python -m pip install -r packages/database/canonical/requirements-syntax.txt
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -40,6 +43,10 @@ jobs:
           python -m unittest discover -v -s tests/data-quality/m3
           python -m unittest discover -v -s tests/routing/m3
           python -m unittest discover -v -s tests/data-quality/m4
+          python -m unittest discover -v -s tests/data-quality/research
+          python -m unittest discover -v -s tests/data-quality/research-gis
+          python -m unittest discover -v -s tests/data-quality/retrieval
+          python -m unittest discover -v -s tests/data-quality/canonical
 
       - name: Mobile database projection suite
         run: python -m unittest discover -v -s tests/data-quality/mobile
@@ -48,6 +55,7 @@ jobs:
         run: |
           node tests/data-quality/mobile/contracts.mjs
           node tests/data-quality/mobile/resume.mjs
+          node --test tests/data-quality/mobile/retrieval.mjs
           node --test tests/routing/mobile/engine.test.cjs tests/routing/mobile/loader.test.cjs
           node --test packages/ui/test/*.test.mjs
           node --test docs/evaluations/mobile-ui/test-itinerary.cjs

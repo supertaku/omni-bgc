@@ -21,6 +21,7 @@ from geometry import metric_scope,way_geometry,index_elements,position_index,geo
 from candidate import build_graph
 from governance import internal_osm_ingest_gate
 from intake import RAW,META,EXPECTED,sha
+from evidence import validate_bound_evidence
 
 def load(path):
     return json.loads(path.read_text(encoding='utf-8'))
@@ -31,15 +32,13 @@ def canonical(value):
 def validate_approval(approval,intake_path,identity_path,scope_path):
     if approval.get('parent_decision')!='ACCEPT' or approval.get('distribution_authorized') is not False or approval.get('human_rights_review') is not False:
         raise ValueError('internal_only_parent_ACCEPT_required')
-    for key,path in [('raw_sha256',RAW),('sidecar_sha256',META),('intake_review_sha256',intake_path),('engineering_identity_map_sha256',identity_path),('service_area_sha256',scope_path)]:
-        if approval.get(key)!=sha(path):
-            raise ValueError('changed_accepted_bytes:'+key)
-    if sha(RAW)!=EXPECTED:
-        raise ValueError('raw_not_exact_allowlist_snapshot')
-    meta=load(META)
-    if hashlib.sha256(meta['query'].encode('utf-8')).hexdigest()!=approval['query_sha256'] or sha(Path('C:/Users/joshu/Documents/BGC/data/geographic/bgc-working-boundary.geojson'))!=approval['prior_boundary_sha256']:
-        raise ValueError('changed_query_or_prior_boundary_metadata')
-    intake=load(intake_path)
+    intake=validate_bound_evidence(approval, {
+        'raw_sha256':RAW, 'sidecar_sha256':META,
+        'intake_review_sha256':intake_path,
+        'engineering_identity_map_sha256':identity_path,
+        'service_area_sha256':scope_path,
+        'prior_boundary_sha256':Path('C:/Users/joshu/Documents/BGC/data/geographic/bgc-working-boundary.geojson'),
+    }, EXPECTED)
     reasons=internal_osm_ingest_gate(intake['row'],approval['review'])
     if reasons:
         raise ValueError('internal_gate_denied:'+','.join(reasons))

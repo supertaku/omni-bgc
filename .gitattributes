@@ -18,6 +18,7 @@
 /docs/architecture/M2_UX_FOUNDATION.md -text
 /docs/architecture/M3_GIS_INGEST.md -text
 /docs/architecture/M4_PLACE_INTAKE.md -text
+/docs/architecture/M4_CANONICAL_DATABASE.md -text
 /apps/mobile/src/** -text
 /apps/mobile/plugins/** -text
 /apps/mobile/App.tsx -text

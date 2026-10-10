@@ -1,0 +1,2 @@
+# Optional development parser only; no runtime/server/AI dependency.
+pglast==7.10
