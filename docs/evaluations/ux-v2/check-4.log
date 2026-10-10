@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: compact map control dispatches Assistant and category callbacks without bottom tabs
+ok 1 - compact map control dispatches Assistant and category callbacks without bottom tabs
+  ---
+  duration_ms: 71.9625
+  type: 'test'
+  ...
+# Subtest: Assistant back/secondary settings preserve unsent draft, collapse suggestions and retain conversation
+ok 2 - Assistant back/secondary settings preserve unsent draft, collapse suggestions and retain conversation
+  ---
+  duration_ms: 42.6856
+  type: 'test'
+  ...
+# Subtest: Assistant results render vertical rows and canonical Map handoff; no invented distance
+ok 3 - Assistant results render vertical rows and canonical Map handoff; no invented distance
+  ---
+  duration_ms: 68.3156
+  type: 'test'
+  ...
+# Subtest: selected-place sheet exposes 140dp peek, accessible expansion and header drag stages
+ok 4 - selected-place sheet exposes 140dp peek, accessible expansion and header drag stages
+  ---
+  duration_ms: 67.9543
+  type: 'test'
+  ...
+# Subtest: search sheet cannot collapse into peek; large text and landscape keep scrollable details
+ok 5 - search sheet cannot collapse into peek; large text and landscape keep scrollable details
+  ---
+  duration_ms: 52.5547
+  type: 'test'
+  ...
+# Subtest: fictional result handoff says View sample and suppresses geographic distance
+ok 6 - fictional result handoff says View sample and suppresses geographic distance
+  ---
+  duration_ms: 43.2015
+  type: 'test'
+  ...
+# Subtest: fictional fixtures contain no routes/entrances/coordinates/ratings/allergens or verified facts
+ok 7 - fictional fixtures contain no routes/entrances/coordinates/ratings/allergens or verified facts
+  ---
+  duration_ms: 1.0915
+  type: 'test'
+  ...
+# Subtest: fixture branches/dishes have distinct stable UUIDs and participate in saved contracts
+ok 8 - fixture branches/dishes have distinct stable UUIDs and participate in saved contracts
+  ---
+  duration_ms: 1.3309
+  type: 'test'
+  ...
+# Subtest: dish/category/branch search works without adding fictional data to real merchant facts
+ok 9 - dish/category/branch search works without adding fictional data to real merchant facts
+  ---
+  duration_ms: 2.3564
+  type: 'test'
+  ...
+# Subtest: internal preview manifest binds source bytes/counts and denies factual publication
+ok 10 - internal preview manifest binds source bytes/counts and denies factual publication
+  ---
+  duration_ms: 1.9289
+  type: 'test'
+  ...
+# Subtest: in-flight startup callers share one request per stage and retry explicitly
+ok 11 - in-flight startup callers share one request per stage and retry explicitly
+  ---
+  duration_ms: 1.3348
+  type: 'test'
+  ...
+# Subtest: graph/transit failures retain directory and original saved data with stage diagnostics
+ok 12 - graph/transit failures retain directory and original saved data with stage diagnostics
+  ---
+  duration_ms: 0.4873
+  type: 'test'
+  ...
+# Subtest: storage capability failure blocks only saved read; never fabricates writable empty saved state
+ok 13 - storage capability failure blocks only saved read; never fabricates writable empty saved state
+  ---
+  duration_ms: 0.325
+  type: 'test'
+  ...
+# Subtest: saved read and offline metadata failures stay independently visible even if logging throws
+ok 14 - saved read and offline metadata failures stay independently visible even if logging throws
+  ---
+  duration_ms: 0.3997
+  type: 'test'
+  ...
+# Subtest: a safely rejected walking pack is unavailable rather than reported ready
+ok 15 - a safely rejected walking pack is unavailable rather than reported ready
+  ---
+  duration_ms: 0.3569
+  type: 'test'
+  ...
+# Subtest: production content reads remain usable when saved SQLite cannot open
+ok 16 - production content reads remain usable when saved SQLite cannot open
+  ---
+  duration_ms: 54.6048
+  type: 'test'
+  ...
+# Subtest: failed saved connection cleanup does not poison unrelated content reads
+ok 17 - failed saved connection cleanup does not poison unrelated content reads
+  ---
+  duration_ms: 34.5325
+  type: 'test'
+  ...
+# Subtest: fresh local migrations are exact and persisted preferences survive reopen
+ok 18 - fresh local migrations are exact and persisted preferences survive reopen
+  ---
+  duration_ms: 197.8251
+  type: 'test'
+  ...
+# Subtest: missing local table/settings row recover without clearing surviving favorites
+ok 19 - missing local table/settings row recover without clearing surviving favorites
+  ---
+  duration_ms: 122.5379
+  type: 'test'
+  ...
+# Subtest: unsupported version/malformed table preserve all existing saved rows
+ok 20 - unsupported version/malformed table preserve all existing saved rows
+  ---
+  duration_ms: 127.7168
+  type: 'test'
+  ...
+# Subtest: missing native RTree capability fails before any migration/write
+ok 21 - missing native RTree capability fails before any migration/write
+  ---
+  duration_ms: 0.448
+  type: 'test'
+  ...
+# Subtest: Expo native plugin includes both accepted database compile capabilities
+ok 22 - Expo native plugin includes both accepted database compile capabilities
+  ---
+  duration_ms: 0.4576
+  type: 'test'
+  ...
+# Subtest: integrity failure preserves file and skips migrations/repair
+ok 23 - integrity failure preserves file and skips migrations/repair
+  ---
+  duration_ms: 0.2913
+  type: 'test'
+  ...
+# Subtest: intentional direction and distance protect map taps and reverse swipes
+ok 24 - intentional direction and distance protect map taps and reverse swipes
+  ---
+  duration_ms: 0.7302
+  type: 'test'
+  ...
+# Subtest: velocity short swipe qualifies but vertical scroll and invalid events do not
+ok 25 - velocity short swipe qualifies but vertical scroll and invalid events do not
+  ---
+  duration_ms: 0.1526
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 905.7334

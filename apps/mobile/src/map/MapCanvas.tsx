@@ -1,17 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { AccessibilityInfo, AppState, Platform, StyleSheet, Text, View } from 'react-native';
-import { Camera, type CameraRef, GeoJSONSource, type GeoJSONSourceRef, Layer, Map, ViewAnnotation } from '@maplibre/maplibre-react-native';
+import { AccessibilityInfo, AppState, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Camera, type CameraRef, GeoJSONSource, type GeoJSONSourceRef, Layer, Map, type MapRef, ViewAnnotation } from '@maplibre/maplibre-react-native';
 import type { Coordinate, Origin, Place, RouteResult, TransitRoute } from '../contracts';
 import { loadActiveStyle } from '../updates/style';
 import { loadBundledStyle } from './bundled-style';
 import { categorySprite, coordinateBounds } from './presentation';
 
-export type MapCanvasProps = { origin?: Origin | null; places: Place[]; route?: RouteResult | null; transit?: TransitRoute | null; flat?: boolean; bottomInset?: number; rightInset?: number; draftOrigin?: boolean; focusCoordinate?: Coordinate | null; selectedPlaceId?: string | null; cameraResetKey?: number; fitCoordinates?: readonly Coordinate[] | null; onMapPress: (coordinate: Coordinate) => void; onPlacePress: (id: string) => void };
-export function MapCanvas({ origin, places, route, transit, flat=false, bottomInset=0, rightInset=0, draftOrigin=false, focusCoordinate, selectedPlaceId, cameraResetKey=0, fitCoordinates, onMapPress, onPlacePress }: MapCanvasProps) {
+export type MapCanvasProps = { origin?: Origin | null; places: Place[]; route?: RouteResult | null; transit?: TransitRoute | null; flat?: boolean; bottomInset?: number; rightInset?: number; draftOrigin?: boolean; focusCoordinate?: Coordinate | null; selectedPlaceId?: string | null; cameraResetKey?: number; fitCoordinates?: readonly Coordinate[] | null; onStatusChange?: (status: 'preparing' | 'ready' | 'failed', detail?: string) => void; onAttributionPress?: () => void; onMapPress: (coordinate: Coordinate) => void; onPlacePress: (id: string) => void };
+export function MapCanvas({ origin, places, route, transit, flat=false, bottomInset=0, rightInset=0, draftOrigin=false, focusCoordinate, selectedPlaceId, cameraResetKey=0, fitCoordinates, onStatusChange, onAttributionPress, onMapPress, onPlacePress }: MapCanvasProps) {
   const camera = useRef<CameraRef>(null);
+  const map = useRef<MapRef>(null);
+  const installedStyle = useRef('');
+  const statusCallback = useRef(onStatusChange);
+  statusCallback.current = onStatusChange;
   const center = useRef<[number,number]>([121.0497,14.5506]);
   const source = useRef<GeoJSONSourceRef>(null);
   const [failure, setFailure] = useState(false);
+  const [fullyRendered, setFullyRendered] = useState(false);
   const [activeStyle, setActiveStyle] = useState<string>(JSON.stringify({version:8,sources:{},layers:[{id:'canvas',type:'background',paint:{'background-color':'#F7F6F0'}}]}));
   const [styleReady,setStyleReady]=useState(false);
   const [resourcesReady,setResourcesReady]=useState(false);
@@ -23,13 +28,14 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
   const fittedBounds=useMemo(()=>coordinateBounds(routeCoordinates??(transit?.citation.status==='approved'?transit.shape:null)??fitCoordinates??[]),[routeCoordinates,transit,fitCoordinates]);
   const selected=places.find(p=>p.id===selectedPlaceId&&p.coordinate);
   const [outside, setOutside] = useState(false);
-  const renderedStyle=useMemo(()=>{if(!flat&&!quiet)return activeStyle;const style=JSON.parse(activeStyle);for(const layer of style.layers??[]){if(layer.type==='fill-extrusion'||(quiet&&['source-trees','garden-texture','plaza-paving'].includes(layer.id)))layer.layout={...layer.layout,visibility:'none'};}return JSON.stringify(style);},[activeStyle,flat,quiet]);
+  const renderedStyle=useMemo(()=>{if(!flat&&!quiet)return activeStyle;const style=JSON.parse(activeStyle);for(const layer of style.layers??[]){if(layer.type==='fill-extrusion'||(quiet&&['source-trees','garden-texture','plaza-paving','source-crosswalks'].includes(layer.id)))layer.layout={...layer.layout,visibility:'none'};}return JSON.stringify(style);},[activeStyle,flat,quiet]);
   const data = useMemo<GeoJSON.FeatureCollection>(() => ({ type: 'FeatureCollection', features: places.filter(p => p.coordinate).map(p => ({ type: 'Feature', id: p.id, properties: { id: p.id, name: p.name, category: p.category,marker:categorySprite(p.category) }, geometry: { type: 'Point', coordinates: [...p.coordinate!] } })) }), [places]);
+  useEffect(()=>{statusCallback.current?.(Platform.OS!=='android'||failure?'failed':fullyRendered?'ready':'preparing',Platform.OS!=='android'?'iOS offline installation not device-validated':failure?'Offline resources or native map loading failed':fullyRendered?'Bundled/active offline map fully rendered':'Installing and loading offline map resources');},[failure,fullyRendered]);
   useEffect(()=>{let mounted=true;void AccessibilityInfo.isReduceMotionEnabled().then(value=>{if(mounted)setReducedMotion(value);});const listener=AccessibilityInfo.addEventListener('reduceMotionChanged',setReducedMotion);return()=>{mounted=false;listener.remove();};},[]);
   useEffect(() => {
     let mounted=true;
     if(Platform.OS!=='android')return;
-    const refresh=()=>{ void loadActiveStyle().then(async style=>style??await loadBundledStyle()).then(style=>{ if(mounted){setActiveStyle(style);setFailure(false);setResourcesReady(true);} }).catch(error=>{ if(mounted)setFailure(true);console.error('OMNI_MAP resource installation failed',String(error)); }); };
+    const refresh=()=>{ void loadActiveStyle().then(async style=>style??await loadBundledStyle()).then(style=>{ if(mounted){if(installedStyle.current!==style){installedStyle.current=style;setStyleReady(false);setFullyRendered(false);setFailure(false);setActiveStyle(style);}setResourcesReady(true);} }).catch(error=>{ if(mounted)setFailure(true);console.error('OMNI_MAP resource installation failed',String(error)); }); };
     refresh();const listener=AppState.addEventListener('change',state=>{if(state==='active')refresh();});
     return()=>{mounted=false;listener.remove();};
   },[]);
@@ -39,12 +45,12 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
   if (Platform.OS !== 'android') return <View style={styles.unavailable}><Text>Offline map resource installation needs iOS device validation. Local data screens remain available.</Text></View>;
   if(!resourcesReady)return <View style={styles.unavailable}><Text accessibilityRole="text">{failure?'Offline map unavailable · open map settings':'Preparing your offline map…'}</Text></View>;
   return <View style={styles.container}>
-    <Map style={styles.map} mapStyle={renderedStyle} compass={false} logo={false} attribution attributionPosition={{ bottom: 76, left: 12 }} touchPitch={!flat&&!quiet}
+    <Map ref={map} androidView="texture" style={styles.map} mapStyle={renderedStyle} compass={false} logo={false} attribution={false} touchPitch={!flat&&!quiet}
       accessibilityLabel={selected?`BGC map. Selected ${selected.name}. Pan and pinch to explore.`:'BGC map. Pan and pinch to explore. Use search for an accessible list of places.'}
       onPress={event => onMapPress(event.nativeEvent.lngLat)}
       onRegionDidChange={event => { const [x,y] = event.nativeEvent.center; center.current=[x,y]; setOutside(x < 121.0475 || x > 121.05205 || y < 14.54865 || y > 14.5524); }}
       onDidFinishLoadingStyle={()=>setStyleReady(true)}
-      onDidFinishRenderingMapFully={() => console.log('OMNI_MAP local map fully rendered')}
+      onDidFinishRenderingMapFully={() => {setFullyRendered(true);setFailure(false);console.log('OMNI_MAP local map fully rendered');}}
       onDidFailLoadingMap={() => { setFailure(true); console.error('OMNI_MAP local resources failed'); }}>
       <Camera ref={camera} initialViewState={{ center: [121.0497,14.5506], zoom: 17, pitch: 38, bearing: -24 }} minZoom={14} maxZoom={20} />
       {!quiet&&<GeoJSONSource id="visible-places" ref={source} data={data} cluster clusterRadius={48} clusterMaxZoom={16} hitbox={{top:24,right:24,bottom:24,left:24}} onPress={event => {
@@ -82,7 +88,10 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
         <Layer id="route-destination-pin" type="symbol" layout={{'icon-image':'destination','icon-size':0.86,'icon-anchor':'bottom','icon-allow-overlap':true}} />
       </GeoJSONSource>}
     </Map>
+    <Pressable accessibilityRole="button" accessibilityLabel="Map data © OpenStreetMap contributors. Open source and licence information." onPress={onAttributionPress??(()=>{void map.current?.showAttribution();})} style={[styles.attribution,{bottom:Math.max(8,bottomInset+4)}]}>
+      <Text style={styles.attributionText}>© OpenStreetMap contributors</Text>
+    </Pressable>
     {(failure||outside)&&<View style={styles.caption} pointerEvents="none"><Text style={styles.captionText}>{failure ? 'Offline map unavailable · open map settings' : 'Outside this map area'}</Text></View>}
   </View>;
 }
-const styles = StyleSheet.create({ container:{flex:1},map:{flex:1},caption:{position:'absolute',bottom:84,left:12,right:72,backgroundColor:'#FFF9E9E8',padding:10,borderRadius:12},captionText:{fontSize:14,color:'#3D4948'},unavailable:{flex:1,padding:24,justifyContent:'center',backgroundColor:'#F7F6F0'} });
+const styles = StyleSheet.create({ container:{flex:1},attribution:{position:'absolute',left:12,minHeight:44,justifyContent:'center',paddingHorizontal:7,borderRadius:6,backgroundColor:'#FFFFFFED'},attributionText:{fontSize:11,color:'#243C49'},map:{flex:1},caption:{position:'absolute',bottom:84,left:12,right:72,backgroundColor:'#FFF9E9E8',padding:10,borderRadius:12},captionText:{fontSize:14,color:'#3D4948'},unavailable:{flex:1,padding:24,justifyContent:'center',backgroundColor:'#F7F6F0'} });

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Omni-BGC",
     "slug": "omni-bgc-preview",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "scheme": "omni-bgc-preview",
     "orientation": "default",
     "icon": "./assets/brand/icon.png",
@@ -13,6 +13,6 @@
       "permissions": ["android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"]
     },
     "ios": {"bundleIdentifier": "com.omnibgc.preview", "infoPlist": {"NSLocationWhenInUseUsageDescription": "Use your location on the map only when you request it. Manual origin works without location permission."}},
-    "plugins": ["@maplibre/maplibre-react-native", ["expo-sqlite", {"enableFTS": true, "withSQLiteVecExtension": false}], ["expo-location", {"locationWhenInUsePermission": "Use your location on request for the map. You can always choose a manual origin.", "isAndroidBackgroundLocationEnabled": false, "isAndroidForegroundServiceEnabled": false}], "./plugins/withOfflinePilot.cjs"]
+    "plugins": ["@maplibre/maplibre-react-native", ["expo-sqlite", {"enableFTS": true, "customBuildFlags": "-DSQLITE_ENABLE_RTREE=1", "withSQLiteVecExtension": false}], ["expo-location", {"locationWhenInUsePermission": "Use your location on request for the map. You can always choose a manual origin.", "isAndroidBackgroundLocationEnabled": false, "isAndroidForegroundServiceEnabled": false}], "./plugins/withOfflinePilot.cjs"]
   }
 }

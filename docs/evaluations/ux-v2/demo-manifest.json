@@ -1,0 +1,67 @@
+{
+  "version": "omni-ux-v2-fictional-preview-v1",
+  "classification": "synthetic-preview",
+  "generatedFor": "internal-offline-UX-review",
+  "sources": [
+    {
+      "sourceId": "OMNI-UX-V2-FICTIONAL-PREVIEW",
+      "path": "apps/mobile/src/features/explore/demoDirectory.ts",
+      "sha256": "4525d4c3f8827b643df457642bea1457985262ff7aeadea89d78c0555b7b4b93",
+      "license": "Original fictional Omni-BGC internal demo content; no factual publication grant",
+      "attribution": "Original fictional fixture content created for Omni-BGC UX V2",
+      "acquiredExternally": false,
+      "publicationAuthorized": false
+    }
+  ],
+  "counts": {
+    "merchants": 3,
+    "branches": 6,
+    "menuItems": 33,
+    "uniqueIds": 39,
+    "coordinates": 0,
+    "entrances": 0,
+    "routes": 0,
+    "approvedFacts": 0,
+    "rejectedDuplicates": 0
+  },
+  "disclosure": "Fictional sample merchants, menus, prices and hours for an offline product preview. These are not real BGC businesses or dietary guidance.",
+  "sampleQA": [
+    {
+      "id": "d340a0c0-7202-4000-8000-000000000001",
+      "name": "Cloudline Coffee · Studio (Sample)",
+      "menuItems": 6,
+      "priceCurrency": "PHP",
+      "observedMerchant": false,
+      "verifiedDietaryClaim": false,
+      "coordinate": null,
+      "entranceCount": 0
+    },
+    {
+      "id": "d340a0c0-7202-4000-8000-000000000003",
+      "name": "Pocket Garden Bowls · Kitchen (Sample)",
+      "menuItems": 6,
+      "priceCurrency": "PHP",
+      "observedMerchant": false,
+      "verifiedDietaryClaim": false,
+      "coordinate": null,
+      "entranceCount": 0
+    },
+    {
+      "id": "d340a0c0-7202-4000-8000-000000000005",
+      "name": "Paper Moon Bakehouse · Atelier (Sample)",
+      "menuItems": 6,
+      "priceCurrency": "PHP",
+      "observedMerchant": false,
+      "verifiedDietaryClaim": false,
+      "coordinate": null,
+      "entranceCount": 0
+    }
+  ],
+  "validation": {
+    "duplicateIdentity": "PASS",
+    "geographicIsolation": "PASS",
+    "menuSearch": "Covered by demo-directory.test.cjs",
+    "savedAndItineraryContracts": "Covered by demo-directory.test.cjs",
+    "nativeUI": "PENDING_PARENT_DEVICE_VALIDATION"
+  }
+}

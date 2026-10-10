@@ -1,5 +1,6 @@
 {
   "distributionAuthorized": false,
+  "duplicateIdsRejected": 0,
   "entries": [
     {
       "anchor": {
@@ -10,10 +11,22 @@
         "kind": "footprint-interior",
         "method": "source footprint clipped to service area; representative_point"
       },
-      "appearance": "generic illustrative extrusion; no faithful facade claim",
-      "assetId": "extrusion-office-v1",
-      "assetVersion": 1,
+      "appearance": "Original illustrative family facade and roof finish; source footprint preserved; no faithful facade claim",
+      "assetId": "facade-midrise-office",
+      "assetVersion": 2,
       "featureId": "osm-way:71598335",
+      "heightEvidence": {
+        "basis": "osm-height-unverified",
+        "displayBaseM": 0,
+        "displayHeightM": 15.6,
+        "sourceHeightM": 15.6,
+        "sourceLevels": 3,
+        "sourceTags": {
+          "building:levels": "3",
+          "height": "15.6"
+        },
+        "verified": false
+      },
       "license": "ODbL-1.0 geometry; project-authored style",
       "name": "Philippine Stock Exchange",
       "navigationEligible": false,
@@ -27,7 +40,13 @@
         "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
       },
       "sourceStatus": "historical candidate",
-      "visualClassification": "office",
+      "unknowns": [
+        "current footprint/height verification",
+        "facade likeness",
+        "roof equipment and landscaping",
+        "mapped feature is not necessarily the entire landmark complex"
+      ],
+      "visualClassification": "midrise-office",
       "zoomVisibility": {
         "max": 20,
         "min": 16
@@ -42,10 +61,22 @@
         "kind": "footprint-interior",
         "method": "source footprint clipped to service area; representative_point"
       },
-      "appearance": "generic illustrative extrusion; no faithful facade claim",
-      "assetId": "extrusion-commercial-v1",
-      "assetVersion": 1,
+      "appearance": "Original illustrative family facade and roof finish; source footprint preserved; no faithful facade claim",
+      "assetId": "facade-commercial",
+      "assetVersion": 2,
       "featureId": "osm-way:145147831",
+      "heightEvidence": {
+        "basis": "osm-height-unverified",
+        "displayBaseM": 0,
+        "displayHeightM": 30.5,
+        "sourceHeightM": 30.5,
+        "sourceLevels": 8,
+        "sourceTags": {
+          "building:levels": "8",
+          "height": "30.5"
+        },
+        "verified": false
+      },
       "license": "ODbL-1.0 geometry; project-authored style",
       "name": "W Global Center",
       "navigationEligible": false,
@@ -59,6 +90,12 @@
         "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
       },
       "sourceStatus": "historical candidate",
+      "unknowns": [
+        "current footprint/height verification",
+        "facade likeness",
+        "roof equipment and landscaping",
+        "mapped feature is not necessarily the entire landmark complex"
+      ],
       "visualClassification": "commercial",
       "zoomVisibility": {
         "max": 20,
@@ -74,10 +111,22 @@
         "kind": "footprint-interior",
         "method": "source footprint clipped to service area; representative_point"
       },
-      "appearance": "generic illustrative extrusion; no faithful facade claim",
-      "assetId": "extrusion-office-v1",
-      "assetVersion": 1,
+      "appearance": "Original illustrative family facade and roof finish; source footprint preserved; no faithful facade claim",
+      "assetId": "facade-midrise-office",
+      "assetVersion": 2,
       "featureId": "osm-way:145147832",
+      "heightEvidence": {
+        "basis": "osm-height-unverified",
+        "displayBaseM": 0,
+        "displayHeightM": 33.5,
+        "sourceHeightM": 33.5,
+        "sourceLevels": 6,
+        "sourceTags": {
+          "building:levels": "6",
+          "height": "33.5"
+        },
+        "verified": false
+      },
       "license": "ODbL-1.0 geometry; project-authored style",
       "name": "A.T. Yuchengco Centre",
       "navigationEligible": false,
@@ -91,7 +140,13 @@
         "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
       },
       "sourceStatus": "historical candidate",
-      "visualClassification": "office",
+      "unknowns": [
+        "current footprint/height verification",
+        "facade likeness",
+        "roof equipment and landscaping",
+        "mapped feature is not necessarily the entire landmark complex"
+      ],
+      "visualClassification": "midrise-office",
       "zoomVisibility": {
         "max": 20,
         "min": 16
@@ -106,10 +161,24 @@
         "kind": "footprint-interior",
         "method": "source footprint clipped to service area; representative_point"
       },
-      "appearance": "generic illustrative extrusion; no faithful facade claim",
-      "assetId": "extrusion-generic-v1",
-      "assetVersion": 1,
+      "appearance": "Original illustrative family facade and roof finish; source footprint preserved; no faithful facade claim",
+      "assetId": "facade-mall",
+      "assetVersion": 2,
       "featureId": "osm-way:205968610",
+      "heightEvidence": {
+        "basis": "osm-height-unverified",
+        "displayBaseM": 5.2,
+        "displayHeightM": 25.9,
+        "sourceHeightM": 25.9,
+        "sourceLevels": 5,
+        "sourceTags": {
+          "building:levels": "5",
+          "building:min_level": "1",
+          "height": "25.9",
+          "min_height": "5.2"
+        },
+        "verified": false
+      },
       "license": "ODbL-1.0 geometry; project-authored style",
       "name": "Central Square",
       "navigationEligible": false,
@@ -123,7 +192,13 @@
         "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
       },
       "sourceStatus": "historical candidate",
-      "visualClassification": "generic",
+      "unknowns": [
+        "current footprint/height verification",
+        "facade likeness",
+        "roof equipment and landscaping",
+        "mapped feature is not necessarily the entire landmark complex"
+      ],
+      "visualClassification": "mall",
       "zoomVisibility": {
         "max": 20,
         "min": 16
@@ -138,10 +213,22 @@
         "kind": "footprint-interior",
         "method": "source footprint clipped to service area; representative_point"
       },
-      "appearance": "generic illustrative extrusion; no faithful facade claim",
-      "assetId": "extrusion-commercial-v1",
-      "assetVersion": 1,
+      "appearance": "Original illustrative family facade and roof finish; source footprint preserved; no faithful facade claim",
+      "assetId": "facade-commercial",
+      "assetVersion": 2,
       "featureId": "osm-way:531995980",
+      "heightEvidence": {
+        "basis": "osm-height-unverified",
+        "displayBaseM": 0,
+        "displayHeightM": 23.8,
+        "sourceHeightM": 23.8,
+        "sourceLevels": 3,
+        "sourceTags": {
+          "building:levels": "3",
+          "height": "23.8"
+        },
+        "verified": false
+      },
       "license": "ODbL-1.0 geometry; project-authored style",
       "name": "W City Center",
       "navigationEligible": false,
@@ -155,6 +242,12 @@
         "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
       },
       "sourceStatus": "historical candidate",
+      "unknowns": [
+        "current footprint/height verification",
+        "facade likeness",
+        "roof equipment and landscaping",
+        "mapped feature is not necessarily the entire landmark complex"
+      ],
       "visualClassification": "commercial",
       "zoomVisibility": {
         "max": 20,
@@ -170,10 +263,19 @@
         "kind": "footprint-interior",
         "method": "source footprint clipped to service area; representative_point"
       },
-      "appearance": "generic illustrative extrusion; no faithful facade claim",
-      "assetId": "extrusion-commercial-v1",
-      "assetVersion": 1,
+      "appearance": "Original illustrative family facade and roof finish; source footprint preserved; no faithful facade claim",
+      "assetId": "facade-mall",
+      "assetVersion": 2,
       "featureId": "osm-way:1078392706",
+      "heightEvidence": {
+        "basis": "illustrative-family-default",
+        "displayBaseM": 0,
+        "displayHeightM": 20,
+        "sourceHeightM": null,
+        "sourceLevels": null,
+        "sourceTags": {},
+        "verified": false
+      },
       "license": "ODbL-1.0 geometry; project-authored style",
       "name": "One Bonifacio High Street",
       "navigationEligible": false,
@@ -187,12 +289,19 @@
         "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
       },
       "sourceStatus": "historical candidate",
-      "visualClassification": "commercial",
+      "unknowns": [
+        "current footprint/height verification",
+        "facade likeness",
+        "roof equipment and landscaping",
+        "mapped feature is not necessarily the entire landmark complex"
+      ],
+      "visualClassification": "mall",
       "zoomVisibility": {
         "max": 20,
         "min": 16
       }
     }
   ],
-  "formatVersion": 1
+  "formatVersion": 2,
+  "rejectedOutsideScope": []
 }

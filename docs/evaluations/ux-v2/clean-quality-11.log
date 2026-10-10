@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: installed Android icon padding getter rejects scalar; one-element array is compatible
+ok 1 - installed Android icon padding getter rejects scalar; one-element array is compatible
+  ---
+  duration_ms: 3.1357
+  type: 'test'
+  ...
+# Subtest: every dynamic JSX Layer serializes values compatible with installed Android setters
+ok 2 - every dynamic JSX Layer serializes values compatible with installed Android setters
+  ---
+  duration_ms: 62.7339
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 396.3951

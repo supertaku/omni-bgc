@@ -1,0 +1,189 @@
+{
+  "timestamp": "2026-10-10T12:59:13.398Z",
+  "runtime": "v22.20.0",
+  "results": [
+    {
+      "command": "node.exe",
+      "args": [
+        "apps/mobile/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--project",
+        "apps/mobile/tsconfig.json"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "apps/mobile/scripts/check-local-style.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "pipelines/map-pack/check.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "--test",
+        "tests/map/mobile/layer-compatibility.test.cjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "--test",
+        "tests/data-quality/mobile/startup.test.cjs",
+        "tests/data-quality/mobile/demo-directory.test.cjs",
+        "tests/ui/screen-navigation.test.cjs",
+        "apps/mobile/src/features/assistant/ui-v2.test.cjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "apps/mobile/src/features/explore/directory.test.cjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "apps/mobile/src/features/assistant/directory.test.cjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "--test",
+        "tests/routing/mobile/engine.test.cjs",
+        "tests/routing/mobile/loader.test.cjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "--test",
+        "tests/data-quality/mobile/contracts.mjs",
+        "tests/data-quality/mobile/retrieval.mjs",
+        "tests/data-quality/mobile/resume.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "node.exe",
+      "args": [
+        "--test",
+        "packages/ui/test/view-state.test.mjs",
+        "packages/ui/test/fixture-flow.test.mjs"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": "python",
+      "args": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/data-quality/ui",
+        "-v"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "contrast": [
+    {
+      "name": "body",
+      "ratio": 15.724683225138385,
+      "minimum": 4.5
+    },
+    {
+      "name": "secondary",
+      "ratio": 7.199665264981674,
+      "minimum": 4.5
+    },
+    {
+      "name": "canvas text",
+      "ratio": 14.523161948652215,
+      "minimum": 4.5
+    },
+    {
+      "name": "quiet notice",
+      "ratio": 6.407039117081812,
+      "minimum": 4.5
+    },
+    {
+      "name": "primary button",
+      "ratio": 6.712050105653388,
+      "minimum": 4.5
+    },
+    {
+      "name": "selected chip",
+      "ratio": 5.807767148846924,
+      "minimum": 4.5
+    },
+    {
+      "name": "warning",
+      "ratio": 7.64106021809547,
+      "minimum": 4.5
+    },
+    {
+      "name": "error",
+      "ratio": 7.114435237417459,
+      "minimum": 4.5
+    },
+    {
+      "name": "control border",
+      "ratio": 4.3219312239441825,
+      "minimum": 3
+    },
+    {
+      "name": "focus ring",
+      "ratio": 6.199183112066443,
+      "minimum": 3
+    },
+    {
+      "name": "route on park",
+      "ratio": 9.323307066736298,
+      "minimum": 3
+    }
+  ],
+  "fontsVerified": 7,
+  "sourceDirectory": {
+    "tool": "omni-ui-directory-v1",
+    "input_sha256": "c01e25b579c09fdb5a05e4efe89073ba7103cd99921c3a9980285c783df83fc5",
+    "output_sha256": "052b972364bc9862cb66b47a57681814f02a65135a28d7eb25825184a0257d13",
+    "source_count": 1,
+    "record_count": 161,
+    "rejected": {
+      "unnamed": 83,
+      "nonpoint": 45,
+      "excluded": 1,
+      "duplicates": 0
+    },
+    "license": "ODbL-1.0",
+    "attribution": "© OpenStreetMap contributors",
+    "publication_authorized": false,
+    "canonical_approval_changed": false,
+    "navigation_eligible": false,
+    "id_namespace": "1fe2ab32-2b72-570b-a423-bc34fa81312f",
+    "sample_ids": [
+      "6abf18d3-5521-5d74-a9cb-039f69c635c6",
+      "784d9613-e2eb-514b-89ff-c0d79b275e30",
+      "7adc30f2-0dbf-5f44-b79f-dabf3fefe098",
+      "7f404537-f1fd-59d7-9fef-25c23b287153",
+      "24b4f655-7b97-5cd5-9bab-b002ee93232f"
+    ]
+  },
+  "nativeDevice": "NOT_RUN_NO_CONNECTED_DEVICE_OR_AVD",
+  "passed": true
+}

@@ -1,0 +1,3 @@
+PASS installed style spec, resource identity, 29 density-consistent sprites, category mapping, adversarial camera bounds
+PASS 71 known directory/geographic text characters covered by 2 offline glyph ranges
+PASS private-file URLs, checksum copy/reuse/recovery, interrupted install cleanup, moved-directory retention

@@ -1,0 +1,11 @@
+{
+  "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\apps\\mobile\\artifacts\\Omni-BGC-UX-V2-0.3.0-arm64.apk",
+  "bytes": 42695181,
+  "sha256": "d8f450bb5e35d3a2494ea2b7be9146a8ec9bf52887ca17970e1981358545859d",
+  "mapResourcesVerified": 10,
+  "offlineFontWeightsVerified": 3,
+  "offlineIconFontVerified": true,
+  "abi": "arm64-v8a",
+  "archiveIntegrity": "PASS",
+  "nativeLaunch": "NOT_RUN"
+}

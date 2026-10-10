@@ -26,6 +26,6 @@ with zipfile.ZipFile(apk) as archive:
 report={'path':str(apk.resolve()),'bytes':apk.stat().st_size,'sha256':hashlib.sha256(apk.read_bytes()).hexdigest(),
         'mapResourcesVerified':len(inventory['files']),'offlineFontWeightsVerified':len(expected),
         'offlineIconFontVerified':True,'abi':'arm64-v8a','archiveIntegrity':'PASS','nativeLaunch':'NOT_RUN'}
-target=ROOT/'docs/evaluations/ux-program/apk-verification.json'
+target=ROOT/('docs/evaluations/ux-v2/apk-verification.json' if '--v2' in sys.argv else 'docs/evaluations/ux-program/apk-verification.json')
 target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report,indent=2))

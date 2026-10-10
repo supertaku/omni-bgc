@@ -28,6 +28,23 @@ function protobufFields(bytes){let offset=0;const result=[];const integer=()=>{l
 for(const range of inventory.glyphRanges){const bytes=read(`apps/mobile/assets/generated/omni/fonts/Noto Sans Regular/${range}.pbf`);const stack=protobufFields(protobufFields(bytes).find(field=>field.number===1).value);const glyphIds=stack.filter(field=>field.number===3).map(field=>protobufFields(field.value).find(field=>field.number===1).value).sort((a,b)=>a-b);const start=Number(range.split('-')[0]);assert.deepEqual(glyphIds,Array.from({length:256},(_,index)=>start+index),'Each retained range must contain all 256 glyph entries');}
 const atlas = json('apps/mobile/assets/generated/omni/sprite.json');
 const atlas2 = json('apps/mobile/assets/generated/omni/sprite@2x.json');
+const families = json('apps/mobile/assets/map-v2/manifest.json');
+assert.equal(families.families.length, 10);
+for(const family of families.families){const entry=atlas['facade-'+family];assert.ok(entry);assert.equal(entry.width,64);assert.equal(entry.height,64);}
+for(const entry of families.files){const bytes=read('apps/mobile/assets/map-v2/'+entry.path);assert.equal(bytes.length,entry.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256);}
+const facades=style.layers.find(layer=>layer.id==='buildings-facades');
+const mapCanvas=read('apps/mobile/src/map/MapCanvas.tsx').toString();
+const installedMap=read('apps/mobile/node_modules/@maplibre/maplibre-react-native/src/components/map/Map.tsx').toString();
+assert.ok(installedMap.includes('androidView?: "surface" | "texture"'));
+assert.ok(mapCanvas.includes('androidView="texture"'),'Sliding native map must use composing TextureView');
+assert.ok(installedMap.includes('showAttribution(): Promise<void>'));
+assert.ok(mapCanvas.includes('© OpenStreetMap contributors'));
+assert.deepEqual(facades.paint['fill-extrusion-pattern'],['get','facade_pattern']);
+assert.equal(facades.minzoom,16);
+assert.ok(style.layers.find(layer=>layer.id==='source-crosswalks').filter.flat(Infinity).includes('zebra'));
+const registry=json('apps/mobile/src/map/landmarks.json');
+assert.equal(new Set(registry.entries.map(entry=>entry.featureId)).size,registry.entries.length);
+for(const entry of registry.entries){assert.ok(atlas[entry.assetId]);assert.equal(entry.navigationEligible,false);assert.equal(entry.heightEvidence.verified,false);assert.ok(entry.sourceGeometry.sha256);assert.ok(entry.unknowns.length);}
 for (const [id, entry] of Object.entries(atlas)) {
   assert.equal(atlas2[id].pixelRatio, 2);
   for (const property of ['x', 'y', 'width', 'height']) assert.equal(atlas2[id][property], entry[property] * 2);
@@ -45,7 +62,7 @@ assert.equal(presentation.coordinateBounds([[NaN, 14], [181, 14]]), null);
 assert.deepEqual(Array.from(presentation.coordinateBounds([[121.05, 14.55], [121.049, 14.551]])), [121.049, 14.55, 121.05, 14.551]);
 const single = presentation.coordinateBounds([[121.05, 14.55]]);
 assert.ok(single[0] < single[2] && single[1] < single[3]);
-console.log('PASS installed style spec, resource identity, 19 density-consistent sprites, category mapping, adversarial camera bounds');
+console.log(`PASS installed style spec, resource identity, ${Object.keys(atlas).length} density-consistent sprites, category mapping, adversarial camera bounds`);
 console.log(`PASS ${textCharacters.size} known directory/geographic text characters covered by ${inventory.glyphRanges.length} offline glyph ranges`);
 
 const files = new Map(); const directories = new Set(); let failCopy = false; let copies = 0; let sequence = 0;

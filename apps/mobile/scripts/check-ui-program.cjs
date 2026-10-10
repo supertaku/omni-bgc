@@ -1,12 +1,13 @@
 // Focused host gate. Native rendering/gestures must be checked on Android separately.
 const fs=require('node:fs');const path=require('node:path');const crypto=require('node:crypto');const cp=require('node:child_process');const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../../..');
-const evidence=path.join(root,'docs/evaluations/ux-program');fs.mkdirSync(evidence,{recursive:true});
+const evidence=path.join(root,'docs/evaluations',process.argv.includes('--v2')?'ux-v2':'ux-program');fs.mkdirSync(evidence,{recursive:true});
 const commands=[
   [process.execPath,['apps/mobile/node_modules/typescript/bin/tsc','--noEmit','--project','apps/mobile/tsconfig.json']],
   [process.execPath,['apps/mobile/scripts/check-local-style.mjs']],
   [process.execPath,['pipelines/map-pack/check.mjs']],
   [process.execPath,['--test','tests/map/mobile/layer-compatibility.test.cjs']],
+  [process.execPath,['--test','tests/data-quality/mobile/startup.test.cjs','tests/data-quality/mobile/demo-directory.test.cjs','tests/ui/screen-navigation.test.cjs','apps/mobile/src/features/assistant/ui-v2.test.cjs']],
   [process.execPath,['apps/mobile/src/features/explore/directory.test.cjs']],
   [process.execPath,['apps/mobile/src/features/assistant/directory.test.cjs']],
   [process.execPath,['--test','tests/routing/mobile/engine.test.cjs','tests/routing/mobile/loader.test.cjs']],

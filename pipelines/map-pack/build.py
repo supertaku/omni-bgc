@@ -11,6 +11,8 @@ from scipy.ndimage import distance_transform_edt
 from shapely.geometry import shape,box
 from shapely.ops import transform
 from shapely.strtree import STRtree
+from shapely.ops import unary_union
+from building_metadata import FAMILIES, building_presentation
 from pyproj import Transformer
 import mapbox_vector_tile
 from pmtiles.writer import write
@@ -71,7 +73,7 @@ def glyphs(chars):
 
 def sprites():
     # Editable procedural sources; render 4x then downsample for smooth 1x/2x art.
-    names=['grass','paving','tree','tree-round','tree-column','shrub','marker-food','marker-cafe','marker-shop','marker-work','marker-park','marker-transit','marker-hotel','marker-health','marker-parking','marker-landmark','marker-more','destination','origin']
+    names=['grass','paving','tree','tree-round','tree-column','shrub','marker-food','marker-cafe','marker-shop','marker-work','marker-park','marker-transit','marker-hotel','marker-health','marker-parking','marker-landmark','marker-more','destination','origin']+['facade-'+family for family in FAMILIES]
     cell=64;scale=4;cols=8
     atlas=Image.new('RGBA',(cols*cell*scale,math.ceil(len(names)/cols)*cell*scale));metadata={}
     colors={'food':'#C86B32','cafe':'#926A48','shop':'#2876D8','work':'#637C95','park':'#589355','transit':'#286BDD','hotel':'#7464CE','health':'#C65F78','parking':'#5B7998','landmark':'#A17B3D','more':'#52677B'}
@@ -86,7 +88,26 @@ def sprites():
             return draw
     for index,name in enumerate(names):
         tile=Image.new('RGBA',(cell*scale,cell*scale));d=ScaledDraw(tile)
-        if name=='grass':
+        if name.startswith('facade-'):
+            family=name.removeprefix('facade-');color=FAMILIES[family][0]
+            d.rectangle((0,0,64,64),fill=color)
+            # Original repeating architecture motifs, not copied/surveyed facades.
+            glass=family in ('glass-office','midrise-office','mixed-use')
+            for y in range(0,64,16):
+                for x in range(0,64,16):
+                    if glass:
+                        d.rectangle((x+2,y+2,x+13,y+13),fill='#6E9FBA')
+                        d.polygon(((x+2,y+2),(x+13,y+2),(x+2,y+13)),fill='#A4CADA')
+                    elif family!='unknown':
+                        d.rectangle((x+5,y+4,x+10,y+11),fill='#7496A6')
+                        d.line((x+4,y+12,x+11,y+12),fill='#F1E5CD',width=1)
+            if family in ('mall','commercial','lowrise-retail'):
+                for y in (0,32):d.rectangle((0,y,64,y+3),fill='#F1E1C0')
+            if family=='residential':
+                for y in (14,30,46,62):d.line((0,y,64,y),fill='#F6EEDF',width=2)
+            if family=='civic':
+                for x in (0,32):d.rectangle((x,0,x+3,64),fill='#F4ECD9')
+        elif name=='grass':
             d.rectangle((0,0,63,63),fill='#A7D48E')
             for x,y in ((8,10),(40,20),(22,46),(56,56),(48,42),(14,30)):
                 d.line((x-2,y,x,y-4,x+2,y-1),fill='#94C17F',width=1)
@@ -139,9 +160,12 @@ def sprites():
                 elif name=='destination':d.ellipse((25,20,39,34),fill='white')
                 else:
                     for x in (22,32,42):d.ellipse((x-2,25,x+2,29),fill='white')
+        samples=ROOT/'apps/mobile/assets/map-v2';samples.mkdir(parents=True,exist_ok=True)
+        if name.startswith('facade-') or name in ('grass','paving','tree-round','tree-column','tree','shrub'):tile.resize((cell,cell),Image.Resampling.LANCZOS).save(samples/(name+'.png'))
         # Drawing coordinates remain legible and source artwork remains compact.
         x=(index%cols)*cell;y=(index//cols)*cell;atlas.paste(tile,(x*scale,y*scale))
         metadata[name]={'x':x,'y':y,'width':cell,'height':cell,'pixelRatio':1}
+    dump(samples/'manifest.json',{'format_version':2,'license':'LicenseRef-Omni-BGC-Internal','license_notes':'Original project-authored procedural artwork. Internal repository use; no external redistribution grant. Geometry remains separately ODbL.','source':'pipelines/map-pack/build.py:sprites','families':list(FAMILIES),'appearance':'Illustrative motifs; no surveyed facade/roof likeness','files':[{'path':p.name,'bytes':p.stat().st_size,'sha256':sha(p)} for p in sorted(samples.glob('*.png'))]})
     for ratio,suffix in ((1,''),(2,'@2x')):
         atlas.resize((cols*cell*ratio,math.ceil(len(names)/cols)*cell*ratio),Image.Resampling.LANCZOS).save(OUT/f'sprite{suffix}.png')
         dump(OUT/f'sprite{suffix}.json',{k:{**v,'x':v['x']*ratio,'y':v['y']*ratio,'width':cell*ratio,'height':cell*ratio,'pixelRatio':ratio} for k,v in metadata.items()})
@@ -149,7 +173,10 @@ def sprites():
 def map_style():
     src={'source':'geography','source-layer':'geometry'}
     def layer(id,t,kind,paint,**extra):return {'id':id,'type':t,**src,'filter':['==',['get','kind'],kind],'paint':paint,**extra}
-    return {'version':8,'name':'Omni Garden Quarter','metadata':{'scope':'High Street pilot only','building_heights':'Illustrative visual heights, not surveyed dimensions','status':'historical candidate geometry; no navigation authority','distribution_authorized':False,'artwork':'Project-authored procedural sprites; decoration has no navigation authority'},
+    extrusion_filter=['all',['==',['get','kind'],'building'],['==',['get','render_extrusion'],True]]
+    height=['interpolate',['linear'],['zoom'],15,0,16,['get','visual_height']]
+    base=['interpolate',['linear'],['zoom'],15,0,16,['get','visual_base']]
+    return {'version':8,'name':'Omni City Quarter','metadata':{'scope':'High Street pilot only','building_heights':'Historical OSM height first; valid levels estimated at 3 m/level; explicit illustrative family default last. No surveyed/verified height claim. Source and display fields are distinct.','status':'historical candidate geometry; no navigation authority','distribution_authorized':False,'artwork':'Project-authored procedural facades and sprites; decoration has no navigation authority','lod':{'overview':'14–16: footprints and shaded massing','neighborhood':'16–18: patterned facades, roof caps, source trees','street':'18–20: crossing treatments and business labels'}},
       'glyphs':'asset://omni/fonts/{fontstack}/{range}.pbf','sprite':'asset://omni/sprite',
       'sources':{'geography':{'type':'vector','url':'pmtiles://asset://omni/pilot.pmtiles','attribution':'© OpenStreetMap contributors · ODbL 1.0'}},
       'light':{'anchor':'viewport','color':'#FFF4DA','intensity':0.35,'position':[1.15,210,35]},
@@ -165,7 +192,10 @@ def map_style():
         layer('walkways','line','path',{'line-color':'#FFF3D6','line-width':['interpolate',['linear'],['zoom'],15,1,18,4]},minzoom=15,layout={'line-cap':'round','line-join':'round'}),
         layer('building-footprints','fill','building',{'fill-color':'#DBC7A4','fill-outline-color':'#AF9E86'}),
         layer('building-edges','line','building',{'line-color':'#C2B29C','line-width':0.8},minzoom=16),
-        layer('buildings-2.5D','fill-extrusion','building',{'fill-extrusion-color':['match',['get','visual_family'],'commercial','#A9C6CC','office','#B1C4CC','retail','#DCC3A3','shop','#D5B5A3','residential','#C9CEBC','hotel','#CEC1CD','civic','#DAD2B8',['match',['get','roof_variant'],0,'#DBC7A4',1,'#B9CCC0',2,'#CCB5A8','#BED0D2']],'fill-extrusion-height':['interpolate',['linear'],['zoom'],15,0,16,['get','illustrative_height']],'fill-extrusion-base':0,'fill-extrusion-opacity':0.97},minzoom=15),
+        {**layer('buildings-2.5D','fill-extrusion','building',{'fill-extrusion-color':['get','roof_color'],'fill-extrusion-height':height,'fill-extrusion-base':base,'fill-extrusion-opacity':1},minzoom=15,maxzoom=16),'filter':extrusion_filter},
+        {**layer('buildings-facades','fill-extrusion','building',{'fill-extrusion-pattern':['get','facade_pattern'],'fill-extrusion-height':['get','visual_height'],'fill-extrusion-base':['get','visual_base'],'fill-extrusion-vertical-gradient':True,'fill-extrusion-opacity':1},minzoom=16),'filter':extrusion_filter},
+        {**layer('building-roof-caps','fill-extrusion','building',{'fill-extrusion-color':['get','roof_color'],'fill-extrusion-height':['+',['get','visual_height'],0.05],'fill-extrusion-base':['max',['get','visual_base'],['-',['get','visual_height'],0.45]],'fill-extrusion-vertical-gradient':False,'fill-extrusion-opacity':1},minzoom=16),'filter':extrusion_filter},
+        {**layer('source-crosswalks','line','path',{'line-color':'#FFFFFF','line-width':['interpolate',['linear'],['zoom'],18,5,20,12],'line-dasharray':[0.8,0.9]},minzoom=18),'filter':['all',['==',['get','kind'],'path'],['==',['get','crossing_markings'],'zebra']]},
         {'id':'source-trees','type':'symbol',**src,'filter':['==',['get','kind'],'tree'],'minzoom':16,'layout':{'icon-image':['match',['get','tree_variant'],0,'tree-round',1,'tree-column','tree'],'icon-size':['interpolate',['linear'],['zoom'],16,0.45,18,0.7],'icon-anchor':'bottom','icon-allow-overlap':False,'icon-padding':4}},
         {'id':'road-labels','type':'symbol',**src,'filter':['all',['in',['get','kind'],['literal',['road','path']]],['has','name']],'minzoom':16,'layout':{'text-field':['get','name'],'text-font':['Noto Sans Regular'],'text-size':12,'symbol-placement':'line','text-padding':8},'paint':{'text-color':'#3D4948','text-halo-color':'#FFF9E9','text-halo-width':1.5}}]}
 
@@ -175,10 +205,11 @@ def build():
     assert sha(FONT)==FONT_HASH and sha(FONT.parent/'OFL.txt')==OFL_HASH
     OUT.mkdir(parents=True,exist_ok=True)
     trans=Transformer.from_crs(4326,3857,always_xy=True).transform
-    records=[];chars=set('Omni BGC')
+    records=[];chars=set('Omni BGC');building_qa=[]
     scope=shape(load(ROOT/'data/manifests/service-area-v1.json')['geometry'])
     ways=load(SRC/'render-ways.geojson')['features']
     points=load(SRC/'context-points.geojson')['features']
+    parts=[shape(f['geometry']) for f in ways if 'building:part' in f['properties']['tags'] and f['properties']['tags']['building:part']!='no' and f['geometry']['type'] in ('Polygon','MultiPolygon')]
     # Map text is not limited to base geometry: runtime place labels share this
     # offline font stack. The generated directory is optional for portable GIS builds.
     chars.update(directory_label_characters(DIRECTORY))
@@ -189,14 +220,18 @@ def build():
         linear=g.geom_type in ('LineString','MultiLineString')
         if g.geom_type=='Point':
             if tags.get('natural')!='tree':continue
-        kind='tree' if g.geom_type=='Point' else 'building' if polygon and 'building' in tags else 'green' if polygon and (tags.get('leisure') in ('park','garden','playground') or tags.get('landuse') in ('grass','forest','recreation_ground') or tags.get('natural') in ('wood','grassland')) else 'water' if polygon and tags.get('natural')=='water' else 'plaza' if polygon and (tags.get('highway')=='pedestrian' or tags.get('area:highway')) else 'path' if linear and tags.get('highway') in ('footway','pedestrian','path','steps') else 'road' if linear and 'highway' in tags else None
+        kind='tree' if g.geom_type=='Point' else 'building' if polygon and (tags.get('building') not in (None,'no') or tags.get('building:part') not in (None,'no')) else 'green' if polygon and (tags.get('leisure') in ('park','garden','playground') or tags.get('landuse') in ('grass','forest','recreation_ground') or tags.get('natural') in ('wood','grassland')) else 'water' if polygon and tags.get('natural')=='water' else 'plaza' if polygon and (tags.get('highway')=='pedestrian' or tags.get('area:highway')) else 'path' if linear and tags.get('highway') in ('footway','pedestrian','path','steps') else 'road' if linear and 'highway' in tags else None
         if kind is None:continue
         ident=f['properties']['osm_id'];props={'kind':kind,'osm_id':ident,'candidate':True}
         if kind=='building':
-            # Source-tagged family only: never infer use from appearance or proximity.
-            family={'commercial':'commercial','office':'office','retail':'retail','shop':'shop','apartments':'residential','residential':'residential','hotel':'hotel','civic':'civic','public':'civic','school':'civic','hospital':'civic'}.get(tags.get('building'),'generic')
-            props.update(illustrative_height=9+(ident%5)*6,roof_variant=ident%4,visual_family=family)
+            props.update(building_presentation(tags))
+            # Keep the source outline in flat layers, avoiding a coarse extrusion
+            # hiding mapped parts when they cover most of the source outline.
+            contained=[p for p in parts if g.covers(p.representative_point())] if not props['building_part'] else []
+            if contained and unary_union(contained).intersection(g).area/g.area>=0.5:props['render_extrusion']=False
+            if g.intersects(scope):building_qa.append({'osm_id':ident,'name':tags.get('name'),'source_tags':{k:v for k,v in tags.items() if k in ('height','min_height','building:levels','building:min_level','building','building:part','roof:shape','roof:height','building:material')},**props})
         if kind=='tree':props.update(tree_variant=ident%3)
+        if kind=='path' and tags.get('crossing:markings'):props['crossing_markings']=tags['crossing:markings']
         if kind in ('road','path') and tags.get('name'):props['name']=tags['name'];chars.update(tags['name'])
         records.append((transform(trans,g),props,ident))
     geoms=[r[0] for r in records];tree=STRtree(geoms);world=20037508.342789244
@@ -228,7 +263,7 @@ def build():
     shutil.copyfile(FONT.parent/'OFL.txt',OUT/'OFL.txt')
     (OUT/'OSM-NOTICE.txt').write_text('© OpenStreetMap contributors\nhttps://www.openstreetmap.org/copyright\nODbL 1.0: https://opendatacommons.org/licenses/odbl/1-0/\nHistorical candidate geometry. Internal engineering only. Not cleared for dataset distribution.\n',encoding='utf-8')
     files=[{'path':p.relative_to(OUT).as_posix(),'bytes':p.stat().st_size,'sha256':sha(p)} for p in sorted(OUT.rglob('*')) if p.is_file() and p.name!='manifest.json']
-    report={'format_version':1,'version':'ux-garden-v3','scope':'High Street project-defined pilot only','distribution_authorized':False,'navigation_eligible_edges':0,'tiles':len(tiles),'geometry_records':len(records),'source_raw_sha256':load(SRC/'artifact-manifest.json')['provenance']['raw_sha256'],'source_snapshot_id':load(SRC/'artifact-manifest.json')['provenance']['snapshot_uuid'],'runtime_label_source_sha256':sha(DIRECTORY) if DIRECTORY.is_file() else None,'font_sha256':FONT_HASH,'font_license_sha256':OFL_HASH,'font_source':'https://raw.githubusercontent.com/notofonts/noto-fonts/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf','files':files}
+    report={'format_version':1,'version':'ux-city-v2','scope':'High Street project-defined pilot only','distribution_authorized':False,'navigation_eligible_edges':0,'tiles':len(tiles),'geometry_records':len(records),'source_raw_sha256':load(SRC/'artifact-manifest.json')['provenance']['raw_sha256'],'source_snapshot_id':load(SRC/'artifact-manifest.json')['provenance']['snapshot_uuid'],'runtime_label_source_sha256':sha(DIRECTORY) if DIRECTORY.is_file() else None,'font_sha256':FONT_HASH,'font_license_sha256':OFL_HASH,'font_source':'https://raw.githubusercontent.com/notofonts/noto-fonts/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf','files':files}
     dump(OUT/'manifest.json',report)
     dst=ROOT/'apps/mobile/assets/generated/omni';dst.mkdir(parents=True,exist_ok=True)
     shutil.copytree(OUT,dst,dirs_exist_ok=True)
@@ -238,6 +273,7 @@ def build():
     shutil.copyfile(OUT/'manifest.json',ROOT/'data/manifests/offline-pilot-inventory.json')
     dump(ROOT/'apps/mobile/src/map/bundled-resources.json',{'files':files,'styleSha256':sha(OUT/'style.json'),'packSha256':sha(OUT/'manifest.json'),'glyphRanges':[p.stem for p in sorted((OUT/'fonts/Noto Sans Regular').glob('*.pbf'))]})
     dump(ROOT/'pipelines/map-pack/asset-inventory.json',{'format_version':1,'license':'Project-authored original artwork; no franchise assets','source':'pipelines/map-pack/build.py:sprites','sprites':sorted(load(OUT/'sprite.json')),'geometry_authority':'Only original OSM footprint and tree geometry; decorative variants do not assert surveyed appearance','files':[f for f in files if f['path'].startswith('sprite')]})
+    dump(ROOT/'pipelines/map-pack/building-evidence.json',{'format_version':1,'source_sha256':sha(SRC/'render-ways.geojson'),'license':'ODbL-1.0','distribution_authorized':False,'counts':{'intersecting_buildings_and_parts':len(building_qa),'parts':sum(row['building_part'] for row in building_qa),'source_heights':sum('source_height_m' in row for row in building_qa),'level_estimates':sum(row['height_basis']=='osm-levels-estimate-3m' for row in building_qa),'illustrative_defaults':sum(row['height_basis']=='illustrative-family-default' for row in building_qa),'outlines_rendered_only_flat':sum(not row['render_extrusion'] for row in building_qa)},'rows':building_qa})
     print(json.dumps({'tiles':len(tiles),'geometry_records':len(records),'bytes':sum(f['bytes'] for f in files),'manifest_sha256':sha(OUT/'manifest.json')}))
 
 if __name__=='__main__':build()

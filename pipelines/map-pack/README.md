@@ -13,3 +13,11 @@ Glyph coverage includes emitted road/path text and, when available, names from `
 Official font origin: https://raw.githubusercontent.com/notofonts/noto-fonts/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf; licence: https://github.com/notofonts/noto-fonts/blob/main/LICENSE. Exact reviewed SHA256 values are in the builder/inventory; mutable remote URLs alone are not accepted inputs. Do not copy prior processed data/code/media or public raster tile caches.
 
 For a local Android build with the existing SDK/JBR and installed pinned npm dependencies, use `apps/mobile/scripts/build-preview.ps1`. It uses a repository-root short Gradle cache and disables optional native QA startup. The resulting ARM64 release-variant APK is development-key-signed for internal review. Device cold-offline/font/sprite/crash and iOS tests remain separate, currently skipped/unavailable. Full M5/production acceptance is withheld.
+
+## UX V2 city presentation
+
+`ux-city-v2` includes ten original 64px facade motifs and distinct same-footprint roof caps, source height/levels interpretation and building-part retention. `building_metadata.py` preserves source height as unverified historical evidence; valid integer levels use a separately recorded 3m estimate, missing values use explicit family defaults. No IDs, database facts, footprint vertices or route topology change. Detail tiers are encoded in the style metadata. Six source-tagged zebra crossing ways receive decoration at zoom18+.
+
+Run `check-building-metadata.py` for adversarial source values and `check-building-pack.py` against every emitted tile, plus `check.mjs` for installed-spec/resource/native-host closure. Exact per-feature evidence is `building-evidence.json`; bounded landmark metadata is `apps/mobile/src/map/landmarks.json`; original sample assets and their checksums live in `apps/mobile/assets/map-v2`. The full pack is still internal-only.
+
+The local pinned Python dependencies can be restored with `python -m pip install --target .g/map-v2-python -r pipelines/map-pack/requirements.txt`; set `PYTHONPATH` to that absolute task-local directory before running the builder/tests. This leaves system packages unchanged.

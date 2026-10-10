@@ -1,0 +1,25 @@
+test_corrupt_raw_blocks_before_output (test_export.ExportTests.test_corrupt_raw_blocks_before_output) ... ok
+test_immutable_version_and_failed_projection (test_export.ExportTests.test_immutable_version_and_failed_projection) ... ok
+test_missing_bundle_and_synthetic_real_export_denied (test_export.ExportTests.test_missing_bundle_and_synthetic_real_export_denied) ... ok
+test_repeat_hash_and_retained_citations (test_export.ExportTests.test_repeat_hash_and_retained_citations) ... ok
+test_revoked_rights_exclude_previously_approved_facts (test_export.ExportTests.test_revoked_rights_exclude_previously_approved_facts) ... ok
+test_tampered_fact_not_backed_by_original_raw_denied (test_export.ExportTests.test_tampered_fact_not_backed_by_original_raw_denied) ... ok
+test_unretained_added_fact_denied (test_export.ExportTests.test_unretained_added_fact_denied) ... ok
+test_unretained_supporting_evidence_denied (test_export.ExportTests.test_unretained_supporting_evidence_denied) ... ok
+test_alias_punctuation_unicode_and_literal_operators (test_retrieval.RetrievalTests.test_alias_punctuation_unicode_and_literal_operators) ... ok
+test_bad_filters_and_times (test_retrieval.RetrievalTests.test_bad_filters_and_times) ... ok
+test_branch_specific_menu_and_prices (test_retrieval.RetrievalTests.test_branch_specific_menu_and_prices) ... ok
+test_citations_retained_and_expired_source_denied (test_retrieval.RetrievalTests.test_citations_retained_and_expired_source_denied) ... ok
+test_conflicting_current_fact_excluded (test_retrieval.RetrievalTests.test_conflicting_current_fact_excluded) ... ok
+test_expired_alias_fts_hit_does_not_leak (test_retrieval.RetrievalTests.test_expired_alias_fts_hit_does_not_leak) ... ok
+test_expired_parent_details_are_explicit_unknown (test_retrieval.RetrievalTests.test_expired_parent_details_are_explicit_unknown) ... ok
+test_readonly_and_local_state_rejection (test_retrieval.RetrievalTests.test_readonly_and_local_state_rejection) ... ok
+test_spatial_precise_distance_and_expiry (test_retrieval.RetrievalTests.test_spatial_precise_distance_and_expiry) ... ok
+test_stale_menu_and_branch_are_excluded (test_retrieval.RetrievalTests.test_stale_menu_and_branch_are_excluded) ... ok
+test_unknown_price_and_dietary_claims_not_inferred (test_retrieval.RetrievalTests.test_unknown_price_and_dietary_claims_not_inferred) ... ok
+test_unverified_entrance_no_proximity_inference (test_retrieval.RetrievalTests.test_unverified_entrance_no_proximity_inference) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 1.530s
+
+OK

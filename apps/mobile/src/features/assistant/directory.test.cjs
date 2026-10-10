@@ -6,7 +6,7 @@ const vm=require('node:vm');
 const {test}=require('node:test');
 const ts=require(path.resolve(__dirname,'../../../node_modules/typescript'));
 const source=ts.transpileModule(fs.readFileSync(path.join(__dirname,'directory.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
-const context={exports:{},Set,BigInt};vm.runInNewContext(source,context);
+const context={exports:{},Set,BigInt,require:()=>({isDemoPlace:place=>String(typeof place==='string'?place:place.id).startsWith('sample-')})};vm.runInNewContext(source,context);
 const {answerDirectoryQuery}=context.exports;
 const citation={sourceId:'TEST ONLY',label:'Synthetic test evidence',license:'TEST ONLY',observedAt:'2026-10-10',verifiedAt:null,status:'approved'};
 const place=(id,name,category,overrides={})=>({id,name,category,coordinate:null,building:'Test Building',aliases:[],entrances:[],citations:[citation],status:'candidate',menus:[],...overrides});
@@ -49,4 +49,19 @@ test('saved results omit removed records, preserve actual itinerary and refuse A
 test('absent records and live facts produce explicit unavailable states',()=>{
   assert.equal(answerDirectoryQuery('Find coffee',[],saved).some(p=>p.kind==='places'),false);
   assert.equal(payload('Which restaurants are open now','capability').state,'unsupported-query');
+});
+
+
+test('sample menus stay candidate, disclose fiction and cannot create geographic routes',()=>{
+  const sampleCitation={...citation,status:'candidate',sourceId:'OMNI-UX-V2-FICTIONAL-PREVIEW',verificationMethod:'synthetic-preview'};
+  const sample=place('sample-coffee','Test sample coffee','Coffee',{menus:[{...item('sample-dish','125'),citation:sampleCitation,priceCitation:sampleCitation,tagCitation:sampleCitation,tags:['vegetarian recipe']}]});
+  const result=answerDirectoryQuery('Menu under PHP 150',[sample],saved);
+  assert.equal(result.find(p=>p.kind==='menus').items.length,1);
+  assert.match(result.find(p=>p.kind==='text').text,/fictional/);
+  assert.equal(sample.menus[0].citation.status,'candidate');
+  const route=answerDirectoryQuery('Directions to Test sample coffee',[sample],saved).find(p=>p.kind==='route');
+  assert.equal(route.result.available,false);assert.match(route.result.reason,/fictional sample/);
+  // Merely assigning a sample ID must not permit unrelated candidate evidence.
+  sample.menus[0].priceCitation={...citation,status:'candidate'};
+  assert.equal(answerDirectoryQuery('Menu under PHP 150',[sample],saved).some(p=>p.kind==='menus'),false);
 });
