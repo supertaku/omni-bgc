@@ -1,0 +1,50 @@
+{
+  "api": "refreshInstalledGraph():Promise<GraphRefresh>",
+  "files": [
+    {
+      "bytes": 4113,
+      "path": "apps/mobile/src/routing/installed.ts",
+      "sha256": "14f9d73a30b49785be276e4f8bae98874380f3e82379883d1e49d16cc4ecec16"
+    },
+    {
+      "bytes": 446,
+      "path": "apps/mobile/src/routing/index.ts",
+      "sha256": "cd7d549e8a645dbe01421f791d281667b86f758ac3fe864ab1105a32936b0666"
+    },
+    {
+      "bytes": 8357,
+      "path": "tests/routing/mobile/loader.test.cjs",
+      "sha256": "fe9c8e39b8b35065d3220afeeb281769180bbff6f0bf5920faf1697cdc65ddfe"
+    },
+    {
+      "bytes": 5869,
+      "path": "docs/evaluations/m9/routing/loader-tests.log",
+      "sha256": "c9e8132b87257e2cf972414929c21d4b3d07122bb347d2009928d297317b9a6a"
+    },
+    {
+      "bytes": 0,
+      "path": "docs/evaluations/m9/routing/loader-typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3293,
+      "path": "docs/evaluations/m9/routing/LOADER_HANDOFF.md",
+      "sha256": "58480e1ba5039cc9ee3bcce9dae8621bdab5eb5c2b923e12d2d07fb963166288"
+    },
+    {
+      "bytes": 3914,
+      "path": "docs/evaluations/m9/routing/TASK_PLAN_AND_WORK_LOG.md",
+      "sha256": "c66908d37da14ac727ea23ef04b155f66850023c728da9126c281cc95c493509"
+    }
+  ],
+  "focused_tests": {
+    "engine": 19,
+    "fail": 0,
+    "loader": 8,
+    "pass": 27
+  },
+  "historical_engine_manifest": "artifact-manifest.json retained from pre-loader engine handoff; loader-manifest supersedes index.ts and TASK_PLAN_AND_WORK_LOG.md records changed by this explicitly reviewed integration",
+  "mobile_typecheck": "PASS",
+  "parent_review": "PENDING",
+  "physical": "SKIPPED_BY_USER"
+}
