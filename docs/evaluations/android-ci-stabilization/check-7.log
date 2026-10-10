@@ -1,0 +1,71 @@
+TAP version 13
+# PASS FTS escapes operators and limits Unicode tokens
+# PASS Saved input has no origin field and validates duration
+# PASS Production parser is empty without current projection facts
+# PASS Parser preserves UUID citation aliases and unknown coordinates
+# PASS Parser rejects cross-pack conflicting names
+# PASS Explicit entrance requires subject-bound field coordinate and access
+# PASS Transit parser needs complete supported shape/calendar/stop sequence
+# PASS Manifest rejects unknown grants, traversal, HTTP, stale, size
+# PASS Menu rights are source/use specific
+# PASS Exact dependency missing blocks candidate
+# PASS Same-version replacement hash cannot break dependents
+# PASS Reused version with altered manifest rejects even without dependents
+# PASS Invalid calendar dates cannot normalize into accepted UTC
+# PASS Empty trust registry cannot authorize remote manifests
+# PASS failed cursor consumption still awaits finalize
+# PASS ownership queue drains after failure
+# PASS actual oversized stream cancels before full body read
+# PASS exact bounded stream consumes and releases
+# PASS Style exact local glyph/sprite/PMTiles URLs preserve license links
+# PASS Style rejects traversal and undeclared glyph/2x atlas
+# PASS Style rejects external resource while allowing HTTPS attribution text
+# PASS denied/uninstalled active style remains null
+# 22 mobile pure contract tests PASS; native behavior NOT_RUN
+# Subtest: tests\\data-quality\\mobile\\contracts.mjs
+ok 1 - tests\\data-quality\\mobile\\contracts.mjs
+  ---
+  duration_ms: 402.9291
+  type: 'test'
+  ...
+# PASS Interruption checkpoint continues across separate calls with Range+If-Range
+# PASS Ignored Range full200 restarts without appending duplicate prefix
+# PASS Changed ETag206 cancels and discards partial before bounded fresh retry
+# PASS Malformed Content-Range/total/start reject and discard partial
+# PASS Actual oversized chunk cancels before persistence
+# PASS Weak/absent ETag interruption uses fresh bounded retry
+# PASS Final hash mismatch never exposes completed candidate
+# PASS Strict HTTPS identity and response origin reject
+# PASS Checkpoint/file length mismatch safely restarts
+# PASS Explicit AbortSignal cancels stream and retains only safe checkpoint
+# PASS Actual desktop partial bytes/checkpoint survive recreated IO owner
+# 11 resumable transfer tests PASS; TEST ONLY transport/filesystem; physical validation SKIPPED by user
+# Subtest: tests\\data-quality\\mobile\\resume.mjs
+ok 2 - tests\\data-quality\\mobile\\resume.mjs
+  ---
+  duration_ms: 305.3616
+  type: 'test'
+  ...
+# PASS Branch price unknown and currency stay separate
+# PASS PHP decimals compare exactly without rounding or guessed prices
+# PASS Candidate branches cannot satisfy queries
+# PASS Parser retains price values and only explicit tags
+# PASS Building name requires current subject-bound relationship
+# PASS Same-source facts retain distinct exact citations
+# PASS supported store services return current branch data
+# 7 deterministic mobile retrieval cases passed; native device not exercised.
+# Subtest: tests\\data-quality\\mobile\\retrieval.mjs
+ok 3 - tests\\data-quality\\mobile\\retrieval.mjs
+  ---
+  duration_ms: 352.5499
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 411.3708
