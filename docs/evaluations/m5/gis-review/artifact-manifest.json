@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "bytes": 2348,
+      "path": "docs/evaluations/m5/gis-review/HANDOFF.md",
+      "sha256": "c9947077635e31f54b6e8ad6a3f130ddbe9bfe80d33d0d5026a60cab2af2a311"
+    },
+    {
+      "bytes": 1358,
+      "path": "docs/evaluations/m5/gis-review/initial-review.log",
+      "sha256": "eef0865969695b2e81bae004a8269dd7f8fd6fc0bfaeb68599e63e751d78df02"
+    },
+    {
+      "bytes": 9046,
+      "path": "docs/evaluations/m5/gis-review/initial-validation.json",
+      "sha256": "f4e02d3cfbb8ace266f75a748a1e813cb876a95c7bee52aa732af9475a2ced4a"
+    },
+    {
+      "bytes": 1208,
+      "path": "docs/evaluations/m5/gis-review/review.log",
+      "sha256": "b626fb2732a5c084788c7266e90e8e38f4e1a1bfb899289240d8e7396d683c50"
+    },
+    {
+      "bytes": 5225,
+      "path": "docs/evaluations/m5/gis-review/REVIEW.md",
+      "sha256": "9ca130e5f2ea21bd6cee5f6fb82551dbea69cc7476eef7a0c0ddff7697f1d7b4"
+    },
+    {
+      "bytes": 10077,
+      "path": "docs/evaluations/m5/gis-review/review_pack.py",
+      "sha256": "d376b0bfc6f54f44a9808090163f828322449fcbe6cf5292a86a497e9787e2cd"
+    },
+    {
+      "bytes": 8347,
+      "path": "docs/evaluations/m5/gis-review/validation.json",
+      "sha256": "112f40c5cc99fc717dcfe76d58c9a24da757865b26a5b09f8f6c6bd95b819b2f"
+    }
+  ],
+  "native_proof": "NOT_RUN",
+  "parent_review": "PENDING",
+  "scope": "independent corrected pack static GIS/resource check only"
+}

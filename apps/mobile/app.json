@@ -1,15 +1,18 @@
 {
   "expo": {
-    "name": "Omni-BGC M0 Spike",
-    "slug": "omni-bgc-m0-spike",
-    "version": "0.0.0",
-    "scheme": "omni-bgc-m0",
+    "name": "Omni-BGC Preview",
+    "slug": "omni-bgc-preview",
+    "version": "0.1.0",
+    "scheme": "omni-bgc-preview",
     "orientation": "default",
+    "icon": "./assets/brand/icon.png",
     "android": {
-      "package": "com.omnibgc.m0spike",
-      "blockedPermissions": ["android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION", "android.permission.ACCESS_BACKGROUND_LOCATION", "android.permission.RECORD_AUDIO"]
+      "package": "com.omnibgc.preview",
+      "allowBackup": false,
+      "blockedPermissions": ["android.permission.ACCESS_BACKGROUND_LOCATION", "android.permission.RECORD_AUDIO", "android.permission.SYSTEM_ALERT_WINDOW", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"],
+      "permissions": ["android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"]
     },
-    "ios": {"bundleIdentifier": "com.omnibgc.m0spike"},
-    "plugins": ["@maplibre/maplibre-react-native", ["expo-sqlite", {"enableFTS": true, "withSQLiteVecExtension": false}]]
+    "ios": {"bundleIdentifier": "com.omnibgc.preview", "infoPlist": {"NSLocationWhenInUseUsageDescription": "Use your location on the map only when you request it. Manual origin works without location permission."}},
+    "plugins": ["@maplibre/maplibre-react-native", ["expo-sqlite", {"enableFTS": true, "withSQLiteVecExtension": false}], ["expo-location", {"locationWhenInUsePermission": "Use your location on request for the map. You can always choose a manual origin.", "isAndroidBackgroundLocationEnabled": false, "isAndroidForegroundServiceEnabled": false}], "./plugins/withOfflinePilot.cjs"]
   }
 }

@@ -6,6 +6,9 @@
 /docs/evaluations/m3/** -text
 /docs/evaluations/m4/** -text
 /docs/evaluations/m5/** -text
+/docs/evaluations/m9/** -text
+/docs/evaluations/mobile-data/** -text
+/docs/evaluations/mobile-ui/** -text
 /docs/evaluations/program/** -text
 /data/** -text
 /packages/** -text
@@ -17,6 +20,32 @@
 /docs/architecture/M4_PLACE_INTAKE.md -text
 /apps/mobile/src/** -text
 /apps/mobile/plugins/** -text
+/apps/mobile/App.tsx -text
+/apps/mobile/app.json -text
+/apps/mobile/metro.config.js -text
+/apps/mobile/package.json -text
+/apps/mobile/package-lock.json -text
+/docs/TOOL_RATIONALE.md -text
+
+# Exact reviewed Windows text may retain CRLF; still reject actual spaces/tabs.
+/apps/mobile/src/** whitespace=cr-at-eol
+/apps/mobile/plugins/** whitespace=cr-at-eol
+/apps/mobile/App.tsx whitespace=cr-at-eol
+/apps/mobile/app.json whitespace=cr-at-eol
+/apps/mobile/metro.config.js whitespace=cr-at-eol
+/apps/mobile/package*.json whitespace=cr-at-eol
+/data/manifests/offline-pilot-inventory.json whitespace=cr-at-eol
+/docs/evaluations/m5/** whitespace=cr-at-eol
+/docs/evaluations/m9/** whitespace=cr-at-eol
+/docs/evaluations/mobile-data/** whitespace=cr-at-eol
+/docs/evaluations/mobile-ui/** whitespace=cr-at-eol
+/docs/evaluations/program/** whitespace=cr-at-eol
+/packages/routing/** whitespace=cr-at-eol
+/packages/database/migrations/mobile/00[23]* whitespace=cr-at-eol
+/pipelines/etl/review-dashboard/** whitespace=cr-at-eol
+/pipelines/map-pack/** whitespace=cr-at-eol
+/tests/data-quality/mobile/** whitespace=cr-at-eol
+/tests/routing/mobile/** whitespace=cr-at-eol
 
 # Captured Windows command output retains CRLF and intentional terminal blanks.
 /docs/evaluations/m1/**/*.log whitespace=-blank-at-eof,cr-at-eol
@@ -24,3 +53,7 @@
 /docs/evaluations/m2/**/*.log whitespace=-blank-at-eof,cr-at-eol
 /docs/evaluations/m3/**/*.log whitespace=-blank-at-eof,cr-at-eol
 /docs/evaluations/m4/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/m5/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/m9/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/mobile-data/**/*.log whitespace=-blank-at-eof,cr-at-eol
+/docs/evaluations/mobile-ui/**/*.log whitespace=-blank-at-eof,cr-at-eol

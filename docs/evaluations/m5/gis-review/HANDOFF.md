@@ -1,0 +1,11 @@
+# Independent pack GIS review handoff
+
+Final bounded static GIS review has no remaining blocking finding. Parent M5 native gate remains pending; no full offline/device/production/distribution approval is inferred.
+
+Reviewed exact corrected manifest SHA256 `2fa53a5bd54425bad58b86d592fd69baf687ac048a982e3e1e7489ed96cae808`:27MVT gzip tiles,548unique source-linked render records,212,121resource bytes. Independently decoded every tile; all instances match source-clipped Mercator geometry within half-cell-diagonal quantization tolerance, maximum0.416093m (ratio0.99324). Header/metadata minimum14and maximum18match target tile generation; camera minimum14matches,19–20overzoom needs native validation. Source raw SHA/snapshot UUID/M1 scope bounds agree with M3 lineage; all features candidate and navigation graph remains0eligible. All nine manifest resources and app copies match byte for byte.
+
+Initial issues closed by parent:40outside-pilot trees and290point-road records excluded; tiny zoom13sub-pixel polygon sliver omitted by removing unused13level,14–18remain faithful. Initial evidence preserved. One private service-road visual remains source geometry; this confers no walkability/access approval. MVT lacks directional/permission metadata and cannot serve as routing authority; no one-way instruction/arrow claim is made.
+
+Glyph protobuf structure/256glyphs/current source-label coverage and sprite1x/2xatlas bounds pass. Procedural sprite art is independently authored; tree positions remain OSM-derived. Visible style attribution plus local ODbL/OFL notices are present. Legal/publishing clearance is separate. SDF baseline/halo/readability, PMTiles/asset URL decoding and actual attributions/sprites/extrusions remain native-device proof needs; `onDidFinishRenderingMapFully`alone cannot prove every resource or zero network access. Airplane-mode cold launch without Metro after force-stop/restart, missing/corrupt pack behavior and iOS remain pending. Parent owns native validation.
+
+Files changed only `docs/evaluations/m5/gis-review/**`:independent read-only checker, initial/final JSON/logs, review and this handoff/manifest. No source/generated/native/Git modifications. Isolated map-pack Python3.13.7, pmtiles3.4.1/mapbox-vector-tile2.2.0. Read-only Shapely2.2transform deprecation warning retained; no failed final check.
