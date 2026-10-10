@@ -21,13 +21,16 @@ function fixture() {
 const origin = (coord = p(20)) => ({ coordinate: coord, method: 'manual', confirmed: true });
 const entrance = (coord = p(80, 5)) => ({ id: 'entry', label: 'TEST ONLY entrance', coordinate: coord, eligible: true });
 beforeEach(() => engine.clearGraph());
-test('default empty graph and accepted M3 candidates never route', async () => {
+test('default empty graph and synthetic candidates never install or route', async () => {
   assert.equal((await engine.route(origin(), entrance())).available, false);
   const f = fixture(); f.status = 'candidate';
-  assert.equal(engine.installGraph(f).installed, false);
-  const m3 = JSON.parse(fs.readFileSync(path.join(root, 'data/generated/m3/run-a/candidate-graph.json'), 'utf8'));
-  assert.equal(engine.installGraph(m3).installed, false);
-  assert.equal((await engine.route(origin(), entrance())).available, false);
+  const m3 = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures/candidate-export.json'), 'utf8'));
+  for (const candidate of [f, m3]) {
+    assert.equal(engine.installGraph(fixture()).installed, true);
+    assert.equal((await engine.route(origin(), entrance())).available, true);
+    assert.equal(engine.installGraph(candidate).installed, false);
+    assert.equal((await engine.route(origin(), entrance())).available, false);
+  }
 });
 test('same edge snap slices real geometry with no endpoint detour', async () => {
   const f = fixture(); assert.equal(engine.installGraph(f).eligibleEdges, 1);
