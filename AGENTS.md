@@ -1,7 +1,7 @@
 # Omni-BGC — Repository-wide instructions for development agents
 
 Project: offline-first BGC map and navigation mobile app, Android-first and iOS-compatible.
-Current phase: **pre-AI**. DO NOT implement or install on-device LLM inference, RAG, embeddings, vector search, AI planning or agent orchestration inside the app. The Assistant UI shell is in scope.
+Current phase: **offline AI implementation**, authorized by the user's 2026-10-11 instruction and `docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md`, superseding the earlier pre-AI boundary. Complete the audit and physical Android runtime benchmark before selecting/integrating a production inference runtime. Independent retrieval and evaluation work may proceed while benchmarking is blocked. No remote inference, unrestricted agent loops, or walking navigation. Preserve the accepted UX V2.1 and deterministic fallback.
 
 ## Engineering invariants
 

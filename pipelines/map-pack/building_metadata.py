@@ -26,7 +26,7 @@ def meters(value):
 def levels(value):
     return int(value) if isinstance(value, str) and re.fullmatch(r'[1-9]\d*', value) and int(value) <= 200 else None
 
-def building_presentation(tags):
+def building_presentation(tags, seed=0):
     height = meters(tags.get('height'))
     if height == 0: height = None
     count = levels(tags.get('building:levels'))
@@ -52,7 +52,7 @@ def building_presentation(tags):
     if invalid_base: base = 0; base_basis = 'invalid-source-base-ground-fallback'
     props = {'visual_family': family, 'visual_height': display, 'visual_base': base,
              'height_basis': basis, 'base_basis': base_basis,
-             'facade_pattern': 'facade-'+family, 'roof_color': FAMILIES[family][0],
+             'facade_pattern': 'facade-'+family+('-alt' if seed % 2 else ''), 'roof_color': FAMILIES[family][0],
              'building_part': 'building:part' in tags, 'render_extrusion': True}
     if height is not None: props['source_height_m'] = height
     if count is not None: props['source_levels'] = count

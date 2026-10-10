@@ -1,13 +1,13 @@
 // Focused host gate. Native rendering/gestures must be checked on Android separately.
 const fs=require('node:fs');const path=require('node:path');const crypto=require('node:crypto');const cp=require('node:child_process');const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../../..');
-const evidence=path.join(root,'docs/evaluations',process.argv.includes('--v2')?'ux-v2':'ux-program');fs.mkdirSync(evidence,{recursive:true});
+const evidence=path.join(root,'docs/evaluations',process.argv.includes('--v2.1')?'ux-v2.1':process.argv.includes('--v2')?'ux-v2':'ux-program');fs.mkdirSync(evidence,{recursive:true});
 const commands=[
   [process.execPath,['apps/mobile/node_modules/typescript/bin/tsc','--noEmit','--project','apps/mobile/tsconfig.json']],
   [process.execPath,['apps/mobile/scripts/check-local-style.mjs']],
   [process.execPath,['pipelines/map-pack/check.mjs']],
   [process.execPath,['--test','tests/map/mobile/layer-compatibility.test.cjs']],
-  [process.execPath,['--test','tests/data-quality/mobile/startup.test.cjs','tests/data-quality/mobile/demo-directory.test.cjs','tests/ui/screen-navigation.test.cjs','apps/mobile/src/features/assistant/ui-v2.test.cjs']],
+  [process.execPath,['--test','tests/data-quality/mobile/startup.test.cjs','tests/data-quality/mobile/demo-directory.test.cjs','tests/ui/screen-navigation.test.cjs','tests/ui/mobile-interactions.test.cjs','tests/ui/app-refinement.test.cjs','apps/mobile/src/features/assistant/ui-v2.test.cjs']],
   [process.execPath,['apps/mobile/src/features/explore/directory.test.cjs']],
   [process.execPath,['apps/mobile/src/features/assistant/directory.test.cjs']],
   [process.execPath,['--test','tests/routing/mobile/engine.test.cjs','tests/routing/mobile/loader.test.cjs']],
@@ -34,7 +34,7 @@ assert.ok(places.every(p=>p.status==='candidate'&&p.entrances.length===0&&p.menu
 const tokens=read('packages/ui/tokens.json');
 const luminance=hex=>{const rgb=hex.slice(1).match(/../g).map(value=>parseInt(value,16)/255).map(value=>value<=.04045?value/12.92:((value+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;};
 const contrast=tokens.contrastPairs.map(pair=>{const a=luminance(tokens.color[pair.foreground]),b=luminance(tokens.color[pair.background]);const ratio=(Math.max(a,b)+.05)/(Math.min(a,b)+.05);assert.ok(ratio>=pair.min,pair.name);return {name:pair.name,ratio,minimum:pair.min};});
-const report={timestamp:new Date().toISOString(),runtime:process.version,results,contrast,fontsVerified:fonts.files.length,sourceDirectory:directory,nativeDevice:'NOT_RUN_NO_CONNECTED_DEVICE_OR_AVD',passed:results.every(r=>r.exitCode===0)};
+const report={timestamp:new Date().toISOString(),runtime:process.version,results,contrast,fontsVerified:fonts.files.length,sourceDirectory:directory,nativeDevice:'SEPARATE_PHYSICAL_DEVICE_EVIDENCE',passed:results.every(r=>r.exitCode===0)};
 fs.writeFileSync(path.join(evidence,'host-validation.json'),JSON.stringify(report,null,2)+'\n');
 console.log(`PASS ${fonts.files.length} font/license hashes, ${places.length} source-only records and ${contrast.length} contrast pairs`);
 if(!report.passed)process.exitCode=1;

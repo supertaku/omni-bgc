@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { AccessibilityInfo, PanResponder, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { AccessibilityInfo, Dimensions, PanResponder, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import type { Citation, Place, RouteResult, SavedState } from '../contracts';
 import { BrandMark, CategoryArtwork, Icon, type IconName } from './icons';
 export { BrandMark, CategoryArtwork, Icon, categoryIcon, type IconName } from './icons';
@@ -38,14 +38,22 @@ export function Notice({children,error=false}:{children:ReactNode;error?:boolean
   </View>;
 }
 type SheetLevel = 'peek' | 'half' | 'full';
-type SheetProps={title:string;children:ReactNode;onBack:()=>void;footer?:ReactNode;expanded?:boolean;peek?:boolean;peekContent?:ReactNode;peekHeight?:number;onExpansionChange?:(expanded:boolean)=>void;onHeightChange?:(height:number)=>void};
+type SheetProps={title:string;children:ReactNode;onBack:()=>void;footer?:ReactNode;expanded?:boolean;peek?:boolean;peekContent?:ReactNode;compactSummary?:ReactNode;peekHeight?:number;availableHeight?:number;onExpansionChange?:(expanded:boolean)=>void;onHeightChange?:(height:number)=>void};
 /** The header owns vertical drags. The map and scrollable content keep their gestures. */
 
-export function Sheet({title,children,onBack,footer,expanded=false,peek=false,peekContent,peekHeight=140,onExpansionChange,onHeightChange}:SheetProps) {
+export function Sheet({title,children,onBack,footer,expanded=false,peek=false,peekContent,compactSummary,peekHeight=140,availableHeight,onExpansionChange,onHeightChange}:SheetProps) {
   const scroll=useRef<ScrollView>(null);
-  const {fontScale,width,height}=useWindowDimensions(),landscape=width>height;
+  const {fontScale,width,height}=useWindowDimensions();
+  const screen=Dimensions.get('screen'),landscape=screen.width>screen.height;
+  // Android adjustResize and iOS keyboard avoidance change the actual pager viewport.
+  // Global window dimensions can lag that layout; pixel bounds must use its measurement.
+  const viewportHeight=availableHeight!==undefined&&Number.isFinite(availableHeight)&&availableHeight>0?Math.min(height,availableHeight):height;
   const initialLevel:SheetLevel=expanded?'full':peek?'peek':'half';
   const [level,setLevel]=useState<SheetLevel>(initialLevel);
+  const [contentHeight,setContentHeight]=useState<number|null>(null);
+  const [headerHeight,setHeaderHeight]=useState(64);
+  const [dragHeight,setDragHeight]=useState<number|null>(null);
+  const heightRef=useRef(0),startHeight=useRef(0),bounds=useRef({minimum:105,maximum:height*.9});
   const forcedFull=fontScale>1.35||landscape;
   const actualLevel:SheetLevel=forcedFull?'full':level;
   const canResize=useRef(!forcedFull);canResize.current=!forcedFull;
@@ -55,34 +63,45 @@ export function Sheet({title,children,onBack,footer,expanded=false,peek=false,pe
   const changeLevel=(next:SheetLevel)=>{setLevel(next);changeRef.current?.(next!=='peek');};
   const drag=useRef(PanResponder.create({
     onMoveShouldSetPanResponder:(_,gesture)=>canResize.current&&Math.abs(gesture.dy)>12&&Math.abs(gesture.dy)>Math.abs(gesture.dx)*1.5,
+    onPanResponderGrant:()=>{startHeight.current=heightRef.current;},
+    onPanResponderMove:(_,gesture)=>{
+      if(canResize.current)setDragHeight(Math.max(bounds.current.minimum,Math.min(bounds.current.maximum,startHeight.current-gesture.dy)));
+    },
     onPanResponderRelease:(_,gesture)=>{
+      setDragHeight(null);
       if(!canResize.current||Math.abs(gesture.dy)<28)return;
       const value=levelRef.current;
       changeLevel(gesture.dy<0?(value==='peek'?'half':'full'):(value==='full'?'half':canPeek.current?'peek':'half'));
     },
+    onPanResponderTerminate:()=>setDragHeight(null),
+    onPanResponderTerminationRequest:()=>false,
   })).current;
-  useEffect(()=>{setLevel(expanded?'full':peek?'peek':'half');scroll.current?.scrollTo({y:0,animated:false});AccessibilityInfo.announceForAccessibility(title);},[title,expanded,peek]);
+  useEffect(()=>{setLevel(expanded?'full':peek?'peek':'half');setContentHeight(null);setDragHeight(null);scroll.current?.scrollTo({y:0,animated:false});AccessibilityInfo.announceForAccessibility(title);},[title,expanded,peek]);
   // Expanded large-text/landscape layouts place actions inside the scroll area.
   const scrollingFooter=fontScale>1.35||landscape;
-  const sheetHeight=actualLevel==='peek'?Math.max(100,Math.min(150,peekHeight)):height*(actualLevel==='full'?0.9:0.48);
-  return <View style={[ui.sheet,{height:sheetHeight},landscape&&{left:undefined,width:Math.min(480,width*.66)}]} accessibilityViewIsModal={actualLevel!=='peek'} onLayout={event=>onHeightChange?.(event.nativeEvent.layout.height)}>
-    <View style={ui.sheetHandle} {...drag.panHandlers}>{!forcedFull?<View style={ui.sheetGrip}/>:null}<View style={ui.sheetHeader}><IconAction name="back" label="Go back" onPress={onBack}/><Text accessibilityRole="header" style={ui.sheetTitle}>{title}</Text>{!forcedFull?<Pressable accessibilityRole="button" accessibilityLabel={actualLevel==='peek'?'Expand place sheet':actualLevel==='half'?'Show full sheet':'Collapse sheet'} accessibilityHint="You can also drag the sheet header up or down" accessibilityState={{expanded:actualLevel!=='peek'}} onPress={()=>changeLevel(actualLevel==='peek'?'half':actualLevel==='half'?'full':peek?'peek':'half')} style={ui.sheetExpand}><Icon name={actualLevel==='full'?'down':'up'} size={20}/></Pressable>:null}</View></View>
-    {actualLevel==='peek'?<View style={ui.peekContent}>{peekContent??footer??<Pressable accessibilityRole="button" accessibilityLabel="Expand place details" onPress={()=>changeLevel('half')} style={ui.disclosure}><Text style={ui.disclosureText}>Show details</Text></Pressable>}</View>:null}
-    <ScrollView ref={scroll} style={[ui.sheetScroll,actualLevel==='peek'&&{display:'none'}]} keyboardShouldPersistTaps="handled" contentContainerStyle={ui.sheetContent}>
+  const minimum=Math.min(viewportHeight*.9,Math.max(105,Math.min(145,peekHeight)));
+  const target=actualLevel==='peek'?minimum:viewportHeight*(actualLevel==='full'?0.9:0.48);
+  const natural=contentHeight===null?viewportHeight*.9:Math.max(minimum+24,headerHeight+contentHeight+(footer&&!scrollingFooter?96:0));
+  const sheetHeight=Math.min(viewportHeight*.9,dragHeight??(actualLevel==='peek'?minimum:Math.min(target,natural)));
+  heightRef.current=sheetHeight;bounds.current={minimum:peek?minimum:Math.min(viewportHeight*.48,natural),maximum:Math.min(viewportHeight*.9,natural)};
+  return <View style={[ui.sheet,{height:sheetHeight,maxHeight:viewportHeight*.95},landscape&&{left:undefined,width:Math.min(480,width*.66)}]} accessibilityViewIsModal={!compactSummary&&actualLevel!=='peek'} onLayout={event=>onHeightChange?.(event.nativeEvent.layout.height)}>
+    <View style={ui.sheetHandle} onLayout={event=>setHeaderHeight(event.nativeEvent.layout.height)} {...drag.panHandlers}>{!forcedFull?<View style={ui.sheetGrip}/>:null}<View style={ui.sheetHeader}><IconAction name="back" label="Go back" onPress={onBack}/><Text accessibilityRole="header" style={ui.sheetTitle}>{title}</Text>{!forcedFull?<Pressable accessibilityRole="button" accessibilityLabel={actualLevel==='peek'?'Expand place sheet':actualLevel==='half'?'Show full sheet':'Collapse sheet'} accessibilityHint="You can also drag the sheet header up or down" accessibilityState={{expanded:actualLevel!=='peek'}} onPress={()=>changeLevel(actualLevel==='peek'?'half':actualLevel==='half'?'full':peek?'peek':'half')} style={ui.sheetExpand}><Icon name={actualLevel==='full'?'down':'up'} size={20}/></Pressable>:null}</View>{compactSummary&&actualLevel==='peek'?<View style={ui.peekContent}>{compactSummary}</View>:null}</View>
+    {actualLevel==='peek'&&!compactSummary?<View style={ui.peekContent}>{peekContent??footer??<Pressable accessibilityRole="button" accessibilityLabel="Expand place details" onPress={()=>changeLevel('half')} style={ui.disclosure}><Text style={ui.disclosureText}>Show details</Text></Pressable>}</View>:null}
+    <ScrollView ref={scroll} style={[ui.sheetScroll,actualLevel==='peek'&&{display:'none'}]} keyboardShouldPersistTaps="handled" contentContainerStyle={ui.sheetContent} onContentSizeChange={(_,value)=>{if(value>0)setContentHeight(value);}}>
       {children}{footer&&scrollingFooter?<View style={[ui.sheetFooter,{paddingHorizontal:0}]}>{footer}</View>:null}
     </ScrollView>
     {footer&&!scrollingFooter&&actualLevel!=='peek'?<View style={ui.sheetFooter}>{footer}</View>:null}
   </View>;
 }
 
-export function CitationList({citations}:{citations:Citation[]}) {
-  const [open,setOpen]=useState(false);
+export function CitationList({citations,initialExpanded=false}:{citations:Citation[];initialExpanded?:boolean}) {
+  const [open,setOpen]=useState(initialExpanded);
   if(!citations.length)return <Body muted>Source information is unavailable for this record.</Body>;
   return <View style={ui.evidence}>
     <Pressable accessibilityRole="button" accessibilityLabel={open?'Hide sources and freshness':'Show sources and freshness'} accessibilityState={{expanded:open}} onPress={()=>setOpen(!open)} style={ui.disclosure}>
-      <Icon name="info" size={18} color={palette.muted}/><Text style={ui.disclosureText}>Sources & freshness · {citations.length}</Text><Icon name={open?'up':'down'} size={18} color={palette.muted}/>
+      <Icon name="info" size={18} color={palette.muted}/><Text style={ui.disclosureText}>Sources & freshness · {new Set(citations.map(citation=>citation.sourceId)).size}</Text><Icon name={open?'up':'down'} size={18} color={palette.muted}/>
     </Pressable>
-    {open?citations.map((c,i)=><View key={`${c.sourceId}:${i}`} style={ui.citation}><Body>{c.label}</Body><Body muted>{c.status} · {c.sourceId}</Body><Body muted>License: {c.license}</Body><Body muted>Observed: {c.observedAt}</Body><Body muted>Verified: {c.verifiedAt??'Not verified'}</Body></View>):null}
+    {open?citations.map((c,i)=><View key={`${c.sourceId}:${i}`} style={ui.citation}><Body>{c.label}</Body><Body muted>{c.status} · {c.sourceId}</Body><Body muted>License: {c.license}</Body><Body muted>Observed: {c.observedAt}</Body><Body muted>Verified: {c.verifiedAt??'Not verified'}</Body>{c.locator?<Body muted>Evidence: {c.locator}</Body>:null}{c.factId?<Body muted>Fact: {c.factId}</Body>:null}{c.snapshotId?<Body muted>Snapshot: {c.snapshotId}</Body>:null}{c.evidenceId?<Body muted>Evidence ID: {c.evidenceId}</Body>:null}{c.rawSha256?<Body muted>Raw SHA256: {c.rawSha256}</Body>:null}{c.verificationMethod?<Body muted>Verification method: {c.verificationMethod}</Body>:null}</View>):null}
   </View>;
 }
 // Deterministic presentation components only; their owner discloses capability.

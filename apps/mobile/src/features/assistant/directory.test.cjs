@@ -37,18 +37,38 @@ test('dietary labels cannot match an unsupported tag',()=>{
   p.menus[0].tagCitation=citation;
   assert.equal(answerDirectoryQuery('Vegetarian dishes',[p],saved).find(p=>p.kind==='menus').items.length,1);
 });
-test('route handoff has no made-up distance, origin or geometry',()=>{
-  const result=payload('Directions to Test Kitchen','route');assert.equal(result.placeId,'food');assert.equal(result.result.available,false);assert.equal(result.result.lengthM,undefined);
-  assert.equal(payload('How to get there','route'),undefined);
+test('directions always defer with exact wording and no origin, route or place handoff',()=>{
+  for(const query of ['Directions to Test Kitchen','How to get there','Walking to Test Café','How do I get to Test Kitchen','Navigate to unknown','Directions to my saved places','Walking directions for my itinerary','Find a walking route under PHP 30','How to reach Test Kitchen']) {
+    const result=answerDirectoryQuery(query,places,saved);
+    assert.equal(result.length,1,query);
+    assert.equal(result[0].kind,'text',query);
+    assert.equal(result[0].text,'Walking directions are not available in this version.',query);
+  }
 });
-test('saved results omit removed records, preserve actual itinerary and refuse AI planning',()=>{
+test('saved results omit removed records and deferral leaves the saved itinerary intact',()=>{
   assert.equal(payload('My saved places','places').total,1);
-  assert.equal(payload('Show my itinerary','itinerary').saved,saved);
-  assert.equal(payload('Create a trip','capability').state,'model-unavailable');
+  const original=JSON.stringify(saved);
+  for(const query of ['Show my itinerary','Create a trip','Plan my visit']) {
+    const result=answerDirectoryQuery(query,places,saved);
+    assert.equal(result.length,1);assert.equal(result[0].kind,'text');
+    assert.equal(result[0].text,'Visit planning is not available in this version.');
+  }
+  assert.equal(JSON.stringify(saved),original);
+  assert.ok(!answerDirectoryQuery('My saved places',places,{...saved,placeIds:[]})[0].text.includes('Save'));
 });
 test('absent records and live facts produce explicit unavailable states',()=>{
   assert.equal(answerDirectoryQuery('Find coffee',[],saved).some(p=>p.kind==='places'),false);
   assert.equal(payload('Which restaurants are open now','capability').state,'unsupported-query');
+});
+
+test('a stale item cannot become an ordinary menu result through an approved branch',()=>{
+  const approved=place('stale-item','Test Old Kitchen','restaurant',{status:'approved',menus:[item('old','100',{citation:{...citation,status:'stale'}})]});
+  for(const query of ['Show menu for Test Old Kitchen','Menu under PHP 200']) {
+    const result=answerDirectoryQuery(query,[approved],saved);
+    assert.equal(result.some(payload=>payload.kind==='menus'),false);
+    assert.match(result[0].text,/No matching menu items/);
+  }
+  assert.equal(approved.menus[0].citation.status,'stale');
 });
 
 
@@ -59,8 +79,9 @@ test('sample menus stay candidate, disclose fiction and cannot create geographic
   assert.equal(result.find(p=>p.kind==='menus').items.length,1);
   assert.match(result.find(p=>p.kind==='text').text,/fictional/);
   assert.equal(sample.menus[0].citation.status,'candidate');
-  const route=answerDirectoryQuery('Directions to Test sample coffee',[sample],saved).find(p=>p.kind==='route');
-  assert.equal(route.result.available,false);assert.match(route.result.reason,/fictional sample/);
+  const route=answerDirectoryQuery('Directions to Test sample coffee',[sample],saved);
+  assert.equal(route.length,1);assert.equal(route[0].kind,'text');
+  assert.equal(route[0].text,'Walking directions are not available in this version.');
   // Merely assigning a sample ID must not permit unrelated candidate evidence.
   sample.menus[0].priceCitation={...citation,status:'candidate'};
   assert.equal(answerDirectoryQuery('Menu under PHP 150',[sample],saved).some(p=>p.kind==='menus'),false);

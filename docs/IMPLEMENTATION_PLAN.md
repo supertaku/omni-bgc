@@ -1,5 +1,7 @@
 # Omni-BGC — Pre-AI Engineering Implementation Plan
 
+> Historical pre-AI baseline. The user's 2026-10-11 instruction authorizes the subsequent [offline AI program](OFFLINE_AI_IMPLEMENTATION_PLAN.md). Its audit and physical-device benchmark gates precede production runtime selection; the engineering/data invariants below still apply. UX V2.1 decisions DEC-049–051 supersede earlier navigation/presentation scope.
+
 **Version:** 1.0 | **Prepared:** 2026-10-09 | **Status:** Proposed baseline, pending repo/device audit  
 **Platforms:** Android first; iOS compatibility maintained | **Operating mode:** Offline-first  
 **Boundary:** No on-device LLM, model downloads, embeddings, RAG generation, AI orchestration, or AI itinerary reasoning in this program. Deliver the assistant *UI shell only*.

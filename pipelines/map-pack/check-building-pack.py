@@ -17,7 +17,7 @@ for coordinate, compressed in all_tiles(MemorySource((root/'apps/mobile/assets/g
         tags=source[ident]['properties']['tags'];seen.add(ident)
         assert props['candidate'] is True
         if props['kind']=='building':
-            buildings.add(ident);expected=building_presentation(tags)
+            buildings.add(ident);expected=building_presentation(tags,ident)
             for field in ('visual_height','visual_base','height_basis','base_basis','visual_family','facade_pattern','building_part'):
                 assert props[field]==expected[field],(ident,field)
             for field in ('source_height_m','source_levels','estimated_visual_height_m'):

@@ -14,6 +14,8 @@ const searchable = (place: Place) => normalize([place.name,place.category,place.
 const collection = (title: string, places: Place[]): AssistantPayload => ({kind:'places',title,placeIds:places.slice(0,12).map(place=>place.id),total:places.length});
 const sampleEvidence=(place:Place,citation:Place['citations'][number]|undefined)=>isDemoPlace(place)&&citation?.sourceId==='OMNI-UX-V2-FICTIONAL-PREVIEW'&&citation.verificationMethod==='synthetic-preview';
 const missing = (text: string): AssistantPayload[] => [{kind:'text',text}];
+export const WALKING_DIRECTIONS_DEFERRED = 'Walking directions are not available in this version.';
+export const VISIT_PLANNING_DEFERRED = 'Visit planning is not available in this version.';
 function centavos(value:string):bigint|null {
   if(!/^\d{1,12}(?:\.\d{1,2})?$/.test(value))return null;
   const [whole,fraction='']=value.split('.');return BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0'));
@@ -22,16 +24,17 @@ function centavos(value:string):bigint|null {
 /** Literal local search only. No model, inferred cuisine, distances, hours or itinerary planning. */
 export function answerDirectoryQuery(query: string, places: readonly Place[], saved: SavedState): AssistantPayload[] {
   const text = normalize(query);
+  // Defer before destination matching, saved lookups or menu retrieval. Even an
+  // unknown destination must never lead into an origin/entrance workflow.
+  if (/\b(route|routes|directions|walk|walking|navigate|navigation|get there|how to get|way to|how to reach)\b/.test(text) || /\bhow (?:do|can|would) (?:i|we) get\b/.test(text)) return missing(WALKING_DIRECTIONS_DEFERRED);
   if (/\b(itinerary|stops|plan|trip)\b/.test(text)) {
-    if (/\b(make|create|generate|suggest|plan)\b/.test(text) && !/\b(my|saved|open|show)\b/.test(text)) return [{kind:'capability',state:'model-unavailable',text:'AI planning is not connected. You can build an itinerary by adding places on the map.'},{kind:'itinerary',saved}];
-    return [{kind:'itinerary',saved}];
+    return missing(VISIT_PLANNING_DEFERRED);
   }
   if (/\b(saved|bookmarks|favorites|favourites)\b/.test(text)) {
     const matches = saved.placeIds.flatMap(id=>{const place=places.find(p=>p.id===id);return place?[place]:[];});
-    return matches.length ? [collection('Your saved places',matches)] : missing('Your saved list is empty. Open a place on the map and tap Save to keep it on this device.');
+    return matches.length ? [collection('Your saved places',matches)] : missing('Your saved list is empty. Search for a place or category to explore.');
   }
-  if (/\b(hours|open now|rating|ratings|review|reviews|parking availability|weather|busy|reservation)\b/.test(text)) return [{kind:'capability',state:'unsupported-query',text:'The local directory has no live availability, opening hours or reviews. Open a place to check its recorded details and sources.'}];
-  const isRoute = /\b(route|directions|walk|navigate|get there|how to get)\b/.test(text);
+  if (/\b(hours|open now|rating|ratings|review|reviews|parking availability|weather|busy|reservation)\b/.test(text)) return [{kind:'capability',state:'unsupported-query',text:'Live opening status, availability and reviews are not recorded. View a place’s recorded details and sources.'}];
   const isMenu = /\b(menu|menus|dish|dishes|under|budget|price|prices|allergen|allergens|vegan|vegetarian|gluten)\b/.test(text);
   const budgetMatch = query.match(/(?:under|below|budget(?:\s+of)?|less than)\s*(?:₱|PHP)?\s*(\d+(?:\.\d{1,2})?)(?![\d.])/i);
   const budget = budgetMatch ? centavos(budgetMatch[1]) : null;
@@ -43,16 +46,10 @@ export function answerDirectoryQuery(query: string, places: readonly Place[], sa
   const literals = terms.filter(word=>!category(word));
   const named = places.filter(place=>[place.name,...place.aliases].some(name=>normalize(name)===terms.join(' ')));
   const matches = named.length?named:places.filter(place=>requestedCategories.every(value=>placeMatchesCategory(place,value)) && literals.every(word=>searchable(place).includes(word)));
-  if (isRoute) {
-    if(!terms.length)return missing('Choose a destination first. Try “Directions to” followed by a place or building name.');
-    if (!matches.length) return missing('I couldn’t match that destination in the local directory. Try its place or building name.');
-    if(isDemoPlace(matches[0])&&matches[0].coordinate===null)return [{kind:'route',placeId:matches[0].id,originLabel:'Fictional sample · No map location',result:{available:false,reason:'This fictional sample has no geographic location or walking entrance. Open a real mapped place for directions.'}}];
-    return [{kind:'route',placeId:matches[0].id,originLabel:'Choose on Map',result:{available:false,reason:'Choose and confirm an origin on the map to calculate a walking route.'}},...(matches.length>1?[collection('Other matching destinations',matches.slice(1))]:[])];
-  }
   if (isMenu) {
     // Item, price and dietary evidence remain attached to the original branch record.
     const items = places.flatMap(place=>place.menus.filter(item=> {
-      if(item.citation.status==='candidate'&&!sampleEvidence(place,item.citation))return false;
+      if(item.citation.status!=='approved'&&!sampleEvidence(place,item.citation))return false;
       const branchText = searchable({...place,menus:[]});
       const itemText=normalize([item.name,...(item.tagCitation?.status==='approved'||sampleEvidence(place,item.tagCitation)?item.tags??[]:[])].join(' '));
       if(named.length){if(!named.some(match=>match.id===place.id))return false;}

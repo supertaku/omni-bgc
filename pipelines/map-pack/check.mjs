@@ -27,12 +27,33 @@ for(const character of textCharacters){const code=character.codePointAt(0);asser
 function protobufFields(bytes){let offset=0;const result=[];const integer=()=>{let value=0,multiplier=1;while(offset<bytes.length){const byte=bytes[offset++];value+=(byte&127)*multiplier;if(!(byte&128))return value;multiplier*=128;}throw new Error('Truncated glyph protobuf');};while(offset<bytes.length){const tag=integer();const wire=tag%8;const number=Math.floor(tag/8);if(wire===0)result.push({number,value:integer()});else if(wire===2){const length=integer();assert.ok(offset+length<=bytes.length);result.push({number,value:bytes.subarray(offset,offset+length)});offset+=length;}else throw new Error('Unexpected glyph wire type');}return result;}
 for(const range of inventory.glyphRanges){const bytes=read(`apps/mobile/assets/generated/omni/fonts/Noto Sans Regular/${range}.pbf`);const stack=protobufFields(protobufFields(bytes).find(field=>field.number===1).value);const glyphIds=stack.filter(field=>field.number===3).map(field=>protobufFields(field.value).find(field=>field.number===1).value).sort((a,b)=>a-b);const start=Number(range.split('-')[0]);assert.deepEqual(glyphIds,Array.from({length:256},(_,index)=>start+index),'Each retained range must contain all 256 glyph entries');}
 const atlas = json('apps/mobile/assets/generated/omni/sprite.json');
+// Native shaping uses a25px baseline at24px glyph size (MapLibre/font-maker).
+// Raw rasterizer bearingY would place all text above its intended anchor.
+const latinStack=protobufFields(protobufFields(read('apps/mobile/assets/generated/omni/fonts/Noto Sans Regular/0-255.pbf')).find(field=>field.number===1).value);
+const latinGlyphs=new Map(latinStack.filter(field=>field.number===3).map(field=>{const glyph=protobufFields(field.value);return [glyph.find(value=>value.number===1).value,glyph];}));
+const signedMetric=(glyph,number)=>{const value=glyph.find(field=>field.number===number).value;return value%2?-(Math.floor(value/2)+1):value/2;};
+for(const character of '0123456789A')assert.equal(signedMetric(latinGlyphs.get(character.charCodeAt(0)),6),-8,'Digit/capital PBF top must include native baseline calibration');
+assert.equal(signedMetric(latinGlyphs.get('g'.charCodeAt(0)),6),-12,'Descender top retains native baseline');
+assert.equal(signedMetric(latinGlyphs.get('j'.charCodeAt(0)),5),-2,'Negative left bearing must round-trip signed protobuf');
+console.log('PASS native calibrated signed glyph metrics for cluster digits, capitals and descenders');
 const atlas2 = json('apps/mobile/assets/generated/omni/sprite@2x.json');
 const families = json('apps/mobile/assets/map-v2/manifest.json');
 assert.equal(families.families.length, 10);
 for(const family of families.families){const entry=atlas['facade-'+family];assert.ok(entry);assert.equal(entry.width,64);assert.equal(entry.height,64);}
 for(const entry of families.files){const bytes=read('apps/mobile/assets/map-v2/'+entry.path);assert.equal(bytes.length,entry.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),entry.sha256);}
 const facades=style.layers.find(layer=>layer.id==='buildings-facades');
+// A rendering contract, not pixel proof: ground people cannot be placed in the
+// overlay stack after any 3D building tier. Native depth cutoff uses layer order.
+const peopleIndex=style.layers.findIndex(layer=>layer.id==='illustrative-pedestrians');
+const extrusionIndices=style.layers.map((layer,index)=>layer.type==='fill-extrusion'?index:-1).filter(index=>index>=0);
+assert.ok(peopleIndex>style.layers.findIndex(layer=>layer.id==='source-pavement-pattern'),'People remain above the pedestrian ground treatment');
+assert.ok(extrusionIndices.length>0&&extrusionIndices.every(index=>peopleIndex<index),'Every 3D building tier must occlude ground decoration by style order');
+const peopleLayer=style.layers[peopleIndex];
+assert.deepEqual(peopleLayer.filter,['==',['get','kind'],'pedestrian-decoration']);
+assert.equal(peopleLayer.layout['icon-anchor'],'bottom');
+assert.equal(peopleLayer.layout['icon-pitch-alignment'],'viewport');
+assert.equal(peopleLayer.layout['icon-allow-overlap'],false);
+console.log('PASS ground pedestrian layer precedes all extrusion tiers; native screenshot occlusion gate remains separate');
 const mapCanvas=read('apps/mobile/src/map/MapCanvas.tsx').toString();
 const installedMap=read('apps/mobile/node_modules/@maplibre/maplibre-react-native/src/components/map/Map.tsx').toString();
 assert.ok(installedMap.includes('androidView?: "surface" | "texture"'));

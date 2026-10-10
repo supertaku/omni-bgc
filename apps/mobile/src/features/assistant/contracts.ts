@@ -14,4 +14,6 @@ export type AssistantPayload =
   | { kind: 'status'; text: string; severity: 'info' | 'error' }
   | { kind: 'capability'; state: CapabilityState; text: string };
 export type ConversationMessage = { id: string; payload: AssistantPayload };
-export type AssistantActions = { onOpenPlace: (place: Place) => void; onOpenItinerary: () => void; onOpenSettings: () => void };
+// Legacy callbacks remain compatible with existing callers; this milestone
+// exposes only place discovery and preserves payload types for future work.
+export type AssistantActions = { onOpenPlace: (place: Place) => void; onOpenItinerary?: () => void; onOpenSettings?: () => void };

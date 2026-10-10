@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AccessibilityInfo, AppState, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
-import { Camera, type CameraRef, GeoJSONSource, type GeoJSONSourceRef, Layer, Map, type MapRef, ViewAnnotation } from '@maplibre/maplibre-react-native';
+import { Camera, type CameraRef, GeoJSONSource, Layer, Map, type MapRef, ViewAnnotation } from '@maplibre/maplibre-react-native';
 import type { Coordinate, Origin, Place, RouteResult, TransitRoute } from '../contracts';
 import { loadActiveStyle } from '../updates/style';
 import { loadBundledStyle } from './bundled-style';
@@ -14,7 +14,6 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
   const statusCallback = useRef(onStatusChange);
   statusCallback.current = onStatusChange;
   const center = useRef<[number,number]>([121.0497,14.5506]);
-  const source = useRef<GeoJSONSourceRef>(null);
   const [failure, setFailure] = useState(false);
   const [fullyRendered, setFullyRendered] = useState(false);
   const [activeStyle, setActiveStyle] = useState<string>(JSON.stringify({version:8,sources:{},layers:[{id:'canvas',type:'background',paint:{'background-color':'#F7F6F0'}}]}));
@@ -28,7 +27,7 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
   const fittedBounds=useMemo(()=>coordinateBounds(routeCoordinates??(transit?.citation.status==='approved'?transit.shape:null)??fitCoordinates??[]),[routeCoordinates,transit,fitCoordinates]);
   const selected=places.find(p=>p.id===selectedPlaceId&&p.coordinate);
   const [outside, setOutside] = useState(false);
-  const renderedStyle=useMemo(()=>{if(!flat&&!quiet)return activeStyle;const style=JSON.parse(activeStyle);for(const layer of style.layers??[]){if(layer.type==='fill-extrusion'||(quiet&&['source-trees','garden-texture','plaza-paving','source-crosswalks'].includes(layer.id)))layer.layout={...layer.layout,visibility:'none'};}return JSON.stringify(style);},[activeStyle,flat,quiet]);
+  const renderedStyle=useMemo(()=>{if(!flat&&!quiet)return activeStyle;const style=JSON.parse(activeStyle);for(const layer of style.layers??[]){if(layer.type==='fill-extrusion'||(quiet&&['source-trees','garden-texture','plaza-paving','source-pavement-pattern','source-crosswalks','illustrative-pedestrians'].includes(layer.id)))layer.layout={...layer.layout,visibility:'none'};}return JSON.stringify(style);},[activeStyle,flat,quiet]);
   const data = useMemo<GeoJSON.FeatureCollection>(() => ({ type: 'FeatureCollection', features: places.filter(p => p.coordinate).map(p => ({ type: 'Feature', id: p.id, properties: { id: p.id, name: p.name, category: p.category,marker:categorySprite(p.category) }, geometry: { type: 'Point', coordinates: [...p.coordinate!] } })) }), [places]);
   useEffect(()=>{statusCallback.current?.(Platform.OS!=='android'||failure?'failed':fullyRendered?'ready':'preparing',Platform.OS!=='android'?'iOS offline installation not device-validated':failure?'Offline resources or native map loading failed':fullyRendered?'Bundled/active offline map fully rendered':'Installing and loading offline map resources');},[failure,fullyRendered]);
   useEffect(()=>{let mounted=true;void AccessibilityInfo.isReduceMotionEnabled().then(value=>{if(mounted)setReducedMotion(value);});const listener=AccessibilityInfo.addEventListener('reduceMotionChanged',setReducedMotion);return()=>{mounted=false;listener.remove();};},[]);
@@ -43,7 +42,7 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
   useEffect(() => { if (origin?.confirmed&&!fittedBounds&&!focusCoordinate&&styleReady) camera.current?.easeTo({ center: [...origin.coordinate],padding,duration }); }, [origin,fittedBounds,focusCoordinate,styleReady]);
   useEffect(()=>{if(cameraResetKey>0&&styleReady)camera.current?.easeTo({center:center.current,bearing:0,pitch:flat||quiet?0:38,padding,duration});},[cameraResetKey,styleReady]);
   if (Platform.OS !== 'android') return <View style={styles.unavailable}><Text>Offline map resource installation needs iOS device validation. Local data screens remain available.</Text></View>;
-  if(!resourcesReady)return <View style={styles.unavailable}><Text accessibilityRole="text">{failure?'Offline map unavailable · open map settings':'Preparing your offline map…'}</Text></View>;
+  if(!resourcesReady)return <View style={styles.unavailable}><Text accessibilityRole="text">{failure?'Offline map unavailable · restart the app to retry':'Preparing your offline map…'}</Text></View>;
   return <View style={styles.container}>
     <Map ref={map} androidView="texture" style={styles.map} mapStyle={renderedStyle} compass={false} logo={false} attribution={false} touchPitch={!flat&&!quiet}
       accessibilityLabel={selected?`BGC map. Selected ${selected.name}. Pan and pinch to explore.`:'BGC map. Pan and pinch to explore. Use search for an accessible list of places.'}
@@ -53,20 +52,17 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
       onDidFinishRenderingMapFully={() => {setFullyRendered(true);setFailure(false);console.log('OMNI_MAP local map fully rendered');}}
       onDidFailLoadingMap={() => { setFailure(true); console.error('OMNI_MAP local resources failed'); }}>
       <Camera ref={camera} initialViewState={{ center: [121.0497,14.5506], zoom: 17, pitch: 38, bearing: -24 }} minZoom={14} maxZoom={20} />
-      {!quiet&&<GeoJSONSource id="visible-places" ref={source} data={data} cluster clusterRadius={48} clusterMaxZoom={16} hitbox={{top:24,right:24,bottom:24,left:24}} onPress={event => {
+      {!quiet&&<GeoJSONSource id="visible-places" data={data} hitbox={{top:24,right:24,bottom:24,left:24}} onPress={event => {
         event.stopPropagation();
         const f = event.nativeEvent.features[0]; if (!f) return;
-        if (f.properties?.cluster && f.geometry.type === 'Point') { void source.current?.getClusterExpansionZoom(Number(f.properties.cluster_id)).then(zoom => camera.current?.easeTo({ center: f.geometry.type === 'Point' ? f.geometry.coordinates as [number,number] : [121.0497,14.5506], zoom,padding,duration })).catch(() => {}); }
-        else if (typeof f.properties?.id === 'string') onPlacePress(f.properties.id);
+        if (typeof f.properties?.id === 'string') onPlacePress(f.properties.id);
       }}>
-        <Layer id="place-clusters" type="circle" filter={['has','point_count']} paint={{ 'circle-color':'#1756C0', 'circle-radius':18, 'circle-stroke-color':'#FFFFFF', 'circle-stroke-width':3 }} />
-        <Layer id="place-cluster-label" type="symbol" filter={['has','point_count']} layout={{ 'text-field':['to-string',['get','point_count']], 'text-font':['Noto Sans Regular'], 'text-size':12 }} paint={{ 'text-color':'#FFFFFF' }} />
-        <Layer id="place-pins" type="symbol" filter={['!', ['has','point_count']]} layout={{'icon-image':['get','marker'],'icon-size':0.72,'icon-anchor':'bottom','icon-allow-overlap':false}} />
-        <Layer id="place-names" type="symbol" minzoom={18} filter={['!', ['has','point_count']]} layout={{ 'text-field':['get','name'],'text-font':['Noto Sans Regular'],'text-size':12,'text-offset':[0,1.5],'text-anchor':'top','text-padding':8 }} paint={{ 'text-color':'#10243A','text-halo-color':'#FFFFFF','text-halo-width':2 }} />
+        <Layer id="place-pins" type="symbol" minzoom={17} layout={{'icon-image':['get','marker'],'icon-size':['interpolate',['linear'],['zoom'],16,0.40,19,0.55],'icon-anchor':'bottom','icon-allow-overlap':false}} />
+        <Layer id="place-names" type="symbol" minzoom={19} filter={['!=',['get','id'],selectedPlaceId??'']} layout={{ 'text-field':['get','name'],'text-font':['Noto Sans Regular'],'text-size':11,'text-offset':[0,1.5],'text-anchor':'top','text-padding':14 }} paint={{ 'text-color':'#10243A','text-halo-color':'#FFFFFF','text-halo-width':1.5 }} />
       </GeoJSONSource>}
       {selected?.coordinate&&<GeoJSONSource id="selected-place" hitbox={{top:24,right:24,bottom:24,left:24}} onPress={event=>{event.stopPropagation();onPlacePress(selected.id);}} data={{type:'Feature',properties:{name:selected.name,marker:categorySprite(selected.category)},geometry:{type:'Point',coordinates:[...selected.coordinate]}}}>
-        <Layer id="selected-place-ring" type="circle" paint={{'circle-color':'#E8EFFB','circle-radius':19,'circle-stroke-color':'#1756C0','circle-stroke-width':3}} />
-        <Layer id="selected-place-pin" type="symbol" layout={{'icon-image':['get','marker'],'icon-size':0.92,'icon-anchor':'bottom','icon-allow-overlap':true}} />
+        <Layer id="selected-place-ring" type="circle" paint={{'circle-color':'#E8EFFB','circle-radius':15,'circle-stroke-color':'#1756C0','circle-stroke-width':2}} />
+        <Layer id="selected-place-pin" type="symbol" layout={{'icon-image':['get','marker'],'icon-size':0.72,'icon-anchor':'bottom','icon-allow-overlap':true}} />
         <Layer id="selected-place-name" type="symbol" layout={{'text-field':['get','name'],'text-font':['Noto Sans Regular'],'text-size':14,'text-anchor':'top','text-offset':[0,1.7],'text-max-width':12,'text-allow-overlap':true}} paint={{'text-color':'#10243A','text-halo-color':'#FFFFFF','text-halo-width':3}} />
       </GeoJSONSource>}
       {origin && draftOrigin ? <ViewAnnotation id="draft-origin" lngLat={[...origin.coordinate]} draggable onDragEnd={event=>onMapPress(event.nativeEvent.lngLat)}><View collapsable={false} accessible accessibilityLabel="Draft origin. Drag the pin or tap another map point, then confirm." style={{width:32,height:32,borderRadius:16,backgroundColor:'#AF720D',borderWidth:4,borderColor:'#FFFFFF'}}/></ViewAnnotation> : origin && <GeoJSONSource id="origin" data={{ type:'Feature', properties:{}, geometry:{type:'Point',coordinates:[...origin.coordinate]} }}>
@@ -91,7 +87,7 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
     <Pressable accessibilityRole="button" accessibilityLabel="Map data © OpenStreetMap contributors. Open source and licence information." onPress={onAttributionPress??(()=>{void map.current?.showAttribution();})} style={[styles.attribution,{bottom:Math.max(8,bottomInset+4)}]}>
       <Text style={styles.attributionText}>© OpenStreetMap contributors</Text>
     </Pressable>
-    {(failure||outside)&&<View style={styles.caption} pointerEvents="none"><Text style={styles.captionText}>{failure ? 'Offline map unavailable · open map settings' : 'Outside this map area'}</Text></View>}
+    {(failure||outside)&&<View style={styles.caption} pointerEvents="none"><Text style={styles.captionText}>{failure ? 'Offline map unavailable · restart the app to retry' : 'Outside this map area'}</Text></View>}
   </View>;
 }
-const styles = StyleSheet.create({ container:{flex:1},attribution:{position:'absolute',left:12,minHeight:44,justifyContent:'center',paddingHorizontal:7,borderRadius:6,backgroundColor:'#FFFFFFED'},attributionText:{fontSize:11,color:'#243C49'},map:{flex:1},caption:{position:'absolute',bottom:84,left:12,right:72,backgroundColor:'#FFF9E9E8',padding:10,borderRadius:12},captionText:{fontSize:14,color:'#3D4948'},unavailable:{flex:1,padding:24,justifyContent:'center',backgroundColor:'#F7F6F0'} });
+const styles = StyleSheet.create({ container:{flex:1},attribution:{position:'absolute',left:12,minHeight:44,justifyContent:'center'},attributionText:{fontSize:11,color:'#243C49',backgroundColor:'#F3F0E7D9',paddingHorizontal:3,paddingVertical:2,borderRadius:2},map:{flex:1},caption:{position:'absolute',bottom:84,left:12,right:72,backgroundColor:'#FFF9E9E8',padding:10,borderRadius:12},captionText:{fontSize:14,color:'#3D4948'},unavailable:{flex:1,padding:24,justifyContent:'center',backgroundColor:'#F7F6F0'} });
