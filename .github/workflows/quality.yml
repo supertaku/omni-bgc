@@ -53,6 +53,7 @@ jobs:
 
       - name: Mobile JavaScript contracts and routing
         run: |
+          node --test tests/map/mobile/layer-compatibility.test.cjs
           node tests/data-quality/mobile/contracts.mjs
           node tests/data-quality/mobile/resume.mjs
           node --test tests/data-quality/mobile/retrieval.mjs

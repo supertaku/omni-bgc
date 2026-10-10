@@ -55,7 +55,7 @@ export function MapCanvas({ origin, places, route, transit, flat=false, bottomIn
       }}>
         <Layer id="place-clusters" type="circle" filter={['has','point_count']} paint={{ 'circle-color':'#1756C0', 'circle-radius':18, 'circle-stroke-color':'#FFFFFF', 'circle-stroke-width':3 }} />
         <Layer id="place-cluster-label" type="symbol" filter={['has','point_count']} layout={{ 'text-field':['to-string',['get','point_count']], 'text-font':['Noto Sans Regular'], 'text-size':12 }} paint={{ 'text-color':'#FFFFFF' }} />
-        <Layer id="place-pins" type="symbol" filter={['!', ['has','point_count']]} layout={{'icon-image':['get','marker'],'icon-size':0.72,'icon-anchor':'bottom','icon-padding':8,'icon-allow-overlap':false}} />
+        <Layer id="place-pins" type="symbol" filter={['!', ['has','point_count']]} layout={{'icon-image':['get','marker'],'icon-size':0.72,'icon-anchor':'bottom','icon-allow-overlap':false}} />
         <Layer id="place-names" type="symbol" minzoom={18} filter={['!', ['has','point_count']]} layout={{ 'text-field':['get','name'],'text-font':['Noto Sans Regular'],'text-size':12,'text-offset':[0,1.5],'text-anchor':'top','text-padding':8 }} paint={{ 'text-color':'#10243A','text-halo-color':'#FFFFFF','text-halo-width':2 }} />
       </GeoJSONSource>}
       {selected?.coordinate&&<GeoJSONSource id="selected-place" hitbox={{top:24,right:24,bottom:24,left:24}} onPress={event=>{event.stopPropagation();onPlacePress(selected.id);}} data={{type:'Feature',properties:{name:selected.name,marker:categorySprite(selected.category)},geometry:{type:'Point',coordinates:[...selected.coordinate]}}}>
