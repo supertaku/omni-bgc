@@ -1,0 +1,120 @@
+{
+  "status": "PENDING_PARENT_REVIEW",
+  "real_approved_records": 0,
+  "physical_validation": "SKIPPED_BY_USER",
+  "parent_build_refresh": "PENDING_CACHED_JS_REBUILD_AFTER_RESUME",
+  "artifacts": [
+    {
+      "path": "apps/mobile/src/data/index.ts",
+      "sha256": "85d40d7ac657950fff73730c46e411202dc6fd7af7063a91627871da2eb3b215"
+    },
+    {
+      "path": "apps/mobile/src/data/migrations.ts",
+      "sha256": "31f979605c3251641db28f6eadc152a558665eac4547bbeeedc39e494a4e1582"
+    },
+    {
+      "path": "apps/mobile/src/data/ownership.ts",
+      "sha256": "d1fc3fc58b0882dd69c0b096852ee5114068a15e9199e173f914a252fe83a7af"
+    },
+    {
+      "path": "apps/mobile/src/data/parser.ts",
+      "sha256": "00c82f5a5a5f1e935669e4e922fd07c2ebecc867cd50465bebdc756cd2a19c10"
+    },
+    {
+      "path": "apps/mobile/src/data/store.ts",
+      "sha256": "982d71b23f8ec4e570e842e7b95343a4c2d4187d9a1b49aed021cba00116877d"
+    },
+    {
+      "path": "apps/mobile/src/updates/bounded-download.ts",
+      "sha256": "ba7a7e3a7f70c557ec14c2f59254a92cd57f86ce7dd383580f32f62addec7249"
+    },
+    {
+      "path": "apps/mobile/src/updates/contracts.ts",
+      "sha256": "06ef1437c87081b857fcc4b7a94f60018ede904ac2942d4aa9054fcebb8836e1"
+    },
+    {
+      "path": "apps/mobile/src/updates/index.ts",
+      "sha256": "6b8e5c468dade5059714faa1f5c51aa6af4e95de1d998428b6aea1df9af9b0df"
+    },
+    {
+      "path": "apps/mobile/src/updates/resumable-download.ts",
+      "sha256": "db44facd86d95743d3289da2def96e56dae5d579fc3bb755d1a57d75c4c57cd0"
+    },
+    {
+      "path": "apps/mobile/src/updates/resume-core.ts",
+      "sha256": "8e10eb4ffa3441c9e55485eaa6f4e6bb0bd4eaf7798c7e3c6c2101353f77d6dd"
+    },
+    {
+      "path": "apps/mobile/src/updates/reviewed-catalog.ts",
+      "sha256": "66cd0837e6123fdf17936057b8d6dca0d29498e4d9aacc7a5191e66a80a015b5"
+    },
+    {
+      "path": "apps/mobile/src/updates/style.ts",
+      "sha256": "37704dcb34d6ed1c9b7da20710f6c9c78a6694f2bf1126584d09a2eeee86995b"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/build_evidence.py",
+      "sha256": "6d21bb241eacfb4187991fc5062910fda9071b6f925b39c1084d435288769d6a"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/empty-review.html",
+      "sha256": "de9e7a459da83c6c24ded2543c7679f4801ce342b1c7ef4d2d278dddc6ee9249"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/empty-review.json",
+      "sha256": "302019229ce2fa2f360fd91216f9d7a6d570d21f889db6435c657e7b178c4dbb"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/HANDOFF.md",
+      "sha256": "c9cf931656c40fd4c2c1649ab32854d4b264a7366376f990a227f55eab2ecac0"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/pure-tests.log",
+      "sha256": "e0781180549aa04be3f05a73024b2caf54e5349226aa7a375ec618787152f63e"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/resume-tests.log",
+      "sha256": "b333874664222bf75abb85af9279fd276bd1ec7bbf5789826c348a7e27b73506"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/sql-tests.log",
+      "sha256": "fd7f4dd6f3a8400a5c27133e6164ef936b452eec106477732c466e494846d3b5"
+    },
+    {
+      "path": "docs/evaluations/mobile-data/typecheck.log",
+      "sha256": "f71733e40285365c8d0ce8a99443556cb5e8adb1d56e82d267d8fec9602bedaa"
+    },
+    {
+      "path": "packages/database/migrations/mobile/002_local_state.up.sql",
+      "sha256": "39a4d66a9cccebdc47ff99867cddd1d5ed85286cae83b61f13f0ea3c5e0aca0f"
+    },
+    {
+      "path": "packages/database/migrations/mobile/003_read_projection.up.sql",
+      "sha256": "726fbcf36777fc610a70aa4938bad31ce6f088917b18c3bbc2272a945b828604"
+    },
+    {
+      "path": "pipelines/etl/review-dashboard/dashboard.py",
+      "sha256": "286688d6163369a91e0f0647196283d22c8c36eb7c518569955da670601ac186"
+    },
+    {
+      "path": "pipelines/etl/review-dashboard/projection_export.py",
+      "sha256": "11a0f68088975644febeb16a4c8f3aa280dfc5e21728084f4e506265ed7dedf4"
+    },
+    {
+      "path": "tests/data-quality/mobile/contracts.mjs",
+      "sha256": "d9ba2790d63986435de9a84125f6ccd1a59cc1f770f9fbc63c836b54e9388b11"
+    },
+    {
+      "path": "tests/data-quality/mobile/resume.mjs",
+      "sha256": "c6d755d64f17399cefcbfd277b1a598d2f2d294da0d56ab799194efc15fdff84"
+    },
+    {
+      "path": "tests/data-quality/mobile/test_projection.py",
+      "sha256": "f2e154e5706a2a1383652dc1af4d748ec9223e9bd2baa6a50bb641c60cc2ccba"
+    },
+    {
+      "path": "tests/data-quality/mobile/test_sql.py",
+      "sha256": "2f7223b07f98a390bbb2dd4e2262d84edb540d823fa0a8c3d994601cefb15526"
+    }
+  ]
+}
