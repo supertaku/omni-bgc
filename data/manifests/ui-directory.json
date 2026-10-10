@@ -1,0 +1,26 @@
+{
+  "tool": "omni-ui-directory-v1",
+  "input_sha256": "c01e25b579c09fdb5a05e4efe89073ba7103cd99921c3a9980285c783df83fc5",
+  "output_sha256": "052b972364bc9862cb66b47a57681814f02a65135a28d7eb25825184a0257d13",
+  "source_count": 1,
+  "record_count": 161,
+  "rejected": {
+    "unnamed": 83,
+    "nonpoint": 45,
+    "excluded": 1,
+    "duplicates": 0
+  },
+  "license": "ODbL-1.0",
+  "attribution": "\u00a9 OpenStreetMap contributors",
+  "publication_authorized": false,
+  "canonical_approval_changed": false,
+  "navigation_eligible": false,
+  "id_namespace": "1fe2ab32-2b72-570b-a423-bc34fa81312f",
+  "sample_ids": [
+    "6abf18d3-5521-5d74-a9cb-039f69c635c6",
+    "784d9613-e2eb-514b-89ff-c0d79b275e30",
+    "7adc30f2-0dbf-5f44-b79f-dabf3fefe098",
+    "7f404537-f1fd-59d7-9fef-25c23b287153",
+    "24b4f655-7b97-5cd5-9bab-b002ee93232f"
+  ]
+}

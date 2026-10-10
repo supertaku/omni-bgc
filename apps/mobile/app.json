@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Omni-BGC Preview",
+    "name": "Omni-BGC",
     "slug": "omni-bgc-preview",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "scheme": "omni-bgc-preview",
     "orientation": "default",
     "icon": "./assets/brand/icon.png",

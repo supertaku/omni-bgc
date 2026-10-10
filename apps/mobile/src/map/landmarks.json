@@ -1,0 +1,198 @@
+{
+  "distributionAuthorized": false,
+  "entries": [
+    {
+      "anchor": {
+        "coordinate": [
+          121.0475016,
+          14.551518199999995
+        ],
+        "kind": "footprint-interior",
+        "method": "source footprint clipped to service area; representative_point"
+      },
+      "appearance": "generic illustrative extrusion; no faithful facade claim",
+      "assetId": "extrusion-office-v1",
+      "assetVersion": 1,
+      "featureId": "osm-way:71598335",
+      "license": "ODbL-1.0 geometry; project-authored style",
+      "name": "Philippine Stock Exchange",
+      "navigationEligible": false,
+      "osmWayId": 71598335,
+      "renderPriority": 10,
+      "sourceGeometry": {
+        "featureId": 71598335,
+        "path": "data/generated/m3/run-a/render-ways.geojson",
+        "rawSha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+        "sha256": "4e78b1ec5b94d0480c12c42bf42b9e8ef7de02c6372dac1aa97522ebe410c456",
+        "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
+      },
+      "sourceStatus": "historical candidate",
+      "visualClassification": "office",
+      "zoomVisibility": {
+        "max": 20,
+        "min": 16
+      }
+    },
+    {
+      "anchor": {
+        "coordinate": [
+          121.05187280892281,
+          14.551218894235042
+        ],
+        "kind": "footprint-interior",
+        "method": "source footprint clipped to service area; representative_point"
+      },
+      "appearance": "generic illustrative extrusion; no faithful facade claim",
+      "assetId": "extrusion-commercial-v1",
+      "assetVersion": 1,
+      "featureId": "osm-way:145147831",
+      "license": "ODbL-1.0 geometry; project-authored style",
+      "name": "W Global Center",
+      "navigationEligible": false,
+      "osmWayId": 145147831,
+      "renderPriority": 10,
+      "sourceGeometry": {
+        "featureId": 145147831,
+        "path": "data/generated/m3/run-a/render-ways.geojson",
+        "rawSha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+        "sha256": "4e78b1ec5b94d0480c12c42bf42b9e8ef7de02c6372dac1aa97522ebe410c456",
+        "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
+      },
+      "sourceStatus": "historical candidate",
+      "visualClassification": "commercial",
+      "zoomVisibility": {
+        "max": 20,
+        "min": 16
+      }
+    },
+    {
+      "anchor": {
+        "coordinate": [
+          121.04756595930962,
+          14.54866475
+        ],
+        "kind": "footprint-interior",
+        "method": "source footprint clipped to service area; representative_point"
+      },
+      "appearance": "generic illustrative extrusion; no faithful facade claim",
+      "assetId": "extrusion-office-v1",
+      "assetVersion": 1,
+      "featureId": "osm-way:145147832",
+      "license": "ODbL-1.0 geometry; project-authored style",
+      "name": "A.T. Yuchengco Centre",
+      "navigationEligible": false,
+      "osmWayId": 145147832,
+      "renderPriority": 10,
+      "sourceGeometry": {
+        "featureId": 145147832,
+        "path": "data/generated/m3/run-a/render-ways.geojson",
+        "rawSha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+        "sha256": "4e78b1ec5b94d0480c12c42bf42b9e8ef7de02c6372dac1aa97522ebe410c456",
+        "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
+      },
+      "sourceStatus": "historical candidate",
+      "visualClassification": "office",
+      "zoomVisibility": {
+        "max": 20,
+        "min": 16
+      }
+    },
+    {
+      "anchor": {
+        "coordinate": [
+          121.04850115872526,
+          14.5520187
+        ],
+        "kind": "footprint-interior",
+        "method": "source footprint clipped to service area; representative_point"
+      },
+      "appearance": "generic illustrative extrusion; no faithful facade claim",
+      "assetId": "extrusion-generic-v1",
+      "assetVersion": 1,
+      "featureId": "osm-way:205968610",
+      "license": "ODbL-1.0 geometry; project-authored style",
+      "name": "Central Square",
+      "navigationEligible": false,
+      "osmWayId": 205968610,
+      "renderPriority": 10,
+      "sourceGeometry": {
+        "featureId": 205968610,
+        "path": "data/generated/m3/run-a/render-ways.geojson",
+        "rawSha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+        "sha256": "4e78b1ec5b94d0480c12c42bf42b9e8ef7de02c6372dac1aa97522ebe410c456",
+        "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
+      },
+      "sourceStatus": "historical candidate",
+      "visualClassification": "generic",
+      "zoomVisibility": {
+        "max": 20,
+        "min": 16
+      }
+    },
+    {
+      "anchor": {
+        "coordinate": [
+          121.04980160377791,
+          14.55235555
+        ],
+        "kind": "footprint-interior",
+        "method": "source footprint clipped to service area; representative_point"
+      },
+      "appearance": "generic illustrative extrusion; no faithful facade claim",
+      "assetId": "extrusion-commercial-v1",
+      "assetVersion": 1,
+      "featureId": "osm-way:531995980",
+      "license": "ODbL-1.0 geometry; project-authored style",
+      "name": "W City Center",
+      "navigationEligible": false,
+      "osmWayId": 531995980,
+      "renderPriority": 10,
+      "sourceGeometry": {
+        "featureId": 531995980,
+        "path": "data/generated/m3/run-a/render-ways.geojson",
+        "rawSha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+        "sha256": "4e78b1ec5b94d0480c12c42bf42b9e8ef7de02c6372dac1aa97522ebe410c456",
+        "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
+      },
+      "sourceStatus": "historical candidate",
+      "visualClassification": "commercial",
+      "zoomVisibility": {
+        "max": 20,
+        "min": 16
+      }
+    },
+    {
+      "anchor": {
+        "coordinate": [
+          121.04751189999999,
+          14.55144282857796
+        ],
+        "kind": "footprint-interior",
+        "method": "source footprint clipped to service area; representative_point"
+      },
+      "appearance": "generic illustrative extrusion; no faithful facade claim",
+      "assetId": "extrusion-commercial-v1",
+      "assetVersion": 1,
+      "featureId": "osm-way:1078392706",
+      "license": "ODbL-1.0 geometry; project-authored style",
+      "name": "One Bonifacio High Street",
+      "navigationEligible": false,
+      "osmWayId": 1078392706,
+      "renderPriority": 10,
+      "sourceGeometry": {
+        "featureId": 1078392706,
+        "path": "data/generated/m3/run-a/render-ways.geojson",
+        "rawSha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+        "sha256": "4e78b1ec5b94d0480c12c42bf42b9e8ef7de02c6372dac1aa97522ebe410c456",
+        "snapshotId": "5adceef1-c54b-4209-9a51-8ee063db4749"
+      },
+      "sourceStatus": "historical candidate",
+      "visualClassification": "commercial",
+      "zoomVisibility": {
+        "max": 20,
+        "min": 16
+      }
+    }
+  ],
+  "formatVersion": 1
+}
