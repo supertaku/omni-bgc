@@ -1,0 +1,153 @@
+{
+  "reviewed_at_utc": "2026-10-10T03:00:02.614079+00:00",
+  "parent_decision": "ACCEPT_INTERNAL_PREVIEW_ARTIFACT_ONLY",
+  "apk": {
+    "path": "apps/mobile/artifacts/Omni-BGC-preview-arm64.apk",
+    "bytes": 41287919,
+    "sha256": "ab8909682dfcf8401a6c7ccd844d292e2db73eb0d8c6eff0c7740068969c17ba",
+    "abi": [
+      "arm64-v8a"
+    ],
+    "package": "com.omnibgc.preview",
+    "version_name": "0.1.0",
+    "min_sdk": 24,
+    "target_sdk": 36,
+    "signing": "APK v2 verified; Android development key; not production identity"
+  },
+  "resource_inventory_sha256": "2fa53a5bd54425bad58b86d592fd69baf687ac048a982e3e1e7489ed96cae808",
+  "resource_checks": [
+    {
+      "path": "fonts/Noto Sans Regular/0-255.pbf",
+      "size_bytes": 121664,
+      "sha256": "3e41327172354b9eff5784b9f9fe610d05d541ac3b18e5b4ea3d0507389b3916",
+      "PASS": true
+    },
+    {
+      "path": "OFL.txt",
+      "size_bytes": 4377,
+      "sha256": "0dab92d0544f7b233403f14b84a663bdbfa746982eda629e7f4f9ffe1b036feb",
+      "PASS": true
+    },
+    {
+      "path": "OSM-NOTICE.txt",
+      "size_bytes": 227,
+      "sha256": "28cdcead14cc1333b59ee388ea1620b0065b375f1a755372688361deddd28ba5",
+      "PASS": true
+    },
+    {
+      "path": "pilot.pmtiles",
+      "size_bytes": 80194,
+      "sha256": "8f937770a9e801020b9c0905d50caa124e9a6d5a6ba79e3bfa97e2c5fc0998fc",
+      "PASS": true
+    },
+    {
+      "path": "sprite.json",
+      "size_bytes": 123,
+      "sha256": "3dc6eadc86a14eecd513f3d8a477be78111fc3af3c7dda1816c715ca1d1f9215",
+      "PASS": true
+    },
+    {
+      "path": "sprite.png",
+      "size_bytes": 684,
+      "sha256": "fd640344dfd413fcd47db9505ccb2f69c3ecc61fcd35f6465f3182bc73a688f4",
+      "PASS": true
+    },
+    {
+      "path": "sprite@2x.json",
+      "size_bytes": 124,
+      "sha256": "a48cb5349c5036a3b7e933144782c5768796426e10f2d111da127e88dbccd8a8",
+      "PASS": true
+    },
+    {
+      "path": "sprite@2x.png",
+      "size_bytes": 1015,
+      "sha256": "e6248615c7db78d8e34f6b0774529cbc3ba8e69363f8fff19404c413b12d05ec",
+      "PASS": true
+    },
+    {
+      "path": "style.json",
+      "size_bytes": 3713,
+      "sha256": "5f9496b9af58ca3bc99580d35ae79cf09d788c129ae8b156032c40a6a93031ea",
+      "PASS": true
+    }
+  ],
+  "bundled_bytecode_bytes": 1631860,
+  "permissions": [
+    "android.permission.ACCESS_COARSE_LOCATION",
+    "android.permission.ACCESS_FINE_LOCATION",
+    "android.permission.ACCESS_NETWORK_STATE",
+    "android.permission.ACCESS_WIFI_STATE",
+    "android.permission.INTERNET",
+    "android.permission.VIBRATE",
+    "com.omnibgc.preview.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+  ],
+  "allow_backup": false,
+  "debuggable": false,
+  "background_location_audio_overlay_external_storage_permissions": false,
+  "expo_auto_updates": false,
+  "build": {
+    "result": "PASS",
+    "log": "docs/evaluations/program/release/final-build.log",
+    "log_sha256": "6b6aeea186d43c14c5e684e6759f4f69cd638da61974620942a6b6ec2f8ffb37",
+    "source_map_sha256": "f2e7fb5e4c545ec7923d10e87437b4a1b59f9fcf7cbcde7422d05c6ff0c1b6ea"
+  },
+  "sources": [
+    {
+      "path": "apps/mobile/App.tsx",
+      "sha256": "c074ffc26c7533f3ac38c98383085d8ac1b232cd45e3d95295db11dd007edd68",
+      "bytes": 35956
+    },
+    {
+      "path": "apps/mobile/app.json",
+      "sha256": "5a5a61d41976c96ee689a4e7597b51a5ba509ef288fa4cfdfbc98d2a959bc998",
+      "bytes": 1256
+    },
+    {
+      "path": "apps/mobile/metro.config.js",
+      "sha256": "275809a9a99ded8d052a6fcb4e84c57ddfab6bba0c93f1cfde61145f5e5cd5b8",
+      "bytes": 662
+    },
+    {
+      "path": "apps/mobile/package-lock.json",
+      "sha256": "1cf44b5801131807b2f7ba2018f3fd7ccabf391b6bdda3e99b096a1615a16411",
+      "bytes": 239896
+    },
+    {
+      "path": "apps/mobile/src/map/MapCanvas.tsx",
+      "sha256": "35d7c1b47feb7c7b02b1730079586fadcad1ba99124c880f21a3bbe76adacf03",
+      "bytes": 9084
+    },
+    {
+      "path": "apps/mobile/plugins/withOfflinePilot.cjs",
+      "sha256": "101287469a684e63f7d6d9e23baad5b260d73167b2022c66c81c62ab9d1037e7",
+      "bytes": 1740
+    }
+  ],
+  "online_audit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 8,
+    "high": 16,
+    "critical": 0,
+    "total": 24
+  },
+  "direct_advisory_package_js_sources": {
+    "braces": [],
+    "node-forge": [],
+    "uuid": []
+  },
+  "js_source_count": 730,
+  "physical_device": "NOT_RUN_USER_REQUEST",
+  "runtime_offline_and_lifecycle": "UNVERIFIED",
+  "performance": "NOT_MEASURED",
+  "ios_map": "UNIMPLEMENTED_UNVERIFIED",
+  "approved_places_menus_entrances_transit": 0,
+  "navigation_eligible_real_edges": 0,
+  "distribution_authorized": false,
+  "production_accepted": false,
+  "limits": [
+    "Signature/ZIP/static contents do not prove install/launch/resource requests/native rendering.",
+    "JS source inclusion is not runtime/native/host security clearance.",
+    "No actual user/field/device or remote CI result is inferred."
+  ]
+}

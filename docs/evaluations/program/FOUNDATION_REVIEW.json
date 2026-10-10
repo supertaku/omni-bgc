@@ -1,0 +1,24 @@
+{
+  "parent_decision": "ACCEPT",
+  "scope": "M2 operable design draft, M3 internal candidate GIS, M4 intake tooling only",
+  "records": [
+    {
+      "manifest": "docs/evaluations/m2/design/evidence-manifest.json",
+      "records": 95,
+      "hashes_match": true
+    },
+    {
+      "manifest": "docs/evaluations/m3/gis/artifact-manifest.json",
+      "records": 19,
+      "hashes_match": true
+    },
+    {
+      "manifest": "docs/evaluations/m4/intake/manifest.json",
+      "records": 15,
+      "hashes_match": true
+    }
+  ],
+  "M2_external_design_study": "NOT_RUN",
+  "M4_approved_real_records": 0,
+  "data_distribution_authorized": false
+}

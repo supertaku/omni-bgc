@@ -1,23 +1,23 @@
-# Program status — 2026-10-09
+# Program status — 2026-10-10 (Asia/Manila)
 
-Branch `codex/m1-m14`, baseline `795179d`. User authorized M1–M14; parent review and external dependency gates remain mandatory.
+Branch `codex/m1-m14`. Parent accepts bounded engineering implementations after independent code/contract review and consolidated automated checks. Full external/native acceptance remains BLOCKED where evidence is absent. Physical testing: **NOT_RUN_USER_REQUEST**, not PASS. No main merge or publishing.
 
-| Milestone | Current disposition | Dependency / evidence |
+| Milestone | Implemented engineering / parent review | Full acceptance |
 |---|---|---|
-| M0 | Historical ACCEPT / PASS_WITH_DEFERMENTS | Original handoff retained |
-| M1 | Parent ACCEPT / PASS |54tests, strict TS, final hashes; engineering policy only |
-| M2 | BLOCKED for full gate; design draft under parent review | Figma component system and real participants missing |
-| M3 | ELIGIBLE, not started at this status snapshot | M1 accepted; exact raw ingest review still required |
-| M4 | ELIGIBLE, not started at this status snapshot | M1 accepted; real approved pilot/menus/entrances absent |
-| M5 | WAITING | M3 real sample required |
-| M6 | DEPENDENCY_BLOCKED | M2, M3, M5 |
-| M7 | DEPENDENCY_BLOCKED | M4, M6 |
-| M8 | DEPENDENCY_BLOCKED | M6 |
-| M9 | DEPENDENCY_BLOCKED | M3, M4, M8 plus actual field QA |
-| M10 | DEPENDENCY_BLOCKED | M4, M6 plus operator source evidence |
-| M11 | DEPENDENCY_BLOCKED | M7, M9 |
-| M12 | DEPENDENCY_BLOCKED | M2, M7; pre-AI shell only |
-| M13 | DEPENDENCY_BLOCKED | M4, M5 |
-| M14 | DEPENDENCY_BLOCKED | All release-relevant gates |
+| M0 | Retained native spike and handoff | Historical PASS_WITH_DEFERMENTS |
+| M1 | Immutable contracts, scope, schemas, provenance/rights | ACCEPT engineering; no dataset clearance |
+| M2 | Original brand, accessible prototype and native presentation | BLOCKED: Figma, five real participants, native UX |
+| M3 | Exact historical raw ingest, metric QA and candidate topology | ACCEPT internal GIS; navigation/field approval withheld |
+| M4 | Intake/promotion/review tooling, 290 historical review leads | BLOCKED: current approved census, menus, entrances |
+| M5 | Local PMTiles/glyphs/sprites/notices; checksum-bound asset packaging | BLOCKED: physical offline/corruption/storage and iOS proof |
+| M6 | Real-footprint original 2.5D garden map, LOD, clusters, Flat/route mode | BLOCKED: native visual/gesture/performance gate |
+| M7 | Approved-only FTS, filters, details/menu/entrance/citation and empty states | BLOCKED: real approved data, native lifecycle/UX |
+| M8 | Optional foreground GPS quality/timeout; confirmed tap/drag/landmark origin | BLOCKED: physical fix/permission/interaction proof |
+| M9 | Conservative A*, exact reviewed-core loader, connectors, geometry/instructions | BLOCKED: zero eligible real edges/entrances, field QA; live progress UI absent |
+| M10 | Static shape/calendar/ordered stop reader, browse and approved map overlay | BLOCKED: authorized operator feed; zero real routes |
+| M11 | Private favorites/manual itinerary/time/duration/graph lengths/share | BLOCKED: real native journey; travel-time estimates absent |
+| M12 | Coming-later Assistant and typed fixture-only cards, no AI runtime | Shell implemented; full UX gate BLOCKED |
+| M13 | Review dashboard, safe projection, version/dependency/hash gates, cancel/resume/rollback/style resolver | BLOCKED: zero trusted release packs; native transport/crash proof |
+| M14 | CI, consolidated deterministic QA, preview Android build/static inspection | BLOCKED production: security/native/data/field/accessibility/iOS |
 
-No dataset publishing, production release, legal clearance, real participant results or later device test is implied. This status is updated after concrete work/review; committed milestone identities are recorded in the program handoff once created.
+Complete handoff: `../../milestone-handoffs/PRE_AI_ENGINEERING.md`. Automated evidence: `integration-qa/RESULTS.md`. APK/build evidence: `release/ARTIFACT.json`. Production readiness **NOT ACCEPTED**. Building empty-data interfaces does not satisfy pilot coverage or field safety gates.

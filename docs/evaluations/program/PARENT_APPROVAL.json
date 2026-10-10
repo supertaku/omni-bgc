@@ -1,0 +1,131 @@
+{
+  "date_local": "2026-10-10 Asia/Manila",
+  "parent": "Staff Mobile/GIS/Data/Frontend Engineer and Technical Lead",
+  "decision": "ACCEPT_BOUNDED_ENGINEERING_AND_INTERNAL_PREVIEW_ONLY",
+  "engineering_review": [
+    "Owner source/evidence and contracts independently inspected; unsupported claims challenged",
+    "Separate validated foundation commits preserved; later implementation slices commit without claiming blocked acceptance",
+    "Consolidated deterministic QA reviewed:172final cases plus strict TS pass",
+    "Exact GIS/raw lineage/resource hashes and all 290 review leads independently compared",
+    "Final Android release build/ZIP/signature/permissions/resources inspected"
+  ],
+  "full_milestone_acceptance_blocked": [
+    "M2",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8",
+    "M9",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "M14"
+  ],
+  "physical_device": "NOT_RUN_USER_REQUEST",
+  "user_instruction": "dont do the test just keep developing",
+  "production_accepted": false,
+  "distribution_authorized": false,
+  "main_merge_or_remote_push": false,
+  "approved_real_places_menus_entrances_transit": 0,
+  "real_navigation_eligible_edges": 0,
+  "source_snapshot": [
+    {
+      "path": "apps/mobile/App.tsx",
+      "bytes": 35956,
+      "sha256": "c074ffc26c7533f3ac38c98383085d8ac1b232cd45e3d95295db11dd007edd68"
+    },
+    {
+      "path": "apps/mobile/src/map/MapCanvas.tsx",
+      "bytes": 9084,
+      "sha256": "35d7c1b47feb7c7b02b1730079586fadcad1ba99124c880f21a3bbe76adacf03"
+    },
+    {
+      "path": "apps/mobile/src/data/ownership.ts",
+      "bytes": 1032,
+      "sha256": "d1fc3fc58b0882dd69c0b096852ee5114068a15e9199e173f914a252fe83a7af"
+    },
+    {
+      "path": "apps/mobile/src/data/store.ts",
+      "bytes": 7909,
+      "sha256": "982d71b23f8ec4e570e842e7b95343a4c2d4187d9a1b49aed021cba00116877d"
+    },
+    {
+      "path": "apps/mobile/src/data/parser.ts",
+      "bytes": 9749,
+      "sha256": "00c82f5a5a5f1e935669e4e922fd07c2ebecc867cd50465bebdc756cd2a19c10"
+    },
+    {
+      "path": "apps/mobile/src/updates/contracts.ts",
+      "bytes": 5675,
+      "sha256": "06ef1437c87081b857fcc4b7a94f60018ede904ac2942d4aa9054fcebb8836e1"
+    },
+    {
+      "path": "apps/mobile/src/updates/index.ts",
+      "bytes": 9917,
+      "sha256": "6b8e5c468dade5059714faa1f5c51aa6af4e95de1d998428b6aea1df9af9b0df"
+    },
+    {
+      "path": "apps/mobile/src/updates/style.ts",
+      "bytes": 6972,
+      "sha256": "37704dcb34d6ed1c9b7da20710f6c9c78a6694f2bf1126584d09a2eeee86995b"
+    },
+    {
+      "path": "apps/mobile/src/updates/resume-core.ts",
+      "bytes": 5440,
+      "sha256": "8e10eb4ffa3441c9e55485eaa6f4e6bb0bd4eaf7798c7e3c6c2101353f77d6dd"
+    },
+    {
+      "path": "apps/mobile/src/updates/resumable-download.ts",
+      "bytes": 2630,
+      "sha256": "db44facd86d95743d3289da2def96e56dae5d579fc3bb755d1a57d75c4c57cd0"
+    },
+    {
+      "path": "apps/mobile/src/routing/installed.ts",
+      "bytes": 4113,
+      "sha256": "14f9d73a30b49785be276e4f8bae98874380f3e82379883d1e49d16cc4ecec16"
+    },
+    {
+      "path": "packages/routing/index.ts",
+      "bytes": 21127,
+      "sha256": "f2630144abb49f2ef4df715712aef45da36957cf1acb6e16d19c376a9b235704"
+    },
+    {
+      "path": "packages/routing/progress.ts",
+      "bytes": 3278,
+      "sha256": "e7b133998ae79080ec6ee4aeeeacdebb35503aeb9396b998352340cc3d188962"
+    },
+    {
+      "path": "packages/database/migrations/mobile/002_local_state.up.sql",
+      "bytes": 808,
+      "sha256": "39a4d66a9cccebdc47ff99867cddd1d5ed85286cae83b61f13f0ea3c5e0aca0f"
+    },
+    {
+      "path": "packages/database/migrations/mobile/003_read_projection.up.sql",
+      "bytes": 2899,
+      "sha256": "726fbcf36777fc610a70aa4938bad31ce6f088917b18c3bbc2272a945b828604"
+    },
+    {
+      "path": "pipelines/etl/review-dashboard/projection_export.py",
+      "bytes": 5092,
+      "sha256": "11a0f68088975644febeb16a4c8f3aa280dfc5e21728084f4e506265ed7dedf4"
+    },
+    {
+      "path": "pipelines/etl/place-intake/osm_review_leads.py",
+      "bytes": 6120,
+      "sha256": "e006a7379baff805d2ff84ddb542fc08422c430d7db26bb40ed5fac2e5db648d"
+    },
+    {
+      "path": "apps/mobile/plugins/withOfflinePilot.cjs",
+      "bytes": 1740,
+      "sha256": "101287469a684e63f7d6d9e23baad5b260d73167b2022c66c81c62ab9d1037e7"
+    }
+  ],
+  "evidence": [
+    "docs/evaluations/program/integration-qa/RESULTS.md",
+    "docs/evaluations/program/release/ARTIFACT.json",
+    "docs/evaluations/program/place-leads-summary.json",
+    "docs/milestone-handoffs/PRE_AI_ENGINEERING.md"
+  ]
+}

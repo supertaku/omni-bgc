@@ -1,21 +1,24 @@
-# Current engineering risk register — 2026-10-09
+# Current engineering risk register — 2026-10-10 (Asia/Manila)
 
-Parent-owned current status; M0's historical risk register and failures remain unchanged. Engineering milestone acceptance never clears data distribution or production readiness.
+M0 history is preserved. Engineering acceptance does not approve production or publishing.
 
-| ID | Observed status and risk | Owner / concrete closure gate |
+| ID | Observed status / risk | Concrete closure gate |
 |---|---|---|
-| P-R01 | OPEN: fresh online npm audit24(16high/8moderate). Affected sources absent in current M0 JS export; host tooling/native/future release not cleared. | Mobile/security: coherent patch or independently evidenced mitigation disposition, fresh release reachability/native assessment before M14. |
-| P-R02 | OPEN: Expo SQLite57.0.4 hidden finalization option only has bounded M0 device proof. M1 ownership contract specifies explicit statements/work drain/close. | Database/mobile: implement ownership, exceptional/concurrent/FTS close/reopen tests on physical Android, re-audit every upgrade, iOS validation before production search. |
-| P-R03 | OPEN: no full offline style/tiles/glyphs/sprites pack or no-Metro release proof; production pack technology remains OPEN. | M5 native: real resource package and airplane-mode cold launch/restart, request observation, storage/corruption/update strategy and iOS risk report; M14 release repeat. |
-| P-R04 | OPEN: no macOS/Xcode/iOS build/device access. | Mobile: actual supported native iOS build/resource/lifecycle tests; Windows documentation support is not a pass. |
-| P-R05 | OPEN: zero approved real records; merchant/menu/photo/transit leads have unresolved rights. | M4/data/legal: concrete rightsholder-authorized records and scope/retention grants, review and evidence. Human rights review and explicit user authorization before distribution; no unsolicited merchant contact. |
-| P-R06 | QUARANTINED: prior entity hash mismatch, prior code/media rights, processed paths losing access/levels/topology, four unlocated inferred entrance concepts. | GIS/parent: new pipeline against exact eligible raw OSM only; no source repair/reuse until owner evidence. Field entrance/crossing/access QA at M9; no buffer-based route authority. |
-| P-R07 | M1 strategy CLOSED; real geometry/coverage OPEN: project-defined High Street rectangle,200m metric ingest buffer not materialized; no official district/completeness claim. | M3 GIS: explicit CRS/buffer/edge/coverage QA and mapping engineering refs to immutable UUIDs; pilot expansion requires separate versioned review. |
-| P-R08 | M1 migration CLOSED:18→23columns preserves legacy fields; downstream readers still need version awareness. | Intake/export owners: consume v2 explicitly, no silent column/version conflation; content-specific validation on each real ingest. |
-| P-R09 | M2 full gate BLOCKED: design draft exists, no Figma component file or real participant study. Native TalkBack/scale/density/gesture checks NOT_RUN. | UX/user access: actual Figma file/components/prototype, five real formative participants+iteration/independent follow-up; native UX gates at integration. |
-| P-R10 | CLOSED for version-control availability: existing Git baseline and codex branch. No main merge/publication allowed by accepted engineering commits. | Parent: separate milestone commits and diff/evidence review; explicit user authorization for external distribution. |
-| P-R11 | OPEN: no validated walkable graph or field-tested routes, routable approved entrances, source-verified transit or menu census. | M3/M4 candidates only initially; M9 field/access/topology gate and M10 source verification. Do not infer coverage/safety from counts. |
-| P-R12 | OPEN: native dependency/device coverage currently one physical M0 Android model/API36; release performance/airplane mode/accessibility/privacy not measured. | M14 parent/QA: actual release device journeys, median/p95/FPS with context, permissions/privacy and storage fault tests. |
-| P-R13 | OPEN: original brand proposals untested for comprehension, small-size masks, trademark/store clearance. | UX/brand and human legal/store owner before public release; M2 SVGs remain proposals. |
+| P-R01 | OPEN: final online audit24,16high/8moderate; coherent pins retained | Security/mobile: compatible remediation, runtime/native/tool-chain reachability and supply-chain disposition |
+| P-R02 | OPEN: explicit SQLite finalization/serial owners/drain/close/workaround implemented; desktop checks pass, M0 phone proof historical | Current native FTS/concurrency/exception/two-close/reopen and iOS proof; re-audit upgrades |
+| P-R03 | PARTIAL: local27tile pilot complete static glyph/sprite/notice/hash/geometry checks | Physical no-Metro cold airplane-mode/restart/all-resources/network/corruption/storage proof, skipped by user |
+| P-R04 | BLOCKED: no Mac/Xcode/iOS device; explicit unavailable iOS map | Native iOS build/resource transport and lifecycle implementation/proof |
+| P-R05 | BLOCKED:290historical candidates;0approved places/menus/entrances/transit | Data/human: current facts, independent inventories, field evidence and merchant/operator grants; no unsolicited contact |
+| P-R06 | QUARANTINED: prior code/media/processed entities/inferred entrances excluded; exact raw reuse reviewed, old editing-API acquisition policy unverified | New reviewed regional acquisition and field access/crossing/entrance QA; no editing-API refetch |
+| P-R07 | PARTIAL: project pilot/200m ingest buffer and metric QA pass; no whole-BGC denominator | Reviewed versioned next-zone inventories and coverage |
+| P-R08 | CLOSED bounded changes: v2 register, explicit local002/content003, unchanged001 | Maintain schema-version distinction and verify every real export |
+| P-R09 | BLOCKED: accessible original prototype/native components; Figma/study/TalkBack/scale/density/gesture unrun | Real five-person study/iteration and native UX evidence |
+| P-R10 | CLOSED engineering Git: codex branch/scoped commits/historical evidence | No main merge/push/publication without explicit authorization |
+| P-R11 | BLOCKED:3249candidate edges,0eligible real graph; A*/trust loader adversarial tests pass | Field-safe crossings/barriers/grade/access/entrance traces; live progress UI remains absent |
+| P-R12 | BLOCKED: native compilation/static artifacts separate from runtime | Current device startup/FPS/search/route p95/memory/battery/privacy/accessibility; NOT_RUN_USER_REQUEST |
+| P-R13 | OPEN: original icon/art; comprehension/store/trademark approvals absent | UX and human legal/store review before public release |
+| P-R14 | OPEN: resumable range/ETag/cancel/hash and two-slot recovery desktop checks pass | Native transport/power-loss/move/recovery; unused partial/orphan cleanup/quota deferred |
+| P-R15 | INTERNAL ONLY: ODbL/OFL notices and hashes; distribution_authorized=false; development signing | Human rights/obligations + parent + explicit user authorization before external dataset/APK release |
+| P-R16 | Build defect reproduced:261character Ninja transform path; cache shortened within workspace to249equivalent; generated CMake caches archived | Retain failed/retry/resumed logs and verify final APK; no global system/source changes |
 
-M1 independent probes caught real identity/rights/relation defects and final regressions pass. That closes those bounded implementation findings, not P-R01–06/P-R09/P-R11–13. Current evidence: `milestone-handoffs/M1.md`, `evaluations/program/security/`, M1 parent approval and independent architecture report.
+Production remains unaccepted while security, native lifecycle, field correctness, source permissions or coverage are open. See `milestone-handoffs/PRE_AI_ENGINEERING.md` and `evaluations/program/STATUS.md`.
