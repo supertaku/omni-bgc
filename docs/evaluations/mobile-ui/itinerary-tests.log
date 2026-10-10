@@ -1,0 +1,12 @@
+✔ approved entrance origin, unavailable path and incomplete totals stay honest (0.9784ms)
+✔ unapproved or entrance-less stops do not route from display centroid (0.1827ms)
+✔ all valid legs show only known metres and user visit minutes; edits invalidate totals (0.1904ms)
+✔ invalid route distance/geometry and thrown routing are unavailable (0.2368ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 271.3037
