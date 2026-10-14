@@ -36,11 +36,12 @@ const stored={placeIds:[mapped.id],itinerary:[{placeId:mapped.id,durationMinutes
 // Hooks/event stubs execute App's actual callbacks. These do not emulate native
 // layout, animated mounting, SQLite, TalkBack, or accelerometer input.
 function applicationHarness(){
-  const slots=[],cleanups=[],listeners={},alerts=[],shares=[];let cursor=0,effects=[],keyboardDismissals=0,historyDeletes=0,graphRefreshes=0,savedReads=0,packInstalls=0;
+  const slots=[],setters=[],cleanups=[],listeners={},alerts=[],shares=[];let cursor=0,effects=[],keyboardDismissals=0,historyDeletes=0,graphRefreshes=0,savedReads=0,packInstalls=0;
   const React={
-    useState(initial){const index=cursor++;if(!(index in slots))slots[index]=typeof initial==='function'?initial():initial;return[slots[index],value=>{slots[index]=typeof value==='function'?value(slots[index]):value;}];},
+    useState(initial){const index=cursor++;if(!(index in slots))slots[index]=typeof initial==='function'?initial():initial;setters[index]??=value=>{slots[index]=typeof value==='function'?value(slots[index]):value;};return[slots[index],setters[index]];},
     useRef(initial){const index=cursor++;if(!(index in slots))slots[index]={current:initial};return slots[index];},
     useMemo(callback,deps){const index=cursor++;if(!slots[index]||deps.some((value,i)=>value!==slots[index].deps[i]))slots[index]={deps,value:callback()};return slots[index].value;},
+    useCallback(callback,deps){return React.useMemo(()=>callback,deps);},
     useEffect(callback,deps){const index=cursor++;if(!slots[index]||deps.some((value,i)=>value!==slots[index][i]))effects.push(()=>{cleanups[index]?.();cleanups[index]=callback();});slots[index]=deps;},
   };
   const element=(type,props,key)=>({type,props:props??{},key});
@@ -69,7 +70,19 @@ function applicationHarness(){
     './src/features/explore/PlaceIdentity':{PlaceRow:'PlaceRow'},
     './src/features/explore/directory':directory,'./src/ui/fonts':{useOfflineFonts:()=>[true,null]},
   };
-  const module=compile('apps/mobile/App.tsx',name=>{assert.ok(name in imports,`Unexpected App runtime import ${name}`);return imports[name];},{__DEV__:false,process:{env:{}},setTimeout:()=>1,clearTimeout(){},console,AbortController});
+  const cache={};
+  const resolvedMocks=Object.fromEntries(Object.entries(imports).filter(([name])=>name.startsWith('.')).map(([name,value])=>[path.resolve(root,'apps/mobile',name),value]));
+  function loadModule(file){
+    if(cache[file])return cache[file];
+    return cache[file]=compile(path.relative(root,file),name=>{
+      if(!name.startsWith('.')){assert.ok(name in imports,`Unexpected external import ${name}`);return imports[name];}
+      const target=path.resolve(path.dirname(file),name);
+      if(target in resolvedMocks)return resolvedMocks[target];
+      assert.ok(target.includes(path.join('src','app'))||target.endsWith(path.join('explore','ExplorePanels')),`Unexpected internal import ${name} from ${file}`);
+      return loadModule(target+(fs.existsSync(target+'.tsx')?'.tsx':'.ts'));
+    },{__DEV__:false,process:{env:{}},setTimeout:()=>1,clearTimeout(){},console,AbortController});
+  }
+  const module=loadModule(path.join(root,'apps/mobile/App.tsx'));
   const app=nodes(module.default()).find(node=>typeof node.type==='function'&&node.type.name==='Application').type;
   return{
     render(){cursor=0;effects=[];const tree=app();for(const effect of effects)effect();return tree;},

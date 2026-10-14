@@ -1,7 +1,9 @@
 // Focused host gate. Native rendering/gestures must be checked on Android separately.
 const fs=require('node:fs');const path=require('node:path');const crypto=require('node:crypto');const cp=require('node:child_process');const assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'../../..');
-const evidence=path.join(root,'docs/evaluations',process.argv.includes('--v2.1')?'ux-v2.1':process.argv.includes('--v2')?'ux-v2':'ux-program');fs.mkdirSync(evidence,{recursive:true});
+const outputIndex=process.argv.indexOf('--output');
+if(outputIndex>=0&&!process.argv[outputIndex+1])throw Error('--output requires a directory');
+const evidence=outputIndex>=0?path.resolve(process.argv[outputIndex+1]):path.join(root,'docs/evaluations',process.argv.includes('--v2.1')?'ux-v2.1':process.argv.includes('--v2')?'ux-v2':'ux-program');fs.mkdirSync(evidence,{recursive:true});
 const commands=[
   [process.execPath,['apps/mobile/node_modules/typescript/bin/tsc','--noEmit','--project','apps/mobile/tsconfig.json']],
   [process.execPath,['apps/mobile/scripts/check-local-style.mjs']],

@@ -5,7 +5,13 @@ const crypto=require('node:crypto');
 const {run}=require('./evaluate.cjs');
 const suite=require('./questions.json'),directory=require('./synthetic-directory.json');
 const source=fs.readFileSync(path.resolve(__dirname,'../../apps/mobile/src/features/assistant/directory.ts'),'utf8');
-const context={exports:{},Set,BigInt,require:()=>({isDemoPlace:p=>String(typeof p==='string'?p:p.id).startsWith('sample-')})};
+const moneyContext={exports:{}};
+vm.runInNewContext(ts.transpileModule(fs.readFileSync(path.resolve(__dirname,'../../apps/mobile/src/domain/money.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText,moneyContext);
+const context={exports:{},Set,BigInt,require:name=>{
+  if(name==='../../domain/money')return moneyContext.exports;
+  if(name==='../explore/demoDirectory')return {isDemoPlace:p=>String(typeof p==='string'?p:p.id).startsWith('sample-')};
+  throw Error('Unexpected baseline import '+name);
+}};
 vm.runInNewContext(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText,context);
 function adapt(q,payloads){
   const text=payloads.filter(p=>typeof p.text==='string').map(p=>p.text).join('\n');
@@ -25,7 +31,7 @@ function adapt(q,payloads){
 const observations=suite.questions.map(q=>adapt(q,context.exports.answerDirectoryQuery(q.query,directory.places,directory.saved)));
 const report=run(suite,directory,observations);
 report.baseline={name:'existing answerDirectoryQuery',sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),node:process.version,typescript:ts.version,host:'desktop VM transpilation',historySupported:false,untrustedContextConsumed:false,modelUsed:false,deviceUsed:false};
-const output=path.resolve(__dirname,'../../docs/evaluations/offline-ai');fs.mkdirSync(output,{recursive:true});
+const output=process.argv[2]?path.resolve(process.argv[2]):path.resolve(__dirname,'../../docs/evaluations/offline-ai');fs.mkdirSync(output,{recursive:true});
 fs.writeFileSync(path.join(output,'deterministic-observations.jsonl'),observations.map(o=>JSON.stringify(o)).join('\n')+'\n');
 fs.writeFileSync(path.join(output,'deterministic-baseline.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({baseline:report.baseline,coverage:report.coverage,summary:report.summary,byTopic:report.byTopic,byLanguage:report.byLanguage},null,2));

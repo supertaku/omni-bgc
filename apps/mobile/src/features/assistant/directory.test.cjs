@@ -6,7 +6,13 @@ const vm=require('node:vm');
 const {test}=require('node:test');
 const ts=require(path.resolve(__dirname,'../../../node_modules/typescript'));
 const source=ts.transpileModule(fs.readFileSync(path.join(__dirname,'directory.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
-const context={exports:{},Set,BigInt,require:()=>({isDemoPlace:place=>String(typeof place==='string'?place:place.id).startsWith('sample-')})};vm.runInNewContext(source,context);
+const moneyContext={exports:{}};
+vm.runInNewContext(ts.transpileModule(fs.readFileSync(path.join(__dirname,'../../domain/money.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText,moneyContext);
+const context={exports:{},Set,BigInt,require:name=>{
+  if(name==='../../domain/money')return moneyContext.exports;
+  if(name==='../explore/demoDirectory')return {isDemoPlace:place=>String(typeof place==='string'?place:place.id).startsWith('sample-')};
+  throw Error('Unexpected directory import '+name);
+}};vm.runInNewContext(source,context);
 const {answerDirectoryQuery}=context.exports;
 const citation={sourceId:'TEST ONLY',label:'Synthetic test evidence',license:'TEST ONLY',observedAt:'2026-10-10',verifiedAt:null,status:'approved'};
 const place=(id,name,category,overrides={})=>({id,name,category,coordinate:null,building:'Test Building',aliases:[],entrances:[],citations:[citation],status:'candidate',menus:[],...overrides});

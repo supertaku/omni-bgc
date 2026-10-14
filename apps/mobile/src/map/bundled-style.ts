@@ -2,7 +2,7 @@ import { Directory, File, Paths } from 'expo-file-system';
 import * as Crypto from 'expo-crypto';
 import inventory from './bundled-resources.json';
 import pilotStyle from './pilot-style.json';
-import { resolveOfflineStyle } from '../updates/style';
+import { resolveOfflineStyle } from '../updates/style-contract';
 
 async function verify(directory: Directory): Promise<void> {
   for (const entry of inventory.files) {

@@ -114,11 +114,11 @@ for (const entry of inventory.files) {
   assert.equal(createHash('sha256').update(bytes).digest('hex'), entry.sha256);
   files.set('asset:///omni/' + entry.path, bytes);
 }
-const resolver = load('apps/mobile/src/updates/style.ts', { 'expo-file-system': { File } });
+const resolver = load('apps/mobile/src/updates/style-contract.ts');
 const bundled = load('apps/mobile/src/map/bundled-style.ts', {
   'expo-file-system': { Directory, File, Paths: { document: 'file:///app-documents' } },
   'expo-crypto': { CryptoDigestAlgorithm: { SHA256: 'SHA-256' }, digest: (algorithm, bytes) => webcrypto.subtle.digest(algorithm, bytes), randomUUID: () => 'test-' + ++sequence },
-  './bundled-resources.json': inventory, './pilot-style.json': style, '../updates/style': resolver,
+  './bundled-resources.json': inventory, './pilot-style.json': style, '../updates/style-contract': resolver,
 });
 const installed = JSON.parse(await bundled.loadBundledStyle());
 assert.match(installed.sources.geography.url, /^pmtiles:\/\/file:\/\/\/app-documents\/bundled-map\/[a-f0-9]{64}\/pilot.pmtiles$/);

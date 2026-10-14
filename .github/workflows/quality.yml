@@ -23,6 +23,9 @@ jobs:
       - name: Install pinned PostgreSQL syntax parser
         run: python -m pip install -r packages/database/canonical/requirements-syntax.txt
 
+      - name: Install pinned Python quality tool
+        run: python -m pip install -r requirements-quality.txt
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -32,6 +35,19 @@ jobs:
 
       - name: Typecheck mobile application
         run: npm run typecheck --prefix apps/mobile
+
+      - name: Authored source quality and dependency boundaries
+        run: |
+          npm run lint --prefix apps/mobile
+          npm run format:check --prefix apps/mobile
+          npm run check:dependencies --prefix apps/mobile
+          python -m ruff check .
+
+      - name: Refactoring and synthetic AI contracts
+        run: |
+          node --test tests/refactoring/*.test.cjs tests/ai/evaluate.test.cjs
+          node tests/ai/evaluate.cjs
+          python -m unittest discover -v -s tests/refactoring -p 'test_*.py'
 
       - name: Governance and contract suites
         run: |

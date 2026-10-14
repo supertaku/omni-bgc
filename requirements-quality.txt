@@ -1,0 +1,2 @@
+# Development checks only; pinned separately from map/production requirements.
+ruff==0.17.0

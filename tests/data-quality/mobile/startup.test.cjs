@@ -10,7 +10,7 @@ const root = path.resolve(__dirname, '../../..');
 const ts = require(path.join(root, 'apps/mobile/node_modules/typescript'));
 function load(file, mocks = {}) {
   const output = ts.transpileModule(fs.readFileSync(path.join(root, file), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS } }).outputText;
-  const context = { exports: {}, require: name => mocks[name] ?? {}, console, Date, Set, Promise, Map, Error };
+  const context = { exports: {}, require: name => mocks[name] ?? (name==='./queries'?load('apps/mobile/src/data/queries.ts'):{}), console, Date, Set, Promise, Map, Error };
   vm.runInNewContext(output, context); return context.exports;
 }
 const startup = load('apps/mobile/src/data/startup.ts');

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import type { Citation, Place } from '../../contracts';
-import { CategoryArtwork, Icon } from '../../ui/components';
-import { palette } from '../../ui/components';
+import { CategoryArtwork, Icon, palette } from '../../ui/components';
 import type { AssistantActions, AssistantPayload } from './contracts';
 import { assistantStyles as s } from './styles';
 import { isDemoPlace } from '../explore/demoDirectory';

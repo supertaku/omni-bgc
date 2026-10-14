@@ -4,7 +4,7 @@ import * as SQLite from 'expo-sqlite';
 import { OPEN_OPTIONS, rows, run, serialOwner } from '../data/ownership';
 import { canonical, InstalledPack, PACK_KINDS, PackKind, PackManifest, PackStatus, validateDependencies, validateManifest, validateVersionReuse } from './contracts';
 import { downloadResumable } from './resumable-download';
-import { validateOfflineStyle } from './style';
+import { validateOfflineStyle } from './style-contract';
 import { REVIEWED_MANIFEST_SHA256 } from './reviewed-catalog';
 
 const own=serialOwner();

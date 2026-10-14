@@ -1,4 +1,46 @@
-import type { Coordinate } from '../contracts';
+import type { Coordinate, Place } from '../contracts';
+
+/** Presentation mode only; retain exact resource/source fields and layer order. */
+export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolean): string {
+  if (!flat && !quiet) return activeStyle;
+  const style = JSON.parse(activeStyle);
+  for (const layer of style.layers ?? []) {
+    if (
+      layer.type === 'fill-extrusion' ||
+      (quiet &&
+        [
+          'source-trees',
+          'garden-texture',
+          'plaza-paving',
+          'source-pavement-pattern',
+          'source-crosswalks',
+          'illustrative-pedestrians',
+        ].includes(layer.id))
+    ) {
+      layer.layout = { ...layer.layout, visibility: 'none' };
+    }
+  }
+  return JSON.stringify(style);
+}
+
+export function placeFeatureCollection(places: Place[]): GeoJSON.FeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: places
+      .filter((p) => p.coordinate)
+      .map((p) => ({
+        type: 'Feature',
+        id: p.id,
+        properties: {
+          id: p.id,
+          name: p.name,
+          category: p.category,
+          marker: categorySprite(p.category),
+        },
+        geometry: { type: 'Point', coordinates: [...p.coordinate!] },
+      })),
+  };
+}
 
 export function categorySprite(category: string): string {
   const value = category.toLowerCase();
@@ -14,12 +56,28 @@ export function categorySprite(category: string): string {
   if (/landmark|museum|civic/.test(value)) return 'marker-landmark';
   return 'marker-more';
 }
-export function coordinateBounds(coordinates: readonly Coordinate[]): [number, number, number, number] | null {
-  const valid = coordinates.filter(c => Number.isFinite(c[0]) && Number.isFinite(c[1]) && Math.abs(c[0]) <= 180 && Math.abs(c[1]) <= 90);
+export function coordinateBounds(
+  coordinates: readonly Coordinate[],
+): [number, number, number, number] | null {
+  const valid = coordinates.filter(
+    (c) =>
+      Number.isFinite(c[0]) &&
+      Number.isFinite(c[1]) &&
+      Math.abs(c[0]) <= 180 &&
+      Math.abs(c[1]) <= 90,
+  );
   if (!valid.length) return null;
-  const xs = valid.map(c => c[0]); const ys = valid.map(c => c[1]);
-  const west = Math.min(...xs); const south = Math.min(...ys);
-  const east = Math.max(...xs); const north = Math.max(...ys);
+  const xs = valid.map((c) => c[0]);
+  const ys = valid.map((c) => c[1]);
+  const west = Math.min(...xs);
+  const south = Math.min(...ys);
+  const east = Math.max(...xs);
+  const north = Math.max(...ys);
   // A nonzero envelope makes single-stop itineraries safe for native bounds fitting.
-  return [west - (west === east ? 0.00015 : 0), south - (south === north ? 0.00015 : 0), east + (west === east ? 0.00015 : 0), north + (south === north ? 0.00015 : 0)];
+  return [
+    west - (west === east ? 0.00015 : 0),
+    south - (south === north ? 0.00015 : 0),
+    east + (west === east ? 0.00015 : 0),
+    north + (south === north ? 0.00015 : 0),
+  ];
 }

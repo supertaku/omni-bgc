@@ -32,6 +32,11 @@ function harness(relative, options = {}) {
     if (name === './styles') return { assistantStyles: new Proxy({}, { get: (_, key) => ({ style: key }) }) };
     if (name === './cards') return { MessageContent: 'MessageContent' };
     if (name.endsWith('/demoDirectory')) return { isDemoPlace: value => typeof value === 'object' && value.demo === true };
+    if (name === './useDirectoryConversation') {
+      const hookContext={...context,exports:{}};
+      const hook=ts.transpileModule(fs.readFileSync(path.join(__dirname,'useDirectoryConversation.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
+      vm.runInNewContext(hook,hookContext);return hookContext.exports;
+    }
     if (name === './directory') return { placeMatchesCategory: () => true, answerDirectoryQuery: query => [{ kind: 'text', text: `Matched ${query}` }], WALKING_DIRECTIONS_DEFERRED:'Walking directions are not available in this version.',VISIT_PLANNING_DEFERRED:'Visit planning is not available in this version.' };
     throw new Error(`Unexpected import ${name}`);
   } };

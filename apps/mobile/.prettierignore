@@ -1,0 +1,9 @@
+node_modules/
+android/
+ios/
+assets/
+artifacts/
+../../data/
+../../assets/
+../../docs/evaluations/
+../../packages/database/migrations/

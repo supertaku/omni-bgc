@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-14",
+  "base": "7b468f37ff43bde171a683aeac3a736bc6dae399",
+  "branch": "codex/r1-engineering-hardening",
+  "hostGate": "PASS",
+  "overall": "PARTIAL",
+  "commandGroups": [
+    {
+      "name": "typecheck",
+      "exitCode": 0
+    },
+    {
+      "name": "lint",
+      "exitCode": 0
+    },
+    {
+      "name": "format",
+      "exitCode": 0
+    },
+    {
+      "name": "dependencies",
+      "exitCode": 0
+    },
+    {
+      "name": "python-lint",
+      "exitCode": 0
+    },
+    {
+      "name": "refactoring-python",
+      "exitCode": 0
+    },
+    {
+      "name": "governance",
+      "exitCode": 0
+    },
+    {
+      "name": "contracts",
+      "exitCode": 0
+    },
+    {
+      "name": "gis",
+      "exitCode": 0
+    },
+    {
+      "name": "topology",
+      "exitCode": 0
+    },
+    {
+      "name": "intake",
+      "exitCode": 0
+    },
+    {
+      "name": "research",
+      "exitCode": 0
+    },
+    {
+      "name": "research-gis",
+      "exitCode": 0
+    },
+    {
+      "name": "retrieval-python",
+      "exitCode": 0
+    },
+    {
+      "name": "canonical",
+      "exitCode": 0
+    },
+    {
+      "name": "projection",
+      "exitCode": 0
+    },
+    {
+      "name": "map",
+      "exitCode": 0
+    },
+    {
+      "name": "startup",
+      "exitCode": 0
+    },
+    {
+      "name": "ui",
+      "exitCode": 0
+    },
+    {
+      "name": "directory",
+      "exitCode": 0
+    },
+    {
+      "name": "retrieval-js",
+      "exitCode": 0
+    },
+    {
+      "name": "routing",
+      "exitCode": 0
+    },
+    {
+      "name": "shared-ui",
+      "exitCode": 0
+    },
+    {
+      "name": "itinerary",
+      "exitCode": 0
+    },
+    {
+      "name": "historical-routing",
+      "exitCode": 0
+    },
+    {
+      "name": "ai-contracts",
+      "exitCode": 0
+    },
+    {
+      "name": "refactoring-js",
+      "exitCode": 0
+    },
+    {
+      "name": "pack-contracts",
+      "exitCode": 0
+    },
+    {
+      "name": "pack-resume",
+      "exitCode": 0
+    },
+    {
+      "name": "shared-typecheck",
+      "exitCode": 0
+    },
+    {
+      "name": "ai-coverage",
+      "exitCode": 0
+    }
+  ],
+  "sourceReview": {
+    "protectedFiles": 610,
+    "protectedChanges": 0,
+    "runtimeVersionChanges": 0,
+    "mapModeComparisons": 4,
+    "poiComparisons": 161,
+    "rootBytesBefore": 17940,
+    "rootBytesAfter": 396,
+    "modules": 59,
+    "edges": 132,
+    "cycles": [],
+    "native": "NOT_RUN",
+    "remoteCI": "NOT_RUN"
+  },
+  "newJsTests": 13,
+  "newSqliteTests": 4,
+  "lintErrors": 0,
+  "inheritedCameraWarnings": 2,
+  "directoryObservationSha256": "722068e60732a5c72da4416b353550ff765dd030bb14979ae7b3358296d98a30",
+  "currentFactsSha256": "e7abda0f87df34eb84dc801b16a2d2476ea2ede197e5d1b6e63bc5d21177b649"
+}
