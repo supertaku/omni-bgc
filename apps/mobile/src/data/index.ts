@@ -4,3 +4,4 @@ export type { PlaceFilters, MenuFilters, BranchMenuItem } from './retrieval';
 export { createStartupLoader, InitializationError } from './startup';
 export type { StartupResult, StageStatus, InitializationStage } from './startup';
 export { getLocalStoreHealth } from './store';
+export { toggleSavedPlace } from './store';

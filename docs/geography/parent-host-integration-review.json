@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-15",
+  "reviewer": "parent /root",
+  "parent_decision": "ACCEPT",
+  "scope": "GEX-0 through GEX-5 host engineering and exact internal historical bundled preview only",
+  "independent_review": "docs/geography/review-r3.json",
+  "host_cases_passed": 158,
+  "compatibility_rerun": {
+    "command": "node --test tests/data-quality/gex/store-geography.test.cjs",
+    "passed": 4,
+    "failed": 0,
+    "note": "After concurrent Offices hook integration; synthetic fixture supports required office claims and expiry."
+  },
+  "current_typecheck": {
+    "command": "node apps/mobile/node_modules/typescript/bin/tsc --noEmit -p apps/mobile/tsconfig.json",
+    "exit_code": 0
+  },
+  "limits": [
+    "Historical candidate facts remain candidate",
+    "Actual expanded approved directory input absent",
+    "Shared Offices UI changes have a separate owner and acceptance",
+    "Android host build pending separate receipt",
+    "No physical app QA or USB use",
+    "No navigation, rights, merge or publication authority"
+  ],
+  "physical_device_tested": false,
+  "usb_used": false,
+  "distribution_authorized": false,
+  "evidence": [
+    {
+      "path": "docs/geography/review-r3.json",
+      "sha256": "9849e458e0f73bfc51810dc4b8fd1c83d197f0fbe4e7a69686b520e7c6780dcc"
+    },
+    {
+      "path": "docs/geography/GEX_INDEPENDENT_IMPLEMENTATION_REVIEW.md",
+      "sha256": "488bbc5aead663b34ba47e728f028d5327cc3e2cdcbd7e75c235d55561f7938d"
+    },
+    {
+      "path": "docs/geography/validation-2026-10-15/results.json",
+      "sha256": "a7671ecc1c320e2d1ebe36e9e55f7ef5e4f9f8cf258d6329f7c9c206565f16db"
+    },
+    {
+      "path": "docs/geography/parent-review-r2.json",
+      "sha256": "12ddafa702a9030eb6a049f5b324d6ff0f0838e3c4db76f28eb5dc6e7adf7fc5"
+    },
+    {
+      "path": "docs/geography/internal-pack-approval.json",
+      "sha256": "4a094b15e17cfbbe403b83916d9a83ace6051cc6e3740c74a36edebc50e5794b"
+    },
+    {
+      "path": "tests/data-quality/gex/store-geography.test.cjs",
+      "sha256": "23246f463e06c0055120cf9a279f1a2147478333cd97de599f3f2ddc70793e32"
+    },
+    {
+      "path": "apps/mobile/src/data/store.ts",
+      "sha256": "6b55ce8d1c23ed3ad79be85ad1e135a56e62a5777a6984482e44e1df2d0644e9"
+    },
+    {
+      "path": "apps/mobile/src/map/MapCanvas.tsx",
+      "sha256": "8e4cd790205340fba07ca3e5facbb3a01b91a91d09aa9b909e3749122282485e"
+    },
+    {
+      "path": "apps/mobile/src/map/bundled-style.ts",
+      "sha256": "bce9bbf0afafc4fc5a4f51e173095ccdef4a9698654f04919bafaaa19735ca0b"
+    }
+  ],
+  "export_compatibility_rerun": [
+    {
+      "command": "pipelines/map-pack/.venv/Scripts/python.exe -I -B -m unittest discover -s tests/data-quality/gex -p test_geographic_export.py",
+      "passed": 21,
+      "failed": 0
+    },
+    {
+      "command": "pipelines/map-pack/.venv/Scripts/python.exe -I -B -m unittest discover -s tests/data-quality/m1",
+      "passed": 25,
+      "failed": 0
+    }
+  ],
+  "export_compatibility_inputs": [
+    {
+      "path": "packages/database/export_mobile.py",
+      "sha256": "76dfcdfdb657720a559842306c0b75adae829b877293c91ed70ca331b16ebac6"
+    },
+    {
+      "path": "packages/database/export_geographic.py",
+      "sha256": "b4a0e47a36358b6049eb77722087bea9cbfe5584248b66bb5c2d67570566ed08"
+    },
+    {
+      "path": "packages/database/office_contract.py",
+      "sha256": "d6ae869725314db0ea6c0170318a6eae8832398ce07584d47389c1dcdc02fb74"
+    }
+  ],
+  "android_host_artifact": {
+    "decision": "ACCEPT_FOR_INTERNAL_PHYSICAL_VALIDATION_ONLY",
+    "receipt": "docs/geography/apk-verification-r2.json",
+    "receipt_sha256": "5ec17823073e1f69d7cf66c6da1bd87d27f5b7a40cc4c3ea568eac108777c8ef",
+    "apk_sha256": "c1229809c1897c5c2b5b8958e5c2bf53695b55baaba173c5d23d6fd771534c3d",
+    "resource_checks": 24,
+    "physical_device_tested": false,
+    "usb_permission": "REQUESTED_PENDING_USER_REPLY"
+  },
+  "shared_composition_review": {
+    "decision": "ACCEPT_GEOGRAPHIC_HOST_COMPATIBILITY_ONLY",
+    "receipt": "docs/geography/validation-2026-10-15/shared-composition/results.json",
+    "sha256": "5e407cd588aee94c869fad14fffd523c11e5d4edb8c7c972c5113149ebc38e20",
+    "cases_passed": 87,
+    "typecheck_exit_code": 0,
+    "interfaces_unchanged_during_checks": true,
+    "note": "No new actual company approval, APK rebuild or physical-device result; frozen GEX APK remains separate."
+  },
+  "physical_preview_review": {
+    "decision": "ACCEPT_OBSERVED_SCENARIOS_ONLY",
+    "receipt": "docs/geography/device-qa.json",
+    "sha256": "32fc99f1ea2b05ea8a720b9bc548af2b8c127ade9386f03ba426c52a8cebbded",
+    "device_session_released_to": "Offices",
+    "full_gex6_accepted": false
+  }
+}

@@ -15,6 +15,10 @@ import { MapCanvas } from '../map/MapCanvas';
 
 import { Notice, palette, Sheet } from '../ui/components';
 import { getPackStatus } from '../updates';
+import { toggleSavedPlace } from '../data';
+import { officeSavedLabel } from '../features/offices/service';
+import { officeFocus, officeMapPlaces, setOfficeMapScope } from '../features/offices/map';
+import type { MapScope } from '../map/scope';
 import { AssistantScreen } from '../features/assistant/AssistantScreen';
 import { FloatingChatButton, MapChrome } from '../features/explore/MapChrome';
 import { PlacePeek } from '../features/explore/PlaceDetails';
@@ -47,6 +51,7 @@ export function Application() {
     startup,
     savedAvailable,
     setPackStatus,
+    setSaved,
     refreshRecords,
   } = useAppInitialization(downloadController, setError);
   const { installing, confirming, packChecking, setPackChecking, download, rollback } =
@@ -104,7 +109,16 @@ export function Application() {
     };
   }, [panel, setPackChecking, setPackStatus]);
   const savedName = (id: string) =>
-    places.find((p) => p.id === id)?.name ?? 'Place unavailable in the current directory';
+    places.find((p) => p.id === id)?.name ??
+    officeSavedLabel(id) ??
+    'Place unavailable in the current directory; saved ID retained';
+  const saveOffice = (place: import('../contracts').Place) => {
+    if (!savedAvailable) return;
+    void toggleSavedPlace(place.id)
+      .then(setSaved)
+      .catch(() => setError('Office could not be saved. Existing saved records were retained.'));
+  };
+  const [officeScope, setOfficeScope] = useState<MapScope | null>(null);
   const exportSaved = () => {
     void Share.share({
       title: 'My Omni-BGC saved records',
@@ -127,8 +141,12 @@ export function Application() {
     }).catch(() => setError('The share sheet could not be opened. Nothing was sent.'));
   };
   const visiblePlaces = useMemo(
-    () => places.filter((p) => matchesCategory(p, category)),
-    [places, category],
+    () =>
+      officeMapPlaces(
+        places.filter((p) => matchesCategory(p, category)),
+        officeScope,
+      ),
+    [places, category, officeScope],
   );
   const results = useMemo(
     () => searchDirectory(places, query, category),
@@ -140,7 +158,9 @@ export function Application() {
     'Coffee',
     'Shops',
     ...new Set(
-      places.map((p) => p.category).filter((c) => !['All', 'Food', 'Coffee', 'Shops'].includes(c)),
+      places
+        .map((p) => p.category)
+        .filter((c) => !['All', 'Food', 'Coffee', 'Shops', 'office'].includes(c)),
     ),
   ];
   const notice = error ? (
@@ -178,6 +198,7 @@ export function Application() {
     rollback,
     savedName,
     exportSaved,
+    saveOffice,
   });
   if (!fontsLoaded && !fontError)
     return (
@@ -220,7 +241,11 @@ export function Application() {
                   selectedPlaceId={selected?.id}
                   rightInset={panel && landscape ? Math.min(480, width * 0.66) + 24 : 0}
                   bottomInset={bottomInset}
-                  focusCoordinate={selected?.coordinate ?? null}
+                  focusCoordinate={officeFocus(selected)}
+                  onScopeReady={(scope) => {
+                    setOfficeMapScope(scope);
+                    setOfficeScope(scope);
+                  }}
                   places={visiblePlaces}
                   onStatusChange={(state, detail) =>
                     setMapStatus((previous) =>

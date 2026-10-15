@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-15",
+  "parent_decision": "ACCEPT_STATIC_FINAL_HEIGHT_ARTIFACT_ONLY",
+  "apk": {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\.g\\of-r1\\Omni-BGC-Offices-preview-arm64.apk",
+    "bytes": 44428239,
+    "sha256": "67582a18b95b5929c83146b0886633bb412e62609935d2d859630f7945f632e5",
+    "package": "com.omnibgc.officespreview",
+    "abi": [
+      "arm64-v8a"
+    ],
+    "signing": "Existing development key; APK v2 verified; internal preview only"
+  },
+  "office_receipt": ".g/of-r1/apk-verification.json",
+  "office_receipt_sha256": "dc1ac05465a2549457bba676ce010cd5b0d30a5f75ee9c104586d590e6c389c9",
+  "resource_checks": 24,
+  "apk_crc": "PASS",
+  "embedded_hermes": "PASS",
+  "source_map_matches": {
+    "src/map/MapCanvas.tsx": {
+      "staged_sha256": "189ac837a23f1ff364fe0ab5d07afb293b98de212bbb7f35e15fc08b17b1e079",
+      "matches_shared_source": true
+    },
+    "src/map/bundled-catalog.ts": {
+      "staged_sha256": "52b7502fe49ec4cd07331b12fa759553fbbd307c9db690fd794b1255b09ec9d4",
+      "matches_shared_source": true
+    },
+    "src/data/store.ts": {
+      "staged_sha256": "59fc33ea2c43f4e877d397a8bd87b2f05733c654f9ee0d3d0ec903870e00b67a",
+      "matches_shared_source": true
+    },
+    "App.tsx": {
+      "staged_sha256": "7acea38de8e5569ddc9ae45a40797a60a25a8234d5142dd5f91749d081a2141d",
+      "matches_shared_source": true
+    },
+    "src/features/offices/OfficeDirectory.tsx": {
+      "staged_sha256": "7c9399437ddd4fde5039ee56469c3c157cf0e4cd3410d26e4e51a9c464fa0feb",
+      "matches_shared_source": true
+    },
+    "src/features/offices/OfficeDetails.tsx": {
+      "staged_sha256": "203271814d0117181b9fd2bd865fecf630e8c7c16c23de3e3492ffd044f33481",
+      "matches_shared_source": true
+    },
+    "src/features/offices/service.ts": {
+      "staged_sha256": "9f4aa43241787616c88ac4b98df26cb5ba1bec23ed466bd0f62b2e52ab23a692",
+      "matches_shared_source": true
+    },
+    "src/features/offices/assistant.ts": {
+      "staged_sha256": "903c3e163943caae6306672353c9f2e5557a22b8c19004cf309a98a3c4e984da",
+      "matches_shared_source": true
+    },
+    "src/features/offices/research.ts": {
+      "staged_sha256": "47dffa2442e966fb6d9c2178da4cceeb4ad7b4c9cadd7b01bf40b872c38335a4",
+      "matches_shared_source": false
+    },
+    "src/data/offices.ts": {
+      "staged_sha256": "2fc65643fc69324201acac39f694a8d755b512e8af35bc27cde6d5f6bc0845a2",
+      "matches_shared_source": true
+    },
+    "src/data/office-store.ts": {
+      "staged_sha256": "bc01c26bc98a0cdd53ac447116053ccef69f77453f510812ae36c8ec4f0299f1",
+      "matches_shared_source": true
+    },
+    "src/data/office-projection.ts": {
+      "staged_sha256": "0e104c8e99f1e4f69783ead6b95dd2ef4768367114366d52b68ed5470204db8a",
+      "matches_shared_source": true
+    },
+    "src/features/explore/directory.ts": {
+      "staged_sha256": "b9dd10f43b8a7cf71246f9abb14a30f2e179db7857b05c63207ec848cf929c7b",
+      "matches_shared_source": true
+    },
+    "src/app/Application.tsx": {
+      "staged_sha256": "a9eda68508639608de22ef4d6b0c286c5701ad709cb984cf8da4ee708a93f432",
+      "matches_shared_source": true
+    },
+    "src/map/presentation.ts": {
+      "staged_sha256": "0627afb575ca045a411109a26809f043af036eeb4b99e559d01f1fe358208ace",
+      "matches_shared_source": true
+    }
+  },
+  "source_map_sha256": "e2a013cf105ec51a75d77888f6ef286c50380dec2f5153aa99f6dce9d4bc217e",
+  "staging_only_gate": "Office internal candidate research view true; canonical approvals remain0",
+  "native_height_result": "PENDING_DEVICE_OWNER_EVIDENCE",
+  "original_gex_apk_replaced": false,
+  "distribution_authorized": false,
+  "prior_5023_intermediate_not_final": true
+}

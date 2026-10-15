@@ -16,6 +16,9 @@ function harness(file,imports={},dimensions={width:390,height:800,fontScale:1}) 
     if(name==='react')return React;if(name==='react/jsx-runtime')return{jsx:element,jsxs:element,Fragment:'Fragment'};
     if(name==='react-native')return {...native,...imports.native};
     if(imports[name])return imports[name];
+    if(name==='../offices/OfficeDetails')return{OfficeDetailsView:'OfficeDetailsView',OfficeTenantList:'OfficeTenantList'};
+    if(name==='../food/directory')return{foodResearch:{getFoodEstablishmentDetails:()=>null}};
+    if(name==='../food/ResearchDetails')return{FoodHoursView:'FoodHoursView',FoodSourceDisclosure:'FoodSourceDisclosure',ResearchMenu:'ResearchMenu'};
     if(name.includes('icons'))return{Icon:'Icon',CategoryArtwork:'CategoryArtwork',BrandMark:'BrandMark'};
     if(name.includes('components'))return{Body:'Body',Notice:'Notice',Icon:'Icon',CategoryArtwork:'CategoryArtwork',CitationList:'CitationList',palette:{}};
     throw Error(`Unexpected import ${name}`);

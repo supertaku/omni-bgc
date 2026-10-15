@@ -1,0 +1,30 @@
+{
+  "format_version": "office-research-config-v1",
+  "districts": {
+    "BGC Core": "bgc-core",
+    "Uptown Bonifacio": "uptown-bonifacio",
+    "McKinley Hill": "mckinley-hill",
+    "McKinley West": "mckinley-west",
+    "BGC fringe": "bgc-fringe"
+  },
+  "unknown_buildings": ["Building not disclosed", "Not independently confirmed", "Unspecified (BGC)"],
+  "building_alias_suggestions": [
+    ["Net Park", "Net Park / Seven/NEO", "Seven/NEO", "Seven/NEO (former Net Park)"],
+    ["Fort Legend Tower", "Fort Legend Towers"],
+    ["Uptown Place Tower 3", "Uptown Tower 3"],
+    ["W Fifth Avenue Building", "W Fifth Building", "W Fifth Center"]
+  ],
+  "company_regressions": {
+    "Infor": {"query_terms": ["infor"], "expected_sites": 2, "buildings": ["Asian Century Center", "Seven/NEO (former Net Park)"]},
+    "P&G": {"query_terms": ["procter & gamble", "p&g"], "search_alias_suggestions": ["Procter and Gamble", "P&G"], "expected_sites": 1, "buildings": ["Net Park / Seven/NEO"]},
+    "Thinking Machines": {"query_terms": ["thinking machines"], "expected_sites": 1, "buildings": ["Twenty-Four Seven McKinley"]},
+    "DigiPlus": {"query_terms": ["digiplus"], "expected_sites": 1, "buildings": ["Ecoprime Building"]},
+    "HCLTech": {"query_terms": ["hcltech"], "expected_sites": 3, "buildings": ["Science Hub", "One World Square", "Robinsons Cyber Sigma"]},
+    "SAP": {"query_terms": ["sap philippines"], "expected_sites": 1, "buildings": ["NAC Tower"]},
+    "AWS": {"query_terms": ["amazon web services"], "expected_sites": 1, "buildings": ["Arthaland Century Pacific Tower"]},
+    "Lazada": {"query_terms": ["lazada"], "expected_sites": 1, "buildings": ["Seven/NEO"]}
+  },
+  "alias_status": "suggestion_only_not_identity_or_geometry_approval",
+  "geographic_boundary": null,
+  "publication_allowed": false
+}

@@ -1,6 +1,6 @@
 [tool.ruff]
 target-version = "py313"
-include = ["apps/mobile/scripts/quality.py", "pipelines/map-pack/build.py", "pipelines/etl/place-intake/intake.py", "packages/database/retrieval.py", "packages/database/export_mobile.py"]
+include = ["apps/mobile/scripts/quality.py", "pipelines/map-pack/build.py", "pipelines/etl/place-intake/intake.py", "pipelines/etl/place-intake/import_food_research.py", "packages/database/retrieval.py", "packages/database/export_mobile.py"]
 
 [tool.ruff.lint]
 select = ["F401", "F821", "F822", "F823"]

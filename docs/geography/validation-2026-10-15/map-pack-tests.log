@@ -1,0 +1,13 @@
+C:\Users\joshu\Documents\Omni-BGC\pipelines\map-pack\expansion.py:155: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  records.append((transform(project, geometry), props, tile_ident))
+C:\Users\joshu\Documents\Omni-BGC\pipelines\map-pack\expansion.py:235: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  return transform(point, geometry)
+.....C:\Users\joshu\Documents\Omni-BGC\pipelines\map-pack\expansion.py:113: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  metric = transform(Transformer.from_crs(4326, 32651, always_xy=True).transform, outside)
+...........C:\Users\joshu\Documents\Omni-BGC\pipelines\map-pack\expansion.py:181: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  records.append((transform(project, point), props, int.from_bytes(hashlib.sha256(ident.encode()).digest()[:6], 'big')))
+..
+----------------------------------------------------------------------
+Ran 18 tests in 0.067s
+
+OK

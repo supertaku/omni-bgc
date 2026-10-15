@@ -3,12 +3,17 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+import importlib.util
 from pathlib import Path
 from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parents[2]
 SUPPORTED = {'building', 'business', 'place', 'entrance', 'menu', 'menu_item', 'public_facility', 'transit_agency', 'transit_route', 'transit_stop'}
 PROPERTIES = {'name', 'alias', 'description', 'coordinate', 'category', 'floor', 'hours', 'price', 'tag', 'access', 'entrance_access', 'building', 'place', 'menu', 'agency'}
+_office_spec = importlib.util.spec_from_file_location('m1_office_contract', Path(__file__).with_name('office_contract.py'))
+_office = importlib.util.module_from_spec(_office_spec)
+_office_spec.loader.exec_module(_office)
+PROPERTIES = PROPERTIES | _office.PROPERTIES
 PARENTS = {'place': ('place', 'building_id'), 'entrance': ('entrance', 'building_id'), 'menu': ('menu', 'place_id'), 'menu_item': ('menu_item', 'menu_id'), 'transit_route': ('transit_route', 'agency_id'), 'public_facility': ('public_facility', 'place_id')}
 
 def utc_timestamp(value: str | None) -> bool:
@@ -80,7 +85,13 @@ def _export_mobile(staging: sqlite3.Connection, now: str) -> tuple[sqlite3.Conne
         if any(not row[key] or row[key].strip().lower() in {'','unknown','unassigned'} for key in metadata) or any(not utc_timestamp(row[key]) for key in timestamps):
             continue
         by_fact.setdefault(row['fact_id'], []).append(row)
-    eligible_entities = {r['id']: r for r in staging.execute("SELECT * FROM entity WHERE review='approved' AND location_quality='verified'") if r['kind'] in SUPPORTED}
+    # Organizations are not geographic points. Reviewed text-only offices may
+    # have unknown geometry; the typed office gate below still requires current
+    # identity/presence/address/category evidence. Other places retain M1's rule.
+    eligible_entities = {r['id']: r for r in staging.execute("""SELECT * FROM entity e WHERE review='approved' AND
+      (location_quality='verified' OR kind='business' OR (kind='place' AND EXISTS(
+        SELECT 1 FROM fact f WHERE f.subject_id=e.id AND f.property='category'
+        AND f.knowledge='asserted' AND f.value_json='"office"' AND f.review='approved')))""") if r['kind'] in SUPPORTED}
     accepted_facts = []
     for f in staging.execute('SELECT f.*,en.kind,fi.review identity_review FROM fact f JOIN entity en ON en.id=f.subject_id JOIN entity fi ON fi.id=f.id ORDER BY f.id'):
         if f['subject_id'] not in eligible_entities or f['property'] not in PROPERTIES or f['review'] != 'approved' or f['identity_review'] != 'approved' or f['freshness'] != 'current':
@@ -102,11 +113,14 @@ def _export_mobile(staging: sqlite3.Connection, now: str) -> tuple[sqlite3.Conne
             lineage = [r for r in lineage if r['permitted_use']=='data']
         if not lineage:
             continue
+        if f['property'] in _office.PROPERTIES and not _office.valid_fact(staging, f):
+            continue
         if f['knowledge']=='asserted' and f['property'] in {'name','alias','description'}:
             if not isinstance(json.loads(f['value_json']),str) or not json.loads(f['value_json']).strip():
                 continue
-        if f['property']=='coordinate' and f['knowledge']=='asserted' and not staging.execute('SELECT 1 FROM point_geometry WHERE coordinate_fact_id=? AND entity_id=?',(f['id'],f['subject_id'])).fetchone():
-            continue
+        if f['property']=='coordinate' and f['knowledge']=='asserted':
+            if eligible_entities[f['subject_id']]['location_quality'] != 'verified' or not staging.execute('SELECT 1 FROM point_geometry WHERE coordinate_fact_id=? AND entity_id=?',(f['id'],f['subject_id'])).fetchone():
+                continue
         if f['property'] in {'building','place','menu','agency'}:
             expected = PARENTS.get(f['kind'])
             if expected is None or {'building_id':'building','place_id':'place','menu_id':'menu','agency_id':'agency'}[expected[1]] != f['property']:
@@ -126,6 +140,7 @@ def _export_mobile(staging: sqlite3.Connection, now: str) -> tuple[sqlite3.Conne
         accepted_facts.append((f,lineage))
     # An entity needs a current approved name. Parent chains must be independently eligible.
     ids = {f['subject_id'] for f,_ in accepted_facts if f['property']=='name' and f['knowledge']=='asserted'}
+    accepted_facts, ids = _office.protect_projection(accepted_facts, ids)
     parents = {}
     for ident in sorted(ids):
         kind = eligible_entities[ident]['kind']
@@ -166,7 +181,7 @@ def _export_mobile(staging: sqlite3.Connection, now: str) -> tuple[sqlite3.Conne
             for r in lineage:
                 result.execute('INSERT OR IGNORE INTO source_snapshot VALUES(?,?,?,?,?,?,?,?,?)',(r['id'],r['source_id'],r['source_version'],r['data_extract_version'],r['raw_sha256'],r['data_license'],r['attribution_text'],r['fetched_at_utc'],r['valid_until']))
                 result.execute('INSERT INTO fact_lineage VALUES(?,?,?,?,?,?,?,?,?,?)',(f['id'],r['id'],r['evidence_id'],r['locator'],r['observed_at'],r['verified_at'],r['verification_method'],r['confidence_reason'],r['reviewer'],r['evidence_valid_until']))
-            if f['knowledge']=='asserted' and f['property'] in {'name','alias','description'}:
+            if f['knowledge']=='asserted' and f['property'] in {'name','alias','description','office_industry','office_district','office_address'}:
                 result.execute('INSERT INTO search_document(fact_id,entity_id,name) VALUES(?,?,?)',(f['id'],f['subject_id'],json.loads(f['value_json'])))
             if f['property']=='coordinate' and f['knowledge']=='asserted':
                 point = staging.execute('SELECT * FROM point_geometry WHERE coordinate_fact_id=? AND entity_id=?',(f['id'],f['subject_id'])).fetchone()

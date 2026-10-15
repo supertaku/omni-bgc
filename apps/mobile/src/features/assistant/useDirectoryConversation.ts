@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import type { Place, SavedState } from '../../contracts';
 import type { ConversationMessage } from './contracts';
 import { answerDirectoryQuery } from './directory';
+import { createFoodResearchAnswer } from '../food/assistant';
+import { foodResearch } from '../food/directory';
+
+const answerResearch = createFoodResearchAnswer(foodResearch);
 
 /** Mounted directory state. Timer cancellation is not native inference cancellation. */
 export function useDirectoryConversation(places: Place[], saved: SavedState) {
@@ -12,6 +16,7 @@ export function useDirectoryConversation(places: Place[], saved: SavedState) {
   const pendingScroll = useRef(false),
     sequence = useRef(0);
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const researchContext = useRef<string | undefined>(undefined);
   const current = useRef({ places, saved });
   current.current = { places, saved };
   useEffect(
@@ -37,7 +42,24 @@ export function useDirectoryConversation(places: Place[], saved: SavedState) {
     searchTimer.current = setTimeout(() => {
       searchTimer.current = null;
       try {
-        append(answerDirectoryQuery(trimmed, current.current.places, current.current.saved));
+        const payloads = answerDirectoryQuery(
+          trimmed,
+          current.current.places,
+          current.current.saved,
+          (q, records) => answerResearch(q, records, researchContext.current),
+        );
+        const entityIds = payloads.flatMap((p) =>
+          p.kind === 'places'
+            ? p.placeIds
+            : p.kind === 'food-menus'
+              ? p.items.map((i) => i.placeId)
+              : p.kind === 'food-hours'
+                ? [p.placeId]
+                : [],
+        );
+        if (entityIds.length)
+          researchContext.current = new Set(entityIds).size === 1 ? entityIds[0] : undefined;
+        append(payloads);
       } catch {
         append([
           {

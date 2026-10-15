@@ -7,7 +7,8 @@ const root=path.resolve(import.meta.dirname,'../../..');
 const require=createRequire(path.join(root,'apps/mobile/package.json'));
 const ts=require('typescript');
 function load(file,mocks={}){const src=fs.readFileSync(path.join(root,file),'utf8');const js=ts.transpileModule(src,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;const context={exports:{},require:name=>mocks[name]??{},console,Date,Map,Set,Promise,URL,Uint8Array,ArrayBuffer};vm.runInNewContext(js,context);return context.exports;}
-const parser=load('apps/mobile/src/data/parser.ts');const packs=load('apps/mobile/src/updates/contracts.ts');const own=load('apps/mobile/src/data/ownership.ts');
+const scope=load('apps/mobile/src/map/scope.ts',{'./reviewed-scopes.json':JSON.parse(fs.readFileSync(path.join(root,'apps/mobile/src/map/reviewed-scopes.json'),'utf8'))});
+const parser=load('apps/mobile/src/data/parser.ts');const packs=load('apps/mobile/src/updates/contracts.ts',{'../map/scope':scope});const own=load('apps/mobile/src/data/ownership.ts');
 let count=0;function test(name,fn){fn();count++;console.log('PASS '+name);}
 const id='00000000-0000-4000-8000-000000000001';
 test('FTS escapes operators and limits Unicode tokens',()=>{assert.equal(parser.lexicalQuery('" OR NEAR(foo) * café'),'"OR"* AND "NEAR"* AND "foo"* AND "café"*');assert.equal(parser.lexicalQuery('* "'),null);assert.equal(parser.lexicalQuery(Array(12).fill('word').join(' ')).split(' AND ').length,8);assert.throws(()=>parser.lexicalQuery('a'.repeat(2049)));});

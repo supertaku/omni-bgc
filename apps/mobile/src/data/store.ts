@@ -9,11 +9,15 @@ import {
   EntranceLink,
   FactRow,
   lexicalQuery,
-  parsePlaces,
   parseTransit,
   TransitLink,
   validateSaved,
 } from './parser';
+import { parseDirectoryEntities } from './directory-entities';
+import { parseOfficeDetails } from './offices';
+import { loadOfficeProjection } from './office-store';
+import { replaceOfficeDirectory, currentOfficePlaces } from '../features/offices/service';
+import { reviewedScope, pilotScope, coversCoordinate, type MapScope } from '../map/scope';
 
 const own = serialOwner();
 let local: SQLite.SQLiteDatabase | null = null;
@@ -76,20 +80,57 @@ async function factRows(db: SQLite.SQLiteDatabase): Promise<FactRow[]> {
   const now = new Date().toISOString();
   return rows<FactRow>(db, CURRENT_FACTS, Array(9).fill(now));
 }
+async function contentScope(db: SQLite.SQLiteDatabase): Promise<MapScope> {
+  const metadata = await rows<{ key: string; value: string }>(
+    db,
+    "SELECT key,value FROM pack_metadata WHERE key IN ('service_area_id','service_area_sha256')",
+  );
+  if (!metadata.length) return pilotScope; // Existing approved v1 projection format.
+  const id = metadata.find((m) => m.key === 'service_area_id')?.value;
+  const hash = metadata.find((m) => m.key === 'service_area_sha256')?.value;
+  if (!id || !hash) throw new Error('Content pack geographic binding incomplete');
+  return reviewedScope(id, hash);
+}
 async function allPlaces(): Promise<Place[]> {
   const base = await content(
     'places',
     async (db) => ({
       facts: await factRows(db),
+      scope: await contentScope(db),
       links: (await rows(db, "SELECT name FROM sqlite_master WHERE name='read_place_entrance'"))
         .length
         ? await rows<EntranceLink>(db, 'SELECT * FROM read_place_entrance')
         : [],
     }),
-    { facts: [] as FactRow[], links: [] as EntranceLink[] },
+    { facts: [] as FactRow[], links: [] as EntranceLink[], scope: pilotScope },
   );
-  const menu = await content('menus', factRows, [] as FactRow[]);
-  return parsePlaces([...base.facts, ...menu], base.links);
+  const menu = await content(
+    'menus',
+    async (db) => ({ facts: await factRows(db), scope: await contentScope(db) }),
+    { facts: [] as FactRow[], scope: base.scope },
+  );
+  const compatibleMenus =
+    menu.scope.id === base.scope.id && menu.scope.manifestSha256 === base.scope.manifestSha256
+      ? menu.facts
+      : [];
+  const parsed = parseDirectoryEntities([...base.facts, ...compatibleMenus], base.links);
+  // Text-only offices use a separate approved projection; GEX filtering stays intact.
+  const office = await loadOfficeProjection().catch(() => ({
+    facts: [] as FactRow[],
+    available: false,
+    validUntil: null,
+  }));
+  const officeFacts = office.available ? office.facts : base.facts;
+  const officePlaces = office.available ? parseDirectoryEntities(officeFacts) : parsed;
+  replaceOfficeDirectory(
+    office.validUntil ? parseOfficeDetails(officeFacts, officePlaces, office.validUntil) : [],
+    office.available,
+  );
+  const current = currentOfficePlaces(parsed);
+  // V2 destinations require explicit supported coordinates. Context never admits search.
+  return base.scope.id === pilotScope.id
+    ? current
+    : current.filter((p) => p.coordinate && coversCoordinate(base.scope.geometry, p.coordinate));
 }
 export function loadPlaces(): Promise<Place[]> {
   return work(allPlaces, false);
@@ -101,32 +142,52 @@ export function searchPlaces(query: string, category?: string): Promise<Place[]>
   return work(async () => {
     const places = await allPlaces();
     if (!lexical) return places.filter((p) => !category || p.category === category);
-    const find = async (db: SQLite.SQLiteDatabase) =>
-      rows<{ id: string }>(
-        db,
-        `SELECT DISTINCT CASE WHEN e.kind='place' THEN e.id WHEN e.kind='menu' THEN e.parent_id WHEN e.kind='menu_item' THEN parent.parent_id ELSE NULL END id FROM search_fts JOIN search_document d ON d.id=search_fts.rowid JOIN entity e ON e.id=d.entity_id LEFT JOIN entity parent ON parent.id=e.parent_id WHERE search_fts MATCH ?`,
-        [lexical],
-      );
-    const ids = new Set(
-      [...(await content('places', find, [])), ...(await content('menus', find, []))].map(
-        (r) => r.id,
-      ),
-    );
-    // FTS may contain expired alias/menu text. Final match must occur in current supported fields.
     const tokens =
       query
         .normalize('NFC')
         .match(/[\p{L}\p{N}]+/gu)
         ?.slice(0, 8)
         .map((t) => t.slice(0, 48).toLocaleLowerCase()) ?? [];
+    const find = async (db: SQLite.SQLiteDatabase, token: string) =>
+      rows<{ id: string }>(
+        db,
+        `WITH matched AS (SELECT e.id,e.kind,e.parent_id,parent.parent_id grandparent_id FROM search_fts JOIN search_document d ON d.id=search_fts.rowid JOIN entity e ON e.id=d.entity_id LEFT JOIN entity parent ON parent.id=e.parent_id WHERE search_fts MATCH ?)
+        SELECT DISTINCT CASE WHEN kind IN ('place','building','public_facility') THEN id WHEN kind='menu' THEN parent_id WHEN kind='menu_item' THEN grandparent_id ELSE NULL END id FROM matched
+        UNION SELECT e.id FROM entity e JOIN matched b ON b.id=e.parent_id AND b.kind='building' WHERE e.kind='place'`,
+        [lexicalQuery(token)!],
+      );
+    let ids = new Set(places.map((p) => p.id));
+    for (const token of tokens) {
+      const matches = new Set(
+        [
+          ...(await content('places', (db) => find(db, token), [])),
+          ...(await content('menus', (db) => find(db, token), [])),
+        ].map((r) => r.id),
+      );
+      // Legacy packs did not index floor/category; only currently supported fields add matches.
+      for (const p of places)
+        if (
+          [p.floor ?? '', p.building ?? '', p.category].some((s) =>
+            s.normalize('NFC').toLocaleLowerCase().includes(token),
+          )
+        )
+          matches.add(p.id);
+      ids = new Set([...ids].filter((id) => matches.has(id)));
+    }
+    // FTS may contain expired alias/menu text. Final match must occur in current supported fields.
     return places.filter(
       (p) =>
         ids.has(p.id) &&
         (!category || p.category === category) &&
         tokens.every((t) =>
-          [p.name, ...p.aliases, ...p.menus.map((m) => m.name)].some((s) =>
-            s.normalize('NFC').toLocaleLowerCase().includes(t),
-          ),
+          [
+            p.name,
+            ...p.aliases,
+            p.building ?? '',
+            p.floor ?? '',
+            p.category,
+            ...p.menus.map((m) => m.name),
+          ].some((s) => s.normalize('NFC').toLocaleLowerCase().includes(t)),
         ),
     );
   }, false);
@@ -151,25 +212,49 @@ export function loadTransit(): Promise<TransitRoute[]> {
   }, false);
 }
 export function loadSaved(): Promise<SavedState> {
+  return work(async () => readSaved(await ensure()));
+}
+async function readSaved(db: SQLite.SQLiteDatabase): Promise<SavedState> {
+  const ids = await rows<{ place_id: string }>(
+    db,
+    'SELECT place_id FROM local_favorite ORDER BY place_id',
+  );
+  const stops = await rows<{ place_id: string; duration_minutes: number }>(
+    db,
+    'SELECT place_id,duration_minutes FROM local_itinerary ORDER BY sequence',
+  );
+  const settings = await rows<{ start_time: string | null }>(
+    db,
+    'SELECT start_time FROM local_settings WHERE singleton=1',
+  );
+  return validateSaved({
+    placeIds: ids.map((r) => r.place_id),
+    itinerary: stops.map((r) => ({ placeId: r.place_id, durationMinutes: r.duration_minutes })),
+    startTime: settings[0]?.start_time ?? null,
+  });
+}
+/** Toggle one reviewed UUID without replacing concurrent itinerary/settings edits. */
+export function toggleSavedPlace(id: string): Promise<SavedState> {
+  validateSaved({ placeIds: [id], itinerary: [], startTime: null });
   return work(async () => {
     const db = await ensure();
-    const ids = await rows<{ place_id: string }>(
-      db,
-      'SELECT place_id FROM local_favorite ORDER BY place_id',
-    );
-    const stops = await rows<{ place_id: string; duration_minutes: number }>(
-      db,
-      'SELECT place_id,duration_minutes FROM local_itinerary ORDER BY sequence',
-    );
-    const settings = await rows<{ start_time: string | null }>(
-      db,
-      'SELECT start_time FROM local_settings WHERE singleton=1',
-    );
-    return validateSaved({
-      placeIds: ids.map((r) => r.place_id),
-      itinerary: stops.map((r) => ({ placeId: r.place_id, durationMinutes: r.duration_minutes })),
-      startTime: settings[0]?.start_time ?? null,
-    });
+    await db.execAsync('BEGIN IMMEDIATE');
+    try {
+      const found = await rows(db, 'SELECT place_id FROM local_favorite WHERE place_id=?', [id]);
+      await run(
+        db,
+        found.length
+          ? 'DELETE FROM local_favorite WHERE place_id=?'
+          : 'INSERT INTO local_favorite VALUES(?)',
+        [id],
+      );
+      const saved = await readSaved(db);
+      await db.execAsync('COMMIT');
+      return saved;
+    } catch (cause) {
+      await db.execAsync('ROLLBACK');
+      throw cause;
+    }
   });
 }
 export function saveSaved(state: SavedState): Promise<void> {

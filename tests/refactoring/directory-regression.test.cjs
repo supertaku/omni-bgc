@@ -23,7 +23,7 @@ test('all 120 accepted directory observations retain exact deterministic payload
 });
 
 test('Explore NFC/category rules and Assistant NFKC/vocabulary remain distinct', () => {
-  const explore = loadTs('apps/mobile/src/features/explore/directory.ts', { '../../../assets/generated/directory/places.json': [], './demoDirectory': { demoPlaces: [] } });
+  const explore = loadTs('apps/mobile/src/features/explore/directory.ts', { '../../../assets/generated/directory/places.json': [], './demoDirectory': { demoPlaces: [] }, '../food/directory': { foodPlaces: [], foodSearchText: () => [] } });
   const assistant = loadTs('apps/mobile/src/features/assistant/directory.ts', { '../explore/demoDirectory': { isDemoPlace: () => false } });
   const place = category => ({ id: 'TEST', name: 'Test coffee', category, aliases: [], menus: [], coordinate: null, citations: [], status: 'candidate', entrances: [] });
   const bakery = place('bakery');

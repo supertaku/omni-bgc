@@ -1,0 +1,28 @@
+{
+  "version": "office-primary-source-pointers-v1",
+  "mode": "RESEARCH_POINTERS_ONLY",
+  "observed_at": "2026-10-15T02:22:38Z",
+  "raw_pages_retained": false,
+  "source_published_at": null,
+  "canonical_approvals": 0,
+  "rights": {"internal_retain": "unknown", "transform": "unknown", "redistribute_offline": "unknown", "images": "unknown", "geography": "unknown"},
+  "pointers": [
+    {"company": "Infor", "owner": "Infor", "url": "https://www.infor.com/en-sg/about/contact", "locator": "Philippines section", "review": "Separate sites; retain floor and street variations for human review."},
+    {"building": "Seven/NEO", "owner": "NEO", "url": "https://www.neooffice.ph/portfolio/seven-neo/", "locator": "Property description and address", "review": "Compare street labels with tenant contacts; no geometry or tenant completeness inferred."},
+    {"company": "P&G", "owner": "Procter & Gamble", "url": "https://accessibility.pg.com/en-PH/", "locator": "Help and feedback postal contact", "review": "Postal contact is insufficient by itself to classify current operating occupancy."},
+    {"company": "Thinking Machines", "owner": "Thinking Machines Data Science", "url": "https://thinkingmachin.es/contact/", "locator": "Contact page", "review": "Company page does not establish the seed building/floor. Do not conflate with a different US company."},
+    {"company": "Thinking Machines", "owner": "Climate Technology Centre & Network", "url": "https://www.ctc-n.org/networking-and-collaboration/collaboration/network-members/thinking-machines-data-science-inc", "locator": "Member address", "review": "Association registration pointer; current office presence and floor need stronger evidence."},
+    {"company": "DigiPlus", "owner": "DigiPlus Interactive", "url": "https://digiplus.com.ph/contact-us/", "locator": "Company headquarters", "review": "Compare floor range and legal organization with seed; do not include unrelated studios automatically."},
+    {"company": "HCLTech", "owner": "HCLTech", "url": "https://www.hcltech.com/geo-presence/philippines", "locator": "Our offices", "review": "Includes foreign and out-of-area locations. Science Hub tower/floor identities require separate review."},
+    {"company": "HCLTech", "owner": "HCLTech", "url": "https://careers.hcltech.com/go/Philippines/9556355/", "locator": "Our offices", "review": "Recruitment corroboration only; reconcile Cyber Sigma and geographic differences with corporate office page."},
+    {"company": "SAP", "owner": "SAP", "url": "https://www.sap.com/denmark/about/company/office-locations/philippines.html", "locator": "SAP Philippines Inc.", "review": "Country-specific section matters more than locale path; retained factual and rights review required."},
+    {"company": "AWS", "owner": "Amazon Web Services", "url": "https://aws.amazon.com/legal/marketingentities/", "locator": "Philippines legal marketing entity", "review": "Resolve legal entity versus physical operating presence; geography and permission remain unreviewed."}
+  ],
+  "unresolved_searches": [
+    {"company": "Lazada", "query": "site:lazada.com.ph office NEO", "result": "No relevant primary office evidence in this bounded query. Absence is not closure."},
+    {"company": "Accenture", "result": "Seed country-parameter relevance remains queued. A locale/country parameter alone does not prove page irrelevance."}
+  ],
+  "coverage_denominator": null,
+  "coverage_percentage": null,
+  "collection_note": "Bounded manual search observations only. No crawler, downloaded page/PDF, personal contacts, source-rights grant or public office pack. All original 108 source pointers remain in ignored immutable seed reports."
+}

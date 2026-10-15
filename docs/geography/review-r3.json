@@ -1,0 +1,192 @@
+{
+  "bundled_integration_decision": "ACCEPT_FOR_INTERNAL_RESEARCH_PREVIEW_ONLY",
+  "decision": "ACCEPT_SCOPED_HOST_ENGINEERING",
+  "device_tested": false,
+  "distribution_authorized": false,
+  "findings": [
+    {
+      "id": "GEX-IR-01",
+      "issue": "Overlapping foreground style/scope asynchronous results",
+      "resolution": "Latest generation and disposed-result guard with deferred promise tests",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "GEX-IR-02",
+      "issue": "Scope change could retain pilot zoom and bearing",
+      "resolution": "Once per scope explicit default camera command",
+      "status": "RESOLVED_HOST_DEVICE_PENDING"
+    },
+    {
+      "id": "GEX-IR-03",
+      "issue": "Initial r3 invalid quantized bridge omission",
+      "resolution": "r4 bounded integer fill normalization; all source clips unchanged; zero invalid decoded geometry; zero z18 collapse",
+      "status": "RESOLVED_WITH_DECLARED_DISPLAY_ENCODING"
+    },
+    {
+      "id": "GEX-IR-04",
+      "issue": "r3 misreported unaccepted scope",
+      "resolution": "r4 exact parent scope validation and accurate engineering status",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "GEX-IR-05",
+      "issue": "Database scope was not checked against installed manifest",
+      "resolution": "Artifact verifier calls validateDatabaseScope; exact v2 ID/hash; legacy v1 only",
+      "status": "RESOLVED"
+    },
+    {
+      "id": "GEX-IR-06",
+      "issue": "Warm private resource repair reused native archive URI and unchanged style",
+      "resolution": "Verified new repair destination URI changes resolved style; stable subsequent warm reads; saved state preserved.",
+      "status": "RESOLVED_HOST_DEVICE_PENDING"
+    },
+    {
+      "id": "GEX-IR-07",
+      "issue": "Candidate and fallback status absent from explicit attribution accessibility label",
+      "resolution": "Accessible label now includes historical preview and restored-pilot status.",
+      "status": "RESOLVED_HOST_DEVICE_PENDING"
+    }
+  ],
+  "format_version": 1,
+  "full_plan_release_decision": "NOT_ACCEPTED_DEVICE_AND_RIGHTS_GATES_OPEN",
+  "independent_checks": {
+    "asyncresource_camerahelper_tests": 3,
+    "bundled_install_tests": 5,
+    "bundled_plugin_actual_source_mocked_native_validation": "PASS valid copy inventory and corrupt archive rejection; zero native writes",
+    "bundled_warm_repair_uri_and_stable_subsequent_reads": "PASS",
+    "decoded_invalid_tile_geometries": 0,
+    "decoded_labels_outside_service": 0,
+    "device_checks": "NOT_RUN",
+    "directory_parser_tests": 3,
+    "elevated_bridge_source_present_eachzoom": true,
+    "exact_expanded_frozen_resource_copies": 14,
+    "geographic_export_tests": 19,
+    "gis_adversarial_tests": 20,
+    "gis_serialized_validation": "PASS_EXPERIMENTAL_INTERNAL_ONLY",
+    "historical_and_fallback_accessibility_disclosure": "SOURCE_INSPECTED_DEVICE_PENDING",
+    "independent_byte_equal_rederived_gis_outputs": 9,
+    "integer_evenodd_fill_normalizations": 4,
+    "labels_present_at_eachzoom14to18": 7,
+    "lowerzoom14to17_collapsed_fragments": 9,
+    "mandatoryphysical_anchor_ids_present_at_eachzoom14to18": 14,
+    "maxzoom_quantization_collapses": 0,
+    "membership_mismatches": 0,
+    "mobile_pure_contract_regressions": 22,
+    "mobile_scope_manifest_binding_tests": 6,
+    "mobile_shapely_membership_comparison_points": 10048,
+    "mobile_store_sqlite_scope_fts_tests": 4,
+    "pack_adversarial_tests": 18,
+    "pack_style_resource_validation": "PASS: 149 tiles, 14 inventoried resources",
+    "startup_and_pack_integrity_regressions": 18,
+    "typescript_noemit": "PASS",
+    "usb_probes": 0
+  },
+  "limits": [
+    "Host checks do not confirm native MapLibre gesture/event order, airplane-mode operation, cold-start performance, accessibility or saved-state device installation.",
+    "Scoped directory adapter promotes zero historical GIS candidates without base fact and rights approval.",
+    "No authoritative current Aura office coordinate, entrance or floor claim.",
+    "Source bulk access, offline retention and distribution approval still require exact rights review.",
+    "Source gaps, 200 m buffer connector adequacy and legal boundaries are unclaimed."
+  ],
+  "native_build_review": "NOT_RUN_BY_REVIEWER; parent separate isolated build may proceed; no device claims",
+  "navigation_authorized": false,
+  "parent_explicit_acceptance_required": true,
+  "review_date": "2026-10-15",
+  "review_document": "docs/geography/GEX_INDEPENDENT_IMPLEMENTATION_REVIEW.md",
+  "reviewed_files": [
+    {
+      "path": "apps/mobile/plugins/withOfflinePilot.cjs",
+      "sha256": "9e64863c6f6c0bc21097f15594a591b9dbbac80cd4dad4b93a9d9cd8256c9d09"
+    },
+    {
+      "path": "apps/mobile/src/data/directory-entities.ts",
+      "sha256": "0289b00d2292dd9e9e4e6a0dee43c3c7167105f3e2d989587b660fa542faca98"
+    },
+    {
+      "path": "apps/mobile/src/data/store.ts",
+      "sha256": "7d25e8bfab92fc74c2cbaf54856a4217e01d3d009f7652a1b1167483551d7074"
+    },
+    {
+      "path": "apps/mobile/src/map/MapCanvas.tsx",
+      "sha256": "8e4cd790205340fba07ca3e5facbb3a01b91a91d09aa9b909e3749122282485e"
+    },
+    {
+      "path": "apps/mobile/src/map/bundled-catalog.ts",
+      "sha256": "52b7502fe49ec4cd07331b12fa759553fbbd307c9db690fd794b1255b09ec9d4"
+    },
+    {
+      "path": "apps/mobile/src/map/bundled-contract.ts",
+      "sha256": "c9bdd01f94498fba76322fecb4bd816f5e4d3da2285d79fa7ea73f62823937e5"
+    },
+    {
+      "path": "apps/mobile/src/map/bundled-map-catalog.json",
+      "sha256": "4cd9ddbeab5b2526cc13d227332197a8670e31e145f646bd63ea26f9c74d65d4"
+    },
+    {
+      "path": "apps/mobile/src/map/bundled-style.ts",
+      "sha256": "bce9bbf0afafc4fc5a4f51e173095ccdef4a9698654f04919bafaaa19735ca0b"
+    },
+    {
+      "path": "apps/mobile/src/map/expanded-resources.json",
+      "sha256": "20a8bf99df337faad148c2038d81b47b40b9060752a9b747354477bcfe76bcc7"
+    },
+    {
+      "path": "apps/mobile/src/map/expanded-style.json",
+      "sha256": "f8935f46fdfe7ecbab83faf187292b5182d15eabec4d38ef0bf7b4289d65c227"
+    },
+    {
+      "path": "apps/mobile/src/map/resource-loader.ts",
+      "sha256": "f134bda3e0e8dc5742ea314af7764208fe6c038adb03cb9f6b787fdcef7af841"
+    },
+    {
+      "path": "apps/mobile/src/map/scope.ts",
+      "sha256": "d88e97ab90305c430e9611ed711ce9d0b6cc6dc9fec350263a5f568d2a5fc040"
+    },
+    {
+      "path": "apps/mobile/src/updates/contracts.ts",
+      "sha256": "0335231bde936ad7056f88e53a6552ae51c8db4278cd3d59612f3012f4974f45"
+    },
+    {
+      "path": "apps/mobile/src/updates/index.ts",
+      "sha256": "e5255877cdda9a54f69cb563f2b8841fe221c46ef1cbcf2bc8507a3fc7624f04"
+    },
+    {
+      "path": "apps/mobile/src/updates/style.ts",
+      "sha256": "8a134de84092ca6a20202d59b43f02b09a35e6ca7571678049b70fa33b54f1dc"
+    },
+    {
+      "path": "data/generated/m4/comprehensive/geography/gex-geography-r2/artifact-manifest.json",
+      "sha256": "02cf39d563b4de9abc5bde7661f065fa68e9ca7327445db5dd867eb321d4f298"
+    },
+    {
+      "path": "data/generated/map-pack/gex-candidate-r4/gex.pmtiles",
+      "sha256": "9203eb4852fa02e88362e7d3063669581cf7dad2668b4e19dc2914a7aff6478c"
+    },
+    {
+      "path": "data/generated/map-pack/gex-candidate-r4/manifest.json",
+      "sha256": "a132ab8faa0d64c510122d9c963f1e4fedb5c3d4a711a8ced29476a879b795ad"
+    },
+    {
+      "path": "data/manifests/service-area-v2.json",
+      "sha256": "f6cbcc7b33ad4a53821858dc4c3c56e13f30997aad082fcb9fb189eddc5f9db9"
+    },
+    {
+      "path": "docs/geography/internal-pack-approval.json",
+      "sha256": "4a094b15e17cfbbe403b83916d9a83ace6051cc6e3740c74a36edebc50e5794b"
+    },
+    {
+      "path": "docs/geography/parent-review-r2.json",
+      "sha256": "12ddafa702a9030eb6a049f5b324d6ff0f0838e3c4db76f28eb5dc6e7adf7fc5"
+    },
+    {
+      "path": "packages/database/export_geographic.py",
+      "sha256": "b4a0e47a36358b6049eb77722087bea9cbfe5584248b66bb5c2d67570566ed08"
+    },
+    {
+      "path": "tests/map/expansion/bundled-install.test.cjs",
+      "sha256": "fa08cf120d49912d1f5813ae10264ae2fc1f43a0585e770b765235b5e42af9fb"
+    }
+  ],
+  "reviewer_role": "Independent Staff GIS/Mobile/Data reviewer",
+  "scope": "GIS GEX-1/2, scope-bound approved directory adapter, GEX-4 candidate pack r4, mobile reviewed scope and asynchronous contracts and verified bundled preview integration"
+}

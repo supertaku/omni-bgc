@@ -4,7 +4,7 @@ import type { Place } from '../contracts';
 import { matchesCategory } from '../features/explore/directory';
 
 export type Panel =
-  'search' | 'filters' | 'peek' | 'sources' | 'saved' | 'itinerary' | 'pack' | null;
+  'search' | 'filters' | 'peek' | 'sources' | 'saved' | 'itinerary' | 'pack' | 'offices' | null;
 export function useExplorerNavigation(confirming: boolean, installing: boolean) {
   const [tab, setTab] = useState<'Map' | 'Assistant'>('Map');
   const [panel, setPanel] = useState<Panel>(null);

@@ -2,11 +2,22 @@ import type { Coordinate, Place } from '../contracts';
 
 /** Presentation mode only; retain exact resource/source fields and layer order. */
 export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolean): string {
-  if (!flat && !quiet) return activeStyle;
   const style = JSON.parse(activeStyle);
+  let changed = false;
   for (const layer of style.layers ?? []) {
+    if (!flat && !quiet && layer.type === 'fill-extrusion' && layer.id === 'buildings-2.5D') {
+      // Keep the full source-derived massing at overview zooms instead of
+      // flattening buildings between z15 and z16. Facades take over at z16.
+      layer.minzoom = Math.min(layer.minzoom ?? 14, 14);
+      layer.paint = {
+        ...layer.paint,
+        'fill-extrusion-height': ['get', 'visual_height'],
+        'fill-extrusion-base': ['get', 'visual_base'],
+      };
+      changed = true;
+    }
     if (
-      layer.type === 'fill-extrusion' ||
+      ((flat || quiet) && layer.type === 'fill-extrusion') ||
       (quiet &&
         [
           'source-trees',
@@ -18,9 +29,10 @@ export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolea
         ].includes(layer.id))
     ) {
       layer.layout = { ...layer.layout, visibility: 'none' };
+      changed = true;
     }
   }
-  return JSON.stringify(style);
+  return changed ? JSON.stringify(style) : activeStyle;
 }
 
 export function placeFeatureCollection(places: Place[]): GeoJSON.FeatureCollection {

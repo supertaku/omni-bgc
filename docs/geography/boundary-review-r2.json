@@ -1,0 +1,300 @@
+{
+  "acceptance_conditions": [
+    "Parent explicitly accepts exact proposal and physical/site-context roles",
+    "Explicitly exclude four external fringe sources from detailed feature admission; source identity wins over numeric overlay slivers",
+    "Preserve all original source geometries and provenance; Aura site context crosses boundary and never expands service",
+    "Aura tower is distinct owner-corroborated candidate, not verified current entrance or coordinate"
+  ],
+  "allowed_next_work": [
+    "Internal source acquisition/review within engineering scope and candidate200m buffer",
+    "GEX1 rights/source identity audit",
+    "GEX2 geometry with residential denial",
+    "Later host database/offline pack/runtime work after parent acceptance"
+  ],
+  "anchor_source_roles": [
+    {
+      "anchor": "high-street",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:relation:17552612",
+      "source_role": "SITE_CONTEXT"
+    },
+    {
+      "anchor": "high-street",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:relation:17552611",
+      "source_role": "SITE_CONTEXT"
+    },
+    {
+      "anchor": "high-street",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:1078392706",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "uptown",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:302945809",
+      "source_role": "SITE_CONTEXT"
+    },
+    {
+      "anchor": "uptown",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:533345980",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "uptown",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:533345981",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "uptown",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:533345982",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "uptown",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:533345983",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "uptown",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:538347443",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "mitsukoshi",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:1123265838",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "st-lukes",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:29353952",
+      "source_role": "SITE_CONTEXT"
+    },
+    {
+      "anchor": "st-lukes",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:51356297",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "shangri-la",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:32487477",
+      "source_role": "SITE_CONTEXT"
+    },
+    {
+      "anchor": "shangri-la",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:469845356",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "sm-aura",
+      "fully_covered": false,
+      "outside_scope_area_m2": 1295.398277,
+      "source_ref": "osm:way:97061942",
+      "source_role": "SITE_CONTEXT"
+    },
+    {
+      "anchor": "sm-aura",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:221590005",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "sm-aura-office",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:531903361",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "market-market",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:24957205",
+      "source_role": "SITE_CONTEXT"
+    },
+    {
+      "anchor": "market-market",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:25006407",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "market-market",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:35979062",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    },
+    {
+      "anchor": "market-market",
+      "fully_covered": true,
+      "outside_scope_area_m2": 0.0,
+      "source_ref": "osm:way:205968611",
+      "source_role": "REQUIRED_PHYSICAL_FOOTPRINT"
+    }
+  ],
+  "aura_identity": {
+    "authoritative_georeferenced_identity_match": false,
+    "conflicting_levels": "historical OSM32 vs owner2014 29; preserve source claims, do not publish reconciled count",
+    "current_world_verified": false,
+    "distinct_from_mall_physical_source_ref": "osm:way:221590005",
+    "full_source_geometry_preserved": true,
+    "owner_confirmed_distinct_office_identity": true,
+    "physical_candidate_source_ref": "osm:way:531903361",
+    "site_context_conflict_source_ref": "osm:way:97061942",
+    "site_outside_scope_area_m2": 1295.398277,
+    "source_identity_match": "OWNER_CORROBORATED_SPATIAL_CANDIDATE"
+  },
+  "date": "2026-10-14",
+  "distribution_authorized": false,
+  "format_version": 1,
+  "independent_checks": {
+    "all_physical_anchor_geometries_covered": true,
+    "coordinate_conflicts": 0,
+    "coordinate_errors": 0,
+    "device_tests": "NOT_RUN",
+    "duplicates": 0,
+    "external_fringe_residuals": [
+      {
+        "intersection_area_m2": 0.0,
+        "source_ref": "osm:way:28541386"
+      },
+      {
+        "intersection_area_m2": 2.0871570848848223e-09,
+        "source_ref": "osm:way:28993541"
+      },
+      {
+        "intersection_area_m2": 0.0,
+        "source_ref": "osm:way:28997881"
+      },
+      {
+        "intersection_area_m2": 0.0,
+        "source_ref": "osm:way:1476336381"
+      }
+    ],
+    "external_residual_test_tolerance_m2": 1e-06,
+    "gex_host_unit_tests": "13 PASS",
+    "physical_anchor_geometry_count": 14,
+    "pilot_fully_covered": true,
+    "proposal_connected": true,
+    "proposal_holes": 0,
+    "proposal_ring_positions": 48,
+    "proposal_valid": true,
+    "raw_objects": 21290,
+    "removed_external_fringe_area_m2": 62572.047,
+    "scope_area_m2": 1456920.705,
+    "serialized_original_verifier": "PASS_CANDIDATE_ONLY",
+    "usb_probes": "NONE"
+  },
+  "original_design_decision": "CHANGES_REQUESTED",
+  "parent_acceptance_required": true,
+  "remaining_gates": [
+    "Source-specific rights before public data release",
+    "Canonical/current-world fact and entrance verification",
+    "Physical device app validation late after explicit USB user permission",
+    "200m buffer connector/cut-edge review; no walking navigation"
+  ],
+  "residential_resolution": {
+    "current_world_neighborhood_survey_claim": false,
+    "deny_detail_source_refs": [
+      "osm:way:28541386",
+      "osm:way:28993541",
+      "osm:way:28997881",
+      "osm:way:1476336381"
+    ],
+    "internal_mixed_use_basic_geometry_retained": [
+      "Serendra",
+      "Two Serendra",
+      "High Street South",
+      "Park Triangle",
+      "Avida Towers 34th",
+      "Uptown Ritz Residences",
+      "Uptown Parksuites"
+    ],
+    "known_named_external_zero_intersection": [
+      "Forbes Park North",
+      "Forbes Park South",
+      "Consular Subdivision",
+      "Teachers Compound",
+      "Villa Kalayaan",
+      "Sitio 8 West Rembo",
+      "East Rembo Zone 4",
+      "McKinley Hill Village",
+      "McKinley West"
+    ],
+    "private_unit_directories_allowed": false
+  },
+  "reviewer_role": "Independent Staff GIS reviewer",
+  "revised_proposal_decision": "ACCEPT_FOR_BOUNDED_INTERNAL_ENGINEERING",
+  "runtime_activation_authorized": false,
+  "scope_proposal_path": "data/research/expansion/scope-review-r2.geojson",
+  "scope_proposal_sha256": "e7e3541fccd087467093f00a9fb6011a73abd1da7061fb5c715240d904ca77d0",
+  "screenshot_dependency": "REMOVED_BY_USER_WRITTEN_REQUIREMENTS_OVERRIDE",
+  "source_hashes": {
+    "prior_boundary_sha256": "82d4e301fbbec3326d92ce11d548190c4dc0a23e7cafe2faf70b5068488364f0",
+    "query_sha256": "149903439170856adca4521e7f637002e6a84cf14cb99c49bfebf11e67f643de",
+    "raw_sha256": "c7c77bdee83947293624a3a6036089e809c2fb2c1cec4d5283fb1c89535a8ac3",
+    "sidecar_sha256": "d749bce5e9e27874a46d995c8a24412761aa761040f424c12ed0c34200fac611"
+  },
+  "versions": {
+    "proj": "9.5.1",
+    "pyproj": "3.7.2",
+    "python": "3.13.7",
+    "shapely": "2.1.2"
+  },
+  "walking_navigation_authorized": false,
+  "web_references": [
+    {
+      "access": "OPEN_SUCCESS",
+      "purpose": "current owner office inventory distinguishes Aura Office Tower",
+      "url": "https://www.smprime.com/sm-offices/"
+    },
+    {
+      "access": "OPEN_SUCCESS",
+      "purpose": "owner2013 locates office component at southern end",
+      "url": "https://www.smprime.com/company_releases/sm-prime-creates-new-landmark-with-sm-aura-sets-new-standard-in-green-development/"
+    },
+    {
+      "access": "SEARCH_INDEX_SUCCESS",
+      "purpose": "owner-hosted2014 launch names distinct connected29-story office tower",
+      "url": "https://www.smprime.com/latest_news/sm-aura-premier-launches-office-tower/"
+    },
+    {
+      "access": "SEARCH_SUCCESS_DIRECT_TIMEOUT_STOPPED",
+      "purpose": "primary operator identity corroboration only",
+      "url": "https://www.smcpg.com/location/taguig-city/sm-aura-tower/"
+    },
+    {
+      "access": "404_STOPPED",
+      "purpose": "owner link unavailable; no bypass",
+      "url": "https://www.smoffices.com/ncr/sm-aura-tower/"
+    }
+  ]
+}

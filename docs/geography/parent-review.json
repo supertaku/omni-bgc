@@ -1,0 +1,26 @@
+{
+  "accepted_scope": "Candidate-only tooling, exact historical footprint evidence and deterministic host QA; no runtime integration approval.",
+  "blockers": [
+    "Screenshot referenced in supplied plan was not attached; visual intent reconciliation pending.",
+    "Authored perimeter needs specialist/human geographic review to confirm commercial corridors and exclude external residential neighborhoods.",
+    "Historical anchor sites/buildings are candidates; current-world verification and office-tower identity reconciliation pending.",
+    "75 m context and 200 m acquisition margins need cut-edge/connector review in later milestones.",
+    "Source redistribution and public release remain unauthorized."
+  ],
+  "date": "2026-10-14",
+  "gex_0_gate": "NOT_ACCEPTED",
+  "gex_1_may_begin": false,
+  "independent_decision": "PARTIAL",
+  "independent_reviewer": "gex_scope_review (read-only QA agent)",
+  "parent_decision": "PARTIAL",
+  "specialist_human_geographic_review": "PENDING",
+  "usb_debugging": "NOT_USED; explicit user permission required before later use",
+  "verified": [
+    "13 host tests independently rerun",
+    "serialized verifier: 8 anchors / 21 source geometries / 6 zones",
+    "raw/sidecar/query/prior-boundary exact hashes",
+    "21 source geometries and metadata independently reconstructed",
+    "20 pilot resource copies rehashed",
+    "canonical UTF-8/LF r3 evidence"
+  ]
+}

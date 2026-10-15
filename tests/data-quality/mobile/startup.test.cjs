@@ -10,13 +10,15 @@ const root = path.resolve(__dirname, '../../..');
 const ts = require(path.join(root, 'apps/mobile/node_modules/typescript'));
 function load(file, mocks = {}) {
   const output = ts.transpileModule(fs.readFileSync(path.join(root, file), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS } }).outputText;
-  const context = { exports: {}, require: name => mocks[name] ?? (name==='./queries'?load('apps/mobile/src/data/queries.ts'):{}), console, Date, Set, Promise, Map, Error };
+  const officeMocks = { './office-store': { loadOfficeProjection: async () => ({facts:[],available:false}) }, './offices': {parseOfficeDetails:()=>[]}, '../features/offices/service': {replaceOfficeDirectory:()=>{},currentOfficePlaces:places=>places} };
+  const context = { exports: {}, require: name => mocks[name] ?? officeMocks[name] ?? (name==='./queries'?load('apps/mobile/src/data/queries.ts'):{}), console, Date, Set, Promise, Map, Error };
   vm.runInNewContext(output, context); return context.exports;
 }
 const startup = load('apps/mobile/src/data/startup.ts');
 const ownership = load('apps/mobile/src/data/ownership.ts');
 const migrations = load('apps/mobile/src/data/migrations.ts');
 const health = load('apps/mobile/src/data/localHealth.ts', { './ownership': ownership, './migrations': migrations });
+const mapScope = load('apps/mobile/src/map/scope.ts', {'./reviewed-scopes.json': JSON.parse(fs.readFileSync(path.join(root,'apps/mobile/src/map/reviewed-scopes.json'),'utf8'))});
 const saved = { placeIds: ['00000000-0000-4000-8000-000000000001'], itinerary: [], startTime: '11:00' };
 const deps = overrides => ({ openStore: async () => {}, loadPlaces: async () => [{ id: 'TEST' }], loadTransit: async () => [], loadSaved: async () => saved, refreshInstalledGraph: async () => {}, getPackStatus: async () => [], log: () => {}, ...overrides });
 
@@ -58,7 +60,7 @@ test('production content reads remain usable when saved SQLite cannot open', asy
     'expo-sqlite': { openDatabaseAsync: async () => { opened++; throw Error('local unavailable'); } },
     './ownership': ownership, './localHealth': health,
     '../updates': { getActivePackPath: async () => null },
-    './parser': { parsePlaces: () => [], lexicalQuery: () => null },
+    './parser': { parsePlaces: () => [], lexicalQuery: () => null }, './directory-entities': { parseDirectoryEntities: () => [] }, '../map/scope': mapScope,
   });
   await assert.rejects(store.openStore()); assert.equal(opened, 1);
   assert.equal((await store.loadPlaces()).length, 0); assert.equal((await store.loadTransit()).length, 0);
@@ -68,7 +70,7 @@ test('failed saved connection cleanup does not poison unrelated content reads', 
   const store = load('apps/mobile/src/data/store.ts', {
     'expo-sqlite': { openDatabaseAsync: async () => ({ closeAsync: async () => { throw Error('close failed'); } }) },
     './ownership': ownership, './localHealth': { prepareLocalDatabase: async () => ({ recoveredTables: [], restoredSettingsRow: false }) },
-    '../updates': { getActivePackPath: async () => null }, './parser': { parsePlaces: () => [] },
+    '../updates': { getActivePackPath: async () => null }, './parser': { parsePlaces: () => [] }, './directory-entities': { parseDirectoryEntities: () => [] }, '../map/scope': mapScope,
   });
   await store.openStore(); await assert.rejects(store.disposeStore());
   await assert.rejects(store.loadSaved());
@@ -156,3 +158,16 @@ test('integrity failure preserves file and skips migrations/repair', async () =>
   const db = { execAsync: async sql => { if (sql !== 'PRAGMA foreign_keys=ON') writes++; }, prepareAsync: async sql => ({ executeAsync: async () => ({ getAllAsync: async () => sql.includes('compileoption') ? [{ rtree: 1, fts5: 1 }] : [{ integrity_check: 'corrupt' }] }), finalizeAsync: async () => {} }) };
   await assert.rejects(health.prepareLocalDatabase(db), e => e.code === 'LOCAL_INTEGRITY_FAILED'); assert.equal(writes, 0);
 });
+
+test('atomic office favorites serialize rapid toggles and preserve itinerary/settings across reopen', async () => withDatabase(async (db, sql) => {
+  const connection={...db,closeAsync:async()=>{}};
+  const parser=load('apps/mobile/src/data/parser.ts');
+  const store=load('apps/mobile/src/data/store.ts',{'expo-sqlite':{openDatabaseAsync:async()=>connection},'./ownership':ownership,'./localHealth':health,'./parser':parser});
+  await store.openStore();
+  const first=saved.placeIds[0],second='00000000-0000-4000-8000-000000000002';
+  await store.saveSaved({placeIds:[first],itinerary:[{placeId:first,durationMinutes:45}],startTime:'11:00'});
+  await Promise.all([store.toggleSavedPlace(second),store.toggleSavedPlace(second),store.toggleSavedPlace(first)]);
+  let result=await store.loadSaved();assert.equal(result.placeIds.length,0);assert.equal(result.itinerary[0].placeId,first);assert.equal(result.startTime,'11:00');
+  await sql('reopen','');await store.toggleSavedPlace(second);result=await store.loadSaved();
+  assert.equal(result.placeIds.join(','),second);assert.equal(result.itinerary[0].durationMinutes,45);assert.equal(result.startTime,'11:00');
+}));

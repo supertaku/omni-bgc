@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
+import { AppState } from 'react-native';
+import { nextOfficeExpiry, getOfficeDetails, operatingOffice } from '../features/offices/service';
 import type { Place, SavedState } from '../contracts';
 import {
   disposeStore,
@@ -35,6 +37,27 @@ export function useAppInitialization(
   const [startup, setStartup] = useState<StartupResult | null>(null),
     [savedAvailable, setSavedAvailable] = useState(false);
   const mountEpoch = useRef(0);
+  useEffect(() => {
+    const prune = () =>
+      setPlaces((current) =>
+        current.filter(
+          (place) =>
+            place.category !== 'office' ||
+            (!!getOfficeDetails(place.id) && operatingOffice(getOfficeDetails(place.id)!)),
+        ),
+      );
+    const expiry = nextOfficeExpiry();
+    const timer = Number.isFinite(expiry)
+      ? setTimeout(prune, Math.min(2147483647, Math.max(1, expiry - Date.now() + 1)))
+      : undefined;
+    const listener = AppState.addEventListener('change', (state) => {
+      if (state === 'active') prune();
+    });
+    return () => {
+      clearTimeout(timer);
+      listener.remove();
+    };
+  }, [places]);
   useEffect(() => {
     let active = true;
     const epoch = ++mountEpoch.current;
@@ -81,6 +104,7 @@ export function useAppInitialization(
     startup,
     savedAvailable,
     setPackStatus,
+    setSaved,
     refreshRecords,
   };
 }

@@ -18,8 +18,10 @@ import {
   ViewAnnotation,
 } from '@maplibre/maplibre-react-native';
 import type { Coordinate, Origin, Place, RouteResult, TransitRoute } from '../contracts';
-import { loadActiveStyle } from '../updates/style';
+import { loadActiveMapStyle } from '../updates/style';
 import { loadBundledStyle } from './bundled-style';
+import { coverageAt, pilotScope, type MapScope } from './scope';
+import { createMapResourceLoader, defaultScopeView } from './resource-loader';
 import {
   categorySprite,
   coordinateBounds,
@@ -41,6 +43,7 @@ export type MapCanvasProps = {
   cameraResetKey?: number;
   fitCoordinates?: readonly Coordinate[] | null;
   onStatusChange?: (status: 'preparing' | 'ready' | 'failed', detail?: string) => void;
+  onScopeReady?: (scope: MapScope | null) => void;
   onAttributionPress?: () => void;
   onMapPress: (coordinate: Coordinate) => void;
   onPlacePress: (id: string) => void;
@@ -59,6 +62,7 @@ export function MapCanvas({
   cameraResetKey = 0,
   fitCoordinates,
   onStatusChange,
+  onScopeReady,
   onAttributionPress,
   onMapPress,
   onPlacePress,
@@ -66,9 +70,15 @@ export function MapCanvas({
   const camera = useRef<CameraRef>(null);
   const map = useRef<MapRef>(null);
   const installedStyle = useRef('');
+  const installedScope = useRef('');
+  const pendingScopeView = useRef(false);
+  const lastResetKey = useRef(0);
   const statusCallback = useRef(onStatusChange);
   statusCallback.current = onStatusChange;
-  const center = useRef<[number, number]>([121.0497, 14.5506]);
+  const scopeCallback = useRef(onScopeReady);
+  scopeCallback.current = onScopeReady;
+  const center = useRef<Coordinate>(pilotScope.defaultView.center);
+  const [activeScope, setActiveScope] = useState<MapScope>(pilotScope);
   const [failure, setFailure] = useState(false);
   const [fullyRendered, setFullyRendered] = useState(false);
   const [activeStyle, setActiveStyle] = useState<string>(
@@ -104,13 +114,22 @@ export function MapCanvas({
     [routeCoordinates, transit, fitCoordinates],
   );
   const selected = places.find((p) => p.id === selectedPlaceId && p.coordinate);
-  const [outside, setOutside] = useState(false);
+  const [coverage, setCoverage] = useState<'service' | 'context' | 'outside'>('service');
+  const mapMetadata = useMemo(
+    () => (JSON.parse(activeStyle) as { metadata?: Record<string, unknown> }).metadata,
+    [activeStyle],
+  );
+  const restoredPilot = mapMetadata?.omniResourceRecovery === 'HIGH_STREET_FALLBACK';
+  const historicalPreview = mapMetadata?.source_fact_status === 'CANDIDATE_HISTORICAL';
   const renderedStyle = useMemo(
     () => renderMapStyle(activeStyle, flat, quiet),
     [activeStyle, flat, quiet],
   );
   const data = useMemo(() => placeFeatureCollection(places), [places]);
   useEffect(() => {
+    scopeCallback.current?.(
+      Platform.OS === 'android' && !failure && fullyRendered ? activeScope : null,
+    );
     statusCallback.current?.(
       Platform.OS !== 'android' || failure ? 'failed' : fullyRendered ? 'ready' : 'preparing',
       Platform.OS !== 'android'
@@ -118,10 +137,13 @@ export function MapCanvas({
         : failure
           ? 'Offline resources or native map loading failed'
           : fullyRendered
-            ? 'Bundled/active offline map fully rendered'
+            ? restoredPilot
+              ? 'Restored High Street offline map after expanded resource failure'
+              : 'Bundled/active offline map fully rendered'
             : 'Installing and loading offline map resources',
     );
-  }, [failure, fullyRendered]);
+  }, [failure, fullyRendered, restoredPilot, activeScope]);
+  useEffect(() => () => scopeCallback.current?.(null), []);
   useEffect(() => {
     let mounted = true;
     void AccessibilityInfo.isReduceMotionEnabled().then((value) => {
@@ -134,63 +156,75 @@ export function MapCanvas({
     };
   }, []);
   useEffect(() => {
-    let mounted = true;
     if (Platform.OS !== 'android') return;
-    const refresh = () => {
-      void loadActiveStyle()
-        .then(async (style) => style ?? (await loadBundledStyle()))
-        .then((style) => {
-          if (mounted) {
-            if (installedStyle.current !== style) {
-              installedStyle.current = style;
-              setStyleReady(false);
-              setFullyRendered(false);
-              setFailure(false);
-              setActiveStyle(style);
-            }
-            setResourcesReady(true);
+    const loader = createMapResourceLoader(
+      async () => (await loadActiveMapStyle()) ?? (await loadBundledStyle()),
+      (style, nextScope) => {
+        if (installedStyle.current !== style) {
+          const scopeKey = nextScope.id + ':' + nextScope.manifestSha256;
+          if (installedScope.current !== scopeKey) {
+            installedScope.current = scopeKey;
+            pendingScopeView.current = true;
+            center.current = nextScope.defaultView.center;
           }
-        })
-        .catch((error) => {
-          if (mounted) setFailure(true);
-          console.error('OMNI_MAP resource installation failed', String(error));
-        });
-    };
-    refresh();
+          setActiveScope(nextScope);
+          setCoverage('service');
+          installedStyle.current = style;
+          setStyleReady(false);
+          setFullyRendered(false);
+          setFailure(false);
+          setActiveStyle(style);
+        }
+        setResourcesReady(true);
+      },
+      (error) => {
+        setFailure(true);
+        console.error('OMNI_MAP resource installation failed', String(error));
+      },
+    );
+    void loader.refresh();
     const listener = AppState.addEventListener('change', (state) => {
-      if (state === 'active') refresh();
+      if (state === 'active') void loader.refresh();
     });
     return () => {
-      mounted = false;
+      loader.dispose();
       listener.remove();
     };
   }, []);
   useEffect(() => {
     if (!styleReady) return;
+    const scopeView = pendingScopeView.current
+      ? defaultScopeView(activeScope, flat || quiet)
+      : null;
+    pendingScopeView.current = false;
     if (fittedBounds)
       camera.current?.fitBounds(fittedBounds, { pitch: 0, bearing: 0, padding, duration });
     else
       camera.current?.easeTo({
-        center: focusCoordinate ? [...focusCoordinate] : center.current,
+        ...(scopeView ?? {}),
+        center: focusCoordinate ? [...focusCoordinate] : [...center.current],
         pitch: flat || quiet ? 0 : 38,
         padding,
         duration,
       });
-  }, [flat, quiet, fittedBounds, focusCoordinate, padding, duration, styleReady]);
+  }, [flat, quiet, fittedBounds, focusCoordinate, padding, duration, styleReady, activeScope]);
   useEffect(() => {
     if (origin?.confirmed && !fittedBounds && !focusCoordinate && styleReady)
       camera.current?.easeTo({ center: [...origin.coordinate], padding, duration });
   }, [origin, fittedBounds, focusCoordinate, styleReady]);
   useEffect(() => {
-    if (cameraResetKey > 0 && styleReady)
+    if (cameraResetKey > lastResetKey.current && styleReady) {
+      lastResetKey.current = cameraResetKey;
       camera.current?.easeTo({
-        center: center.current,
+        center: [...activeScope.defaultView.center],
+        zoom: activeScope.defaultView.zoom,
         bearing: 0,
         pitch: flat || quiet ? 0 : 38,
         padding,
         duration,
       });
-  }, [cameraResetKey, styleReady]);
+    }
+  }, [cameraResetKey, styleReady, activeScope]);
   if (Platform.OS !== 'android')
     return (
       <View style={styles.unavailable}>
@@ -230,7 +264,7 @@ export function MapCanvas({
         onRegionDidChange={(event) => {
           const [x, y] = event.nativeEvent.center;
           center.current = [x, y];
-          setOutside(x < 121.0475 || x > 121.05205 || y < 14.54865 || y > 14.5524);
+          setCoverage(coverageAt(activeScope, [x, y]));
         }}
         onDidFinishLoadingStyle={() => setStyleReady(true)}
         onDidFinishRenderingMapFully={() => {
@@ -245,7 +279,10 @@ export function MapCanvas({
       >
         <Camera
           ref={camera}
-          initialViewState={{ center: [121.0497, 14.5506], zoom: 17, pitch: 38, bearing: -24 }}
+          initialViewState={{
+            ...activeScope.defaultView,
+            center: [...activeScope.defaultView.center],
+          }}
           minZoom={14}
           maxZoom={20}
         />
@@ -504,7 +541,7 @@ export function MapCanvas({
       </Map>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel="Map data © OpenStreetMap contributors. Open source and licence information."
+        accessibilityLabel={`Map data © OpenStreetMap contributors.${historicalPreview ? ' Historical map preview.' : ''}${restoredPilot ? ' High Street fallback restored.' : ''} Open source and licence information.`}
         onPress={
           onAttributionPress ??
           (() => {
@@ -513,14 +550,23 @@ export function MapCanvas({
         }
         style={[styles.attribution, { bottom: Math.max(8, bottomInset + 4) }]}
       >
-        <Text style={styles.attributionText}>© OpenStreetMap contributors</Text>
+        <Text style={styles.attributionText}>
+          © OpenStreetMap contributors{historicalPreview ? ' · Historical map preview' : ''}
+        </Text>
       </Pressable>
-      {(failure || outside) && (
-        <View style={styles.caption} pointerEvents="none">
+      {(failure || coverage !== 'service' || restoredPilot) && (
+        <View
+          style={[styles.caption, { bottom: Math.max(84, bottomInset + 48) }]}
+          pointerEvents="none"
+        >
           <Text style={styles.captionText}>
             {failure
               ? 'Offline map unavailable · restart the app to retry'
-              : 'Outside this map area'}
+              : coverage === 'context'
+                ? 'Limited context · outside detailed coverage'
+                : coverage === 'outside'
+                  ? 'Outside this map area'
+                  : 'High Street map restored · expanded resources unavailable'}
           </Text>
         </View>
       )}

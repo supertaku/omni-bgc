@@ -34,7 +34,13 @@ jobs:
         run: npm ci --prefix apps/mobile
 
       - name: Typecheck mobile application
-        run: npm run typecheck --prefix apps/mobile
+        # Clean checkouts never need the private candidate directory.
+        # The internal research asset must be empty in distributable builds.
+        env:
+          CI: 'true'
+        run: |
+          python pipelines/etl/offices/mobile_research.py --empty
+          npm run typecheck --prefix apps/mobile
 
       - name: Authored source quality and dependency boundaries
         run: |
@@ -66,6 +72,12 @@ jobs:
 
       - name: Mobile database projection suite
         run: python -m unittest discover -v -s tests/data-quality/mobile
+
+      - name: Office research, approved projection and mobile contracts
+        run: |
+          python -m ruff check --isolated --select F401,F821,F822,F823 pipelines/etl/offices pipelines/etl/review-dashboard/dashboard.py pipelines/etl/review-dashboard/offices_view.py tests/data-quality/offices
+          python -m unittest discover -v -s tests/data-quality/offices
+          node --test tests/data-quality/offices/*.test.cjs
 
       - name: Mobile JavaScript contracts and routing
         run: |

@@ -1,0 +1,10 @@
+{
+  "formatVersion": 1,
+  "selected": "commercial-v2",
+  "use": "INTERNAL_RESEARCH_PREVIEW_ONLY",
+  "publicDistributionAuthorized": false,
+  "entries": [
+    {"id":"pilot","assetDirectory":"omni","inventory":"bundled-resources.json","style":"pilot-style.json","archive":"pilot.pmtiles"},
+    {"id":"commercial-v2","assetDirectory":"gex","inventory":"expanded-resources.json","style":"expanded-style.json","archive":"gex.pmtiles"}
+  ]
+}

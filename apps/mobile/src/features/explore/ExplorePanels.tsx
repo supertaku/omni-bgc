@@ -4,6 +4,7 @@ import type { Place, SavedState } from '../../contracts';
 import { Action, Body, CitationList, Heading, Notice, palette, ui } from '../../ui/components';
 import { PlaceDetails } from './PlaceDetails';
 import { PlaceRow } from './PlaceIdentity';
+import { OfficeDirectory } from '../offices/OfficeDirectory';
 import { getLocalStoreHealth, type StartupResult } from '../../data';
 import { REVIEWED_PACK_CATALOG } from '../../updates/reviewed-catalog';
 import type { PackKind, PackManifest, PackStatus } from '../../updates/contracts';
@@ -40,6 +41,7 @@ type PanelProps = {
   rollback: (value: PackKind) => void;
   savedName: (id: string) => string;
   exportSaved: () => void;
+  saveOffice?: (place: Place) => void;
 };
 export function renderExplorePanel({
   panel,
@@ -71,12 +73,18 @@ export function renderExplorePanel({
   rollback,
   savedName,
   exportSaved,
+  saveOffice,
 }: PanelProps) {
   const entry = (p: Place) => <PlaceRow key={p.id} place={p} onPress={() => choose(p)} />;
   let content: ReactNode = null,
     title = '',
     expanded = false;
   switch (panel) {
+    case 'offices':
+      title = 'Company offices';
+      expanded = true;
+      content = <OfficeDirectory places={places} onChoose={choose} />;
+      break;
     case 'search':
       title = 'Explore BGC';
       expanded = true;
@@ -146,12 +154,30 @@ export function renderExplorePanel({
             }}
           />
           <Action icon="bookmark" label="Saved places" onPress={() => open('saved')} />
+          <Action
+            icon="building"
+            label="Offices"
+            onPress={() => {
+              setCategory('Offices');
+              open('offices');
+            }}
+          />
         </>
       );
       break;
     case 'peek':
       title = selected?.name ?? 'Place';
-      content = selected ? <PlaceDetails key={selected.id} place={selected} /> : null;
+      content = selected ? (
+        <PlaceDetails
+          key={selected.id}
+          place={selected}
+          {...(selected.category === 'office'
+            ? { places, onChoose: choose, saved, onSave: savedAvailable ? saveOffice : undefined }
+            : selected.category === 'Building'
+              ? { places, onChoose: choose }
+              : {})}
+        />
+      ) : null;
       break;
     case 'sources':
       title = 'Sources and freshness';

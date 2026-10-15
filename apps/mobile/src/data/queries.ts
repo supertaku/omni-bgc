@@ -1,7 +1,8 @@
 // Mobile projection has only exporter-approved facts. Recheck temporal lineage and conflicts
 // on every read so an installed formerly-current pack cannot turn stale facts into current UI.
 export const CURRENT_FACTS = `SELECT f.id fact_id,e.id entity_id,e.kind,e.parent_id,f.property,f.value_json,f.knowledge,
- s.source_id,s.license,s.attribution,s.id snapshot_id,s.raw_sha256,l.evidence_id,l.observed_at,l.verified_at,l.locator,l.verification_method
+ s.source_id,s.license,s.attribution,s.id snapshot_id,s.raw_sha256,l.evidence_id,l.observed_at,l.verified_at,l.locator,l.verification_method,
+ f.valid_until fact_valid_until,l.valid_until evidence_valid_until,s.valid_until snapshot_valid_until,l.confidence_reason
  FROM entity e JOIN fact f ON f.subject_id=e.id JOIN fact_lineage l ON l.fact_id=f.id JOIN source_snapshot s ON s.id=l.snapshot_id
  WHERE julianday(f.valid_from)<=julianday(?) AND julianday(f.valid_until)>julianday(?)
  AND julianday(l.observed_at)<=julianday(?) AND julianday(l.verified_at)<=julianday(?) AND julianday(l.valid_until)>julianday(?)

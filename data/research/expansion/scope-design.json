@@ -1,0 +1,237 @@
+{
+  "acceptance_blockers": [
+    "Current-world record/entrance approval remains separate from this accepted engineering envelope.",
+    "Aura tower is owner-corroborated spatial candidate; exact canonical identity and conflicting level counts need review.",
+    "Acquisition/context margins need cut-edge analysis and remain non-routable.",
+    "Physical Android validation and explicit USB permission pending.",
+    "Public source redistribution and release authorization are not granted."
+  ],
+  "acquisition_distance_m": 200,
+  "context_distance_m": 75,
+  "coordinate_reference_system": "EPSG:4326",
+  "design_id": "gex-0-commercial-envelope-r2",
+  "distance_status": "INITIAL_CANDIDATE_MARGINS_NOT_CONNECTOR_ACCEPTANCE",
+  "excluded_source_refs": [
+    "osm:way:28541386",
+    "osm:way:28993541",
+    "osm:way:28997881",
+    "osm:way:1476336381"
+  ],
+  "exclusion_method": "All outside-service points are denied detailed/search coverage, including the context ring. Materialized excluded region is historical acquisition envelope minus service area; not a residential cadastral map. Interior private residential units/entrances are denied by record policy.",
+  "format_version": 1,
+  "geometry": {
+    "coordinates": [
+      [
+        [
+          121.0505,
+          14.5467
+        ],
+        [
+          121.047,
+          14.5477
+        ],
+        [
+          121.0455,
+          14.5501
+        ],
+        [
+          121.0457,
+          14.5532
+        ],
+        [
+          121.04680587605027,
+          14.556036812476782
+        ],
+        [
+          121.047557,
+          14.5553868
+        ],
+        [
+          121.0480406,
+          14.5556414
+        ],
+        [
+          121.0485498,
+          14.5558541
+        ],
+        [
+          121.0490092,
+          14.5560263
+        ],
+        [
+          121.04913158553676,
+          14.556125466822186
+        ],
+        [
+          121.0515,
+          14.5561
+        ],
+        [
+          121.0517,
+          14.5596
+        ],
+        [
+          121.054,
+          14.55955
+        ],
+        [
+          121.05555,
+          14.55725
+        ],
+        [
+          121.05565,
+          14.554
+        ],
+        [
+          121.0584,
+          14.5519
+        ],
+        [
+          121.0584,
+          14.548312092392443
+        ],
+        [
+          121.0576978,
+          14.5485068
+        ],
+        [
+          121.05756,
+          14.5482055
+        ],
+        [
+          121.0571553,
+          14.5479732
+        ],
+        [
+          121.0569704,
+          14.547943
+        ],
+        [
+          121.0569402,
+          14.5478079
+        ],
+        [
+          121.05665240255776,
+          14.54659112750525
+        ],
+        [
+          121.05565,
+          14.5465
+        ],
+        [
+          121.05472038405529,
+          14.545289337374326
+        ],
+        [
+          121.0543923,
+          14.5451196
+        ],
+        [
+          121.0540963,
+          14.544877
+        ],
+        [
+          121.0536684,
+          14.5442336
+        ],
+        [
+          121.0535896,
+          14.5439367
+        ],
+        [
+          121.05356343668211,
+          14.54378261521391
+        ],
+        [
+          121.0535,
+          14.5437
+        ],
+        [
+          121.05303180445026,
+          14.5437
+        ],
+        [
+          121.0530478,
+          14.5439107
+        ],
+        [
+          121.05289377960885,
+          14.543959045546709
+        ],
+        [
+          121.0528229,
+          14.5441205
+        ],
+        [
+          121.0526418,
+          14.5445923
+        ],
+        [
+          121.0525394,
+          14.5448974
+        ],
+        [
+          121.0523879,
+          14.5453165
+        ],
+        [
+          121.0523654,
+          14.5454422
+        ],
+        [
+          121.0522027,
+          14.5454205
+        ],
+        [
+          121.0516918,
+          14.5453798
+        ],
+        [
+          121.0516489,
+          14.5453175
+        ],
+        [
+          121.0516265,
+          14.5452298
+        ],
+        [
+          121.05163220647442,
+          14.545183952274154
+        ],
+        [
+          121.0516011,
+          14.5451799
+        ],
+        [
+          121.0517597,
+          14.5445093
+        ],
+        [
+          121.0519173350157,
+          14.543865329968597
+        ],
+        [
+          121.0505,
+          14.5467
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "method": "Original authored envelope difference exact union of four source-supported exterior residential fringes, independently reviewed; no repair, snapping, precision grid, simplification or coordinate fact invention. Proposal e7e3541fccd087467093f00a9fb6011a73abd1da7061fb5c715240d904ca77d0.",
+  "metric_crs": "EPSG:32651",
+  "parent_scope_review": {
+    "path": "docs/geography/parent-review-r2.json",
+    "scope_geometry_sha256": "06b06e54c70905f6f665d14214de421cf6fabb97da7834808842bd0beb82e4ba",
+    "sha256": "12ddafa702a9030eb6a049f5b324d6ff0f0838e3c4db76f28eb5dc6e7adf7fc5"
+  },
+  "status": "ACCEPTED_INTERNAL_ENGINEERING",
+  "zone_partition": {
+    "GEX-A": "exact existing v1 pilot",
+    "GEX-B": "remaining scope north of latitude 14.5524 and south of 14.5561",
+    "GEX-C": "remaining scope north of latitude 14.5561",
+    "GEX-D": "remaining scope east of longitude 121.052 and south of latitude 14.5524",
+    "GEX-E": "remaining full-detail candidate scope",
+    "GEX-F": "context ring only; no search or routing"
+  }
+}

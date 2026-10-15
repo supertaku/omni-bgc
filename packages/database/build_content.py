@@ -44,7 +44,7 @@ def build_content(staging, output, now, bundles=(), proposal=None, synthetic_tes
         for fact in bundle['facts']:
             value=fact['value']
             if fact['property'] in ('name','alias') and value is not None:value=intake.text(value)
-            if fact['property'] in ('building','place','menu') and value is not None:value=report['ids'][value]
+            if fact['property'] in ('building','place','menu','office_organization') and value is not None:value=report['ids'][value]
             expected=(report['ids'][fact['subject']],fact['property'],fact['knowledge'],intake.canonical(value) if value is not None else None,fact['valid_from'],fact['valid_until'])
             actual=staging.execute('SELECT subject_id,property,knowledge,value_json,valid_from,valid_until FROM fact WHERE id=?',(report['ids'][fact['key']],)).fetchone()
             if actual!=expected:raise ValueError('Canonical fact differs from immutable reviewed intake')
@@ -60,7 +60,7 @@ def build_content(staging, output, now, bundles=(), proposal=None, synthetic_tes
         allowed_snapshots[report['snapshot_id']]=(bundle['source']['source_id'],bundle['snapshot']['source_version'],bundle['snapshot']['data_extract_version'],bundle['snapshot']['raw_sha256'],bundle['source']['data_license'],bundle['source']['attribution_text'],bundle['snapshot']['fetched_at_utc'],bundle['snapshot']['valid_until'])
         retained[report['snapshot_id']]={'bundle_sha256':intake.digest(bundle),
             'raw_sha256':bundle['raw']['sha256'],
-            'permission_evidence':[{'use':p['permitted_use'],'sha256':p['retained_permission']['sha256']} for p in bundle['policies']],
+            'permission_evidence':[{'use':p['permitted_use'],'sha256':p['retained_permission']['sha256'],'valid_until':p['valid_until']} for p in bundle['policies']],
             'fact_evidence_hashes':[e['retained_evidence']['sha256'] for e in bundle['evidence']]}
     mobile,counters=projection.export_read_projection(staging,proposal or {},now)
     try:

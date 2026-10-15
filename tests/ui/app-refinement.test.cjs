@@ -5,6 +5,8 @@ const path=require('node:path');
 const vm=require('node:vm');
 const ts=require('../../apps/mobile/node_modules/typescript');
 const root=path.resolve(__dirname,'../..');
+const {loadTs}=require('../helpers/load-ts.cjs');
+const officeService=loadTs('apps/mobile/src/features/offices/service.ts');
 // Project-authored contract fixtures only. The coordinate pair is a test
 // sentinel for callback identity, never a BGC location or a routable record.
 // Do not require ignored candidate datasets in portable CI regression tests.
@@ -25,6 +27,8 @@ function compile(file,requireImport,extras={}){
 const demos=compile('apps/mobile/src/features/explore/demoDirectory.ts',()=>{throw Error('Unexpected runtime demo import');});
 const directory=compile('apps/mobile/src/features/explore/directory.ts',name=>{
   if(name==='./demoDirectory')return demos;
+  if(name==='../offices/service')return officeService;
+  if(name==='../food/directory')return {foodPlaces:[],foodSearchText:()=>[]};
   if(name.endsWith('/places.json'))return records;
   throw Error(`Unexpected directory import ${name}`);
 });
@@ -48,7 +52,7 @@ function applicationHarness(){
   const native={...Object.fromEntries(['Text','TextInput','View','KeyboardAvoidingView','StatusBar'].map(name=>[name,name])),StyleSheet:{create:value=>value},Platform:{OS:'android'},Dimensions:{get:()=>({width:390,height:800})},useWindowDimensions:()=>({width:390,height:800}),
     Keyboard:{dismiss(){keyboardDismissals++;},addListener(name,callback){listeners[name]=callback;return{remove(){delete listeners[name];}};}},
     BackHandler:{addEventListener(name,callback){listeners[name]=callback;return{remove(){delete listeners[name];}};}},
-    Alert:{alert(...args){alerts.push(args);}},Share:{share:async payload=>{shares.push(payload);}},Linking:{openURL:async()=>{}},
+    Alert:{alert(...args){alerts.push(args);}},Share:{share:async payload=>{shares.push(payload);}},Linking:{openURL:async()=>{}},AppState:{addEventListener:()=>({remove(){}})},
   };
   const data={openStore:async()=>{},refreshInstalledGraph:async()=>{graphRefreshes++;return{installed:false};},loadPlaces:async()=>[],loadTransit:async()=>[],loadSaved:async()=>{savedReads++;return stored;},getPackStatus:async()=>[],getLocalStoreHealth:()=>({integrity:'TEST'}),disposeStore:async()=>{},clearLocalHistory:async()=>{historyDeletes++;},
     createStartupLoader:deps=>async()=>{
@@ -63,7 +67,10 @@ function applicationHarness(){
     './src/data':data,'./src/routing':{refreshInstalledGraph:data.refreshInstalledGraph},
     './src/ui/components':{...Object.fromEntries(['Action','Body','CitationList','Heading','Notice','Sheet'].map(name=>[name,name])),palette:{},ui:{}},
     './src/map/MapCanvas':{MapCanvas:'MapCanvas'},'./src/qa/native-proof':{runNativeProof(){assert.fail('Production must not invoke debug proof');}},
-    './src/updates':{getPackStatus:data.getPackStatus,rollbackPack:async()=>{},installPack:async()=>{packInstalls++;}},'./src/updates/reviewed-catalog':{REVIEWED_PACK_CATALOG:reviewedCatalog},
+    './src/updates':{getActivePack:async()=>null,getPackStatus:data.getPackStatus,rollbackPack:async()=>{},installPack:async()=>{packInstalls++;}},'./src/updates/reviewed-catalog':{REVIEWED_PACK_CATALOG:reviewedCatalog},
+    './src/features/offices/service':officeService,'./src/features/offices/map':loadTs('apps/mobile/src/features/offices/map.ts'),
+    './src/features/offices/OfficeDirectory':{OfficeDirectory:'OfficeDirectory'},
+    './src/map/scope':loadTs('apps/mobile/src/map/scope.ts'),
     '../../data/manifests/offline-pilot-inventory.json':require('../../data/manifests/offline-pilot-inventory.json'),
     './src/features/assistant/AssistantScreen':{AssistantScreen:'AssistantScreen'},'./src/features/explore/MapChrome':{FloatingChatButton:'FloatingChatButton',MapChrome:'MapChrome'},
     './src/features/explore/PlaceDetails':{PlaceDetails:'PlaceDetails',PlacePeek:'PlacePeek'},'./src/ui/ExplorerPager':{ExplorerPager:'ExplorerPager'},

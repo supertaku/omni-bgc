@@ -31,6 +31,9 @@ function harness(relative, options = {}) {
     if (name.endsWith('/components') || name === './components') return { ...icons, palette, Action:'Action', Body:'Body', Heading:'Heading', Notice:'Notice', ui:{} };
     if (name === './styles') return { assistantStyles: new Proxy({}, { get: (_, key) => ({ style: key }) }) };
     if (name === './cards') return { MessageContent: 'MessageContent' };
+    if (name === '../food/directory') return { foodResearch: { getFoodEstablishmentDetails: () => null } };
+    if (name === '../food/assistant') return { createFoodResearchAnswer: () => () => null };
+    if (name === '../food/ResearchDetails') return { FoodHoursView: 'FoodHoursView', FoodMenuRow: 'FoodMenuRow', FoodSourceDisclosure: 'FoodSourceDisclosure' };
     if (name.endsWith('/demoDirectory')) return { isDemoPlace: value => typeof value === 'object' && value.demo === true };
     if (name === './useDirectoryConversation') {
       const hookContext={...context,exports:{}};

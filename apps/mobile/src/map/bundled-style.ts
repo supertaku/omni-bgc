@@ -1,60 +1,82 @@
 import { Directory, File, Paths } from 'expo-file-system';
 import * as Crypto from 'expo-crypto';
-import inventory from './bundled-resources.json';
-import pilotStyle from './pilot-style.json';
-import { resolveOfflineStyle } from '../updates/style-contract';
+import { pilotEntry, selectedBundledEntry } from './bundled-catalog';
+import {
+  localBundledStyle,
+  resolveBundledStyle,
+  withPilotRecovery,
+  type BundledEntry,
+} from './bundled-contract';
 
-async function verify(directory: Directory): Promise<void> {
-  for (const entry of inventory.files) {
+async function verify(directory: Directory, resource: BundledEntry): Promise<void> {
+  for (const entry of resource.inventory.files) {
     const file = new File(directory, entry.path);
-    if (!file.exists || file.size !== entry.bytes) throw new Error('Bundled map resource size mismatch');
+    if (!file.exists || file.size !== entry.bytes)
+      throw new Error('Bundled map resource size mismatch');
     const digest = await Crypto.digest(Crypto.CryptoDigestAlgorithm.SHA256, await file.bytes());
-    const hash = [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+    const hash = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
     if (hash !== entry.sha256) throw new Error('Bundled map resource checksum mismatch');
   }
 }
 
-let installing: Promise<string> | null = null;
+const installing = new Map<string, Promise<string>>();
+const repairedDestinations = new Map<string, Directory>();
 /** Android 13.6.1 ignores byte ranges for APK assets (#4360).
  * Use verified app-private files, publishing the directory only after every hash passes.
  * This fallback is an internal bundled resource; it never promotes research data or routes.
  */
-export function loadBundledStyle(): Promise<string> {
-  if (installing) return installing;
-  installing = install().finally(() => { installing = null; });
-  return installing;
+export function loadBundledStyle(options: { pilotOnly?: boolean } = {}): Promise<string> {
+  const selected = options.pilotOnly ? pilotEntry : selectedBundledEntry();
+  return withPilotRecovery(selected, pilotEntry, installShared);
 }
-async function install(): Promise<string> {
+function installShared(entry: BundledEntry): Promise<string> {
+  const key = entry.inventory.packSha256;
+  const pending = installing.get(key);
+  if (pending) return pending;
+  const operation = install(entry).finally(() => {
+    installing.delete(key);
+  });
+  installing.set(key, operation);
+  return operation;
+}
+async function install(entry: BundledEntry): Promise<string> {
+  localBundledStyle(entry); // Reject metadata/resource incompatibility before writing.
   const root = new Directory(Paths.document, 'bundled-map');
   root.create({ intermediates: true, idempotent: true });
-  const destination = new Directory(root, inventory.packSha256);
+  let destination =
+    repairedDestinations.get(entry.inventory.packSha256) ??
+    new Directory(root, entry.inventory.packSha256);
   let ready = false;
   if (destination.exists) {
-    try { await verify(destination); ready = true; }
-    catch { destination.delete(); }
+    try {
+      await verify(destination, entry);
+      ready = true;
+    } catch {
+      destination.delete();
+      // A new URI prevents native archive/file-descriptor caches reusing corrupt bytes.
+      destination = new Directory(
+        root,
+        entry.inventory.packSha256 + '-repair-' + Crypto.randomUUID(),
+      );
+      repairedDestinations.set(entry.inventory.packSha256, destination);
+    }
   }
   if (!ready) {
     const pending = new Directory(root, 'pending-' + Crypto.randomUUID());
     pending.create();
     let moved = false;
     try {
-      for (const entry of inventory.files) {
-        const target = new File(pending, entry.path);
+      for (const file of entry.inventory.files) {
+        const target = new File(pending, file.path);
         target.parentDirectory.create({ intermediates: true, idempotent: true });
-        await new File('asset:///omni/' + entry.path).copy(target);
+        await new File('asset:///' + entry.assetDirectory + '/' + file.path).copy(target);
       }
-      await verify(pending);
+      await verify(pending, entry);
       await pending.move(destination);
       moved = true;
-    } finally { if (!moved && pending.exists) pending.delete(); }
+    } finally {
+      if (!moved && pending.exists) pending.delete();
+    }
   }
-  const style = JSON.parse(JSON.stringify(pilotStyle));
-  style.glyphs = 'fonts/{fontstack}/{range}.pbf';
-  style.sprite = 'sprite';
-  style.sources.geography.url = 'pilot.pmtiles';
-  style.metadata.omniOfflineResources = {
-    fontStacks: ['Noto Sans Regular'], glyphRanges: inventory.glyphRanges,
-    sprites: ['sprite'], tileArchives: ['pilot.pmtiles'],
-  };
-  return resolveOfflineStyle(style, inventory.files.map(entry => entry.path), destination.uri);
+  return resolveBundledStyle(entry, destination.uri);
 }

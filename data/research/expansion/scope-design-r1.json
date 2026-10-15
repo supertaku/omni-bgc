@@ -1,0 +1,31 @@
+{
+  "format_version": 1,
+  "design_id": "gex-0-commercial-envelope-r1",
+  "status": "CANDIDATE",
+  "coordinate_reference_system": "EPSG:4326",
+  "metric_crs": "EPSG:32651",
+  "method": "Authored engineering vertices, evaluated against exact historical anchor sites and the pilot. Segments are project coverage choices, not surveyed street/parcel/legal boundaries.",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[121.0455,14.5501],[121.047,14.5477],[121.0505,14.5467],[121.052,14.5437],[121.0535,14.5437],[121.05565,14.5465],[121.0584,14.54675],[121.0584,14.5519],[121.05565,14.554],[121.05555,14.55725],[121.054,14.55955],[121.0517,14.5596],[121.0515,14.5561],[121.04685,14.55615],[121.0457,14.5532],[121.0455,14.5501]]]
+  },
+  "context_distance_m": 75,
+  "acquisition_distance_m": 200,
+  "distance_status": "INITIAL_CANDIDATE_MARGINS_NOT_CONNECTOR_ACCEPTANCE",
+  "zone_partition": {
+    "GEX-A": "exact existing v1 pilot",
+    "GEX-B": "remaining scope north of latitude 14.5524 and south of 14.5561",
+    "GEX-C": "remaining scope north of latitude 14.5561",
+    "GEX-D": "remaining scope east of longitude 121.052 and south of latitude 14.5524",
+    "GEX-E": "remaining full-detail candidate scope",
+    "GEX-F": "context ring only; no search or routing"
+  },
+  "exclusion_method": "All outside-service points are denied detailed/search coverage, including the context ring. Materialized excluded region is historical acquisition envelope minus service area; not a residential cadastral map. Interior private residential units/entrances are denied by record policy.",
+  "acceptance_blockers": [
+    "Screenshot referenced in supplied plan was not attached; visual intent reconciliation pending.",
+    "Authored perimeter needs specialist/human geographic review to confirm commercial corridors and exclude external residential neighborhoods.",
+    "Historical anchor sites/buildings are candidates; current-world verification and office-tower identity reconciliation pending.",
+    "75 m context and 200 m acquisition margins need cut-edge/connector review in later milestones.",
+    "Source redistribution and public release remain unauthorized."
+  ]
+}

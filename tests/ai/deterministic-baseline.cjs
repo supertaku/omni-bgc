@@ -9,6 +9,7 @@ const moneyContext={exports:{}};
 vm.runInNewContext(ts.transpileModule(fs.readFileSync(path.resolve(__dirname,'../../apps/mobile/src/domain/money.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText,moneyContext);
 const context={exports:{},Set,BigInt,require:name=>{
   if(name==='../../domain/money')return moneyContext.exports;
+  if(name==='../offices/assistant')return require('../helpers/load-ts.cjs').loadTs('apps/mobile/src/features/offices/assistant.ts');
   if(name==='../explore/demoDirectory')return {isDemoPlace:p=>String(typeof p==='string'?p:p.id).startsWith('sample-')};
   throw Error('Unexpected baseline import '+name);
 }};

@@ -1,0 +1,274 @@
+TAP version 13
+# Subtest: in-flight startup callers share one request per stage and retry explicitly
+ok 1 - in-flight startup callers share one request per stage and retry explicitly
+  ---
+  duration_ms: 2.3464
+  type: 'test'
+  ...
+# Subtest: graph/transit failures retain directory and original saved data with stage diagnostics
+ok 2 - graph/transit failures retain directory and original saved data with stage diagnostics
+  ---
+  duration_ms: 0.7565
+  type: 'test'
+  ...
+# Subtest: storage capability failure blocks only saved read; never fabricates writable empty saved state
+ok 3 - storage capability failure blocks only saved read; never fabricates writable empty saved state
+  ---
+  duration_ms: 0.5215
+  type: 'test'
+  ...
+# Subtest: saved read and offline metadata failures stay independently visible even if logging throws
+ok 4 - saved read and offline metadata failures stay independently visible even if logging throws
+  ---
+  duration_ms: 0.6057
+  type: 'test'
+  ...
+# Subtest: a safely rejected walking pack is unavailable rather than reported ready
+ok 5 - a safely rejected walking pack is unavailable rather than reported ready
+  ---
+  duration_ms: 0.5493
+  type: 'test'
+  ...
+# Subtest: production content reads remain usable when saved SQLite cannot open
+ok 6 - production content reads remain usable when saved SQLite cannot open
+  ---
+  duration_ms: 60.9468
+  type: 'test'
+  ...
+# Subtest: failed saved connection cleanup does not poison unrelated content reads
+ok 7 - failed saved connection cleanup does not poison unrelated content reads
+  ---
+  duration_ms: 43.1535
+  type: 'test'
+  ...
+# Subtest: fresh local migrations are exact and persisted preferences survive reopen
+ok 8 - fresh local migrations are exact and persisted preferences survive reopen
+  ---
+  duration_ms: 203.36
+  type: 'test'
+  ...
+# Subtest: missing local table/settings row recover without clearing surviving favorites
+ok 9 - missing local table/settings row recover without clearing surviving favorites
+  ---
+  duration_ms: 281.1071
+  type: 'test'
+  ...
+# Subtest: unsupported version/malformed table preserve all existing saved rows
+ok 10 - unsupported version/malformed table preserve all existing saved rows
+  ---
+  duration_ms: 168.3899
+  type: 'test'
+  ...
+# Subtest: missing native RTree capability fails before any migration/write
+ok 11 - missing native RTree capability fails before any migration/write
+  ---
+  duration_ms: 0.4502
+  type: 'test'
+  ...
+# Subtest: Expo native plugin includes both accepted database compile capabilities
+ok 12 - Expo native plugin includes both accepted database compile capabilities
+  ---
+  duration_ms: 0.6831
+  type: 'test'
+  ...
+# Subtest: integrity failure preserves file and skips migrations/repair
+ok 13 - integrity failure preserves file and skips migrations/repair
+  ---
+  duration_ms: 0.276
+  type: 'test'
+  ...
+# Subtest: atomic office favorites serialize rapid toggles and preserve itinerary/settings across reopen
+ok 14 - atomic office favorites serialize rapid toggles and preserve itinerary/settings across reopen
+  ---
+  duration_ms: 191.7756
+  type: 'test'
+  ...
+# Subtest: repeated active reads revalidate exact bytes and retain balanced index lifetime
+ok 15 - repeated active reads revalidate exact bytes and retain balanced index lifetime
+  ---
+  duration_ms: 164.1004
+  type: 'test'
+  ...
+# Subtest: corrupt active content recovers previous verified slot; rejected rollback retains active slot
+ok 16 - corrupt active content recovers previous verified slot; rejected rollback retains active slot
+  ---
+  duration_ms: 82.927
+  type: 'test'
+  ...
+# Subtest: untrusted/corrupt packs and pre-aborted install fail closed without pointer mutation
+ok 17 - untrusted/corrupt packs and pre-aborted install fail closed without pointer mutation
+  ---
+  duration_ms: 64.5749
+  type: 'test'
+  ...
+# Subtest: default empty graph and synthetic candidates never install or route
+ok 18 - default empty graph and synthetic candidates never install or route
+  ---
+  duration_ms: 36.8221
+  type: 'test'
+  ...
+# Subtest: same edge snap slices real geometry with no endpoint detour
+ok 19 - same edge snap slices real geometry with no endpoint detour
+  ---
+  duration_ms: 1.708
+  type: 'test'
+  ...
+# Subtest: directed foot path rejects reverse journey
+ok 20 - directed foot path rejects reverse journey
+  ---
+  duration_ms: 2.9
+  type: 'test'
+  ...
+# Subtest: candidate, expired, field-unverified, unknown and private edges excluded
+ok 21 - candidate, expired, field-unverified, unknown and private edges excluded
+  ---
+  duration_ms: 1.4301
+  type: 'test'
+  ...
+# Subtest: GPS poor/stale/future and unconfirmed fixes rejected; manual origin optional
+ok 22 - GPS poor/stale/future and unconfirmed fixes rejected; manual origin optional
+  ---
+  duration_ms: 0.7405
+  type: 'test'
+  ...
+# Subtest: outside origins and destinations rejected without clamping
+ok 23 - outside origins and destinations rejected without clamping
+  ---
+  duration_ms: 0.4496
+  type: 'test'
+  ...
+# Subtest: unverified or mismatched entrance connectors cannot route
+ok 24 - unverified or mismatched entrance connectors cannot route
+  ---
+  duration_ms: 0.3865
+  type: 'test'
+  ...
+# Subtest: nearby edge requires verified origin connector; no invented straight traversal
+ok 25 - nearby edge requires verified origin connector; no invented straight traversal
+  ---
+  duration_ms: 1.537
+  type: 'test'
+  ...
+# Subtest: snap distance limit and connector direction enforced
+ok 26 - snap distance limit and connector direction enforced
+  ---
+  duration_ms: 0.8963
+  type: 'test'
+  ...
+# Subtest: grade separated visual crossings and coincident IDs remain disconnected
+ok 27 - grade separated visual crossings and coincident IDs remain disconnected
+  ---
+  duration_ms: 1.1563
+  type: 'test'
+  ...
+# Subtest: blocked nodes and unverified grade changes excluded
+ok 28 - blocked nodes and unverified grade changes excluded
+  ---
+  duration_ms: 0.8265
+  type: 'test'
+  ...
+# Subtest: geometry mismatch, duplicate IDs, zero cost and malformed boundary denied
+ok 29 - geometry mismatch, duplicate IDs, zero cost and malformed boundary denied
+  ---
+  duration_ms: 0.9223
+  type: 'test'
+  ...
+# Subtest: concave supported area rejects shortcut exiting coverage
+ok 30 - concave supported area rejects shortcut exiting coverage
+  ---
+  duration_ms: 0.295
+  type: 'test'
+  ...
+# Subtest: A* matches Dijkstra on deterministic adversarial weighted directed graphs
+ok 31 - A* matches Dijkstra on deterministic adversarial weighted directed graphs
+  ---
+  duration_ms: 2.2444
+  type: 'test'
+  ...
+# Subtest: multi-edge A* reconstructs actual detour geometry and physical length separately from weighted cost
+ok 32 - multi-edge A* reconstructs actual detour geometry and physical length separately from weighted cost
+  ---
+  duration_ms: 0.7003
+  type: 'test'
+  ...
+# Subtest: progress hysteresis resists single bad fix, requires recovery and never persists coordinate
+ok 33 - progress hysteresis resists single bad fix, requires recovery and never persists coordinate
+  ---
+  duration_ms: 0.5621
+  type: 'test'
+  ...
+# Subtest: closed directed loop preserves complete tail geometry when destination precedes origin
+ok 34 - closed directed loop preserves complete tail geometry when destination precedes origin
+  ---
+  duration_ms: 0.4686
+  type: 'test'
+  ...
+# Subtest: review expiry rechecked per route and invalid calendar dates do not normalize to approval
+ok 35 - review expiry rechecked per route and invalid calendar dates do not normalize to approval
+  ---
+  duration_ms: 0.4872
+  type: 'test'
+  ...
+# Subtest: pack input copied so caller edits cannot silently promote restrictions
+ok 36 - pack input copied so caller edits cannot silently promote restrictions
+  ---
+  duration_ms: 0.2213
+  type: 'test'
+  ...
+# Subtest: missing core clears previously installed engine
+ok 37 - missing core clears previously installed engine
+  ---
+  duration_ms: 14.1477
+  type: 'test'
+  ...
+# Subtest: exact synthetic reviewed graph receipt installs and preserves route API
+ok 38 - exact synthetic reviewed graph receipt installs and preserves route API
+  ---
+  duration_ms: 5.5773
+  type: 'test'
+  ...
+# Subtest: unbound graph artifact SHA and absent exact artifact denied
+ok 39 - unbound graph artifact SHA and absent exact artifact denied
+  ---
+  duration_ms: 3.0119
+  type: 'test'
+  ...
+# Subtest: unreviewed or mismatched canonical manifest SHA denied
+ok 40 - unreviewed or mismatched canonical manifest SHA denied
+  ---
+  duration_ms: 1.2045
+  type: 'test'
+  ...
+# Subtest: source snapshot, source SHA, version and polygon binding denied independently
+ok 41 - source snapshot, source SHA, version and polygon binding denied independently
+  ---
+  duration_ms: 4.7373
+  type: 'test'
+  ...
+# Subtest: expired rights and graph review exceeding source rights fail closed
+ok 42 - expired rights and graph review exceeding source rights fail closed
+  ---
+  duration_ms: 1.4075
+  type: 'test'
+  ...
+# Subtest: candidate graph never promoted, even within synthetic reviewed artifact receipt
+ok 43 - candidate graph never promoted, even within synthetic reviewed artifact receipt
+  ---
+  duration_ms: 0.8467
+  type: 'test'
+  ...
+# Subtest: async metadata failure clears graph and superseded refresh cannot remove newer state
+ok 44 - async metadata failure clears graph and superseded refresh cannot remove newer state
+  ---
+  duration_ms: 1.6761
+  type: 'test'
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 44
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1377.7561

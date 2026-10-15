@@ -216,7 +216,7 @@ def ingest(db, bundle, base, now):
             value = f['value']
             if f['property'] in {'name','alias'} and value is not None:
                 value = text(value)
-            if f['property'] in {'building','place','menu'} and value is not None:
+            if f['property'] in {'building','place','menu','office_organization'} and value is not None:
                 value = ids[value]
             row = {'id':ids[f['key']], 'subject_id':ids[f['subject']], 'property':f['property'], 'knowledge':f['knowledge'], 'value_json':canonical(value) if value is not None else None, 'review':'candidate', **{k:f[k] for k in ('freshness','valid_from','valid_until')}}
             insert(db, 'fact', row)

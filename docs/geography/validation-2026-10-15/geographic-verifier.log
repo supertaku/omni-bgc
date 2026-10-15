@@ -1,0 +1,5 @@
+{"status": "PASS_EXPERIMENTAL_INTERNAL_ONLY", "complete_features": 10019, "render_features": 4900, "artifact_sha256": "02cf39d563b4de9abc5bde7661f065fa68e9ca7327445db5dd867eb321d4f298", "distribution_authorized": false, "navigation_eligible_edges": 0}
+C:\Users\joshu\Documents\Omni-BGC\pipelines\gis\expansion\validate_geography.py:22: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  projected = transform(FORWARD.transform, outside)
+C:\Users\joshu\Documents\Omni-BGC\pipelines\gis\expansion\validate_geography.py:138: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  if f['id'] != p['source_ref'] + ':context' or transform(FORWARD.transform, geom.intersection(service)).length > 1e-5:

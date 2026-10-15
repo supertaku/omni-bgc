@@ -2,6 +2,7 @@ import type { Place, SavedState } from '../../contracts';
 import type { AssistantPayload } from './contracts';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { parsePhpCentavos as centavos } from '../../domain/money';
+import { answerOfficeQuery } from '../offices/assistant';
 
 const normalize = (value: string) =>
   value
@@ -96,6 +97,7 @@ export function answerDirectoryQuery(
   query: string,
   places: readonly Place[],
   saved: SavedState,
+  researchAnswer?: (query: string, places: readonly Place[]) => AssistantPayload[] | null,
 ): AssistantPayload[] {
   const text = normalize(query);
   // Defer before destination matching, saved lookups or menu retrieval. Even an
@@ -123,7 +125,9 @@ export function answerDirectoryQuery(
     /\b(hours|open now|rating|ratings|review|reviews|parking availability|weather|busy|reservation)\b/.test(
       text,
     )
-  )
+  ) {
+    const research = researchAnswer?.(query, places);
+    if (research) return research;
     return [
       {
         kind: 'capability',
@@ -131,6 +135,11 @@ export function answerDirectoryQuery(
         text: 'Live opening status, availability and reviews are not recorded. View a place’s recorded details and sources.',
       },
     ];
+  }
+  const officeAnswer = answerOfficeQuery(query, places);
+  if (officeAnswer) return officeAnswer;
+  const research = researchAnswer?.(query, places);
+  if (research) return research;
   const isMenu =
     /\b(menu|menus|dish|dishes|under|budget|price|prices|allergen|allergens|vegan|vegetarian|gluten)\b/.test(
       text,

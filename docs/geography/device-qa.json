@@ -1,0 +1,786 @@
+{
+  "date": "2026-10-15",
+  "status": "PARTIAL_PHYSICAL_QA_INTERNAL_PREVIEW",
+  "usb_permission": {
+    "granted": true,
+    "source": "Direct user reply: Yes, USB debugging is available now",
+    "installation_retry": "Direct user reply: Ready\u2014retry and I\u2019ll approve on the phone"
+  },
+  "usb_used": true,
+  "reference_device": {
+    "model": "2311DRK48G",
+    "reported_family": "POCO (AI owner report)",
+    "android": "16",
+    "sdk": 36,
+    "screen_px": [
+      1220,
+      2712
+    ],
+    "density_dpi": 480,
+    "serial_sha256": "6f251a4daa6c4a0930e2ec76ee7d4d250f69864f57d7cb32412116025d11327e"
+  },
+  "apk_verification": {
+    "receipt": "docs/geography/apk-verification-r2.json",
+    "sha256": "5ec17823073e1f69d7cf66c6da1bd87d27f5b7a40cc4c3ea568eac108777c8ef",
+    "apk_sha256": "c1229809c1897c5c2b5b8958e5c2bf53695b55baaba173c5d23d6fd771534c3d"
+  },
+  "baseline_artifact": null,
+  "cases": [
+    {
+      "id": "GEX6-geography-01",
+      "suite": "geography",
+      "scenario": "Mandatory physical anchor locations",
+      "result": "PARTIAL",
+      "evidence": [
+        ".g/gex-device-r1/cold-launch.png",
+        ".g/gex-device-r1/northeast-pan.png",
+        ".g/gex-device-r1/gex-details-arabica.png"
+      ],
+      "notes": "Named district anchors render; individual physical building/part identification is not complete."
+    },
+    {
+      "id": "GEX6-geography-02",
+      "suite": "geography",
+      "scenario": "High Street to Uptown pan",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/cold-launch.png",
+        ".g/gex-device-r1/northeast-pan.png"
+      ],
+      "notes": "High Street to Uptown/Mitsukoshi pan; existing airplane mode1/Wi-Fi0."
+    },
+    {
+      "id": "GEX6-geography-03",
+      "suite": "geography",
+      "scenario": "Central BGC to SM Aura pan",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/cold-launch.png",
+        ".g/gex-device-r1/flat.png"
+      ],
+      "notes": "Central district and Aura render in both presentation modes."
+    },
+    {
+      "id": "GEX6-geography-04",
+      "suite": "geography",
+      "scenario": "SM Aura to Market Market pan",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/central-pan.png",
+        ".g/gex-device-r1/southern-pan.png"
+      ],
+      "notes": "Market Market/Aura regional panning without observed missing tiles."
+    },
+    {
+      "id": "GEX6-geography-05",
+      "suite": "geography",
+      "scenario": "Cross-zone approved building search and focus",
+      "result": "BLOCKED",
+      "evidence": [
+        ".g/gex-device-r1/gex-search-arabica.png",
+        ".g/gex-device-r1/expanded-details.xml"
+      ],
+      "notes": "Actual expanded approved projection absent. Candidate search/details passed separately; not approved-location validation."
+    },
+    {
+      "id": "GEX6-geography-06",
+      "suite": "geography",
+      "scenario": "Boundary and exterior residential exclusions",
+      "result": "PARTIAL",
+      "evidence": [
+        ".g/gex-device-r1/outside.png",
+        ".g/gex-device-r1/outside-ui.xml"
+      ],
+      "notes": "Far outside warning verified; all four exact fringe identities tested on host, not individually located on device."
+    },
+    {
+      "id": "GEX6-geography-07",
+      "suite": "geography",
+      "scenario": "Camera tile-edge and layer transitions",
+      "result": "PARTIAL",
+      "evidence": [
+        ".g/gex-device-r1/flat.png",
+        ".g/gex-device-r1/gex-details-arabica.png"
+      ],
+      "notes": "Panning and camera/flat transition observed; new requested no-flattening correction is not in this frozen APK."
+    },
+    {
+      "id": "GEX6-offline-01",
+      "suite": "offline",
+      "scenario": "Reviewed resource install",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/install.log",
+        ".g/gex-device-r1/install-retry-1.log"
+      ],
+      "notes": "First Android install rejected; explicit user-approved retry succeeded."
+    },
+    {
+      "id": "GEX6-offline-02",
+      "suite": "offline",
+      "scenario": "Coordinated airplane-mode cold launch",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/airplane-before.log",
+        ".g/gex-device-r1/wifi-before.log",
+        ".g/gex-device-r1/first-cold-launch.log",
+        ".g/gex-device-r1/initial-app-log.log"
+      ],
+      "notes": "Fresh installation launched and fully rendered while existing airplane mode1/Wi-Fi0 remained unchanged."
+    },
+    {
+      "id": "GEX6-offline-03",
+      "suite": "offline",
+      "scenario": "Pan all zones without network",
+      "result": "PARTIAL",
+      "evidence": [
+        ".g/gex-device-r1/flat.png",
+        ".g/gex-device-r1/northeast-pan.png",
+        ".g/gex-device-r1/central-pan.png",
+        ".g/gex-device-r1/southern-pan.png"
+      ],
+      "notes": "Major north/central/south district traversals captured; exhaustive zone-by-zone pass not claimed."
+    },
+    {
+      "id": "GEX6-offline-04",
+      "suite": "offline",
+      "scenario": "Approved search and details without network",
+      "result": "BLOCKED",
+      "evidence": [
+        ".g/gex-device-r1/gex-search-arabica.png",
+        ".g/gex-device-r1/expanded-details.xml"
+      ],
+      "notes": "Candidate historical search/details work offline and explicitly say Candidate/not verified. No approved expanded input supplied."
+    },
+    {
+      "id": "GEX6-offline-05",
+      "suite": "offline",
+      "scenario": "Map and Assistant switching",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": null
+    },
+    {
+      "id": "GEX6-offline-06",
+      "suite": "offline",
+      "scenario": "Background resume",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/resume-gex.log",
+        ".g/gex-device-r1/resumed-gex.png"
+      ],
+      "notes": "Resumed separate GEX app after background/interruption; not a controlled long-duration memory benchmark."
+    },
+    {
+      "id": "GEX6-offline-07",
+      "suite": "offline",
+      "scenario": "Restart and persistent resources",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/restart-1.log",
+        ".g/gex-device-r1/cold-samples.json",
+        ".g/gex-device-r1/final-offline-map.png"
+      ],
+      "notes": "Repeated process-cold restarts use existing offline resources; all three sampled full-map events observed."
+    },
+    {
+      "id": "GEX6-integrity-01",
+      "suite": "integrity",
+      "scenario": "Corrupt archive recovery",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-integrity-02",
+      "suite": "integrity",
+      "scenario": "Missing sprite or glyph",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-integrity-03",
+      "suite": "integrity",
+      "scenario": "Manifest checksum mismatch",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-integrity-04",
+      "suite": "integrity",
+      "scenario": "Incompatible map and directory scope",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-integrity-05",
+      "suite": "integrity",
+      "scenario": "Interrupted installation",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-integrity-06",
+      "suite": "integrity",
+      "scenario": "Storage-exhaustion failure in isolated test data",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-integrity-07",
+      "suite": "integrity",
+      "scenario": "Stale or invalid manifest",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-integrity-08",
+      "suite": "integrity",
+      "scenario": "Restore previous valid pack",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "Physical injection not performed in the non-debuggable release sandbox. Host corruption/recovery contract tests remain separate evidence."
+    },
+    {
+      "id": "GEX6-regression-01",
+      "suite": "regression",
+      "scenario": "High Street search",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/gex-search-arabica.png",
+        ".g/gex-device-r1/expanded-details.xml"
+      ],
+      "notes": "Existing historical internal-preview search verified; candidate status retained."
+    },
+    {
+      "id": "GEX6-regression-02",
+      "suite": "regression",
+      "scenario": "Selected-place highlighting",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/gex-details-arabica.png"
+      ],
+      "notes": "Selected-place pin/ring/name and camera focus observed."
+    },
+    {
+      "id": "GEX6-regression-03",
+      "suite": "regression",
+      "scenario": "Map gestures",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/flat.png",
+        ".g/gex-device-r1/northeast-pan.png",
+        ".g/gex-device-r1/outside.png"
+      ],
+      "notes": "Pan and explicit Flat/2.5D toggle observed; pinch zoom not exercised in this receipt."
+    },
+    {
+      "id": "GEX6-regression-04",
+      "suite": "regression",
+      "scenario": "Sheet camera padding",
+      "result": "PASS",
+      "evidence": [
+        ".g/gex-device-r1/gex-details-arabica.png",
+        ".g/gex-device-r1/expanded-details.png"
+      ],
+      "notes": "Selected marker and attribution stay above collapsed/expanded sheet."
+    },
+    {
+      "id": "GEX6-regression-05",
+      "suite": "regression",
+      "scenario": "Manual origin and optional location",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": null
+    },
+    {
+      "id": "GEX6-regression-06",
+      "suite": "regression",
+      "scenario": "Saved places isolation and persistence",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": null
+    },
+    {
+      "id": "GEX6-regression-07",
+      "suite": "regression",
+      "scenario": "Existing content-pack recovery",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": null
+    },
+    {
+      "id": "GEX6-regression-08",
+      "suite": "regression",
+      "scenario": "TalkBack and text scaling",
+      "result": "PARTIAL",
+      "evidence": [
+        ".g/gex-device-r1/initial-ui.xml",
+        ".g/gex-device-r1/expanded-details.xml",
+        ".g/gex-device-r1/a11y-services.log",
+        ".g/gex-device-r1/font-scale.log"
+      ],
+      "notes": "Physical semantics include historical status and selected-place labels. TalkBack disabled; font0.9 unchanged; spoken walkthrough/large-text not run."
+    },
+    {
+      "id": "GEX6-regression-09",
+      "suite": "regression",
+      "scenario": "No-route policy",
+      "result": "PARTIAL",
+      "evidence": [
+        ".g/gex-device-r1/expanded-details.xml",
+        ".g/gex-device-r1/final-offline-map.png"
+      ],
+      "notes": "No automatic route activation observed; source/runtime walking-core denial passes host tests, full manual-origin UI flow not run."
+    },
+    {
+      "id": "GEX6-contention-01",
+      "suite": "contention",
+      "scenario": "AI unloaded",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "No selected production AI runtime in this GEX preview; separate AI experiments have their own device owner/evidence."
+    },
+    {
+      "id": "GEX6-contention-02",
+      "suite": "contention",
+      "scenario": "AI loaded idle if approved tested runtime exists",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "No selected production AI runtime in this GEX preview; separate AI experiments have their own device owner/evidence."
+    },
+    {
+      "id": "GEX6-contention-03",
+      "suite": "contention",
+      "scenario": "AI generation with map if architecture permits",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "No selected production AI runtime in this GEX preview; separate AI experiments have their own device owner/evidence."
+    },
+    {
+      "id": "GEX6-contention-04",
+      "suite": "contention",
+      "scenario": "Map and AI lifecycle switching",
+      "result": "NOT_RUN",
+      "evidence": [],
+      "notes": "No selected production AI runtime in this GEX preview; separate AI experiments have their own device owner/evidence."
+    }
+  ],
+  "metrics": {
+    "cold_start_ms": {
+      "fresh_activity_total": 858,
+      "process_cold_resources_warm": [
+        295,
+        379,
+        249
+      ]
+    },
+    "first_full_map_ms": {
+      "device_command_to_map_fully_rendered": [
+        1278.9,
+        1161.6,
+        1096.6
+      ],
+      "note": "Device-clock interval includes command dispatch; 3 samples, not a statistical budget or pilot comparison."
+    },
+    "frame_time_distribution_ms": {
+      "android_ui_p50": 5,
+      "android_ui_p95": 15,
+      "android_ui_p99": 36,
+      "frames": 283,
+      "janky_frames": 5,
+      "note": "Final Android UI gfxinfo sample; not native map-engine FPS or a comparable pilot baseline."
+    },
+    "memory_bytes": {
+      "final_total_pss": 295789568,
+      "final_total_rss": 423911424
+    },
+    "map_pack_bytes": 869711,
+    "tile_decode_loading": null,
+    "search_p50_ms": null,
+    "search_p95_ms": null,
+    "camera_latency_ms": null,
+    "crashes_anrs": {
+      "observed_app_fatal_or_anr": 0,
+      "note": "No matching app-scoped fatal/ANR in collected logs; vendor nonfatal messages exist, not exhaustive stress evidence."
+    },
+    "battery_thermal_trends": null
+  },
+  "screenshots": [
+    ".g/gex-device-r1/cold-launch.png",
+    ".g/gex-device-r1/flat.png",
+    ".g/gex-device-r1/northeast-pan.png",
+    ".g/gex-device-r1/central-pan.png",
+    ".g/gex-device-r1/southern-pan.png",
+    ".g/gex-device-r1/outside.png",
+    ".g/gex-device-r1/gex-search-arabica.png",
+    ".g/gex-device-r1/gex-details-arabica.png",
+    ".g/gex-device-r1/expanded-details.png",
+    ".g/gex-device-r1/final-offline-map.png"
+  ],
+  "logs": [
+    ".g/gex-device-r1/a11y-services.log",
+    ".g/gex-device-r1/airplane-after.log",
+    ".g/gex-device-r1/airplane-before.log",
+    ".g/gex-device-r1/android.log",
+    ".g/gex-device-r1/battery-after.log",
+    ".g/gex-device-r1/battery-before.log",
+    ".g/gex-device-r1/cold-sample-1-app.log",
+    ".g/gex-device-r1/cold-sample-1.log",
+    ".g/gex-device-r1/cold-sample-2-app.log",
+    ".g/gex-device-r1/cold-sample-2.log",
+    ".g/gex-device-r1/cold-sample-3-app.log",
+    ".g/gex-device-r1/cold-sample-3.log",
+    ".g/gex-device-r1/density.log",
+    ".g/gex-device-r1/device.log",
+    ".g/gex-device-r1/devices.log",
+    ".g/gex-device-r1/final-frames.log",
+    ".g/gex-device-r1/final-memory.log",
+    ".g/gex-device-r1/final-packages.log",
+    ".g/gex-device-r1/first-cold-launch.log",
+    ".g/gex-device-r1/font-scale.log",
+    ".g/gex-device-r1/gex-package-before.log",
+    ".g/gex-device-r1/gex-uid.log",
+    ".g/gex-device-r1/initial-app-log.log",
+    ".g/gex-device-r1/initial-frames.log",
+    ".g/gex-device-r1/initial-memory.log",
+    ".g/gex-device-r1/initial-ui-dump.log",
+    ".g/gex-device-r1/install-retry-1.log",
+    ".g/gex-device-r1/install.log",
+    ".g/gex-device-r1/packages-before.log",
+    ".g/gex-device-r1/post-pan-app.log",
+    ".g/gex-device-r1/restart-1.log",
+    ".g/gex-device-r1/resume-gex.log",
+    ".g/gex-device-r1/screen.log",
+    ".g/gex-device-r1/sdk.log",
+    ".g/gex-device-r1/wifi-after.log",
+    ".g/gex-device-r1/wifi-before.log"
+  ],
+  "parent_decision": "ACCEPT_OBSERVED_SCENARIOS_ONLY_NOT_READY_FOR_RELEASE_REVIEW",
+  "note": "Observed physical results for exact frozen internal preview only. Candidate facts remain candidate. Full GEX-6 and release gates remain open; latest height fix is a separate pending current build.",
+  "device_session_coordination": {
+    "owner_during_tests": "GEX after Offices acknowledged hold",
+    "released_to": "Offices; explicit release sent after metrics and force-stopping only com.omnibgc.gexpreview",
+    "airplane_before_after": "1/1",
+    "wifi_before_after": "0/0",
+    "other_omni_packages_preserved": true
+  },
+  "limitations": [
+    "No reviewed expanded approved directory input",
+    "No full physical integrity-injection, saved-state, manual-origin, TalkBack or large-text walkthrough",
+    "No equivalent pilot performance baseline or prolonged thermal/battery workload",
+    "Initial 20-second recording is 70,268,283 bytes on device, but host pull timed out at 22,413,312 bytes; incomplete video excluded",
+    "Approval-review usage failure interrupted testing; retried through normal approval after user continue",
+    "Resume initially targeted a stale non-GEX screen: exact inserted text was removed, captures renamed invalid-target-* and excluded; later actions use fresh foreground/package guards",
+    "Frozen APK c122... does not include later actual-scope callback, office-expiry binding or user full-height correction"
+  ],
+  "evidence_index": [
+    {
+      "path": ".g/gex-device-r1/a11y-services.log",
+      "bytes": 6,
+      "sha256": "abdfbffecbe18ed94df9829819e596ee285b52a94aa108514452a9121721c789"
+    },
+    {
+      "path": ".g/gex-device-r1/airplane-after.log",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".g/gex-device-r1/airplane-before.log",
+      "bytes": 3,
+      "sha256": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04"
+    },
+    {
+      "path": ".g/gex-device-r1/android.log",
+      "bytes": 4,
+      "sha256": "b7a33ec2d3fa6748259d5a72ed976b7308fa7355fd99818bc0dc12fece595277"
+    },
+    {
+      "path": ".g/gex-device-r1/battery-after.log",
+      "bytes": 793,
+      "sha256": "3ccc79242c3f8e47e39a18242aeaf64a4eebc115335cb814bad07085f649382b"
+    },
+    {
+      "path": ".g/gex-device-r1/battery-before.log",
+      "bytes": 795,
+      "sha256": "4a5c4268fa6dfa1457ae7b11575ac1e94c0bb5487d385c8b769d4aa962d7d86f"
+    },
+    {
+      "path": ".g/gex-device-r1/central-pan.png",
+      "bytes": 1268596,
+      "sha256": "01cd1044315e3b690d26d022081fff87c5868210cbc39cc94d7c80b3c0e67992"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-launch.png",
+      "bytes": 1375660,
+      "sha256": "91e7c982fc963a67d4a4aa698cb86419645f9901796e2e3373e7a8dc6ac865e6"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-sample-1-app.log",
+      "bytes": 110315,
+      "sha256": "8d2478b7a5ca08853fb707b5e6c47c9c444cdaf4cabd1e28d012608dffc0da6a"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-sample-1.log",
+      "bytes": 190,
+      "sha256": "8cf61dfaaf1a0c03fda93d127dd6eb0927df0c1041bea64386939381f2e3e243"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-sample-2-app.log",
+      "bytes": 150972,
+      "sha256": "1a14e89dcf388c0d68ed5bc0d7daa9ae9ece7e423ee34dd6da62a693211a9d6a"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-sample-2.log",
+      "bytes": 190,
+      "sha256": "d00622dd8feb832db8a5434e3094f1688db8400ed77c0bdba0f5305071098205"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-sample-3-app.log",
+      "bytes": 192007,
+      "sha256": "107be9e04cba51ce2a8a1f219a7a14db1891166d86fef3ae3b8ecd62f67a3357"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-sample-3.log",
+      "bytes": 190,
+      "sha256": "8730a0e7837ff493d963f593a4168351514808b9792777172885425ba0f58403"
+    },
+    {
+      "path": ".g/gex-device-r1/cold-samples.json",
+      "bytes": 461,
+      "sha256": "b788aca57b188c32debcb3a74eb1add33dca5333b31fac4797a69550d43f1f49"
+    },
+    {
+      "path": ".g/gex-device-r1/density.log",
+      "bytes": 23,
+      "sha256": "fd77756641a0a99e1f13c171717236744a43ecb504695b2d01c886aa83cd18e5"
+    },
+    {
+      "path": ".g/gex-device-r1/device.log",
+      "bytes": 12,
+      "sha256": "e77e5151182b1b9995edf44684e0de1b3ce68040e198b9ad1aa9e68938695af6"
+    },
+    {
+      "path": ".g/gex-device-r1/devices.log",
+      "bytes": 129,
+      "sha256": "6773497eb379813fad1d194a81d4b1cc236ee260e702207723cee12e9aafa8e3"
+    },
+    {
+      "path": ".g/gex-device-r1/expanded-details.png",
+      "bytes": 665431,
+      "sha256": "adb0c231537676cebe17110a5a2ca09189c740a578a545bbe0cc7143b0b50b8f"
+    },
+    {
+      "path": ".g/gex-device-r1/expanded-details.xml",
+      "bytes": 18681,
+      "sha256": "4d925965fbe0633d0fc53e991a95ff999c91079151e372f5909c8c34efae4119"
+    },
+    {
+      "path": ".g/gex-device-r1/final-frames.log",
+      "bytes": 45759,
+      "sha256": "4251b877aebf397f910edb629f605894f911301a126edbdf0bde99eda2ce4aee"
+    },
+    {
+      "path": ".g/gex-device-r1/final-memory.log",
+      "bytes": 3484,
+      "sha256": "a16f73c6a886dd04efbe09d7bba4b0f18b11b88550b299f0ff485fb37c63e080"
+    },
+    {
+      "path": ".g/gex-device-r1/final-offline-map.png",
+      "bytes": 1375146,
+      "sha256": "9e670a19e767790afe6f77311d2bb80933a2fc3e8ad1e36c4d4273783a6db072"
+    },
+    {
+      "path": ".g/gex-device-r1/final-offline-map.xml",
+      "bytes": 18375,
+      "sha256": "7d1f72a29f2cf9ef826b13c3b0599b14a527431e1f6e03e29af3fcf11a4fb5d9"
+    },
+    {
+      "path": ".g/gex-device-r1/final-packages.log",
+      "bytes": 32,
+      "sha256": "42b1bff1acb6394a02f35ece89ccad895202e849c7a737387c154800775d6686"
+    },
+    {
+      "path": ".g/gex-device-r1/first-cold-launch.log",
+      "bytes": 183,
+      "sha256": "d0b973bc266ec5a4c97e654b5b532383a2d11dedcf02936cea0900cafc1b0fce"
+    },
+    {
+      "path": ".g/gex-device-r1/flat.png",
+      "bytes": 1652162,
+      "sha256": "de1651a80a33d0d49102586309802d38d3febc8b49b1277c50491103d0e0ab21"
+    },
+    {
+      "path": ".g/gex-device-r1/font-scale.log",
+      "bytes": 5,
+      "sha256": "9eeba7455c5955b0f59bee74d64e367c81168583d195bad6e3873953ff45c42d"
+    },
+    {
+      "path": ".g/gex-device-r1/gex-details-arabica.png",
+      "bytes": 798522,
+      "sha256": "b7cd4b97934714584896a35484711d3129ed973456cc0ec62e993bb1fb67c584"
+    },
+    {
+      "path": ".g/gex-device-r1/gex-details-arabica.xml",
+      "bytes": 11506,
+      "sha256": "7ca4899b161163bc935c5c680e7f6c08e30616656d835216a5844569a720b60b"
+    },
+    {
+      "path": ".g/gex-device-r1/gex-package-before.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".g/gex-device-r1/gex-search-arabica.png",
+      "bytes": 930817,
+      "sha256": "0094e5b1c818bace7b9042d15dcb95413f6e2525c8672a22f9574767eec5cbc1"
+    },
+    {
+      "path": ".g/gex-device-r1/gex-search-arabica.xml",
+      "bytes": 18290,
+      "sha256": "5e93075cce576baa0170f97e482acc4dd3f5324fc910621e7584a5aec0468cab"
+    },
+    {
+      "path": ".g/gex-device-r1/gex-uid.log",
+      "bytes": 42,
+      "sha256": "d0c4b7abf8c871a2bf2efe866bea90005087cdf6e12e1bcc05c2ca3f50e6d7af"
+    },
+    {
+      "path": ".g/gex-device-r1/initial-app-log.log",
+      "bytes": 40828,
+      "sha256": "9a8e869863d1feeaf9e7693c5976c3a09e31d68bcf9effbfeb6cbc979d3052e9"
+    },
+    {
+      "path": ".g/gex-device-r1/initial-frames.log",
+      "bytes": 47456,
+      "sha256": "61b1491f679172f37fab9567dab1cfd7c3e688c64a8196050160d1605ab5abfc"
+    },
+    {
+      "path": ".g/gex-device-r1/initial-memory.log",
+      "bytes": 3483,
+      "sha256": "7d09a6f91858f0edb219a2966ffcb5ea20602b314d30d72abb5c83050652fcd3"
+    },
+    {
+      "path": ".g/gex-device-r1/initial-ui-dump.log",
+      "bytes": 59,
+      "sha256": "459bd65ed05e4341a2cba8b7e6c26e7ea8009b036d1ddee09c24433ac2ce5a45"
+    },
+    {
+      "path": ".g/gex-device-r1/initial-ui.xml",
+      "bytes": 18375,
+      "sha256": "7d1f72a29f2cf9ef826b13c3b0599b14a527431e1f6e03e29af3fcf11a4fb5d9"
+    },
+    {
+      "path": ".g/gex-device-r1/install-retry-1.log",
+      "bytes": 181,
+      "sha256": "c99cc38e17a8b234027f5180ba5a086c8ce9b88eb646ad64d9613dd6080d9034"
+    },
+    {
+      "path": ".g/gex-device-r1/install.log",
+      "bytes": 240,
+      "sha256": "8a59517af1270b3ea4cfbddc2cbd96614adfa622edbb633aa423263da6fe0f22"
+    },
+    {
+      "path": ".g/gex-device-r1/northeast-pan.png",
+      "bytes": 1133877,
+      "sha256": "62e3f0899dd8b603484a83efd3d4b0fdfca7975d83152be3b339bd6dc5f26157"
+    },
+    {
+      "path": ".g/gex-device-r1/outside-ui.xml",
+      "bytes": 19106,
+      "sha256": "045b418e82485574a4b94f9065158fca83dbaefdd4758b29a2fb267463651a58"
+    },
+    {
+      "path": ".g/gex-device-r1/outside.png",
+      "bytes": 131968,
+      "sha256": "5b95b233453f322a897d6e86913b114c02c85f382e19981aca980837a2d651a3"
+    },
+    {
+      "path": ".g/gex-device-r1/packages-before.log",
+      "bytes": 129,
+      "sha256": "1e38706c3b21ae6323fb1dabdf06480c07a558ab8ae9a8a9c611afea990142f8"
+    },
+    {
+      "path": ".g/gex-device-r1/pan-ui.xml",
+      "bytes": 18372,
+      "sha256": "72b1aeae6dba340ece8b76e438ba244a93e6f0281722352ea4d15dba0fb68acb"
+    },
+    {
+      "path": ".g/gex-device-r1/post-pan-app.log",
+      "bytes": 46934,
+      "sha256": "6d75db5b264d9c0891c986cf3126380ce67c8087cb8a5a69feb5d39d2f35e0b0"
+    },
+    {
+      "path": ".g/gex-device-r1/recording.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".g/gex-device-r1/restart-1.log",
+      "bytes": 183,
+      "sha256": "73fd327b4fb1d42831ce94f4168e87b6de5ee7aa953945c45d10d181520560ea"
+    },
+    {
+      "path": ".g/gex-device-r1/resume-gex.log",
+      "bytes": 285,
+      "sha256": "8a09689073fc59b560ced262bd8aad6f829bb76a5a72726a504b5e65d2fc1364"
+    },
+    {
+      "path": ".g/gex-device-r1/resumed-gex.png",
+      "bytes": 365825,
+      "sha256": "43d73efee566028d7baf1761eac8a664733cdc39fbae1bb06a6bed800a981d58"
+    },
+    {
+      "path": ".g/gex-device-r1/resumed-gex.xml",
+      "bytes": 28400,
+      "sha256": "0999ae906d0bceecff134fc44b88e51e35ead9300aaf73f0879927d0a8fe83e2"
+    },
+    {
+      "path": ".g/gex-device-r1/screen.log",
+      "bytes": 26,
+      "sha256": "d8b2a0de17e48752a36793b5b4621b53b228a59a5e0a62203ffe1d7bfd5f73f9"
+    },
+    {
+      "path": ".g/gex-device-r1/sdk.log",
+      "bytes": 4,
+      "sha256": "0a6b5e02cbe592ef9285db1440db99874166326dff103608c6dfd5068ec714f5"
+    },
+    {
+      "path": ".g/gex-device-r1/search-open.png",
+      "bytes": 352142,
+      "sha256": "69e159ae7639e45cb0f555769c0d14f0ef041ef8e5aac119bdd77ccf331458cb"
+    },
+    {
+      "path": ".g/gex-device-r1/search-open.xml",
+      "bytes": 29189,
+      "sha256": "80b4493b1230b00622f5a1866d60f74ad81ce987aeddea15ad5718be8ac5deb3"
+    },
+    {
+      "path": ".g/gex-device-r1/southern-pan.png",
+      "bytes": 863874,
+      "sha256": "aef70331c3940d7fdc86fb1045238c4f27aad21c3c7bf56f3e9dcc361d24b8f2"
+    },
+    {
+      "path": ".g/gex-device-r1/wifi-after.log",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": ".g/gex-device-r1/wifi-before.log",
+      "bytes": 3,
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    }
+  ],
+  "result_counts": {
+    "PARTIAL": 6,
+    "PASS": 11,
+    "BLOCKED": 2,
+    "NOT_RUN": 16
+  }
+}

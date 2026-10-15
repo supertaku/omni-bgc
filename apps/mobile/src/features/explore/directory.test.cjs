@@ -5,7 +5,8 @@ const {test}=require('node:test');
 const entry=(id,name,category)=>({id,name,category,coordinate:[121.05,14.55],aliases:[],entrances:[],menus:[],citations:[],status:'candidate'});
 const historical=[entry('historical','Test Coffee','Coffee'),entry('branch','Test Food','Food')];
 const js=ts.transpileModule(fs.readFileSync(path.join(__dirname,'directory.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
-const context={exports:{},require:id=>id.includes('demoDirectory')?{demoPlaces:[]}:historical};vm.runInNewContext(js,context);
+const offices=require('../../../../../tests/helpers/load-ts.cjs').loadTs('apps/mobile/src/features/offices/service.ts');
+const context={exports:{},require:id=>id.includes('demoDirectory')?{demoPlaces:[]}:id.includes('food/directory')?{foodPlaces:[],foodSearchText:()=>[]}:id.includes('offices/service')?offices:historical};vm.runInNewContext(js,context);
 const {browsingPlaces,searchDirectory,matchesCategory}=context.exports;
 test('browsing preserves source status and reviewed IDs without promoting records',()=>{
   const approved={...entry('historical','Reviewed Coffee','cafe'),status:'approved'};

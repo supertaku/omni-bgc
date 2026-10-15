@@ -37,7 +37,10 @@ def dashboard(db,research=None,now=None):
 
 def render(report):
     pieces=['<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Local candidate review</title><style>body{font:16px system-ui;margin:2rem;color:#10243a}table{border-collapse:collapse;width:100%;margin-bottom:2rem}th,td{padding:.6rem;border:1px solid #bbb;text-align:left;vertical-align:top;overflow-wrap:anywhere;min-width:8rem;max-width:25rem}caption{text-align:left;font-weight:700;font-size:1.2rem;padding:.5rem}p{max-width:75ch}pre{white-space:pre-wrap;min-width:22rem;font-size:.85rem}summary{cursor:pointer}:focus-visible{outline:3px solid #0769c2;outline-offset:3px}</style><h1>Local candidate review</h1><p>Read-only. Candidate records are not approved public inventory.</p>']
-    for title in ('coverage_summary','research_sources','research_candidates','identity_reviews','coverage_matrix','sources','queue','facts','evidence','missing_premises','unverified_entrances','menu_reviews','freshness_reviews'):
+    if 'office_candidates' in report:
+        from offices_view import FILTERS
+        pieces.append(FILTERS)
+    for title in ('office_discovery_coverage','office_discovery_observations','office_review_identities','office_review_history','office_summary','office_districts','office_candidates','office_buildings','office_sources','office_identity_reviews','office_rejected','coverage_summary','research_sources','research_candidates','identity_reviews','coverage_matrix','sources','queue','facts','evidence','missing_premises','unverified_entrances','menu_reviews','freshness_reviews'):
         if title not in report:continue
         records=report[title]
         if not records:pieces.append('<h2>'+title+'</h2><p>No records.</p>');continue
@@ -45,25 +48,48 @@ def render(report):
         compact={
           'research_sources':('source_id','owner','canonical_url','review_status'),
           'research_candidates':('candidate_id','name','category','zone_id','source_id','status'),
+          'office_candidates':('company_name','industry_raw','district','building_name','floor_raw','evidence_strength_raw','publication_state'),
+          'office_sources':('source_id','canonical_url','review_status'),
+          'office_buildings':('building_label','district_code','tenant_leads','identity_status','research_coverage'),
         }
         keys=[k for k in compact.get(title,all_keys) if k in all_keys]
         extra=[k for k in all_keys if k not in keys]
         labels=keys+(['Evidence and rights'] if extra else [])
-        pieces.append('<div style="overflow:auto" tabindex="0" role="region" aria-label="'+html.escape(title)+'"><table><caption>'+html.escape(title.replace('_',' '))+'</caption><thead><tr>'+''.join('<th scope="col">'+html.escape(k.replace('_',' '))+'</th>' for k in labels)+'</tr></thead><tbody>')
+        pieces.append('<div style="overflow:auto" tabindex="0" role="region" aria-label="'+html.escape(title)+'"><table id="'+html.escape(title,quote=True)+'"><caption>'+html.escape(title.replace('_',' '))+'</caption><thead><tr>'+''.join('<th scope="col">'+html.escape(k.replace('_',' '))+'</th>' for k in labels)+'</tr></thead><tbody>')
         for r in records:
             cells=''.join('<td>'+html.escape('Unknown' if r.get(k) is None else str(r.get(k,'')))+'</td>' for k in keys)
             if extra:
                 cells+='<td><details><summary>View metadata</summary><pre>'+html.escape(json.dumps({k:r[k] for k in extra if k in r},ensure_ascii=False,indent=2))+'</pre></details></td>'
-            pieces.append('<tr>'+cells+'</tr>')
+            attributes=''
+            if title=='office_candidates':
+                attributes=' data-district="'+html.escape(r.get('district') or '',quote=True)+'" data-strength="'+html.escape(r.get('evidence_strength_raw') or '',quote=True)+'"'
+            pieces.append('<tr'+attributes+'>'+cells+'</tr>')
         pieces.append('</tbody></table></div>')
-    pieces.append('<p>'+html.escape(report['instructions'])+'</p></html>')
+    pieces.append('<p>'+html.escape(report['instructions'])+'</p>')
+    if 'office_candidates' in report:
+        from offices_view import SCRIPT
+        pieces.append(SCRIPT)
+    pieces.append('</html>')
     return ''.join(pieces)
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--db',required=True);parser.add_argument('--output',required=True);parser.add_argument('--research');parser.add_argument('--now');args=parser.parse_args()
-    path=Path(args.db).resolve();out=Path(args.output).resolve()
-    with sqlite3.connect(path.as_uri()+'?mode=ro',uri=True) as db:
-        db.execute('PRAGMA query_only=ON');report=dashboard(db,json.loads(Path(args.research).read_text(encoding='utf-8')) if args.research else None,args.now)
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--db');parser.add_argument('--output',required=True);parser.add_argument('--research');parser.add_argument('--now');parser.add_argument('--offices',help='Ignored research import-report.json');args=parser.parse_args()
+    if not args.db and not args.offices:parser.error('--db or --offices required')
+    if not args.db and (args.research or args.now):parser.error('--research/--now require --db')
+    out=Path(args.output).resolve()
+    if args.db:
+        path=Path(args.db).resolve()
+        with sqlite3.connect(path.as_uri()+'?mode=ro',uri=True) as db:
+            db.execute('PRAGMA query_only=ON');report=dashboard(db,json.loads(Path(args.research).read_text(encoding='utf-8')) if args.research else None,args.now)
+    else:
+        report={'mode':'LOCAL_READ_ONLY_REVIEW','automatic_promotion':False,'publishing':False,'instructions':'Office rows are research only. Review identity, current presence, building/floor, geography, exact source-use permissions and parent release gates separately.'}
+    if args.offices:
+        from offices_view import read
+        office_path=Path(args.offices).resolve()
+        private=(Path(__file__).resolve().parents[3]/'data/generated/offices').resolve()
+        if not office_path.is_relative_to(private) or not out.is_relative_to(private) or out==private:
+            parser.error('Office input/output must stay below ignored data/generated/offices/')
+        report.update(read(office_path))
     out.mkdir(parents=True,exist_ok=True)
     (out/'review.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8');(out/'review.html').write_text(render(report),encoding='utf-8')
 if __name__=='__main__':main()

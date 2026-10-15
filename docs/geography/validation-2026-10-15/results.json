@@ -1,0 +1,138 @@
+{
+  "date": "2026-10-15",
+  "results": [
+    {
+      "name": "gis-tests",
+      "argv": [
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\pipelines\\map-pack\\.venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/data-quality/gex",
+        "-p",
+        "test_ingest.py"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/gis-tests.log"
+    },
+    {
+      "name": "scope-tests",
+      "argv": [
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\pipelines\\map-pack\\.venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "tests/data-quality/gex/test_scope.py"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/scope-tests.log"
+    },
+    {
+      "name": "directory-export-tests",
+      "argv": [
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\pipelines\\map-pack\\.venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/data-quality/gex",
+        "-p",
+        "test_geographic_export.py"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/directory-export-tests.log"
+    },
+    {
+      "name": "map-pack-tests",
+      "argv": [
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\pipelines\\map-pack\\.venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/map/expansion"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/map-pack-tests.log"
+    },
+    {
+      "name": "geographic-verifier",
+      "argv": [
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\pipelines\\map-pack\\.venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "pipelines/gis/expansion/validate_geography.py",
+        "--output",
+        "data/generated/m4/comprehensive/geography/gex-geography-r2"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/geographic-verifier.log"
+    },
+    {
+      "name": "offline-pack-check",
+      "argv": [
+        "node",
+        "pipelines/map-pack/check-expansion.mjs",
+        "data/generated/map-pack/gex-candidate-r4"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/offline-pack-check.log"
+    },
+    {
+      "name": "mobile-gex",
+      "argv": [
+        "node",
+        "--test",
+        "tests/map/expansion/mobile-scope.test.cjs",
+        "tests/map/expansion/resource-loader.test.cjs",
+        "tests/map/expansion/bundled-install.test.cjs",
+        "tests/data-quality/gex/directory-entities.test.cjs",
+        "tests/data-quality/gex/store-geography.test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/mobile-gex.log"
+    },
+    {
+      "name": "mobile-contracts",
+      "argv": [
+        "node",
+        "tests/data-quality/mobile/contracts.mjs"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/mobile-contracts.log"
+    },
+    {
+      "name": "integrity-routing-startup",
+      "argv": [
+        "node",
+        "--test",
+        "tests/refactoring/pack-integrity.test.cjs",
+        "tests/routing/mobile/loader.test.cjs",
+        "tests/routing/mobile/engine.test.cjs",
+        "tests/data-quality/mobile/startup.test.cjs"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/integrity-routing-startup.log"
+    },
+    {
+      "name": "mobile-typecheck",
+      "argv": [
+        "node",
+        "apps/mobile/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "-p",
+        "apps/mobile/tsconfig.json"
+      ],
+      "exit_code": 0,
+      "log": "docs/geography/validation-2026-10-15/mobile-typecheck.log"
+    }
+  ],
+  "passed": true,
+  "native_device_tested": false
+}

@@ -1,0 +1,87 @@
+{
+  "files": [
+    {
+      "bytes": 360696,
+      "path": "building-evidence.json",
+      "sha256": "ad69e83a5975dcd27cc85995f6665310aa80caa66cee5d8fdd8c9b9915cdc68c"
+    },
+    {
+      "bytes": 9721,
+      "path": "environment-evidence.json",
+      "sha256": "2371021cea1e6892d20833e8f26aef8d4fd8742565148f25e72a1e17c91cec28"
+    },
+    {
+      "bytes": 121664,
+      "path": "fonts/Noto Sans Regular/0-255.pbf",
+      "sha256": "d47eaf55568cbc8405cefe5ed1aca915738940a65a276bcb693ba52b825ec6f7"
+    },
+    {
+      "bytes": 98595,
+      "path": "fonts/Noto Sans Regular/8192-8447.pbf",
+      "sha256": "f3a52a1fa7934c2f6a2512cee2da560f455ab26a8e6d5070e28c1a9da5eae0da"
+    },
+    {
+      "bytes": 869711,
+      "path": "gex.pmtiles",
+      "sha256": "9203eb4852fa02e88362e7d3063669581cf7dad2668b4e19dc2914a7aff6478c"
+    },
+    {
+      "bytes": 2355,
+      "path": "landmark-label-evidence.json",
+      "sha256": "e39f0eac1d60776eb74d368907b409be2bdc34273a2ba2d1b9a1415aea0e0511"
+    },
+    {
+      "bytes": 4377,
+      "path": "OFL.txt",
+      "sha256": "0dab92d0544f7b233403f14b84a663bdbfa746982eda629e7f4f9ffe1b036feb"
+    },
+    {
+      "bytes": 227,
+      "path": "OSM-NOTICE.txt",
+      "sha256": "28cdcead14cc1333b59ee388ea1620b0065b375f1a755372688361deddd28ba5"
+    },
+    {
+      "bytes": 3170,
+      "path": "sprite.json",
+      "sha256": "b189d44c0b1d8ac12790345300e0ed80fa35462ca7e7cf075759023c8bbd9a0e"
+    },
+    {
+      "bytes": 76068,
+      "path": "sprite.png",
+      "sha256": "005ac480118c5139024ebde449e409e911dd19cc153f320de1e8fc87344d14ab"
+    },
+    {
+      "bytes": 3272,
+      "path": "sprite@2x.json",
+      "sha256": "aba8779d63b9515bf6763ce64a422f370631cdbce402491c918dc4b30ff4e9ee"
+    },
+    {
+      "bytes": 146083,
+      "path": "sprite@2x.png",
+      "sha256": "2ab3d7154800cdff40080d74dec89356ef63fad753fbf25df213e66c9c92f709"
+    },
+    {
+      "bytes": 9460,
+      "path": "style.json",
+      "sha256": "f8935f46fdfe7ecbab83faf187292b5182d15eabec4d38ef0bf7b4289d65c227"
+    },
+    {
+      "bytes": 31859,
+      "path": "tile-audit.json",
+      "sha256": "854f02d3c14d25a4f523ca1f13163ec33d4b0b7fa916849852b02d7d716f287e"
+    }
+  ],
+  "glyphRanges": [
+    "0-255",
+    "8192-8447"
+  ],
+  "fontStacks": [
+    "Noto Sans Regular"
+  ],
+  "packSha256": "a132ab8faa0d64c510122d9c963f1e4fedb5c3d4a711a8ced29476a879b795ad",
+  "styleSha256": "f8935f46fdfe7ecbab83faf187292b5182d15eabec4d38ef0bf7b4289d65c227",
+  "scopeId": "omni-bgc:service-area:bgc-commercial-v2",
+  "scopeManifestSha256": "f6cbcc7b33ad4a53821858dc4c3c56e13f30997aad082fcb9fb189eddc5f9db9",
+  "internalApprovalSha256": "4a094b15e17cfbbe403b83916d9a83ace6051cc6e3740c74a36edebc50e5794b",
+  "sourceFactStatus": "CANDIDATE_HISTORICAL"
+}
