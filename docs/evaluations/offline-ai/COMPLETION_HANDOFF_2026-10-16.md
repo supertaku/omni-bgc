@@ -2,7 +2,8 @@
 
 **Current decision: NOT_RELEASE_READY. C0–C2 are ACCEPT_HOST; D0 device preflight
 and authorized installation PASS. D1 found user-message clipping requiring repair;
-D2–D6 actual model acceptance remains pending.**
+D2–D6 actual model acceptance remains pending. U1 was host-reviewed and installed
+but failed physical clipping retest after owner unlock. U2 candidate is in preparation.**
 
 Branch `codex/offline-ai-native-recovery`; source recovery commit
 `00f2446692eaebde15087d51e1e078c559ab5fe9`. No push, main merge or publication.
@@ -26,7 +27,7 @@ No second AI layer, new runtime, business data, permission or UX redesign was ad
 | Native JVM tests | 7/7 PASS in each independently audited release |
 | D0 USB/device identity | PASS after explicit owner authorization; single expected POCO, isolated install, protected package metadata unchanged |
 | D1 model-less physical app/map smoke | Functional checks supported; CHANGES_REQUESTED for visually clipped user messages |
-| D2 actual artifact/import/smoke/activation | NOT_RUN; no model download or installation performed during this run |
+| D2 actual artifact/import/smoke/activation | NOT_RUN; owner authorized PC download/USB import after D1; host free-space preflight stopped before any model bytes transferred |
 | D3 native streaming/cancel/idle/reload | NOT_RUN |
 | D4 actual tools/actions/history/120 prompts | NOT_RUN; real model semantic accuracy NOT_EVALUATED |
 | D5 offline/memory/thermal/accessibility | Model-loaded performance/accessibility NOT_RUN; device and map-only baseline measurements recorded separately |
@@ -39,6 +40,15 @@ Package `com.omnibgc.aipreview`, ARM64, minSDK 26/targetSDK 36, internal Android
 signature, backup/debug disabled and unchanged permissions. No model weights bundled.
 Both independent binary audits pass. See [C2 report](C2_REPRODUCIBLE_BUILD.md) for
 exact source/APK receipts, commands, versions, warnings and reproducibility limits.
+
+Installed UI repair candidate U1 supersedes C2 for further physical tests:
+`.g/c2/.g/ai-host-u1/Omni-BGC-AI-preview-arm64.apk`, **62,063,898 bytes**,
+SHA256 `d6e4de7d07e656aabc662ca9c3106532097f69f32dddf3db3711d1e99faaf209`;
+source commit `1d00e89e52bd1f77a7959e8dfd5673db7c0ffda6`.
+Independent artifact audit and seven native tests PASS; **physical clipping repair
+FAIL** in both live and restored messages. Owner unlocked the phone; no lock bypass
+or settings change was attempted. U2 uses explicit bubble width to avoid the
+unchanged intrinsic measurement path. See [repair evidence](D1_CLIPPED_USER_MESSAGES.md).
 
 ## Device authorization history and accepted preflight
 
@@ -59,7 +69,8 @@ not an inference benchmark. Model controls report NOT_INSTALLED and disabled act
 
 Owner authorization and install receipts are in `.g/ai-m10/d0/`; the earlier
 `authorization-blocked.json` remains historical evidence. Model download/import
-consent and device-wide settings changes remain separate. See
+consent was subsequently received as **"Authorize PC download and USB import"**,
+conditional on D1 repair passing. Device-wide settings authorization remains separate. See
 [D1 defect](D1_CLIPPED_USER_MESSAGES.md) before continuing model setup.
 
 ## Remaining acceptance and limitations

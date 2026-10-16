@@ -164,7 +164,11 @@ export class AgentOrchestrator {
       const selected = new Set<ToolName>(
         isGeneralConversation(userText) ? [] : ['find_places', 'get_place_details'],
       );
-      if (/\b(menu|dish|food|under|budget|price|kape|pagkain|presyo)\b|₱/i.test(userText))
+      if (
+        /\b(menus?|dish(?:es)?|food|under|budget|prices?|pricing|how\s+much|magkano|kape|pagkain|presyo)\b|₱/i.test(
+          userText,
+        )
+      )
         selected.add('find_menu_items');
       if (/\b(office|company|companies|tenant|building)\b/i.test(userText)) {
         selected.add('find_approved_offices');

@@ -11,7 +11,7 @@ export const assistantStyles = StyleSheet.create({
   body:{fontFamily:'OmniBody',fontSize:16,lineHeight:24,color:palette.ink},
   heading:{fontFamily:'OmniHeading',fontSize:16,lineHeight:22,color:palette.ink},
   timeline:{padding:12,gap:8,paddingBottom:12},
-  userRow:{alignItems:'flex-end'},userBubble:{maxWidth:'92%',paddingHorizontal:13,paddingVertical:9,backgroundColor:palette.blue,borderRadius:22,borderBottomRightRadius:7},userText:{fontFamily:'OmniBody',fontSize:16,lineHeight:24,color:'#FFFFFF'},
+  userRow:{alignItems:'flex-end'},userBubble:{width:'92%',paddingHorizontal:13,paddingVertical:9,backgroundColor:palette.blue,borderRadius:22,borderBottomRightRadius:7},userText:{fontFamily:'OmniBody',fontSize:16,lineHeight:24,color:'#FFFFFF'},
   assistantBubble:{paddingHorizontal:10,paddingVertical:8,borderRadius:12,backgroundColor:'#ECEFED'},
   collection:{gap:6},collectionTitle:{fontFamily:'OmniBodySemiBold',fontSize:13,lineHeight:19,color:palette.muted,letterSpacing:0.3},
   card:{backgroundColor:palette.surface,borderRadius:14,borderWidth:1,borderColor:'#E3E0D8',overflow:'hidden',gap:0},cardBody:{padding:12,gap:6},

@@ -106,3 +106,59 @@ Overall remains NOT_RELEASE_READY: no model weights downloaded, real local infer
   2588147712 bytes / SHA18193810…9a63c / Apache2.0 match preserved pin. No weights
   downloaded or imported. Asked explicit host-download/USB-import consent so the
   phone can retain existing offline settings. See D1_CLIPPED_USER_MESSAGES.md.
+
+## October 16, 2026 — U1 installed; physical verification awaits owner unlock
+
+- Committed minimal bubble repair as `1d00e89e52bd1f77a7959e8dfd5673db7c0ffda6`.
+  Fresh clean-clone U1 release passed 705 tasks in 5m36s, native tests 7/7,
+  static verifier and independent source/binary audit. APK SHA256
+  `d6e4de7d07e656aabc662ca9c3106532097f69f32dddf3db3711d1e99faaf209`.
+  The attempted combined Git commit/fetch was rejected by automatic review for
+  untrusted fetch origin/FETCH_HEAD. Nothing executed. Verified local clone origin,
+  committed separately and fetched/checked out the exact pinned SHA from the
+  explicitly verified local repository; safe retries succeeded.
+- Parent accepted U1 for physical testing and updated only the authorized preview.
+  Install Success; other Omni package metadata/connectivity settings unchanged.
+  Phone had locked during the build. Wake revealed keyguard; requested owner unlock,
+  did not bypass it. No physical layout acceptance, model transfer or inference yet.
+  Private capture helpers now reject a visible keyguard before any UI capture.
+- Owner explicitly authorized PC model download and USB import after D1 passes.
+  Full host-download free-space guard failed before any model bytes transferred;
+  only C: is available, approximately 0.4 GB free after U1. A bounded PC-mediated
+  USB stream into an owned staging file is prepared for independent review, with
+  pinned source/byte/SHA checks on both PC and phone; activation remains separate.
+- Reclaimed only the new clean-clone dependency input copy (427,275,492 bytes,
+  reinstallable from the pinned lockfile/local npm cache). Active U1 stage and root
+  dependencies preserved. No native source, asset, APK, ZIP, R4, mapping or receipt
+  was removed. Independently reviewed ordinary NTFS compression of the two completed
+  C2 staging directories is running to recover allocation while preserving bytes.
+  Record completion/error/hash results before treating recovered space as final.
+
+## October 16, 2026 — U1 physical rejection; U2 reviewed candidate
+
+- Owner replied "done" to unlock request and asked to continue. Installed APK
+  phone-side SHA exactly matches U1. Parent and independent screenshot review
+  confirm trailing-word clipping still occurs in restored and new office queries;
+  U1 repair REJECTED. Actual evidence is `u1-restored-assistant.png`,
+  `u1-live-office.png`, XML and `u1-installed-hash.json` under private D1 evidence.
+  No model transfer/import/inference; D1 remains CHANGES_REQUESTED.
+- Independent review recommends replacing only maxWidth92% with explicit width92%.
+  This avoids shrink-to-content measurement; short user bubbles widen, while font,
+  padding, right alignment and natural height remain. U2 physical gate must prove
+  full short and multiline text, live and after restart. Parent accepts the small
+  width tradeoff for the candidate, not as evidence the defect is fixed.
+- Independent evaluation-key work exposed a separate host visibility defect:
+  "How much is it?", plural price/menu/dish terms and "Magkano iyon?" could not
+  offer the approved menu tool. Reproduced denial before the narrow regex repair.
+  Three added behavioral tests exercise real orchestration/retrieval with controlled
+  proposals; supported questions dispatch while explicit research exclusion and
+  unsolicited general-chat proposals remain denied. No tool/schema/authorization
+  expansion beyond recognizing existing supported menu intents.
+- Combined AI/UI regressions 157/157 PASS; TypeScript and focused lint PASS.
+  Formatter initially rejected the long regex; formatted the exact touched source
+  and test, then reran the format gate before source freeze. Independent source
+  review ACCEPT_HOST_CANDIDATE conditional on formatting and updated status docs.
+- C2 ordinary NTFS compression completed. Parent hash audit PASS for both APKs,
+  ZIPs, receipts, 751 frozen sources, logs, registry/configuration, source maps and
+  dependency locks. Original R4 untouched; no CMake evidence pruned. Logical/stored
+  byte totals and private commands are recorded in D1_CLIPPED_USER_MESSAGES.md.
