@@ -6,11 +6,13 @@
 > `7e224f32d87eb2920097c14afa64467fec93ef260895953e89c6b62508f45679`;
 > its own source/APK receipts replace R4 as the proposed installation artifact.
 > Preserve R4's historical artifacts and erratum. Automatic approval review blocked
-> the read-only D0 probe before execution for missing explicit owner USB/ADB consent.
-> No phone state is known. Obtain that permission before any ADB retry and explicit
-> preview-install/settings permission as applicable. See [current handoff](COMPLETION_HANDOFF_2026-10-16.md).
+> the first read-only D0 probe before execution for missing explicit owner USB/ADB
+> consent. The owner then explicitly authorized USB/ADB testing and preview install;
+> D0 passed and the preview is installed. D1 found clipped user bubbles; repair and
+> physically verify that defect before model activation. Download/import and
+> device-wide settings consent remain separate. See [current handoff](COMPLETION_HANDOFF_2026-10-16.md).
 
-Prepared October 16, 2026 (Asia/Manila). **NOT_RUN.** Execute only after the final M9 host artifact is accepted, the owner makes the POCO X6 Pro available, and explicitly authorizes USB/ADB in this chat. This document is not permission to inspect a phone. No device inventory, installation, model inference or USB command was performed during M0–M9.
+Prepared October 16, 2026 (Asia/Manila). **Current: D0 PASS; D1 CHANGES_REQUESTED for text clipping; D2–D6 NOT_RUN.** The owner explicitly authorized USB/ADB testing and isolated preview installation after host acceptance. This document alone is not permission to inspect a phone; retain the actual consent receipt. No physical activity occurred during the earlier M0–M9 host implementation.
 
 ## Frozen inputs and privacy
 

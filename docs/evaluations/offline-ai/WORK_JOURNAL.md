@@ -83,3 +83,26 @@ Overall remains NOT_RELEASE_READY: no model weights downloaded, real local infer
   No command executed, device accessed, install, model download or settings change.
   D0 BLOCKED_OWNER_AUTHORIZATION; D1–D6 NOT_RUN. Request owner authorization after
   finishing the concrete APK/host handoff. Overall NOT_RELEASE_READY.
+## October 16, 2026 — Owner-authorized D0 and D1 clipping investigation
+
+- Owner explicitly replied "Authorize USB/ADB testing and preview installation".
+  Authorized retry found exactly one expected POCO, Android16/API36/ARM64;
+  sanitized device/install evidence is in `.g/ai-m10/d0/`. Installed verified C2
+  APK only; existing Offices preview metadata unchanged. Original airplane1 /
+  Wi-Fi0 / mobile-data0 preserved. No other package, settings or model touched.
+- D1 native screenshots and XML prove offline historical map/Flat/pan, Assistant,
+  26 research menu matches/caveats, empty approved offices/saved list, walking
+  refusal and restored local historical messages. Initial PSS321044KiB/RSS454488KiB
+  is app/map baseline only. A test-helper Back press returned to Map after Send
+  had already dismissed the keyboard; corrected capture/navigation, no app fix.
+- Independent screenshot review reproduced visually missing final words in two
+  user messages, including after restart; XML retains full strings. D1 remains
+  CHANGES_REQUESTED before model activation. Candidate removes only inner padded
+  bubble View and applies existing bubble styles to Text so wrapping/padding share
+  one measured node. Appearance/labels/typography/contracts unchanged; root-cause
+  hypothesis must be verified physically in a new APK. Existing 38 UI/hook tests
+  pass; no host-only structural test is presented as an Android layout proof.
+- Exact model revision metadata freshly fetched from public Hub API: expected
+  2588147712 bytes / SHA18193810…9a63c / Apache2.0 match preserved pin. No weights
+  downloaded or imported. Asked explicit host-download/USB-import consent so the
+  phone can retain existing offline settings. See D1_CLIPPED_USER_MESSAGES.md.

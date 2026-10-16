@@ -1,7 +1,8 @@
 # Offline AI completion handoff — October 16, 2026 (Asia/Manila)
 
-**Final current decision: NOT_RELEASE_READY. C0–C2 are ACCEPT_HOST; D0–D6 remain
-unexecuted pending explicit owner USB/ADB authorization.**
+**Current decision: NOT_RELEASE_READY. C0–C2 are ACCEPT_HOST; D0 device preflight
+and authorized installation PASS. D1 found user-message clipping requiring repair;
+D2–D6 actual model acceptance remains pending.**
 
 Branch `codex/offline-ai-native-recovery`; source recovery commit
 `00f2446692eaebde15087d51e1e078c559ab5fe9`. No push, main merge or publication.
@@ -23,12 +24,12 @@ No second AI layer, new runtime, business data, permission or UX redesign was ad
 | AI Node contracts | 135/135 PASS; controlled host tests, not model answers |
 | Python build/source-control | 15/15 PASS after new test-fixture cleanup repair |
 | Native JVM tests | 7/7 PASS in each independently audited release |
-| D0 USB/device identity | BLOCKED_OWNER_AUTHORIZATION; attempted probe rejected before execution |
-| D1 model-less physical app/map smoke | NOT_RUN |
+| D0 USB/device identity | PASS after explicit owner authorization; single expected POCO, isolated install, protected package metadata unchanged |
+| D1 model-less physical app/map smoke | Functional checks supported; CHANGES_REQUESTED for visually clipped user messages |
 | D2 actual artifact/import/smoke/activation | NOT_RUN; no model download or installation performed during this run |
 | D3 native streaming/cancel/idle/reload | NOT_RUN |
 | D4 actual tools/actions/history/120 prompts | NOT_RUN; real model semantic accuracy NOT_EVALUATED |
-| D5 offline/memory/thermal/accessibility | NOT_RUN; all physical measurements null |
+| D5 offline/memory/thermal/accessibility | Model-loaded performance/accessibility NOT_RUN; device and map-only baseline measurements recorded separately |
 | D6 physical fixes/final regression | NOT_RUN |
 
 Selected internal APK:
@@ -39,29 +40,36 @@ signature, backup/debug disabled and unchanged permissions. No model weights bun
 Both independent binary audits pass. See [C2 report](C2_REPRODUCIBLE_BUILD.md) for
 exact source/APK receipts, commands, versions, warnings and reproducibility limits.
 
-## Device authorization blocker
+## Device authorization history and accepted preflight
 
 After C2 parent acceptance, automatic approval review rejected the read-only
 `python apps/mobile/scripts/ai-device-probe.py --output .g/ai-m10/d0/device-preflight.json`
 attempt because repository instructions require explicit owner authorization for
-USB/ADB in trusted chat messages. **The command did not execute.** Device connection,
-authorization state, model/OS/ABI/RAM, installed packages and network settings are
-unknown; no raw USB serial was read or stored. No workaround or indirect probe ran.
+USB/ADB in trusted chat messages. **That rejected command did not execute.** At
+that point all device facts were unknown; no workaround or indirect probe ran.
 
-The probe would read device properties, storage, memory, battery and thermal status.
-Obtain explicit USB/ADB permission from the owner before retrying. Preview installation
-also requires explicit permission under the owner's instructions; install only the
-selected verified package after single-device preflight passes. Device-wide settings
-and model download/import consent remain separate. Preserve other Omni apps and saves.
-Private denial receipt: `.g/ai-m10/d0/authorization-blocked.json`.
+That denial was subsequently resolved by the owner's direct reply, **"Authorize
+USB/ADB testing and preview installation"**. The authorized retry found exactly one
+POCO `2311DRK48G`, Android 16/API 36/ARM64, MemTotal 7,495,244 KiB, free storage
+103,675,160 KiB, battery 33.0 C and thermal status 0. Installed and launched only the
+verified C2 preview. Existing Offices preview package metadata stayed unchanged.
+Phone was already airplane=1, Wi-Fi=0, mobile data=0; settings were preserved.
+Initial map-only PSS was 321,044 KiB / RSS 454,488 KiB; this is a single baseline,
+not an inference benchmark. Model controls report NOT_INSTALLED and disabled activation.
+
+Owner authorization and install receipts are in `.g/ai-m10/d0/`; the earlier
+`authorization-blocked.json` remains historical evidence. Model download/import
+consent and device-wide settings changes remain separate. See
+[D1 defect](D1_CLIPPED_USER_MESSAGES.md) before continuing model setup.
 
 ## Remaining acceptance and limitations
 
-Continue [M10 runbook](M10_DEVICE_RUNBOOK.md) in D0–D6 order after authorization.
+Continue [M10 runbook](M10_DEVICE_RUNBOOK.md) in D0–D6 order under the recorded
+authorization, after repairing and verifying D1. Model setup/settings consent is separate.
 First prove no-model map/search/fallback, then explicit pinned model setup and real
 CPU smoke, streaming/cancellation/native idle/reload, tools and confirmation flows,
 real 120-question adjudication, offline restart, performance, thermal and accessibility.
-No native or performance defect was established from a phone in this session.
+No native-inference or model-performance defect has been established; D1 has an observed Android text-layout defect.
 
 Expected model (metadata only): Gemma 4 E2B Instruct, pinned revision
 `b3ca0d2f076785a8f4b2219ddbd2bdb99954eae1`, 2,588,147,712-byte `.litertlm`, SHA256

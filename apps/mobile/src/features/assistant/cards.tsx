@@ -174,11 +174,9 @@ export function MessageContent({
     case 'user':
       return (
         <View style={s.userRow}>
-          <View style={s.userBubble}>
-            <Text accessibilityLabel={`You: ${payload.text}`} style={s.userText}>
-              {payload.text}
-            </Text>
-          </View>
+          <Text accessibilityLabel={`You: ${payload.text}`} style={[s.userBubble, s.userText]}>
+            {payload.text}
+          </Text>
         </View>
       );
     case 'text':
