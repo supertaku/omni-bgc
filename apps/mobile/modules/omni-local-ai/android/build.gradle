@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+apply plugin: 'expo-module-gradle-plugin'
+
+group = 'expo.modules.omnilocalai'
+version = '0.1.0'
+
+android {
+  namespace 'expo.modules.omnilocalai'
+  defaultConfig { minSdkVersion 26; versionCode 1; versionName '0.1.0'; consumerProguardFiles 'consumer-rules.pro' }
+}
+dependencies {
+  implementation 'com.google.ai.edge.litertlm:litertlm-android:0.18.0'
+  testImplementation 'junit:junit:4.13.2'
+}
+
+// Published LiteRT message classes use Java 21 bytecode. Android code still targets
+// Expo's Java 17 compilation toolchain; only host JVM tests need a Java 21 launcher.
+tasks.withType(Test).configureEach {
+  javaLauncher = javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+}

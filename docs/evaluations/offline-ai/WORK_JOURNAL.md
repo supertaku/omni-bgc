@@ -42,3 +42,23 @@ Parent's initial independent archive-size audit failed on a real receipt defect:
 Independent final reviewer additionally checked 83 embedded authored TS/TSX sources, 24 map resources, 19 ARM64 libraries, freshsignature/manifest/permissions, seven native XML cases and immutable receipts. Final independent audit SHA256 f01716533f0e323545d1fe5c7c855619910032b8a3cff14b4324dc5761b07c80 recommends ACCEPT_HOST with explicit erratum. Optional Jinja render did not execute (missing jinja2); static template inspection and actual SDK message codec tests are distinct evidence. Two exploratory checker mistakes (ambiguoussource suffix and newline normalization) were corrected; no APK mismatch was found. Host metaspace/dependency deprecation warnings remain visible; no OOM or Kotlin metadata failure occurred.
 
 Overall remains NOT_RELEASE_READY: no model weights downloaded, real local inference/native-idle/device performance/language quality/physical UX/airplane-mode evidence. Licensed-document RAG and real factual coverage remaindata-dependent, original fallback 28/120 structural result / one flag retained. Complete M10_DEVICE_RUNBOOK.md is ready for an available phone and owner USB/ADB authorization. No physical phone activity, original installation change, main merge, push or dataset publication occurred. Changes remain local/uncommitted on codex/offline-ai-layer.
+# October 16, 2026 — C0/C1 native source recovery
+
+- Owner requested execution of the completion/POCO plan and pasted engineering
+  instructions; reuse M0–M9 and preserve all R4/private evidence. Starting clean
+  main `3fad67c`; recovery branch `codex/offline-ai-native-recovery`.
+- WHY: eight authored Android files built locally but were excluded from Git by
+  the unanchored app `android/` rule. HOW: parent and independent reviewer verified
+  every module byte against immutable R4 stage/ZIP/receipts, anchored generated
+  project ignores, staged only authored files, added index/autolinking guard and
+  negative/fresh-clone regressions. Rejected force-adding generated outputs or
+  re-authoring an already authentic module. DEC-057 records the material finding.
+- Initial R4 audit rejected two LF→CRLF script conversions after checkout; restored
+  exact Git LF bytes, strict audit then PASS; narrow attributes preserve them.
+- npm/clone sandbox failures retained; authorized cached npm restore and local
+  clone tests passed. Full quality 33/34 initially; sole new test-fixture cleanup
+  failure repaired, affected Python group rerun 15/15 PASS. Existing 135 AI tests
+  passed; semantic Gemma quality remains NOT_EVALUATED. See C0/C1 reports for
+  exact evidence paths and current tool pins. Parent accepts source recovery only.
+- C2 fresh committed-source builds pending. No device/model/ADB operation,
+  production identity change, dataset approval, merge, push or publication.

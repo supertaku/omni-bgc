@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import re
+import runpy
 from pathlib import Path
 import shutil
 import subprocess
@@ -18,11 +19,11 @@ from zipfile import ZipFile, ZIP_DEFLATED
 ROOT = Path(__file__).resolve().parents[1]
 APP = ROOT / 'apps/mobile'
 JDK = Path('C:/Program Files/Android/Android Studio/jbr')
-JDK17 = ROOT / '.g/jdks/eclipse_adoptium-17-amd64-windows.2'
+JDK17 = Path(os.environ.get('OMNI_AI_JDK17', str(ROOT / '.g/jdks/eclipse_adoptium-17-amd64-windows.2')))
 SDK = Path(os.environ.get('ANDROID_HOME', str(ROOT.parents[1] / 'AppData/Local/Android/Sdk')))
 PACKAGE = 'com.omnibgc.aipreview'
 SOURCE_ROOTS = ('apps/mobile', 'packages', 'data/manifests', 'docs/geography', 'docs/evaluations/offline-ai', 'docs/architecture', 'tests/ai', 'tests/helpers')
-SOURCE_FILES = ('scripts/build-offline-ai-host.py', 'AGENTS.md', 'docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md', 'docs/DECISION_JOURNAL.md')
+SOURCE_FILES = ('scripts/build-offline-ai-host.py', 'scripts/check-offline-ai-source.py', 'AGENTS.md', 'docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md', 'docs/DECISION_JOURNAL.md')
 
 
 def require(value, message):
@@ -60,7 +61,7 @@ def extended(path):
 
 def environment():
     result = os.environ.copy()
-    result.update(JAVA_HOME=str(JDK), ANDROID_HOME=str(SDK), ANDROID_SDK_ROOT=str(SDK), GRADLE_USER_HOME=str(ROOT / '.g'), NODE_ENV='production', EXPO_PUBLIC_NATIVE_QA='0', NODE_OPTIONS='--dns-result-order=ipv4first', EXPO_OFFLINE='1', EXPO_NO_TELEMETRY='1', CI='1', OMNI_AI_PREVIEW='1')
+    result.update(JAVA_HOME=str(JDK), ANDROID_HOME=str(SDK), ANDROID_SDK_ROOT=str(SDK), GRADLE_USER_HOME=os.environ.get('GRADLE_USER_HOME', str(ROOT / '.g')), NODE_ENV='production', EXPO_PUBLIC_NATIVE_QA='0', NODE_OPTIONS='--dns-result-order=ipv4first', EXPO_OFFLINE='1', EXPO_NO_TELEMETRY='1', CI='1', OMNI_AI_PREVIEW='1')
     return result
 
 
@@ -123,6 +124,7 @@ def staged_records(stage, records):
 
 def refresh(stage):
     require(not (stage / 'prebuild.log').exists(), 'Freeze a new stage after prebuild starts.')
+    source_control = runpy.run_path(str(ROOT / 'scripts/check-offline-ai-source.py'))['audit_index'](ROOT)
     for relative in SOURCE_ROOTS:
         source = ROOT / relative
         shutil.copytree(extended(source), extended(stage / relative), dirs_exist_ok=True,
@@ -141,6 +143,7 @@ def refresh(stage):
                'authored_sources': records, 'frozen_sources': staged_records(stage, records),
                'staging_changes': ['Remove ancestor .g Metro exclusion; preview identity set by OMNI_AI_PREVIEW=1'],
                'build_workflow_sha256': sha(Path(__file__)),
+               'native_source_control': source_control,
                'device_operations': False, 'distribution_authorized': False}
     dump(stage / 'source-receipt.json', receipt)
     print(json.dumps({'stage': str(stage), 'source_count': len(records)}), flush=True)

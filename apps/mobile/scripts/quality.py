@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 def commands():
+    yield "ai-native-source", [sys.executable, "scripts/check-offline-ai-source.py"]
     yield "typecheck", ["node", "apps/mobile/node_modules/typescript/bin/tsc", "--noEmit", "-p", "apps/mobile"]
     yield "lint", ["node", "node_modules/eslint/bin/eslint.js", "App.tsx", "index.ts", "src"]
     yield "format", ["node", "apps/mobile/scripts/format-authored.cjs"]

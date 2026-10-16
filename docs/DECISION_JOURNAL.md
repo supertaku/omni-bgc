@@ -355,3 +355,19 @@ Statuses: **ACCEPTED** (baseline), **PROVISIONAL** (needs spike), **OPEN** (awai
 - 2026-10-16 DEC-056 manual-tool protocol clarification: preserve host-validated dispatched assistant ToolCall names/arguments and named structured Content.ToolResponse observations through the pinned SDK. Host-rendered reference context is a user observation, never an unnamed tool reply. Context pressure removes whole older transcript bundles; the latest response bundle must fit or fail safely. Reject plain tool text as equivalent to the native manual-tool protocol. Four independent host continuation regressions pass; real Gemma continuation remains M10.
 
 - 2026-10-16 final parent verdict: **ACCEPT_HOST / HOST_IMPLEMENTED for M0–M9**, after independent code/artifact reviews,33 quality groups, 135 AI tests, 7 integrated Kotlin tests and the actual offline ARM64 R8 release. Required receipt erratum transparently corrects only Metro normalized size 662→655; original APK/source ZIP/receipts/workflow remain immutable and all content hashes match. Future builder size checks and 8 receipt regressions pass. Exact APK/hash, original+supplemental evidence and independent verdict are in HOST_IMPLEMENTATION_HANDOFF.md. Overall NOT_RELEASE_READY; actual inference, UX/performance/offline physical acceptance remain owner-authorized M10. No merge or publication is approved.
+### DEC-057 — Git-complete native recovery and clean-checkout gate
+- Date/authority: 2026-10-16 Asia/Manila / owner's completion-plan execution request.
+- Actual main `3fad67c` omitted all eight authored Android files because app-level
+  `android/` ignored nested module directories. Local files exactly match reviewed
+  R4 archive/staging and both receipt inventories; preserve rather than rewrite.
+- Anchor generated app platform ignores; exclude module build caches explicitly.
+  Require reviewed Git-index native blobs, worktree equality and actual Expo
+  autolinking before source freeze. Separate authorized private assets/tool caches
+  from authored source; prove a clean committed checkout independently builds.
+- Two app scripts acquired CRLF during checkout, causing the strict historical
+  audit to fail. Restored exact committed LF and narrowly preserved byte behavior;
+  no original receipt, erratum, APK or archive was modified or reissued.
+- Source recovery ACCEPT_HOST does not establish C2/device acceptance. Existing
+  LiteRT/Gemma/CPU choice remains provisional. Follow ordered C0–C2 then D0–D6;
+  explicit owner permission is required before preview install/device settings.
+  No main merge, push, public assets/model distribution or walking authorization.

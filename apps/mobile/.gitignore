@@ -2,11 +2,13 @@ node_modules/
 .expo/
 .g/
 artifacts/
-android/
-ios/
-android/.gradle/
-android/.cxx/
-android/app/build/
-android/build/
-android/local.properties
+# Expo-generated application projects only; local module source is authored.
+/android/
+/ios/
+/modules/*/android/.gradle/
+/modules/*/android/.cxx/
+/modules/*/android/build/
+/modules/*/android/.externalNativeBuild/
+/modules/*/android/local.properties
+/modules/*/android/.idea/
 *.apk
