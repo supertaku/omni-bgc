@@ -371,3 +371,10 @@ Statuses: **ACCEPTED** (baseline), **PROVISIONAL** (needs spike), **OPEN** (awai
   LiteRT/Gemma/CPU choice remains provisional. Follow ordered C0–C2 then D0–D6;
   explicit owner permission is required before preview install/device settings.
   No main merge, push, public assets/model distribution or walking authorization.
+- 2026-10-16 DEC-057 execution addendum: C1 committed as `00f2446`; parent and
+  independent reviewer ACCEPT C2 after two real new releases, including a fresh
+  committed checkout with authorized private inputs. All native tests and static
+  APK audits pass. New clean APK SHA256 `7e224f32d87eb2920097c14afa64467fec93ef260895953e89c6b62508f45679`.
+  USB preflight was rejected before execution by automatic approval review for
+  absent explicit owner authorization. No device fact or acceptance is inferred;
+  obtain direct owner consent before retrying. See current completion handoff.

@@ -62,3 +62,24 @@ Overall remains NOT_RELEASE_READY: no model weights downloaded, real local infer
   exact evidence paths and current tool pins. Parent accepts source recovery only.
 - C2 fresh committed-source builds pending. No device/model/ADB operation,
   production identity change, dataset approval, merge, push or publication.
+## October 16, 2026 — C2 accepted; D0 authorization blocked
+
+- Committed reviewed C1 source as `00f2446692eaebde15087d51e1e078c559ab5fe9`;
+  no push/merge. A zero-byte stale Git index lock blocked the first commit attempt;
+  verified no Git process was running, recorded its metadata privately and removed
+  only that exact lock. Source and earlier artifacts were preserved.
+- Built new `.g/ai-host-c2` release: 8m17s / 705 tasks / native 7 tests PASS.
+  Fresh clone `.g/c2` at the same commit passed native index checks before restoring
+  only 30 named authorized generated files and cached pinned dependencies. Its own
+  `.g/ai-host-clean` release: 7m / 705 tasks / native 7 tests PASS. Both static APK
+  verifiers and independent full source/binary/signature/permission audits PASS.
+- Parent ACCEPTS C2 REPRODUCIBLE_HOST_BUILD. Selected clean APK 62,063,914 bytes,
+  SHA256 `7e224f32d87eb2920097c14afa64467fec93ef260895953e89c6b62508f45679`.
+  Independent comparison found only build-ID section differences in five native
+  libraries; executable code/DEX/JS/assets match. Source ZIP newline/historical-doc
+  differences and retained warnings are documented in C2_REPRODUCIBLE_BUILD.md.
+- Automatic approval review rejected the proposed read-only USB/ADB probe: repo
+  instructions require explicit owner authorization in trusted chat messages.
+  No command executed, device accessed, install, model download or settings change.
+  D0 BLOCKED_OWNER_AUTHORIZATION; D1–D6 NOT_RUN. Request owner authorization after
+  finishing the concrete APK/host handoff. Overall NOT_RELEASE_READY.

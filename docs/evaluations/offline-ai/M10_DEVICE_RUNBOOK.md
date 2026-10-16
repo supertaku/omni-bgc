@@ -1,16 +1,28 @@
 # M10 — Final physical POCO acceptance runbook
 
+> **October 16 C2 recovery addendum:** source recovery and independent clean-checkout
+> build are now ACCEPT_HOST. For subsequent authorized testing use the new clean APK
+> in [C2 reproduction](C2_REPRODUCIBLE_BUILD.md), SHA256
+> `7e224f32d87eb2920097c14afa64467fec93ef260895953e89c6b62508f45679`;
+> its own source/APK receipts replace R4 as the proposed installation artifact.
+> Preserve R4's historical artifacts and erratum. Automatic approval review blocked
+> the read-only D0 probe before execution for missing explicit owner USB/ADB consent.
+> No phone state is known. Obtain that permission before any ADB retry and explicit
+> preview-install/settings permission as applicable. See [current handoff](COMPLETION_HANDOFF_2026-10-16.md).
+
 Prepared October 16, 2026 (Asia/Manila). **NOT_RUN.** Execute only after the final M9 host artifact is accepted, the owner makes the POCO X6 Pro available, and explicitly authorizes USB/ADB in this chat. This document is not permission to inspect a phone. No device inventory, installation, model inference or USB command was performed during M0–M9.
 
 ## Frozen inputs and privacy
 
-Use the exact final APK/SHA/source receipt named in [host handoff](HOST_IMPLEMENTATION_HANDOFF.md), package **`com.omnibgc.aipreview`**. Verify `Get-FileHash -Algorithm SHA256 <APK>` against that handoff before installation. Never replace, clear or uninstall `com.omnibgc.preview`, `.gexpreview` or `.officespreview`. The preview is an internal development-signed release variant, not a published production release. Keep private APKs, model binaries, recordings and logs in ignored `.g/ai-m10/`; public distribution of research/map data remains unauthorized.
+Use the exact clean-checkout APK/source receipts in [C2 reproduction](C2_REPRODUCIBLE_BUILD.md), built from commit `00f2446692eaebde15087d51e1e078c559ab5fe9`: `.g/c2/.g/ai-host-clean/Omni-BGC-AI-preview-arm64.apk`, package **`com.omnibgc.aipreview`**, 62,063,914 bytes, SHA256 **`7e224f32d87eb2920097c14afa64467fec93ef260895953e89c6b62508f45679`**. Verify `Get-FileHash -Algorithm SHA256 <APK>` against this value before installation. Never replace, clear or uninstall `com.omnibgc.preview`, `.gexpreview` or `.officespreview`. The preview is an internal development-signed release variant, not a published production release. Keep private APKs, model binaries, recordings and logs in ignored `.g/ai-m10/`; public distribution of research/map data remains unauthorized.
 
-The required host proof is the original R4 source ZIP/receipts **plus** `.g/ai-host-r4/receipt-erratum.json`, SHA256 `f0de8e76ea76b57398877f0b8621ced05dc2fc56029e6ecd4c74bfc7d8e6d87a`. It discloses the Metro size metadata correction (662 → 655 bytes); all content hashes match. Before any installation, rerun the read-only audit: `python -c "import runpy; d=runpy.run_path('scripts/audit-offline-ai-receipt-erratum.py'); print(d['audit']()['status'])"`. It checks the exact original artifacts and current application inventory. If application bytes changed, rebuild and repeat the affected host gates before using a new APK; preserve the original evidence. The corrected future build script did not build R4.
+Current host proof is the C2 clean stage's `source-receipt.json`, `frozen-source-snapshot.zip` and `apk-verification.json`, plus `.g/ai-m10/c2/independent-clean-artifact-audit.json`. Their exact hashes and independent findings are in the C2 report; no new Metro erratum is needed. Check the selected APK, native Git source and intended application source against these receipts before installation. If application bytes change, rebuild and repeat affected host gates; documentation-only handoff changes do not change the compiled application.
+
+Historical R4 evidence remains immutable: its original ZIP/receipts and required `receipt-erratum.json` (SHA256 `f0de8e76ea76b57398877f0b8621ced05dc2fc56029e6ecd4c74bfc7d8e6d87a`) document the prior Metro 662→655 byte-count correction. Its strict current-source audit passed before C1 changes, and now correctly rejects the changed application-tool inventory. It is not the installation gate for C2. Do not rewrite R4 receipts or relax its audit to accept current source.
 
 Record device API/ABI, physical RAM (8 GB target), actual available storage/memory and battery/thermal state without retaining serials or precise location. Once authorized, the existing `python apps/mobile/scripts/ai-device-probe.py --output .g/ai-m10/device-preflight.json` is a bounded read-only preflight; inspect its privacy filter before use. If more than one device is connected, stop for owner selection. Do not change device settings, collect unrelated application data, root the device or accept model/vendor gates automatically.
 
-After authorized target selection, install only the frozen preview with `adb install -r <APK>`; launch `com.omnibgc.aipreview` through its launcher. Record package/version/signature and install exit code. Keep any logcat capture restricted to the preview PID, never a whole-device log dump. Redact source/user text, serials, signed URLs, tokens and GPS from shared evidence. Screenshots/video/TalkBack involve the owner and show only this app.
+After authorized target selection and explicit owner permission to install this preview, install only the frozen preview with `adb install -r <APK>`; launch `com.omnibgc.aipreview` through its launcher. Record package/version/signature and install exit code. Keep any logcat capture restricted to the preview PID, never a whole-device log dump. Redact source/user text, serials, signed URLs, tokens and GPS from shared evidence. Screenshots/video/TalkBack involve the owner and show only this app.
 
 ## Model setup and rollback
 
