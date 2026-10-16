@@ -1,3 +1,13 @@
+> **2026-10-15 superseding instruction (DEC-056):** implement and host-verify M0–M9 before any physical phone/USB/ADB activity. LiteRT-LM/Gemma is provisional; actual inference, runtime comparison and device acceptance are deferred to M10. Earlier mandatory device-first language below is historical and no longer controls execution. See [host-first execution](../evaluations/offline-ai/HOST_FIRST_EXECUTION.md).
+
+## Current DEC-056 implementation addendum — 2026-10-16
+
+The active architecture is implemented on `codex/offline-ai-layer`; read [host handoff](../evaluations/offline-ai/HOST_IMPLEMENTATION_HANDOFF.md) for actual gates/artifacts and [M10 runbook](../evaluations/offline-ai/M10_DEVICE_RUNBOOK.md) for the final physical stage. One typed LiteRT-LM 0.18.0 runtime uses Kotlin 2.3.20 and supported R8 9.1.31, Android minSdk26/target36. CPU/Gemma 4 E2B remains provisional pending M10. Native ownership and UI settlement are separate; no timeout grants model-file mutation.
+
+Separate local AI history schema v2 adds finalized messages and bounded UUID references with additive v1 migration, summaries instead of raw factual snapshots, integrity checks and explicit clear. Source/content schemas and canonical IDs are unchanged. Model pointers live in their separate SQLite index. Confirmation-only favorites and visit-list replace/append/exact-tuple removal/reorder use current source proof, local latest-state CAS and atomic narrow writes; unresolved existing user-owned visits can be retained/reordered/removed without factual promotion. New/replacement records require current approval. Walking is still disabled.
+
+Structured retrieval, validated bounded tools, current-source cards/citations, native streaming/provider, optional model setup, Assistant UI/history and host tests are implemented. No licensed document corpus or measured embedding benefit exists: semantic RAG remains `DEFERRED_BY_DATA`. No physical model inference, device performance, language quality or production model acceptance is established. The October 11 audit below is historical, including its then-uninstalled runtime/early-device gate.
+
 # DEC-052 — Offline Assistant architecture reconciliation
 
 Date:2026-10-11 Asia/Manila. Authority: user's `docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md`. Parent **ACCEPTS the bounded architecture and retrieval foundation below** after inspecting source/diff and independently rerunning regressions. Primary runtime, model activation and complete AI milestone acceptance remain **PENDING** physical Android measurements. This decision does not authorize source publication or a main merge.

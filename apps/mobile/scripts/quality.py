@@ -17,6 +17,7 @@ def commands():
     yield "dependencies", ["node", "apps/mobile/scripts/dependency-audit.cjs", "--check"]
     yield "python-lint", [sys.executable, "-m", "ruff", "check", "."]
     yield "refactoring-python", [sys.executable, "-m", "unittest", "discover", "-v", "-s", "tests/refactoring", "-p", "test_*.py"]
+    yield "ai-host-build-python", [sys.executable, "-m", "unittest", "discover", "-v", "-s", "tests/ai", "-p", "test_*.py"]
     for name, directory in [
         ("governance", "pipelines/sources"),
         ("contracts", "tests/data-quality/m1"),
@@ -44,6 +45,7 @@ def commands():
         "itinerary": ["docs/evaluations/mobile-ui/test-itinerary.cjs"],
         "historical-routing": ["tests/routing/mobile/integration/historical-candidate.test.cjs"],
         "ai-contracts": ["tests/ai/evaluate.test.cjs"],
+        "ai-layer": sorted(str(p.relative_to(ROOT)) for p in (ROOT / "tests/ai").glob("*.test.cjs") if p.name != "evaluate.test.cjs"),
         "refactoring-js": sorted(str(p.relative_to(ROOT)) for p in (ROOT / "tests/refactoring").glob("*.test.cjs")),
     }
     for name, files in groups.items():

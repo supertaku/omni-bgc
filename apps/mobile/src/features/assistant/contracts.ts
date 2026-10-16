@@ -43,7 +43,14 @@ export type AssistantPayload =
   | { kind: 'evidence'; title: string; citations: Citation[] }
   | { kind: 'status'; text: string; severity: 'info' | 'error' }
   | { kind: 'capability'; state: CapabilityState; text: string };
-export type ConversationMessage = { id: string; payload: AssistantPayload };
+export type ConversationMessage = {
+  id: string;
+  payload: AssistantPayload;
+  /** Historical, non-executable references; always resolve current sources before use. */
+  canonicalPlaceIds?: string[];
+  /** Bounded, freshly resolved display records; never persisted or replayed as authority. */
+  sourcePlaces?: Place[];
+};
 // Legacy callbacks remain compatible with existing callers; this milestone
 // exposes only place discovery and preserves payload types for future work.
 export type AssistantActions = {

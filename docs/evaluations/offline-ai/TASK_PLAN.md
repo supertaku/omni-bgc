@@ -1,3 +1,11 @@
+> **2026-10-15 superseding instruction (DEC-056):** implement and host-verify M0–M9 before any physical phone/USB/ADB activity. LiteRT-LM/Gemma is provisional; actual inference, runtime comparison and device acceptance are deferred to M10. Earlier mandatory device-first language below is historical and no longer controls execution. See [host-first execution](HOST_FIRST_EXECUTION.md).
+
+## Active execution status — 2026-10-16
+
+Use [host-first plan](HOST_FIRST_EXECUTION.md), [final host handoff](HOST_IMPLEMENTATION_HANDOFF.md) and [M10 runbook](M10_DEVICE_RUNBOOK.md). Current checkout is `codex/offline-ai-layer`; the October 11 checkout/early-device sequencing below is historical. M0–M8 code and focused independent reviews are complete. M9 includes 33/33 host quality command groups and 131/131 AI tests; the final R3 offline Android release/static artifact gate is in progress and its exact outcome is recorded in the host handoff. AI-6 passage/embedding work is deferred absent lawful sources/benefit. AI-10 physical acceptance is strictly the last milestone, NOT_RUN. No USB/ADB availability probe is a prerequisite for software work.
+
+## Historical October 11 task plan
+
 # Offline AI task plan — 2026-10-11
 
 Authority: user's attached implementation plan, preserved verbatim at `docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md`. It supersedes the pre-AI prohibition; no public publication/main integration is authorized. Work stays on the existing `codex/ux-v2.1` checkout and preserves its staged changes. Haki is reference-only.

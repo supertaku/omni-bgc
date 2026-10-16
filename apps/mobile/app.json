@@ -13,6 +13,6 @@
       "permissions": ["android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"]
     },
     "ios": {"bundleIdentifier": "com.omnibgc.preview", "infoPlist": {"NSLocationWhenInUseUsageDescription": "Use your location on the map only when you request it. Explore without location permission."}},
-    "plugins": ["@maplibre/maplibre-react-native", ["expo-sqlite", {"enableFTS": true, "customBuildFlags": "-DSQLITE_ENABLE_RTREE=1", "withSQLiteVecExtension": false}], ["expo-location", {"locationWhenInUsePermission": "Use your location on request for the map. Explore without location permission.", "isAndroidBackgroundLocationEnabled": false, "isAndroidForegroundServiceEnabled": false}], "./plugins/withOfflinePilot.cjs"]
+    "plugins": ["@maplibre/maplibre-react-native", ["expo-sqlite", {"enableFTS": true, "customBuildFlags": "-DSQLITE_ENABLE_RTREE=1", "withSQLiteVecExtension": false}], ["expo-location", {"locationWhenInUsePermission": "Use your location on request for the map. Explore without location permission.", "isAndroidBackgroundLocationEnabled": false, "isAndroidForegroundServiceEnabled": false}], "./plugins/withOfflinePilot.cjs", "./plugins/withLocalAi.cjs"]
   }
 }

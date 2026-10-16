@@ -27,6 +27,8 @@
 /apps/mobile/package.json -text
 /apps/mobile/package-lock.json -text
 /docs/TOOL_RATIONALE.md -text
+/docs/geography/internal-pack-approval.json -text
+/apps/mobile/modules/** -text
 
 # Exact reviewed Windows text may retain CRLF; still reject actual spaces/tabs.
 /apps/mobile/src/** whitespace=cr-at-eol

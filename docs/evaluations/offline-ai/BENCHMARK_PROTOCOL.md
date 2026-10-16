@@ -1,3 +1,9 @@
+> **2026-10-15 superseding instruction (DEC-056):** implement and host-verify M0–M9 before any physical phone/USB/ADB activity. LiteRT-LM/Gemma is provisional; actual inference, runtime comparison and device acceptance are deferred to M10. Earlier mandatory device-first language below is historical and no longer controls execution. See [host-first execution](HOST_FIRST_EXECUTION.md).
+
+## Scheduling and implementation update — 2026-10-16
+
+This is now the M10 physical comparison/acceptance protocol, executed after host software completion. LiteRT-LM 0.18.0/Gemma 4 E2B is provisionally implemented and host-compiled; production suitability and physical performance selection remain unaccepted. No actual preflight/inventory is authorized before M10. Use [device runbook](M10_DEVICE_RUNBOOK.md) for the exact preview identity, verified-artifact preconditions, metrics and all functional/adversarial scenarios. Earlier absence-of-phone results below remain historical; they do not block M0–M9. Current native/orchestration deadlines and final artifact are in the host handoff/runbook.
+
 # Physical Android runtime decision protocol
 
 Status: **NOT_RUN**. `device-preflight.json` records zero connected phones. This protocol is an experiment specification, not a runnable native inference harness or performance result. Implement each isolated candidate harness after compatibility review; retain measurement code when the selected provider is integrated.

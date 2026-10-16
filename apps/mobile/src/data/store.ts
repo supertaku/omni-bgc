@@ -18,6 +18,14 @@ import { parseOfficeDetails } from './offices';
 import { loadOfficeProjection } from './office-store';
 import { replaceOfficeDirectory, currentOfficePlaces } from '../features/offices/service';
 import { reviewedScope, pilotScope, coversCoordinate, type MapScope } from '../map/scope';
+import {
+  approvedPlaceFingerprint,
+  projectSavedPatch,
+  savedFingerprint,
+  requiredPatchSources,
+  type SavedPatch,
+  type SavedSourceGuard,
+} from './savedPatch';
 
 const own = serialOwner();
 let local: SQLite.SQLiteDatabase | null = null;
@@ -277,6 +285,57 @@ export function saveSaved(state: SavedState): Promise<void> {
     } catch (e) {
       await db.execAsync('ROLLBACK');
       throw e;
+    }
+  });
+}
+/** Atomic compare-and-patch: unrelated favorites/settings are never replaced. */
+export function applySavedPatch(
+  expected: string,
+  patch: SavedPatch,
+  expiresAt: number,
+  expectedSources: SavedSourceGuard[],
+): Promise<SavedState> {
+  return work(async () => {
+    const db = await ensure();
+    await db.execAsync('BEGIN IMMEDIATE');
+    try {
+      const before = await readSaved(db);
+      // Re-read current source SQL under the same serialized owner as the commit.
+      // Calling exported getPlaceDetails here would deadlock this queue.
+      const current = await allPlaces();
+      const next = projectSavedPatch(before, patch);
+      const ids = requiredPatchSources(before, patch);
+      if (
+        expectedSources.length > 40 ||
+        ids.some((id) => !expectedSources.some((source) => source.placeId === id)) ||
+        expectedSources.some((source) => {
+          const place = current.find((p) => p.id === source.placeId);
+          return !place || source.fingerprint !== approvedPlaceFingerprint(place);
+        })
+      )
+        throw new Error('Source changed. Request a fresh preview.');
+      if (Date.now() >= expiresAt || savedFingerprint(before) !== expected)
+        throw new Error('Saved state changed or confirmation expired. Request a fresh preview.');
+      if (patch.kind === 'favorite') {
+        await run(db, 'DELETE FROM local_favorite WHERE place_id=?', [patch.placeId]);
+        if (patch.saved) await run(db, 'INSERT INTO local_favorite VALUES(?)', [patch.placeId]);
+      } else {
+        await run(db, 'DELETE FROM local_itinerary');
+        for (let i = 0; i < next.itinerary.length; i++)
+          await run(db, 'INSERT INTO local_itinerary VALUES(?,?,?)', [
+            i,
+            next.itinerary[i].placeId,
+            next.itinerary[i].durationMinutes,
+          ]);
+      }
+      const committed = await readSaved(db);
+      if (savedFingerprint(committed) !== savedFingerprint(next))
+        throw new Error('Saved-state verification failed');
+      await db.execAsync('COMMIT');
+      return committed;
+    } catch (cause) {
+      await db.execAsync('ROLLBACK');
+      throw cause;
     }
   });
 }

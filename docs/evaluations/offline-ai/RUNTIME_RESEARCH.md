@@ -1,3 +1,5 @@
+> **2026-10-15 superseding instruction (DEC-056):** implement and host-verify M0–M9 before any physical phone/USB/ADB activity. LiteRT-LM/Gemma is provisional; actual inference, runtime comparison and device acceptance are deferred to M10. Earlier mandatory device-first language below is historical and no longer controls execution. See [host-first execution](HOST_FIRST_EXECUTION.md).
+
 # Offline AI runtime research — AI-0 / AI-1
 
 Recorded 2026-10-11 (Asia/Manila). Research-only; runtime decision **PENDING physical Android benchmark and parent ACCEPT**. No inference dependencies, native modules or weights were installed by this assignment. Haki was read only. This record consolidates research so implementation does not repeat it.

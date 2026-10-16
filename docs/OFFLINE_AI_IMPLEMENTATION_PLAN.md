@@ -1,3 +1,5 @@
+> **2026-10-15 superseding instruction (DEC-056):** implement and host-verify M0–M9 before any physical phone/USB/ADB activity. LiteRT-LM/Gemma is provisional; actual inference, runtime comparison and device acceptance are deferred to M10. Earlier mandatory device-first language below is historical and no longer controls execution. See [host-first execution](evaluations/offline-ai/HOST_FIRST_EXECUTION.md).
+
 # OMNI-BGC — COMPLETE OFFLINE AI ENGINEERING IMPLEMENTATION PLAN
 
 ## Role and Mission

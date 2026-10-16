@@ -1,3 +1,11 @@
+> **2026-10-15 superseding instruction (DEC-056):** implement and host-verify M0–M9 before any physical phone/USB/ADB activity. LiteRT-LM/Gemma is provisional; actual inference, runtime comparison and device acceptance are deferred to M10. Earlier mandatory device-first language below is historical and no longer controls execution. See [host-first execution](HOST_FIRST_EXECUTION.md).
+
+## Current handoff — 2026-10-16
+
+Read [complete host implementation handoff](HOST_IMPLEMENTATION_HANDOFF.md) for current implementation, reviews, exact tests/artifacts, failed attempts and limitations. Read [final device-testing runbook](M10_DEVICE_RUNBOOK.md) only after owner authorization and phone availability. M0–M9 host work precedes every physical USB/ADB action. The initial partial report below is retained as historical evidence; its early-device blocker and unstarted-code statuses no longer describe the software checkout. It is not overwritten with fabricated device passes.
+
+## Historical October 11 handoff
+
 # Offline AI parent handoff — 2026-10-11
 
 **Overall: PARTIAL; blocked at the required physical runtime gate.** This is the first bounded implementation handoff, not the final AI delivery. Unsandboxed ADB reports0 connected Android devices. No selected/installed inference runtime, active model, local generation/streaming, native AI measurement or new AI APK exists yet. Existing UX V2.1 APK/work remains preserved.

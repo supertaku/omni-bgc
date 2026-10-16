@@ -19,6 +19,7 @@ import { toggleSavedPlace } from '../data';
 import { officeSavedLabel } from '../features/offices/service';
 import { officeFocus, officeMapPlaces, setOfficeMapScope } from '../features/offices/map';
 import type { MapScope } from '../map/scope';
+import { coversCoordinate } from '../map/scope';
 import { AssistantScreen } from '../features/assistant/AssistantScreen';
 import { FloatingChatButton, MapChrome } from '../features/explore/MapChrome';
 import { PlacePeek } from '../features/explore/PlaceDetails';
@@ -38,6 +39,7 @@ export function Application() {
   const [flat, setFlat] = useState(false),
     [bodyHeight, setBodyHeight] = useState(0),
     [sheetHeight, setSheetHeight] = useState(0);
+  const [assistantCritical, setAssistantCritical] = useState(false);
   const [mapStatus, setMapStatus] = useState<{ state: string; detail?: string }>({
     state: 'preparing',
   });
@@ -73,7 +75,7 @@ export function Application() {
     setQuery,
     setCategory,
     setReturnPanel,
-  } = useExplorerNavigation(confirming, installing);
+  } = useExplorerNavigation(confirming || assistantCritical, installing);
   const open = (next: Panel) => {
     setError('');
     setMessage('');
@@ -232,7 +234,7 @@ export function Application() {
             onChange={setTabSafely}
             keyboardVisible={keyboard}
             shakeEnabled
-            shakeBlocked={confirming || installing || packChecking}
+            shakeBlocked={confirming || assistantCritical || installing || packChecking}
             map={
               <View style={styles.screen}>
                 <MapCanvas
@@ -320,6 +322,22 @@ export function Application() {
                   onBackMap={() => setTabSafely('Map')}
                   places={places}
                   saved={saved}
+                  onSavedChange={setSaved}
+                  onCriticalChange={setAssistantCritical}
+                  onFocusMapPlace={(place) => {
+                    if (confirming || installing || assistantCritical) return false;
+                    const coordinate = officeFocus(place);
+                    if (
+                      place.status !== 'approved' ||
+                      !coordinate ||
+                      !officeScope ||
+                      !coversCoordinate(officeScope.geometry, coordinate)
+                    )
+                      return false;
+                    setTabSafely('Map');
+                    choose(place);
+                    return true;
+                  }}
                   onOpenPlace={(place) => {
                     setTabSafely('Map');
                     choose(place);

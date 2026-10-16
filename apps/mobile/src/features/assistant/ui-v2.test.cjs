@@ -35,10 +35,17 @@ function harness(relative, options = {}) {
     if (name === '../food/assistant') return { createFoodResearchAnswer: () => () => null };
     if (name === '../food/ResearchDetails') return { FoodHoursView: 'FoodHoursView', FoodMenuRow: 'FoodMenuRow', FoodSourceDisclosure: 'FoodSourceDisclosure' };
     if (name.endsWith('/demoDirectory')) return { isDemoPlace: value => typeof value === 'object' && value.demo === true };
-    if (name === './useDirectoryConversation') {
+    if (name === './useAssistantConversation') {
+      // This legacy screen-layout harness deliberately uses the deterministic hook.
+      // Actual async native-facing hook behavior is covered by tests/ai/assistant-ui.test.cjs.
       const hookContext={...context,exports:{}};
       const hook=ts.transpileModule(fs.readFileSync(path.join(__dirname,'useDirectoryConversation.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
-      vm.runInNewContext(hook,hookContext);return hookContext.exports;
+      vm.runInNewContext(hook,hookContext);
+      return { useAssistantConversation: (...args) => ({ ...hookContext.exports.useDirectoryConversation(...args),
+        status: 'Local directory · AI not connected', pending: null, confirming: false,
+        confirm: async () => {}, cancelPending() {}, clear: async () => {}, setupStatus: null,
+        modelOperation: async () => {},
+      }) };
     }
     if (name === './directory') return { placeMatchesCategory: () => true, answerDirectoryQuery: query => [{ kind: 'text', text: `Matched ${query}` }], WALKING_DIRECTIONS_DEFERRED:'Walking directions are not available in this version.',VISIT_PLANNING_DEFERRED:'Visit planning is not available in this version.' };
     throw new Error(`Unexpected import ${name}`);

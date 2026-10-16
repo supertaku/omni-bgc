@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '../../..');
 const ts = require(path.join(root, 'apps/mobile/node_modules/typescript'));
 function load(file) {
   const output = ts.transpileModule(fs.readFileSync(path.join(root, file), 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS } }).outputText;
-  const context = { exports: {}, require: name => name === '../food/directory' ? {foodPlaces:[],foodSearchText:()=>[]} : ({}), Set }; vm.runInNewContext(output, context); return context.exports;
+  const context = { exports: {}, require: name => name === '../food/directory' ? {foodPlaces:[],foodSearchText:()=>[]} : name === '../offices/service' ? {officeSearchText:()=>[],matchesOfficeInitialism:()=>true} : ({}), Set }; vm.runInNewContext(output, context); return context.exports;
 }
 const demo = load('apps/mobile/src/features/explore/demoDirectory.ts');
 const directory = load('apps/mobile/src/features/explore/directory.ts');

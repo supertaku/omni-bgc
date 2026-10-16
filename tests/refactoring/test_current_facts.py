@@ -20,7 +20,9 @@ class CurrentFactsTests(unittest.TestCase):
         ], cwd=ROOT, text=True, encoding="utf-8")
 
     def test_query_literal_matches_accepted_baseline(self):
-        self.assertEqual(hashlib.sha256(self.query.encode()).hexdigest(), "e7abda0f87df34eb84dc801b16a2d2476ea2ede197e5d1b6e63bc5d21177b649")
+        # c90bcd4/DEC-055 added fact/evidence/snapshot expiry fields to the projection.
+        # Protect that accepted current literal; the AI layer does not change this SQL.
+        self.assertEqual(hashlib.sha256(self.query.encode()).hexdigest(), "88a0c96e5eba0014833a60558faf2baab80f125ef4b51f1742df5682238810c7")
 
     def database(self):
         db = sqlite3.connect(":memory:")
