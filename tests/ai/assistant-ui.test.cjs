@@ -17,7 +17,7 @@ function setup({ delayedRuntime = false, restored = [] } = {}) {
     turns = [],
     persisted = [],
     listeners = {};
-  const counts = { cleared: 0, canceled: 0, closed: 0, commits: 0 };
+  const counts = { cleared: 0, canceled: 0, closed: 0, commits: 0, previewsCleared: 0 };
   const service = {
     history: {
       load: async () => (counts.cleared ? [] : restored),
@@ -38,13 +38,7 @@ function setup({ delayedRuntime = false, restored = [] } = {}) {
         counts.canceled++;
       },
     },
-    mutations: {
-      cancelAll: () => {},
-      confirm: async () => {
-        counts.commits++;
-        return { placeIds: [], itinerary: [], startTime: null };
-      },
-    },
+    itineraryPreview: { clear() { counts.previewsCleared++; }, cancelPending() {} },
     close: async () => {
       counts.closed++;
     },
@@ -77,7 +71,7 @@ function setup({ delayedRuntime = false, restored = [] } = {}) {
     },
   );
   const render = () =>
-    hooks.render(() => useAssistantConversation([], saved, () => true));
+    hooks.render(() => useAssistantConversation([], () => true));
   render();
   return {
     render,
@@ -149,7 +143,7 @@ test("background invalidates active request, preview and late callbacks", async 
   await flush();
   ui = h.render();
   assert.equal(ui.busy, false);
-  assert.equal(ui.pending, null);
+  assert.equal(ui.pending, undefined);
   assert.ok(!JSON.stringify(ui.messages).includes("STALE"));
   assert.equal(h.persisted.length, 0);
   h.hooks.dispose();
@@ -216,26 +210,15 @@ test("superseded completed turn cannot pollute canonical reference IDs for a lat
   await flush();
   h.hooks.dispose();
 });
-test("same-tick double confirmation commits once via UI-owned confirmation ref", async () => {
+test("legacy confirmation results cannot expose a persistence action", async () => {
   const h = setup();
   let ui = await h.ready();
   ui.send("save");
-  h.turns[0].resolve(
-    result("", {
-      status: "needs_confirmation",
-      results: [
-        {
-          status: "needs_confirmation",
-          authority: "ui",
-          data: { pendingId: "HOST_PENDING", summary: "Synthetic preview" },
-        },
-      ],
-    }),
-  );
-  await flush();
-  ui = h.render();
-  await Promise.all([ui.confirm(), ui.confirm()]);
-  assert.equal(h.counts.commits, 1);
+  h.turns[0].resolve(result("", { status: "needs_confirmation", results: [{ status: "needs_confirmation", data: { pendingId: "OLD" } }] }));
+  await flush(); ui = h.render();
+  assert.equal(ui.confirm, undefined);
+  assert.equal(ui.pending, undefined);
+  assert.equal(h.counts.commits, 0);
   h.hooks.dispose();
 });
 
@@ -339,4 +322,24 @@ test("actual tool progress updates source-checking/composition status and stale 
   h.turns[0].resolve(result());
   await flush();
   h.hooks.dispose();
+});
+
+
+test('temporary preview can be dismissed and never enters later native conversation context',async()=>{
+ const h=setup();let ui=await h.ready();ui.send('Preview a visit');
+ h.turns[0].resolve(result('',{payloads:[{kind:'itinerary-preview',preview:{stops:[{placeId:'TEST',name:'PRIVATE_DRAFT_NAME',durationMinutes:25}],totalVisitMinutes:25}}]}));await flush();ui=h.render();
+ assert.ok(ui.messages.some(m=>m.payload.kind==='itinerary-preview'));ui.send('Hello');
+ assert.ok(!JSON.stringify(h.turns[1].options.recentMessages).includes('PRIVATE_DRAFT_NAME'));
+ ui=h.render();ui.dismissItineraryPreview();ui=h.render();assert.equal(ui.messages.some(m=>m.payload.kind==='itinerary-preview'),false);assert.equal(h.counts.previewsCleared,1);
+ h.turns[1].resolve(result('STALE'));await flush();assert.ok(!JSON.stringify(h.render().messages).includes('STALE'));assert.equal(h.counts.commits,0);h.hooks.dispose();
+});
+
+test('temporary preview order becomes the bounded live reference order and dismiss clears references',async()=>{
+ const h=setup();let ui=await h.ready();ui.send('Preview a visit');
+ const places=[{id:'FIRST',name:'First source',status:'approved'},{id:'SECOND',name:'Second source',status:'approved'}];
+ h.turns[0].resolve(result('',{payloads:[{kind:'itinerary-preview',preview:{stops:[{placeId:'SECOND',name:'Second source',durationMinutes:15},{placeId:'FIRST',name:'First source',durationMinutes:20}],totalVisitMinutes:35}}],places}));
+ await flush();ui=h.render();const card=ui.messages.find(m=>m.payload.kind==='itinerary-preview');assert.equal(card.sourcePlaces.length,2);
+ ui.send('Show the second one on map');assert.deepEqual(Array.from(h.turns[1].options.resolvedPlaceIds),['SECOND','FIRST']);h.turns[1].resolve(result('Focused'));await flush();
+ ui=h.render();ui.dismissItineraryPreview();ui=h.render();ui.send('Show the second one on map');assert.deepEqual(Array.from(h.turns[2].options.resolvedPlaceIds),[]);
+ h.turns[2].resolve(result());await flush();h.hooks.dispose();
 });

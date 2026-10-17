@@ -5,7 +5,11 @@ import { matchesCategory } from '../features/explore/directory';
 
 export type Panel =
   'search' | 'filters' | 'peek' | 'sources' | 'saved' | 'itinerary' | 'pack' | 'offices' | null;
-export function useExplorerNavigation(confirming: boolean, installing: boolean) {
+export function useExplorerNavigation(
+  confirming: boolean,
+  installing: boolean,
+  interceptAssistantBack?: () => boolean,
+) {
   const [tab, setTab] = useState<'Map' | 'Assistant'>('Map');
   const [panel, setPanel] = useState<Panel>(null);
   const [selected, setSelected] = useState<Place | null>(null);
@@ -35,6 +39,7 @@ export function useExplorerNavigation(confirming: boolean, installing: boolean) 
       return;
     }
     if (tab === 'Assistant') {
+      if (interceptAssistantBack?.()) return;
       setTabSafely('Map');
       return;
     }
@@ -50,7 +55,7 @@ export function useExplorerNavigation(confirming: boolean, installing: boolean) 
       setPanel(null);
       setSelected(null);
     }
-  }, [keyboard, tab, setTabSafely, panel, selected, returnPanel]);
+  }, [keyboard, tab, setTabSafely, panel, selected, returnPanel, interceptAssistantBack]);
   useEffect(() => {
     const b = BackHandler.addEventListener('hardwareBackPress', () => {
       if (keyboard || panel || tab === 'Assistant') {

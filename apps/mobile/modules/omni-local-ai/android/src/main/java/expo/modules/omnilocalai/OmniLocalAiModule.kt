@@ -2,6 +2,8 @@ package expo.modules.omnilocalai
 
 import android.os.Build
 import android.os.PowerManager
+import android.os.SystemClock
+import android.util.Log
 import com.google.ai.edge.litertlm.Backend
 import com.google.ai.edge.litertlm.Content
 import com.google.ai.edge.litertlm.Conversation
@@ -41,6 +43,9 @@ class OmniLocalAiModule : Module() {
   @Volatile private var loading = false
   @Volatile private var destroying = false
   private val gson = Gson()
+  private val traceSerial = AtomicInteger(0)
+  @Volatile private var engineTrace = 0
+  @Volatile private var generationTrace = 0
 
   override fun definition() = ModuleDefinition {
     Name("OmniLocalAi")
@@ -50,7 +55,12 @@ class OmniLocalAiModule : Module() {
     }
     AsyncFunction("privateModelsDirectory") { modelRoot().absolutePath }
     AsyncFunction("sha256File") { path: String, promise: Promise ->
-      control.execute { complete(promise) { sha256(privateFile(path)) } }
+      control.execute { complete(promise) {
+        val trace = traceSerial.incrementAndGet()
+        perf("verify_hash_start", trace)
+        try { sha256(privateFile(path)).also { perf("verify_hash_complete", trace) } }
+        catch (error: Throwable) { perf("verify_hash_failed", trace, mapOf("code" to code(error))); throw error }
+      } }
     }
     AsyncFunction("initialize") { input: Map<String, Any?>, promise: Promise ->
       // Reserve before queueing so concurrent initialize/release cannot interleave.
@@ -58,22 +68,32 @@ class OmniLocalAiModule : Module() {
         if (loading || destroying || engine != null || !ownership.idle()) throw failure("SESSION_POISONED")
         loading = true
       }
+      val trace = traceSerial.incrementAndGet()
+      engineTrace = trace
+      perf("initialize_requested", trace)
       worker.execute {
         complete(promise) {
           try {
+            perf("initialize_worker_start", trace)
             if (thermalBlocked()) throw failure("THERMAL_BLOCK")
             val file = privateFile(input.string("verifiedAbsoluteModelPath"))
             if (!file.isFile) throw failure("MODEL_MISSING")
+            perf("initialize_hash_start", trace)
             if (file.length() != input.number("expectedBytes").toLong() || sha256(file) != input.string("expectedSha256").lowercase()) throw failure("MODEL_HASH_MISMATCH")
+            perf("initialize_hash_complete", trace)
             val context = input.number("contextTokens").toInt()
             require(context in 256..4096) { "CONTEXT_OVERFLOW" }
             val backend = when (input.string("backend")) { "cpu" -> Backend.CPU(); "gpu" -> Backend.GPU(); else -> throw failure("RUNTIME_UNSUPPORTED") }
+            perf("engine_initialize_start", trace, mapOf("backend_requested" to input.string("backend"), "context_tokens" to context))
             Engine.setNativeMinLogSeverity(LogSeverity.ERROR)
             val created = Engine(EngineConfig(modelPath = file.absolutePath, backend = backend, maxNumTokens = context, cacheDir = File(modelRoot(), "runtime-cache").apply { mkdirs() }.absolutePath))
             engine = created
             try { created.initialize() } catch (error: Throwable) { ownership.poison(); throw error }
+            perf("engine_initialize_complete", trace)
             null
-          } finally { loading = false }
+          } catch (error: Throwable) {
+            perf("initialize_failed", trace, mapOf("code" to code(error))); throw error
+          } finally { loading = false; perf("initialize_finished", trace, mapOf("idle" to ownership.idle())) }
         }
       }
     }
@@ -81,8 +101,14 @@ class OmniLocalAiModule : Module() {
       val id = input.string("requestId"); val epoch = input.number("epoch").toInt()
       if (loading || destroying || engine == null) throw failure("MODEL_MISSING")
       ownership.begin(id, epoch)
+      val trace = traceSerial.incrementAndGet()
+      generationTrace = trace
+      perf("generate_accepted", trace, mapOf("epoch" to epoch, "engine_trace" to engineTrace))
       worker.execute {
+        perf("generate_worker_start", trace)
         val sequence = AtomicInteger(0)
+        val firstCallback = AtomicBoolean(false)
+        val firstText = AtomicBoolean(false)
         val thermalCancellation = AtomicBoolean(false)
         val thermalCheck = AtomicReference<ScheduledFuture<*>?>(null)
         fun emit(type: String, fields: Map<String, Any?>) {
@@ -90,16 +116,20 @@ class OmniLocalAiModule : Module() {
         }
         fun terminal(reason: String, error: Throwable? = null) {
           if (!ownership.terminal(id, epoch)) return
+          perf("terminal_callback", trace, mapOf("reason" to reason, "code" to error?.let { code(it) }))
           thermalCheck.getAndSet(null)?.cancel(false)
           // Queue closure after send invocation returns and terminal callback finishes.
           worker.execute {
             try {
+              perf("conversation_close_start", trace)
               synchronized(conversationLock) { conversation?.close(); conversation = null }
               ownership.cleanupSucceeded(id, epoch)
+              perf("native_cleanup_complete", trace, mapOf("idle" to ownership.idle(), "sequence_count" to sequence.get()))
               if (!destroying) sendEvent("onGeneration", mapOf("type" to "terminal", "requestId" to id, "epoch" to epoch, "sequence" to sequence.getAndIncrement(), "reason" to reason, "errorCode" to error?.let { code(it) }))
               destroyWhenIdle()
             } catch (_: Throwable) {
               ownership.poison()
+              perf("native_cleanup_failed", trace, mapOf("code" to "SESSION_POISONED"))
               if (!destroying) sendEvent("onGeneration", mapOf("type" to "terminal", "requestId" to id, "epoch" to epoch, "sequence" to sequence.getAndIncrement(), "reason" to "error", "errorCode" to "SESSION_POISONED"))
             }
           }
@@ -126,9 +156,12 @@ class OmniLocalAiModule : Module() {
               control.execute { try { cancelCurrent(id, epoch) } catch (_: Throwable) { ownership.poison() } }
             }
           }, 5, 5, TimeUnit.SECONDS))
+          perf("generate_send_start", trace)
           current.sendMessageAsync(messages.last(), object : MessageCallback {
             override fun onMessage(message: Message) {
+              if (firstCallback.compareAndSet(false, true)) perf("first_callback", trace)
               val text = message.contents.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }
+              if (text.isNotEmpty() && firstText.compareAndSet(false, true)) perf("first_text_delta", trace)
               if (text.isNotEmpty()) emit("delta", mapOf("text" to text, "mode" to "delta"))
               for (proposal in message.toolCalls) emit("tool", mapOf("value" to mapOf("version" to 1, "name" to proposal.name, "arguments" to proposal.arguments)))
             }
@@ -144,33 +177,51 @@ class OmniLocalAiModule : Module() {
               else terminal(if (throwable is CancellationException) "cancelled" else "error", throwable)
             }
           }, maxOutputToken = output)
+          perf("generate_send_return", trace)
           if (ownership.cancelling()) cancelCurrent(id, epoch)
           promise.resolve(null)
         } catch (error: Throwable) { terminal("error", error); promise.reject(failure(code(error))) }
       }
     }
     AsyncFunction("cancel") { input: Map<String, Any?>, promise: Promise ->
+      val id = input.string("requestId"); val epoch = input.number("epoch").toInt()
+      val trace = if (ownership.matches(id, epoch)) generationTrace else 0
+      perf("cancel_requested", trace, mapOf("epoch" to epoch))
       control.execute {
         complete(promise) {
-          val accepted = ownership.cancel(input.string("requestId"), input.number("epoch").toInt())
-          if (accepted) cancelCurrent(input.string("requestId"), input.number("epoch").toInt())
+          val accepted = ownership.cancel(id, epoch)
+          if (accepted) cancelCurrent(id, epoch)
+          perf("cancel_acknowledged", trace, mapOf("accepted" to accepted, "idle" to ownership.idle()))
           // Acknowledgement is deliberately not quiescence.
           mapOf("accepted" to accepted, "nativeQuiescent" to ownership.idle())
         }
       }
     }
     AsyncFunction("awaitNativeIdle") { promise: Promise ->
+      val trace = generationTrace
+      perf("await_idle_start", trace)
       control.execute {
         val until = System.nanoTime() + 4_000_000_000L
         while ((!ownership.idle() || loading) && System.nanoTime() < until) Thread.sleep(10)
         val idle = ownership.idle() && !loading
         if (!idle) ownership.poison()
+        perf("await_idle_complete", trace, mapOf("idle" to idle))
         promise.resolve(mapOf("idle" to idle))
       }
     }
     AsyncFunction("release") { promise: Promise ->
+      val trace = engineTrace
+      perf("release_requested", trace)
       synchronized(this@OmniLocalAiModule) { if (!ownership.idle() || loading) throw failure("SESSION_POISONED"); loading = true }
-      worker.execute { complete(promise) { try { if (!ownership.idle()) throw failure("SESSION_POISONED"); engine?.let { if (it.isInitialized()) it.close() }; engine = null; null } finally { loading = false } } }
+      worker.execute { complete(promise) { try {
+        if (!ownership.idle()) throw failure("SESSION_POISONED")
+        perf("engine_close_start", trace)
+        engine?.let { if (it.isInitialized()) it.close() }; engine = null
+        perf("engine_close_complete", trace)
+        null
+      } catch (error: Throwable) { perf("release_failed", trace, mapOf("code" to code(error))); throw error }
+        finally { loading = false; perf("release_finished", trace, mapOf("idle" to ownership.idle())) }
+      } }
     }
     OnDestroy {
       destroying = true
@@ -192,8 +243,21 @@ class OmniLocalAiModule : Module() {
   private fun cancelCurrent(requestId: String? = null, epoch: Int? = null) = synchronized(conversationLock) {
     // Reconcile inside the close/cancel fence: a delayed old control task cannot cancel a newer turn.
     if (requestId == null || (epoch != null && ownership.matches(requestId, epoch))) {
-      conversation?.let { if (it.isAlive) it.cancelProcess() }
+      conversation?.let { if (it.isAlive) {
+        val trace = generationTrace
+        perf("cancel_jni_start", trace)
+        it.cancelProcess()
+        perf("cancel_jni_return", trace)
+      } }
     }
+  }
+  /** Preview-only bounded metadata. Never include prompts, text, tools, paths or SDK messages. */
+  private fun perf(event: String, trace: Int, fields: Map<String, Any?> = emptyMap()) {
+    try {
+      if (appContext.reactContext?.packageName != "com.omnibgc.aipreview") return
+      Log.i("OmniAiPerf", gson.toJson(fields + mapOf("v" to 1, "event" to event,
+        "trace" to trace, "uptime_ns" to SystemClock.elapsedRealtimeNanos())))
+    } catch (_: Throwable) { /* Diagnostics must never change native ownership or inference. */ }
   }
   private fun modelRoot(): File = File(requireNotNull(appContext.reactContext).filesDir, "omni-ai-models").apply { mkdirs() }.canonicalFile
   private fun privateFile(path: String): File {

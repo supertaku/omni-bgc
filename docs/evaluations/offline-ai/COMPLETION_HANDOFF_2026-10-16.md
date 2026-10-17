@@ -1,9 +1,10 @@
 # Offline AI completion handoff — October 16, 2026 (Asia/Manila)
 
 **Current decision: NOT_RELEASE_READY. C0–C2 are ACCEPT_HOST; D0 device preflight
-and authorized installation PASS. D1 found user-message clipping requiring repair;
-D2–D6 actual model acceptance remains pending. U1 was host-reviewed and installed
-but failed physical clipping retest after owner unlock. U2 candidate is in preparation.**
+and authorized installation PASS. U2 repaired D1 user-message clipping and passed
+bounded model-less physical checks. U3 implements the owner's later chat/Models
+and feature-scope changes and is awaiting release/physical acceptance. D2–D6
+actual model acceptance remains pending. See the October 17 journal below.**
 
 Branch `codex/offline-ai-native-recovery`; source recovery commit
 `00f2446692eaebde15087d51e1e078c559ab5fe9`. No push, main merge or publication.
@@ -26,8 +27,8 @@ No second AI layer, new runtime, business data, permission or UX redesign was ad
 | Python build/source-control | 15/15 PASS after new test-fixture cleanup repair |
 | Native JVM tests | 7/7 PASS in each independently audited release |
 | D0 USB/device identity | PASS after explicit owner authorization; single expected POCO, isolated install, protected package metadata unchanged |
-| D1 model-less physical app/map smoke | Functional checks supported; CHANGES_REQUESTED for visually clipped user messages |
-| D2 actual artifact/import/smoke/activation | NOT_RUN; owner authorized PC download/USB import after D1; host free-space preflight stopped before any model bytes transferred |
+| D1 model-less physical app/map smoke | U2 PRE_MODEL_APP_PASS, full short/multiline text live/restored; new U3 UI still pending |
+| D2 actual artifact/import/smoke/activation | Full PC and phone model size/SHA PASS; explicit owner consent; interrupted USB chunk attempts preserved; no import/activation/inference |
 | D3 native streaming/cancel/idle/reload | NOT_RUN |
 | D4 actual tools/actions/history/120 prompts | NOT_RUN; real model semantic accuracy NOT_EVALUATED |
 | D5 offline/memory/thermal/accessibility | Model-loaded performance/accessibility NOT_RUN; device and map-only baseline measurements recorded separately |
@@ -41,7 +42,7 @@ signature, backup/debug disabled and unchanged permissions. No model weights bun
 Both independent binary audits pass. See [C2 report](C2_REPRODUCIBLE_BUILD.md) for
 exact source/APK receipts, commands, versions, warnings and reproducibility limits.
 
-Installed UI repair candidate U1 supersedes C2 for further physical tests:
+Historical UI repair candidate U1 superseded C2 for its physical tests:
 `.g/c2/.g/ai-host-u1/Omni-BGC-AI-preview-arm64.apk`, **62,063,898 bytes**,
 SHA256 `d6e4de7d07e656aabc662ca9c3106532097f69f32dddf3db3711d1e99faaf209`;
 source commit `1d00e89e52bd1f77a7959e8dfd5673db7c0ffda6`.
@@ -49,6 +50,19 @@ Independent artifact audit and seven native tests PASS; **physical clipping repa
 FAIL** in both live and restored messages. Owner unlocked the phone; no lock bypass
 or settings change was attempted. U2 uses explicit bubble width to avoid the
 unchanged intrinsic measurement path. See [repair evidence](D1_CLIPPED_USER_MESSAGES.md).
+
+Current installed U2 is `.g/ai-host-u2/Omni-BGC-AI-preview-arm64.apk`,
+62,064,134 bytes, SHA256
+`bf25e268e8387383982b5ce9b17dfa74a0542e9c5165aac967d54fbcc7838cdc`,
+source `8bf48e209e8df2d0a1c7709eb7058a4979c18ef5`. Independent artifact audit,
+seven native tests and full short/multiline physical clipping checks PASS.
+Private D1 `u2-physical-acceptance.json` bounds this to model-less U2 only.
+
+The owner's later instructions remove saves, routes and suggestions, retain
+temporary itinerary previews, simplify chat copy and move setup/removal to Models.
+DEC-058/059 document the new source contract and preview timing diagnostics.
+U3 is not installed yet. Saved databases remain retained, with no active save
+tools or UI. Physical acceptance and real model evaluation must use the new build.
 
 ## Device authorization history and accepted preflight
 
@@ -78,7 +92,7 @@ conditional on D1 repair passing. Device-wide settings authorization remains sep
 Continue [M10 runbook](M10_DEVICE_RUNBOOK.md) in D0–D6 order under the recorded
 authorization, after repairing and verifying D1. Model setup/settings consent is separate.
 First prove no-model map/search/fallback, then explicit pinned model setup and real
-CPU smoke, streaming/cancellation/native idle/reload, tools and confirmation flows,
+CPU smoke, streaming/cancellation/native idle/reload, read-only tools and temporary previews,
 real 120-question adjudication, offline restart, performance, thermal and accessibility.
 No native-inference or model-performance defect has been established; D1 has an observed Android text-layout defect.
 

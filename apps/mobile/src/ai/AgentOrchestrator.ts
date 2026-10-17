@@ -26,7 +26,7 @@ import {
 } from './answerComposer';
 
 export type AgentStatus =
-  'completed' | 'partial' | 'unavailable' | 'denied' | 'needs_confirmation' | 'canceled' | 'failed';
+  'completed' | 'partial' | 'unavailable' | 'denied' | 'canceled' | 'failed';
 export type AgentTurn = {
   requestId: string;
   epoch: number;
@@ -155,6 +155,24 @@ export class AgentOrchestrator {
           ],
           'INPUT_INVALID',
         );
+      if (/\b(saved|saves?|saving|favorites?|favourites?|bookmarks?)\b/i.test(userText))
+        return base('unavailable', [
+          {
+            kind: 'capability',
+            state: 'unsupported-query',
+            text: "Saving places isn't available here. You can still explore the map or try a temporary itinerary preview.",
+          },
+        ]);
+      if (
+        /\b(routes?|directions|walk(?:ing)?|navigate|navigation|maglakad|lakad)\b/i.test(userText)
+      )
+        return base('unavailable', [
+          {
+            kind: 'capability',
+            state: 'unsupported-query',
+            text: "I can't give route directions, but I can show an approved place on the map or help preview a visit list. Travel estimates aren't included.",
+          },
+        ]);
       const researchMentioned = /\b(research|candidate|estimated|estimates)\b/i.test(userText);
       const researchDenied =
         /\bonly approved\b|\b(?:do not|don't|without|exclude|excluding|omit|no|not)\b.{0,60}\b(?:research|candidate|estimated|estimates)\b/i.test(
@@ -177,12 +195,8 @@ export class AgentOrchestrator {
       if (/\b(map|show|locate|focus)\b/i.test(userText)) selected.add('focus_map_place');
       if (/\b(entrance|entrances|access|entry|pasukan)\b/i.test(userText))
         selected.add('get_verified_entrances');
-      if (/\b(saved|save|remove|favorite|favourite)\b/i.test(userText)) {
-        selected.add('get_saved_places');
-        selected.add('preview_saved_change');
-      }
-      if (/\b(itinerary|visit|stops)\b/i.test(userText)) {
-        selected.add('get_saved_places');
+      if (/\b(itinerary|visit|stops|trip)\b/i.test(userText)) {
+        selected.add('get_itinerary_preview');
         selected.add('preview_itinerary_change');
       }
       if (researchEnabled) {
@@ -246,7 +260,7 @@ export class AgentOrchestrator {
             {
               kind: 'status',
               severity: 'info',
-              text: 'That earlier result is no longer a current approved record. Choose a place by name or request a fresh search. Nothing has been saved.',
+              text: "That earlier place isn't available from the approved records anymore. Try its name again.",
             },
           ]);
         context.expectedActionPlaceIds = new Set(requested.map((reference) => reference.placeId));
@@ -431,10 +445,9 @@ export class AgentOrchestrator {
           // Only decoded, allowlisted and actually dispatched proposals enter native history.
           dispatchedCalls.push({ name: proposal.name, arguments: proposal.arguments });
           bundle.push({ role: 'tool', toolName: proposal.name, text: toolObservation(result) });
-          if (result.status === 'needs_confirmation') break;
         }
         if (dispatchedCalls.length) toolBundles.push(bundle);
-        if (limitReached || results.some((r) => r.status === 'needs_confirmation')) break;
+        if (limitReached) break;
         if (!generated.nativeQuiescent)
           throw new Error('Native idle is required before another tool round');
         if (round === AGENT_LIMITS.rounds - 1) limitReached = true;
@@ -445,22 +458,14 @@ export class AgentOrchestrator {
         current.push(await bounded(revalidateToolResult(result, this.executor.retrieval, signal)));
         check();
       }
-      if (
-        results.some((r) => r.status === 'needs_confirmation') &&
-        current.some((r) => r.status === 'unavailable') &&
-        this.epoch === epoch
-      )
-        this.executor.cancelPending();
       results.splice(0, results.length, ...current);
-      const status: AgentStatus = results.some((r) => r.status === 'needs_confirmation')
-        ? 'needs_confirmation'
-        : results.some((r) => r.status === 'denied')
-          ? 'denied'
-          : limitReached
-            ? 'partial'
-            : results.length && results.every((r) => r.status === 'unavailable')
-              ? 'unavailable'
-              : 'completed';
+      const status: AgentStatus = results.some((r) => r.status === 'denied')
+        ? 'denied'
+        : limitReached
+          ? 'partial'
+          : results.length && results.every((r) => r.status === 'unavailable')
+            ? 'unavailable'
+            : 'completed';
       let payloads = composeGroundedAnswer(results, generatedText, userText);
       const displayedIds = [
         ...new Set(
@@ -471,7 +476,9 @@ export class AgentOrchestrator {
                 ? [payload.placeId]
                 : payload.kind === 'menus'
                   ? payload.items.map((item) => item.placeId)
-                  : [],
+                  : payload.kind === 'itinerary-preview'
+                    ? payload.preview.stops.map((stop) => stop.placeId)
+                    : [],
           ),
         ),
       ];
@@ -485,6 +492,34 @@ export class AgentOrchestrator {
       // Keep deterministic card evidence in sync with the same latest records
       // supplied to the UI; an older search snapshot must not retain old citations.
       for (const result of results) {
+        if (
+          result.status === 'ok' &&
+          ['get_itinerary_preview', 'preview_itinerary_change'].includes(result.name)
+        ) {
+          const preview = result.data as import('./itineraryPreview').ItineraryPreview;
+          if (preview.stops.some((stop) => !eligibleIds.has(stop.placeId))) {
+            result.status = 'unavailable';
+            result.data = null;
+            result.citations = [];
+            result.sourceRecordIds = [];
+            result.warnings = [
+              "A place in this preview isn't available from the approved records anymore. Ask for a fresh preview.",
+            ];
+          } else {
+            result.data = {
+              ...preview,
+              stops: preview.stops.map((stop) => ({
+                ...stop,
+                name: renderPlaces.find((place) => place.id === stop.placeId)!.name,
+              })),
+            };
+            result.citations = renderPlaces
+              .filter((place) => preview.stops.some((stop) => stop.placeId === place.id))
+              .flatMap((place) => place.citations);
+            result.sourceFingerprint = JSON.stringify(result.citations);
+          }
+          continue;
+        }
         let currentPlaces: Place[] | undefined;
         if (result.name === 'find_places' && Array.isArray(result.data))
           currentPlaces = (result.data as Place[]).flatMap((place) =>
@@ -492,31 +527,10 @@ export class AgentOrchestrator {
           );
         if (result.name === 'get_place_details' && result.data)
           currentPlaces = renderPlaces.filter((place) => place.id === (result.data as Place).id);
-        if (result.name === 'get_saved_places' && result.data)
-          currentPlaces = (result.data as { places: Place[] }).places.flatMap((place) =>
-            renderPlaces.filter((current) => current.id === place.id),
-          );
         if (!currentPlaces) continue;
-        result.data =
-          result.name === 'find_places'
-            ? currentPlaces
-            : result.name === 'get_place_details'
-              ? (currentPlaces[0] ?? null)
-              : { ...(result.data as object), places: currentPlaces };
-        const itineraryPlaces =
-          result.name === 'get_saved_places'
-            ? (
-                result.data as Awaited<
-                  ReturnType<ToolExecutor['retrieval']['getSavedPlaces']>
-                >['data']
-              ).itineraryPlaces
-            : [];
-        result.citations = [...currentPlaces, ...itineraryPlaces].flatMap(
-          (place) => place.citations,
-        );
-        result.sourceRecordIds = [
-          ...new Set([...currentPlaces, ...itineraryPlaces].map((place) => place.id)),
-        ];
+        result.data = result.name === 'find_places' ? currentPlaces : (currentPlaces[0] ?? null);
+        result.citations = currentPlaces.flatMap((place) => place.citations);
+        result.sourceRecordIds = [...new Set(currentPlaces.map((place) => place.id))];
         result.sourceFingerprint = JSON.stringify(
           result.citations.map((citation) => [
             citation.factId,
@@ -525,17 +539,7 @@ export class AgentOrchestrator {
             citation.rawSha256,
           ]),
         );
-        const savedState =
-          result.name === 'get_saved_places'
-            ? (result.data as Awaited<
-                ReturnType<ToolExecutor['retrieval']['getSavedPlaces']>
-              >['data'])
-            : null;
-        if (
-          !currentPlaces.length &&
-          !(savedState?.totalSaved || savedState?.totalItinerary || savedState?.startTime)
-        )
-          result.status = 'empty';
+        if (!currentPlaces.length) result.status = 'empty';
       }
       payloads = composeGroundedAnswer(results, generatedText, userText);
       if (invalidDisplay) {
@@ -545,6 +549,10 @@ export class AgentOrchestrator {
             return placeIds.length ? [{ ...payload, placeIds, total: placeIds.length }] : [];
           }
           if (payload.kind === 'place') return eligibleIds.has(payload.placeId) ? [payload] : [];
+          if (payload.kind === 'itinerary-preview')
+            return payload.preview.stops.every((stop) => eligibleIds.has(stop.placeId))
+              ? [payload]
+              : [];
           if (payload.kind === 'menus') {
             const items = payload.items.filter((item) => eligibleIds.has(item.placeId));
             return items.length ? [{ ...payload, items, total: items.length }] : [];
@@ -555,14 +563,14 @@ export class AgentOrchestrator {
         payloads.push({
           kind: 'status',
           severity: 'info',
-          text: 'Some displayed records became unavailable or exceeded the bounded display limit. Search again for current sources.',
+          text: "Some places aren't available from the approved records anymore. Try searching again for the latest results.",
         });
       }
       if (limitReached)
         payloads.push({
           kind: 'status',
           severity: 'info',
-          text: 'The bounded local tool limit was reached. These are the verified results collected so far.',
+          text: "That's what I could check in this reply. Try a more specific question if you'd like.",
         });
       return base(status, payloads);
     } catch (error) {
@@ -578,8 +586,8 @@ export class AgentOrchestrator {
               kind: 'status',
               severity: 'info',
               text: timedOut
-                ? 'The offline request reached its time limit. No action was saved.'
-                : 'Cancelled. No action was saved.',
+                ? 'That took too long. Give it another try.'
+                : "Stopped. You're all set to ask something else.",
             },
           ],
           timedOut ? 'DEADLINE_EXCEEDED' : undefined,

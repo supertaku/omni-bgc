@@ -3,7 +3,9 @@ import type { Place, Entrance } from '../contracts';
 import type { OfficeDetails } from '../features/offices/contracts';
 import type { BranchMenuItem } from '../data/retrieval';
 import type { ResearchRow, UnifiedRetrieval } from './retrieval';
-import type { ActionPreview, ToolResult } from './toolExecutor';
+import type { ToolResult } from './toolExecutor';
+import type { ItineraryPreview } from './itineraryPreview';
+import { decodeToolProposal } from './tools';
 import { assertNotAborted } from './toolExecutor';
 
 /** Unrestricted local prose is never used to answer BGC factual or action questions. */
@@ -27,10 +29,10 @@ export function isGeneralConversation(query: string): boolean {
 export function safeGeneralText(text: string): boolean {
   return (
     text.length <= 16384 &&
-    !/\b(?:saved|removed|deleted|booked|reserved|scheduled|purchased|paid|confirmed|added|updated|done|completed)\b/i.test(
+    !/\b(?:save|saved|saving|favorites?|favourites?|bookmarks?|confirmation|persistent|persistence|removed|deleted|booked|reserved|scheduled|purchased|paid|confirmed|added|updated|done|completed)\b/i.test(
       text,
     ) &&
-    !/\b(?:cafe|café|restaurant|shop|mall|avenue|street|road|office|building|branch|located|address|opening|closing|midnight|noon|open|closed|hours|price|cost|menu|stock|diet|allergen|vegan|vegetarian|reservation|parking|traffic|weather|reviews|crowds|operates|headquartered|tenant|occupancy)\b/i.test(
+    !/\b(?:routes?|directions|navigate|navigation|cafe|café|restaurant|shop|mall|avenue|street|road|office|building|branch|located|address|opening|closing|midnight|noon|open|closed|hours|price|cost|menu|stock|diet|allergen|vegan|vegetarian|reservation|parking|traffic|weather|reviews|crowds|operates|headquartered|tenant|occupancy)\b/i.test(
       text,
     ) &&
     !/(?:₱|\bPHP\b|\b(?:BGC|Bonifacio|High Street|open now|currently open|minutes away|walking distance|allergen.free|gluten.free|live (?:data|lookup|weather)|browse (?:the )?(?:web|internet)|automatically save|I (?:have )?(?:saved|removed|deleted)|successfully saved)\b|https?:\/\/|\[\d+\]|\d{1,3}\.\d{3,})/i.test(
@@ -61,9 +63,6 @@ export async function revalidateToolResult(
     case 'find_menu_items':
       refreshed = await retrieval.findMenuItems(r.appliedFilters);
       break;
-    case 'get_saved_places':
-      refreshed = await retrieval.getSavedPlaces();
-      break;
     case 'find_approved_offices':
       refreshed = await retrieval.findApprovedOffices(r.appliedFilters);
       break;
@@ -80,6 +79,58 @@ export async function revalidateToolResult(
         r.appliedFilters.limit as number,
       );
       break;
+    case 'get_itinerary_preview':
+    case 'preview_itinerary_change': {
+      const preview = r.data as ItineraryPreview;
+      const stops: ItineraryPreview['stops'] = [];
+      const citations: Place['citations'] = [];
+      try {
+        if (!preview || !Array.isArray(preview.stops) || preview.stops.length > 20)
+          throw new Error('Invalid preview');
+        for (const stop of preview.stops) {
+          decodeToolProposal(
+            {
+              name: 'preview_itinerary_change',
+              arguments: {
+                stops: [{ placeId: stop.placeId, durationMinutes: stop.durationMinutes }],
+              },
+            },
+            r.callId,
+          );
+          const latest = await retrieval.getPlaceDetails(stop.placeId);
+          assertNotAborted(signal);
+          if (!latest.data) throw new Error('Source unavailable');
+          stops.push({
+            placeId: latest.data.id,
+            name: latest.data.name,
+            durationMinutes: stop.durationMinutes,
+          });
+          citations.push(...latest.data.citations);
+        }
+        return {
+          ...r,
+          data: {
+            stops,
+            totalVisitMinutes: stops.reduce((n, stop) => n + stop.durationMinutes, 0),
+          },
+          citations,
+          sourceRecordIds: [...new Set(stops.map((stop) => stop.placeId))],
+          sourceFingerprint: JSON.stringify(citations),
+        };
+      } catch {
+        assertNotAborted(signal);
+        return {
+          ...r,
+          status: 'unavailable',
+          data: null,
+          citations: [],
+          sourceRecordIds: [],
+          warnings: [
+            "I can't confirm the approved records for this preview anymore. Try asking for a fresh preview.",
+          ],
+        };
+      }
+    }
     default: {
       for (const id of r.sourceRecordIds) {
         if (!(await retrieval.getPlaceDetails(id)).data)
@@ -89,7 +140,7 @@ export async function revalidateToolResult(
             data: null,
             citations: [],
             warnings: [
-              'Source eligibility changed. Resolve the place and request a fresh preview.',
+              'That place is no longer available from the approved records. Try asking for it again.',
             ],
           };
       }
@@ -112,7 +163,7 @@ export function composeGroundedAnswer(
       payloads.push({
         kind: 'status',
         severity: 'info',
-        text: r.warnings.join(' ').slice(0, 600) || 'This capability is unavailable offline.',
+        text: r.warnings.join(' ').slice(0, 600) || "I can't help with that offline right now.",
       });
       continue;
     }
@@ -121,10 +172,12 @@ export function composeGroundedAnswer(
         kind: 'text',
         text:
           r.authority === 'research'
-            ? 'No matching research records are available. Research is separate from approved facts.'
-            : r.name === 'get_saved_places'
-              ? 'No current approved saved places are available.'
-              : 'No verified matching records are available in the installed offline sources.',
+            ? "I couldn't find a matching research entry. Research listings are separate from approved facts."
+            : ['find_approved_offices', 'get_office_details'].includes(r.name)
+              ? "I couldn't find any approved offices for that yet."
+              : r.name === 'find_menu_items'
+                ? "I couldn't find matching menu items in the approved records yet."
+                : "I couldn't find any approved matches for that yet.",
       });
       continue;
     }
@@ -133,7 +186,7 @@ export function composeGroundedAnswer(
         const places = r.data as Place[];
         payloads.push({
           kind: 'places',
-          title: 'Approved offline places',
+          title: 'Places from approved offline records',
           placeIds: places.map((p) => p.id),
           total: places.length,
         });
@@ -148,7 +201,7 @@ export function composeGroundedAnswer(
         const data = r.data as { placeId: string; entrances: Entrance[] };
         payloads.push({
           kind: 'text',
-          text: `Recorded eligible entrances:\n${data.entrances.map((entrance, index) => `${index + 1}. ${entrance.label}${entrance.floor ? ` · ${entrance.floor}` : ''}`).join('\n')}\nThese records do not provide walking directions.`,
+          text: `Here are the recorded eligible entrances:\n${data.entrances.map((entrance, index) => `${index + 1}. ${entrance.label}${entrance.floor ? ` · ${entrance.floor}` : ''}`).join('\n')}\nThese records do not provide walking directions.`,
         });
         break;
       }
@@ -156,31 +209,9 @@ export function composeGroundedAnswer(
         const rows = r.data as BranchMenuItem[];
         payloads.push({
           kind: 'menus',
-          title: 'Approved recorded menu items',
+          title: 'Menu items from approved records',
           total: rows.length,
           items: rows.map((row) => ({ placeId: row.branchId, item: row.item })),
-        });
-        break;
-      }
-      case 'get_saved_places': {
-        const data = r.data as Awaited<ReturnType<UnifiedRetrieval['getSavedPlaces']>>['data'];
-        if (data.totalSaved || data.places.length)
-          payloads.push({
-            kind: 'places',
-            title: `Saved places (${data.totalSaved} saved)`,
-            placeIds: data.places.map((p) => p.id),
-            total: data.totalSaved,
-          });
-        if (data.unresolved)
-          payloads.push({
-            kind: 'text',
-            text: `${data.unresolved} saved place record(s) remain in local storage but cannot currently be resolved as approved records.`,
-          });
-        payloads.push({
-          kind: 'text',
-          text: data.itinerary.length
-            ? `Saved visit list (${data.totalItinerary} stops)${data.startTime ? ` · planned local start ${data.startTime}` : ''}:\n${data.itinerary.map((stop, index) => `${index + 1}. ${stop.name ?? `Unavailable saved stop (${stop.placeId})`} · ${stop.durationMinutes} minutes planned visit${stop.status === 'unavailable' ? ' · retained, source unavailable' : ''}`).join('\n')}\nVisit durations only; no walking route or travel-time estimate.`
-            : `No saved itinerary stops.${data.startTime ? ` Planned local start setting: ${data.startTime}.` : ''} No walking route or travel-time estimate.`,
         });
         break;
       }
@@ -238,23 +269,17 @@ export function composeGroundedAnswer(
         break;
       }
       case 'focus_map_place':
-        payloads.push({ kind: 'text', text: 'Opened the verified place on the map.' });
+        payloads.push({ kind: 'text', text: 'Here it is on the map.' });
         break;
-      case 'preview_saved_change':
-      case 'preview_itinerary_change': {
-        const pending = r.data as ActionPreview;
-        payloads.push({
-          kind: 'status',
-          severity: 'info',
-          text: `${pending.summary}\nNothing has been saved. Use the confirmation button to apply this change.`,
-        });
+      case 'get_itinerary_preview':
+      case 'preview_itinerary_change':
+        payloads.push({ kind: 'itinerary-preview', preview: r.data as ItineraryPreview });
         break;
-      }
     }
     if (r.citations.length)
       payloads.push({
         kind: 'evidence',
-        title: 'Source lineage for these recorded facts',
+        title: 'Sources for these recorded details',
         citations: r.citations,
       });
     if (r.warnings.length)
@@ -266,7 +291,7 @@ export function composeGroundedAnswer(
     else
       payloads.push({
         kind: 'text',
-        text: 'I cannot verify that from the installed offline sources. I can search approved places, recorded menus, current offices and saved places. Research listings require an explicit request. Live status and walking directions are unavailable.',
+        text: "I can't confirm that from the offline info on this device. I can help you find approved places, recorded menus and current offices, show a place on the map or preview a temporary visit list. Ask for research listings if you'd like those too. Live updates and route directions aren't available.",
       });
   }
   if (
@@ -277,7 +302,7 @@ export function composeGroundedAnswer(
     payloads.push({
       kind: 'status',
       severity: 'info',
-      text: 'Offline recorded data does not establish live availability, open-now status, dietary safety, traffic, walking routes or travel times.',
+      text: "These offline records can't confirm live availability, what's open now, dietary safety, traffic or travel times. Route directions aren't available.",
     });
   return payloads;
 }

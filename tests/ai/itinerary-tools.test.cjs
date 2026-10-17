@@ -3,17 +3,19 @@ const assert = require("node:assert/strict");
 const { loadTs } = require("../helpers/load-ts.cjs");
 const { createUnifiedRetrieval } = loadTs("apps/mobile/src/ai/retrieval.ts");
 const { createToolExecutor } = loadTs("apps/mobile/src/ai/toolExecutor.ts");
-const { MutationCoordinator } = loadTs(
-  "apps/mobile/src/ai/mutationCoordinator.ts",
+const { ItineraryPreviewOwner } = loadTs(
+  "apps/mobile/src/ai/itineraryPreview.ts",
 );
-const { savedFingerprint, projectSavedPatch } = loadTs(
-  "apps/mobile/src/data/savedPatch.ts",
+const { decodeToolProposal, toolDefinitions, TOOL_CONTRACT_REVISION } = loadTs(
+  "apps/mobile/src/ai/tools.ts",
 );
-const { composeGroundedAnswer } = loadTs(
+const { composeGroundedAnswer, revalidateToolResult } = loadTs(
   "apps/mobile/src/ai/answerComposer.ts",
 );
 const { toolObservation } = loadTs("apps/mobile/src/ai/prompt.ts");
+const { AgentOrchestrator } = loadTs("apps/mobile/src/ai/AgentOrchestrator.ts");
 const id = (n) => `00000000-0000-4000-8000-${String(n).padStart(12, "0")}`;
+const stop = (n, durationMinutes = 30) => ({ placeId: id(n), durationMinutes });
 const citation = {
   sourceId: "SYNTHETIC",
   label: "Test only",
@@ -37,45 +39,51 @@ const place = (n) => ({
   aliases: [],
   entrances: [],
   menus: [],
-  citations: [citation],
+  citations: [{ ...citation }],
 });
-const proposal = (name, arguments = {}) => ({ version: 1, name, arguments });
+const proposal = (name, args = {}) => ({ version: 1, name, arguments: args });
+const deferred = () => {
+  let resolve;
+  const promise = new Promise((r) => {
+    resolve = r;
+  });
+  return { promise, resolve };
+};
 function fixture() {
-  let state = {
-      placeIds: [id(1)],
-      itinerary: [
-        { placeId: id(2), durationMinutes: 30 },
-        { placeId: id(3), durationMinutes: 45 },
-      ],
-      startTime: "10:30",
-    },
-    writes = 0,
-    serial = 0;
-  const available = new Map([1, 2, 4].map((n) => [id(n), place(n)]));
-  const resolve = async (key) => available.get(key) ?? null;
-  const read = async () => structuredClone(state);
+  const available = new Map([1, 2, 3].map((n) => [id(n), place(n)]));
+  const retained = {
+    placeIds: [id(90)],
+    itinerary: [stop(91, 45)],
+    startTime: "10:30",
+  };
+  const original = JSON.stringify(retained);
+  let savedReads = 0,
+    nextResolver;
+  const resolve = async (key) => {
+    if (nextResolver) {
+      const handler = nextResolver;
+      nextResolver = undefined;
+      return handler(key);
+    }
+    return available.get(key) ?? null;
+  };
+  const owner = new ItineraryPreviewOwner(resolve);
   const retrieval = createUnifiedRetrieval({
     findPlaces: async () => [...available.values()],
     getPlaceDetails: resolve,
     findMenuItems: async () => [],
-    loadSaved: read,
+    loadSaved: async () => {
+      savedReads++;
+      throw Error("Removed saved feature must not be read");
+    },
     searchOffices: () => ({ items: [], total: 0 }),
     getOfficeDetails: () => null,
   });
-  const coordinator = new MutationCoordinator({
-    read,
-    resolve,
-    mintId: () => `HOST-${++serial}`,
-    apply: async (expected, patch) => {
-      if (savedFingerprint(state) !== expected) throw Error("CAS conflict");
-      state = projectSavedPatch(state, patch);
-      writes++;
-      return state;
-    },
-  });
   const executor = createToolExecutor(retrieval, {
-    previewItinerary: (stops, requestId, operation) =>
-      coordinator.previewItinerary(stops, requestId, operation),
+    getItineraryPreview: (signal) => owner.read(signal),
+    previewItinerary: (stops, requestId, operation, signal) =>
+      owner.preview(stops, requestId, operation, signal),
+    cancelPending: () => owner.cancelPending(),
   });
   const context = {
     requestId: "HOST_REQUEST",
@@ -83,312 +91,303 @@ function fixture() {
     resolvedPlaceIds: new Set(),
   };
   return {
+    available,
+    owner,
     retrieval,
-    coordinator,
     executor,
     context,
-    get state() {
-      return state;
+    retained,
+    original,
+    get savedReads() {
+      return savedReads;
     },
-    get writes() {
-      return writes;
+    nextResolve: (handler) => {
+      nextResolver = handler;
     },
-    change: (fn) => fn(state),
   };
 }
-test("saved tools expose current itinerary/start setting and retain unresolved tuples without promoting them", async () => {
-  const f = fixture();
-  const result = await f.executor.execute(
+async function call(f, name, args = {}) {
+  return f.executor.execute(proposal(name, args), "HOST", f.context);
+}
+
+test("v2 registry rejects removed saved tools and permanent settings in preview schemas", () => {
+  assert.equal(TOOL_CONTRACT_REVISION, "omni-local-tools-v2");
+  const names = toolDefinitions().map((x) => x.name);
+  assert.ok(names.includes("get_itinerary_preview"));
+  assert.ok(
+    !names.includes("get_saved_places") &&
+      !names.includes("preview_saved_change"),
+  );
+  for (const bad of [
     proposal("get_saved_places"),
-    "HOST",
-    f.context,
-  );
-  assert.equal(result.status, "ok");
-  assert.equal(result.data.startTime, "10:30");
-  assert.equal(result.data.totalItinerary, 2);
-  assert.equal(result.data.unresolvedItinerary, 1);
-  assert.equal(result.data.itinerary[1].placeId, id(3));
-  assert.equal(result.data.itinerary[1].durationMinutes, 45);
-  assert.equal(result.data.itinerary[1].name, null);
-  assert.equal(result.data.itinerary[1].status, "unavailable");
-  assert.ok(f.context.resolvedPlaceIds.has(id(2)));
-  assert.ok(!f.context.resolvedPlaceIds.has(id(3)));
-  const observation = JSON.parse(toolObservation(result));
-  assert.equal(observation.data.itinerary[1].placeId, id(3));
-  assert.equal(observation.data.itinerary[1].status, "unavailable");
-  const output = JSON.stringify(composeGroundedAnswer([result]));
-  assert.match(output, /10:30/);
-  assert.match(output, /45 minutes planned visit/);
-  assert.match(output, /retained, source unavailable/);
-  assert.match(output, /no walking route or travel-time estimate/i);
-});
-test("actual executor append previews only, then confirmation preserves unknown old visits/preferences and commits once", async () => {
-  const f = fixture();
-  await f.executor.execute(proposal("find_places"), "HOST_READ", f.context);
-  const preview = await f.executor.execute(
+    proposal("preview_saved_change", { placeId: id(1), operation: "save" }),
+    proposal("get_itinerary_preview", { saved: true }),
     proposal("preview_itinerary_change", {
-      operation: "append",
-      stops: [{ placeId: id(4), durationMinutes: 60 }],
+      stops: [stop(1)],
+      startTime: "10:30",
     }),
-    "HOST_APPEND",
-    f.context,
-  );
-  assert.equal(preview.status, "needs_confirmation");
-  assert.equal(f.writes, 0);
-  assert.equal(f.state.itinerary.length, 2);
-  assert.match(preview.data.summary, /Unavailable saved record/);
-  await Promise.all([
-    f.coordinator.confirm(preview.data.pendingId),
-    f.coordinator.confirm(preview.data.pendingId),
-  ]);
-  assert.equal(f.writes, 1);
-  assert.deepEqual(
-    Array.from(f.state.itinerary, (stop) => stop.placeId),
-    [id(2), id(3), id(4)],
-  );
-  assert.equal(f.state.startTime, "10:30");
-  assert.equal(f.state.placeIds[0], id(1));
-});
-test("actual executor removes an exact unresolved local stop without hiding or replacing retained visits", async () => {
-  const f = fixture();
-  const preview = await f.executor.execute(
+    proposal("preview_itinerary_change", { stops: [stop(1, 1441)] }),
     proposal("preview_itinerary_change", {
-      operation: "remove",
-      stops: [{ placeId: id(3), durationMinutes: 45 }],
+      stops: [stop(1)],
+      operation: "commit",
     }),
-    "HOST_REMOVE",
-    f.context,
-  );
-  assert.equal(preview.status, "needs_confirmation");
-  assert.equal(f.writes, 0);
-  await f.coordinator.confirm(preview.data.pendingId);
-  assert.equal(f.state.itinerary.length, 1);
-  assert.equal(f.state.itinerary[0].placeId, id(2));
-  assert.equal(f.state.itinerary[0].durationMinutes, 30);
-});
-test("actual executor reorders exact current ID/duration multiset including unavailable retained stop", async () => {
-  const f = fixture();
-  const stops = structuredClone(f.state.itinerary).reverse();
-  const preview = await f.executor.execute(
-    proposal("preview_itinerary_change", { operation: "reorder", stops }),
-    "HOST_REORDER",
-    f.context,
-  );
-  assert.equal(preview.status, "needs_confirmation");
-  await f.coordinator.confirm(preview.data.pendingId);
-  assert.deepEqual(
-    Array.from(f.state.itinerary, (stop) => [
-      stop.placeId,
-      stop.durationMinutes,
-    ]),
-    [
-      [id(3), 45],
-      [id(2), 30],
-    ],
-  );
-});
-test("invalid reorder/drop/duration, invented removal and unknown appended stop make no preview or write", async () => {
-  const f = fixture();
-  for (const arguments of [
-    { operation: "reorder", stops: [{ placeId: id(2), durationMinutes: 30 }] },
-    {
-      operation: "reorder",
-      stops: [
-        { placeId: id(3), durationMinutes: 46 },
-        { placeId: id(2), durationMinutes: 30 },
-      ],
-    },
-    { operation: "remove", stops: [{ placeId: id(99), durationMinutes: 30 }] },
-    { operation: "append", stops: [{ placeId: id(3), durationMinutes: 45 }] },
   ])
-    assert.equal(
-      (
-        await f.executor.execute(
-          proposal("preview_itinerary_change", arguments),
-          "HOST_BAD",
-          f.context,
-        )
-      ).status,
-      "denied",
-    );
-  assert.equal(f.writes, 0);
-  await assert.rejects(f.coordinator.confirm("HOST-1"));
-  await assert.rejects(
-    f.executor.execute(
-      proposal("preview_itinerary_change", {
-        operation: "delete_all_data",
-        stops: [],
-      }),
-      "HOST",
-      f.context,
-    ),
-    { code: "TOOL_PROTOCOL_INVALID" },
-  );
-});
-test("omitted itinerary operation remains replace and changed latest user state rejects prepared append", async () => {
-  const f = fixture();
-  await f.executor.execute(proposal("find_places"), "HOST_READ", f.context);
-  const replace = await f.executor.execute(
-    proposal("preview_itinerary_change", {
-      stops: [{ placeId: id(4), durationMinutes: 10 }],
-    }),
-    "HOST_REPLACE",
-    f.context,
-  );
-  assert.match(replace.data.summary, /replace visit list/);
-  const append = await f.executor.execute(
-    proposal("preview_itinerary_change", {
-      operation: "append",
-      stops: [{ placeId: id(4), durationMinutes: 10 }],
-    }),
-    "HOST_APPEND",
-    f.context,
-  );
-  f.change((state) => (state.startTime = "11:00"));
-  await assert.rejects(
-    f.coordinator.confirm(append.data.pendingId),
-    /conflict/i,
-  );
-  assert.equal(f.writes, 0);
+    assert.throws(() => decodeToolProposal(bad, "HOST"), {
+      code: "TOOL_PROTOCOL_INVALID",
+    });
 });
 
-test("itinerary-only unresolved saved state survives the full orchestration/display pipeline", async () => {
+test("draft operations use only session memory, exact tuples and no confirmation or saved-state read", async () => {
   const f = fixture();
-  f.change((state) => {
-    state.placeIds = [];
-    state.itinerary = [{ placeId: id(3), durationMinutes: 45 }];
-    state.startTime = null;
-  });
-  const { AgentOrchestrator } = loadTs(
-    "apps/mobile/src/ai/AgentOrchestrator.ts",
+  assert.equal((await call(f, "get_itinerary_preview")).data.stops.length, 0);
+  assert.equal(
+    (await call(f, "preview_itinerary_change", { stops: [stop(1)] })).status,
+    "denied",
   );
+  await call(f, "find_places");
+  await call(f, "preview_itinerary_change", {
+    stops: [stop(1, 20), stop(2, 30)],
+  });
+  const added = await call(f, "preview_itinerary_change", {
+    operation: "append",
+    stops: [stop(1, 45)],
+  });
+  assert.equal(added.data.totalVisitMinutes, 95);
+  const reordered = await call(f, "preview_itinerary_change", {
+    operation: "reorder",
+    stops: [stop(1, 45), stop(2, 30), stop(1, 20)],
+  });
+  assert.deepEqual(
+    Array.from(reordered.data.stops, (x) => x.durationMinutes),
+    [45, 30, 20],
+  );
+  const removed = await call(f, "preview_itinerary_change", {
+    operation: "remove",
+    stops: [stop(1, 20)],
+  });
+  assert.deepEqual(
+    Array.from(removed.data.stops, (x) => x.durationMinutes),
+    [45, 30],
+  );
+  assert.equal(removed.status, "ok");
+  assert.ok(!("confirm" in f.owner));
+  assert.equal(f.savedReads, 0);
+  assert.equal(JSON.stringify(f.retained), f.original);
+  assert.equal(
+    (
+      await new ItineraryPreviewOwner(async (key) =>
+        f.available.get(key),
+      ).read()
+    ).stops.length,
+    0,
+  );
+});
+
+test("invalid tuple edits and oversized drafts retain prior draft; duplicate multiplicity stays exact", async () => {
+  const f = fixture();
+  await call(f, "find_places");
+  await call(f, "preview_itinerary_change", {
+    stops: [stop(1, 20), stop(2, 30)],
+  });
+  for (const args of [
+    { operation: "remove", stops: [stop(1, 21)] },
+    { operation: "remove", stops: [stop(1, 20), stop(1, 20)] },
+    { operation: "reorder", stops: [stop(1, 20)] },
+    { operation: "reorder", stops: [stop(1, 30), stop(2, 20)] },
+  ])
+    assert.equal(
+      (await call(f, "preview_itinerary_change", args)).status,
+      "unavailable",
+    );
+  const before = JSON.stringify(await f.owner.read());
+  await assert.rejects(
+    f.owner.preview(
+      Array.from({ length: 20 }, (_, i) => ({
+        placeId: id(i + 1),
+        durationMinutes: 1,
+      })),
+      "HOST",
+      "append",
+    ),
+  );
+  assert.equal(JSON.stringify(await f.owner.read()), before);
+  await f.owner.preview([stop(1, 20)], "HOST");
+  await f.owner.preview([stop(1, 20)], "HOST", "append");
+  await f.owner.preview([stop(1, 20), stop(1, 20)], "HOST", "reorder");
+  assert.equal(
+    (await f.owner.preview([stop(1, 20)], "HOST", "remove")).stops.length,
+    1,
+  );
+  await assert.rejects(
+    f.owner.preview([stop(1, 20), stop(1, 20)], "HOST", "remove"),
+  );
+});
+
+test("fresh names and revoked eligibility are checked before reading, editing and rendering", async () => {
+  const f = fixture();
+  await call(f, "find_places");
+  const earlier = await call(f, "preview_itinerary_change", {
+    stops: [stop(1, 20)],
+  });
+  f.available.get(id(1)).name = "Renamed approved source";
+  assert.equal(
+    (await revalidateToolResult(earlier, f.retrieval)).data.stops[0].name,
+    "Renamed approved source",
+  );
+  assert.equal((await f.owner.read()).stops[0].name, "Renamed approved source");
+  f.available.get(id(1)).status = "stale";
+  assert.equal((await call(f, "get_itinerary_preview")).status, "unavailable");
+  assert.equal(
+    (
+      await call(f, "preview_itinerary_change", {
+        operation: "reorder",
+        stops: [stop(1, 20)],
+      })
+    ).status,
+    "unavailable",
+  );
+  const revoked = await revalidateToolResult(earlier, f.retrieval);
+  assert.equal(revoked.status, "unavailable");
+  assert.ok(
+    !composeGroundedAnswer([revoked]).some(
+      (x) => x.kind === "itinerary-preview",
+    ),
+  );
+});
+
+test("cancel and clear invalidate in-flight writes while completed draft survives cancel", async () => {
+  const f = fixture();
+  await f.owner.preview([stop(1, 20)], "HOST");
+  const held = deferred();
+  f.nextResolve(() => held.promise);
+  const pending = f.owner.preview([stop(2, 40)], "HOST");
+  f.owner.cancelPending();
+  held.resolve(f.available.get(id(2)));
+  await assert.rejects(pending, /changed/);
+  assert.equal((await f.owner.read()).stops[0].placeId, id(1));
+  const again = deferred();
+  f.nextResolve(() => again.promise);
+  const clearing = f.owner.preview([stop(2, 40)], "HOST");
+  f.owner.clear();
+  again.resolve(f.available.get(id(2)));
+  await assert.rejects(clearing, /changed/);
+  assert.equal((await f.owner.read()).stops.length, 0);
+});
+
+test("concurrent CAS rejects late draft replacement; abort and detached objects preserve state", async () => {
+  const f = fixture(),
+    held = deferred();
+  f.nextResolve(() => held.promise);
+  const older = f.owner.preview([stop(1, 20)], "HOST_OLD");
+  await f.owner.preview([stop(2, 45)], "HOST_NEW");
+  held.resolve(f.available.get(id(1)));
+  await assert.rejects(older, /changed/);
+  assert.equal((await f.owner.read()).stops[0].placeId, id(2));
+  const waiting = deferred(),
+    controller = new AbortController();
+  f.nextResolve(() => waiting.promise);
+  const aborted = f.owner.preview(
+    [stop(1)],
+    "HOST",
+    "replace",
+    controller.signal,
+  );
+  controller.abort();
+  waiting.resolve(f.available.get(id(1)));
+  await assert.rejects(aborted, { name: "AbortError" });
+  const input = [stop(1, 15)],
+    result = await f.owner.preview(input, "HOST");
+  input[0].durationMinutes = 500;
+  result.stops[0].durationMinutes = 900;
+  assert.equal((await f.owner.read()).totalVisitMinutes, 15);
+});
+
+test("orchestration returns grounded ephemeral preview; removed save/routes never reach provider", async () => {
+  const f = fixture();
   let calls = 0;
   const provider = {
+    id: "CONTROLLED_NO_MODEL",
     getCapabilities: async () => ({ supportedContextTokens: 4096 }),
-    cancel: async () => ({}),
+    cancel: async () => ({ accepted: true, nativeQuiescent: false }),
     stream: async (input) => ({
       requestId: input.requestId,
       epoch: input.epoch,
-      finishReason: "complete",
       nativeQuiescent: true,
+      finishReason: "complete",
       text: "",
-      toolProposals: calls++ ? [] : [proposal("get_saved_places")],
+      toolProposals: calls++
+        ? []
+        : [proposal("preview_itinerary_change", { stops: [stop(1, 25)] })],
     }),
   };
-  const turn = await new AgentOrchestrator(provider, f.executor).run(
-    "Show my itinerary",
-  );
+  const agent = new AgentOrchestrator(provider, f.executor);
+  const turn = await agent.run("Preview the first place in my itinerary", {
+    resolvedPlaceIds: [id(1)],
+  });
   assert.equal(turn.status, "completed");
-  assert.equal(turn.results[0].status, "ok");
-  assert.equal(turn.results[0].data.itinerary.length, 1);
-  const output = JSON.stringify(turn.payloads);
-  assert.match(output, /45 minutes planned visit/);
-  assert.match(output, /retained, source unavailable/);
-  assert.equal(turn.places.length, 0);
+  assert.equal(
+    turn.payloads.find((x) => x.kind === "itinerary-preview").preview
+      .totalVisitMinutes,
+    25,
+  );
+  const observation = JSON.parse(toolObservation(turn.results[0]));
+  assert.equal(observation.data.temporary, true);
+  assert.equal(observation.data.stops[0].durationMinutes, 25);
+  const prior = calls;
+  for (const query of [
+    "Show my saved places",
+    "Save the first one",
+    "Show favorites",
+    "Walking directions to a cafe",
+  ]) {
+    const denied = await agent.run(query);
+    assert.equal(denied.status, "unavailable");
+    assert.equal(denied.results.length, 0);
+  }
+  assert.equal(calls, prior);
+  assert.equal(f.savedReads, 0);
 });
 
-test("oversized legacy itinerary remains fully readable and action limit is an explicit nonmutating result", async () => {
-  const f = fixture();
-  f.change((state) => {
-    state.itinerary = Array.from({ length: 21 }, () => ({
-      placeId: id(3),
-      durationMinutes: 1,
-    }));
-  });
-  const read = await f.executor.execute(
-    proposal("get_saved_places"),
-    "HOST_READ",
-    f.context,
-  );
-  assert.equal(read.data.itinerary.length, 21);
-  const observation = JSON.parse(toolObservation(read));
-  assert.equal(observation.data.totalItinerary, 21);
-  assert.equal(observation.data.itineraryTruncated, true);
-  const edit = await f.executor.execute(
-    proposal("preview_itinerary_change", {
-      operation: "remove",
-      stops: [{ placeId: id(3), durationMinutes: 1 }],
-    }),
-    "HOST_REMOVE",
-    f.context,
-  );
-  assert.equal(edit.status, "unavailable");
-  assert.match(edit.warnings[0], /20-stop.*retained/);
-  assert.equal(f.writes, 0);
-  assert.equal(f.state.itinerary.length, 21);
-});
-
-test("remove binds exact duration and occurrence count instead of deleting every repeated place ID", async () => {
-  const f = fixture();
-  f.change((state) => {
-    state.itinerary = [
-      { placeId: id(2), durationMinutes: 30 },
-      { placeId: id(3), durationMinutes: 45 },
-      { placeId: id(2), durationMinutes: 30 },
-    ];
-  });
-  const wrong = await f.executor.execute(
-    proposal("preview_itinerary_change", {
-      operation: "remove",
-      stops: [{ placeId: id(2), durationMinutes: 31 }],
-    }),
-    "HOST_WRONG",
-    f.context,
-  );
-  assert.equal(wrong.status, "denied");
-  const preview = await f.executor.execute(
-    proposal("preview_itinerary_change", {
-      operation: "remove",
-      stops: [{ placeId: id(2), durationMinutes: 30 }],
-    }),
-    "HOST_ONCE",
-    f.context,
-  );
-  await f.coordinator.confirm(preview.data.pendingId);
-  assert.deepEqual(
-    Array.from(f.state.itinerary, (stop) => [
-      stop.placeId,
-      stop.durationMinutes,
-    ]),
-    [
-      [id(3), 45],
-      [id(2), 30],
-    ],
-  );
-  const excess = await f.executor.execute(
-    proposal("preview_itinerary_change", {
-      operation: "remove",
-      stops: [
-        { placeId: id(2), durationMinutes: 30 },
-        { placeId: id(2), durationMinutes: 30 },
-      ],
-    }),
-    "HOST_EXCESS",
-    f.context,
-  );
-  assert.equal(excess.status, "denied");
-  assert.equal(f.writes, 1);
-  const g = fixture();
-  g.change((state) => {
-    state.itinerary = [
-      { placeId: id(2), durationMinutes: 30 },
-      { placeId: id(3), durationMinutes: 45 },
-      { placeId: id(2), durationMinutes: 30 },
-    ];
-  });
-  const both = await g.executor.execute(
-    proposal("preview_itinerary_change", {
-      operation: "remove",
-      stops: [
-        { placeId: id(2), durationMinutes: 30 },
-        { placeId: id(2), durationMinutes: 30 },
-      ],
-    }),
-    "HOST_TWICE",
-    g.context,
-  );
-  assert.equal(both.status, "needs_confirmation");
-  await g.coordinator.confirm(both.data.pendingId);
-  assert.equal(g.state.itinerary.length, 1);
-  assert.equal(g.state.itinerary[0].placeId, id(3));
+test("final preview hydration refreshes names and blocks a place revoked after initial revalidation", async () => {
+  for (const revoked of [false, true]) {
+    const f = fixture();
+    const originalRead = f.retrieval.getPlaceDetails;
+    let reads = 0,
+      rounds = 0;
+    f.retrieval.getPlaceDetails = async (key) => {
+      if (++reads === 4) {
+        if (revoked) f.available.get(id(1)).status = "stale";
+        else f.available.get(id(1)).name = "Latest approved name";
+      }
+      return originalRead(key);
+    };
+    const provider = {
+      id: "CONTROLLED_NO_MODEL",
+      getCapabilities: async () => ({ supportedContextTokens: 4096 }),
+      cancel: async () => ({ accepted: true, nativeQuiescent: false }),
+      stream: async (input) => ({
+        requestId: input.requestId,
+        epoch: input.epoch,
+        nativeQuiescent: true,
+        finishReason: "complete",
+        text: "",
+        toolProposals: rounds++
+          ? []
+          : [proposal("preview_itinerary_change", { stops: [stop(1, 25)] })],
+      }),
+    };
+    const turn = await new AgentOrchestrator(provider, f.executor).run(
+      "Preview the first place in my itinerary",
+      { resolvedPlaceIds: [id(1)] },
+    );
+    const payload = turn.payloads.find((x) => x.kind === "itinerary-preview");
+    if (revoked) {
+      assert.equal(payload, undefined);
+      assert.equal(turn.places.length, 0);
+      assert.equal(turn.results[0].status, "unavailable");
+    } else {
+      assert.equal(payload.preview.stops[0].name, "Latest approved name");
+      assert.equal(turn.places[0].id, id(1));
+    }
+  }
 });

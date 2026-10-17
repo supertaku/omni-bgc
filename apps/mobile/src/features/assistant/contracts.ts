@@ -1,4 +1,5 @@
 import type { Citation, MenuItem, Place, RouteResult, SavedState } from '../../contracts';
+import type { ItineraryPreview } from '../../ai/itineraryPreview';
 import type { FoodEvidence, FoodHours, FoodMenuItem } from '../food/contracts';
 
 /** Presentation payloads reference canonical entities; there is no Assistant database. */
@@ -40,6 +41,7 @@ export type AssistantPayload =
     }
   | { kind: 'route'; placeId: string; originLabel: string; result: RouteResult }
   | { kind: 'itinerary'; saved: SavedState }
+  | { kind: 'itinerary-preview'; preview: ItineraryPreview }
   | { kind: 'evidence'; title: string; citations: Citation[] }
   | { kind: 'status'; text: string; severity: 'info' | 'error' }
   | { kind: 'capability'; state: CapabilityState; text: string };

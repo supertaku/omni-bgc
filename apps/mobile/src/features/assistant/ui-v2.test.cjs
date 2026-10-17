@@ -30,6 +30,7 @@ function harness(relative, options = {}) {
     if (name.endsWith('/icons') || name === './icons') return icons;
     if (name.endsWith('/components') || name === './components') return { ...icons, palette, Action:'Action', Body:'Body', Heading:'Heading', Notice:'Notice', ui:{} };
     if (name === './styles') return { assistantStyles: new Proxy({}, { get: (_, key) => ({ style: key }) }) };
+    if (name === './ModelScreen') return { ModelScreen:'ModelScreen' };
     if (name === './cards') return { MessageContent: 'MessageContent' };
     if (name === '../food/directory') return { foodResearch: { getFoodEstablishmentDetails: () => null } };
     if (name === '../food/assistant') return { createFoodResearchAnswer: () => () => null };
@@ -47,7 +48,7 @@ function harness(relative, options = {}) {
         modelOperation: async () => {},
       }) };
     }
-    if (name === './directory') return { placeMatchesCategory: () => true, answerDirectoryQuery: query => [{ kind: 'text', text: `Matched ${query}` }], WALKING_DIRECTIONS_DEFERRED:'Walking directions are not available in this version.',VISIT_PLANNING_DEFERRED:'Visit planning is not available in this version.' };
+    if (name === './directory') return { placeMatchesCategory: () => true, answerDirectoryQuery: query => [{ kind: 'text', text: `Matched ${query}` }], WALKING_DIRECTIONS_DEFERRED:'Walking directions are not available in this version.',VISIT_PLANNING_DEFERRED:'Temporary itinerary previews require the local AI model. They are not saved and do not include routes or travel estimates.' };
     throw new Error(`Unexpected import ${name}`);
   } };
   vm.runInNewContext(compiled, context, { filename: file });
@@ -84,29 +85,25 @@ test('one floating Chat control dispatches Assistant while compact Map chrome di
   assert.equal(action(tree, 'Search filters').props.style.minHeight, 48);
 });
 
-test('compact Assistant header preserves unsent draft, collapses suggestions after send and retains conversation', () => {
+test('compact Assistant preserves draft and conversation without suggestions or technical captions', () => {
   const ui = harness('AssistantScreen.tsx'); let backs = 0; let settings = 0;
   const props = { places: [record], saved: { placeIds: [], itinerary: [] }, onBackMap: () => backs++, onOpenSettings: () => settings++, onOpenPlace() {}, onOpenItinerary() {} };
   let tree = ui.render('AssistantScreen', props);
   assert.ok(!nodes(tree).some(node => node.props?.accessibilityLabel === 'Data, privacy and offline settings'));
   assert.ok(!nodes(tree).some(node => node.props?.accessibilityLabel === 'More Assistant options'));
   const headerText=nodes(tree).filter(node=>node.type==='Text').map(node=>node.props.children).join(' ');
-  assert.match(headerText,/Back to Map/);assert.match(headerText,/AI not connected/);
+  assert.match(headerText,/Back to Map/);assert.doesNotMatch(headerText,/AI not connected|Local search|CPU/);
   const input = () => nodes(tree).find(node => node.type === 'TextInput');
   input().props.onChangeText('Unsent café query');
   action(tree, 'Back to Map').props.onPress(); tree = ui.render('AssistantScreen', props);
   assert.equal(backs, 1); assert.equal(input().props.value, 'Unsent café query');
   assert.equal(settings,0);
-  assert.equal(action(tree, 'Show search suggestions').props.accessibilityState.expanded, false);
-  action(tree, 'Show search suggestions').props.onPress(); tree = ui.render('AssistantScreen', props);
-  assert.equal(action(tree, 'Hide search suggestions').props.accessibilityState.expanded, true);
-  assert.ok(!nodes(tree).some(node=>node.props?.children==='My itinerary'));
+  assert.ok(!nodes(tree).some(node=>/search suggestions/.test(node.props?.accessibilityLabel??'')));
   action(tree, 'Send message').props.onPress(); ui.finishSearch(); tree = ui.render('AssistantScreen', props);
   const payloads = nodes(tree).filter(node => node.type === 'MessageContent').map(node => node.props.payload);
   assert.ok(payloads.some(payload => payload.kind === 'user' && payload.text === 'Unsent café query'));
   assert.ok(payloads.some(payload => payload.kind === 'text' && payload.text === 'Matched Unsent café query'));
   assert.ok(!payloads.some(payload=>payload.text==='Find a place, building or recorded dish.'));
-  assert.equal(action(tree,'Show search suggestions').props.accessibilityState.expanded,false);
   assert.equal(input().props.value, '');
   action(tree,'Back to Map').props.onPress();tree=ui.render('AssistantScreen',props);
   assert.deepEqual(nodes(tree).filter(node=>node.type==='MessageContent').map(node=>node.props.payload),payloads);
@@ -145,7 +142,7 @@ test('legacy route and itinerary payloads cannot expose navigation or call hidde
     const tree=ui.render('MessageContent',{payload,places:[record],actions});
     assert.equal(nodes(tree).filter(node=>node.type==='Pressable'||node.type==='MapButton').length,0);
     const text=nodes(tree).filter(node=>node.type==='Text').map(node=>node.props.children).join(' ');
-    assert.equal(text,payload.kind==='route'?'Walking directions are not available in this version.':'Visit planning is not available in this version.');
+    assert.equal(text,payload.kind==='route'?'Walking directions are not available in this version.':'Temporary itinerary previews require the local AI model. They are not saved and do not include routes or travel estimates.');
   }
   assert.equal(actionsCalled,0);
 });
@@ -163,19 +160,16 @@ test('compact source disclosure retains classification, license, timestamps and 
   assert.ok(text().includes('Separate fact from the same source'));
 });
 
-test('suggestion searches retain an unsent composer draft and support cancellation',()=>{
+test('composer search can stop without showing a stale completed result',()=>{
   const ui=harness('AssistantScreen.tsx');
-  const props={places:[record],saved:{placeIds:[],itinerary:[]},onOpenPlace(){},onBackMap(){}};
+  const props={places:[record],onOpenPlace(){},onBackMap(){}};
   let tree=ui.render('AssistantScreen',props);
-  nodes(tree).find(node=>node.type==='TextInput').props.onChangeText('Unsent building name');
-  action(tree,'Show search suggestions').props.onPress();tree=ui.render('AssistantScreen',props);
-  nodes(tree).find(node=>node.type==='Pressable'&&nodes(node).some(child=>child.props?.children==='Find coffee')).props.onPress();tree=ui.render('AssistantScreen',props);
-  assert.equal(nodes(tree).find(node=>node.type==='TextInput').props.value,'Unsent building name');
+  nodes(tree).find(node=>node.type==='TextInput').props.onChangeText('Coffee');tree=ui.render('AssistantScreen',props);
+  action(tree,'Send message').props.onPress();tree=ui.render('AssistantScreen',props);
   action(tree,'Cancel local search').props.onPress();ui.finishSearch();tree=ui.render('AssistantScreen',props);
   const payloads=nodes(tree).filter(node=>node.type==='MessageContent').map(node=>node.props.payload);
   assert.ok(payloads.some(payload=>payload.kind==='capability'&&payload.state==='cancelled'));
-  assert.ok(!payloads.some(payload=>payload.text==='Matched Find coffee'));
-  assert.equal(nodes(tree).find(node=>node.type==='TextInput').props.value,'Unsent building name');
+  assert.ok(!payloads.some(payload=>payload.text==='Matched Coffee'));
 });
 
 test('Assistant message text avoids repeated decorative avatars',()=>{
@@ -223,4 +217,13 @@ test('fictional result handoff says View sample and suppresses geographic distan
   action(tree,`View sample ${sample.name}`).props.onPress();assert.equal(opened,sample);
   const text=nodes(tree).filter(node=>node.type==='Text').map(node=>node.props.children).join(' ');
   assert.match(text,/Fictional sample/);assert.ok(!text.includes('120 m'));
+});
+
+
+test('temporary itinerary renders visits without saved-state or route controls',()=>{
+  const ui=harness('cards.tsx');const preview={stops:[{placeId:record.id,name:'Synthetic preview stop',durationMinutes:25}],totalVisitMinutes:25};
+  const tree=ui.render('MessageContent',{payload:{kind:'itinerary-preview',preview},places:[record],actions:{onOpenPlace(){throw Error('Unexpected action');}}});
+  const text=nodes(tree).filter(n=>n.type==='Text').flatMap(n=>Array.isArray(n.props.children)?n.props.children:[n.props.children]).join(' ');
+  assert.match(text,/Temporary itinerary preview/);assert.match(text,/Synthetic preview stop/);assert.match(text,/25/);assert.match(text,/Not saved/);assert.match(text,/no route/);
+  assert.equal(nodes(tree).filter(n=>n.type==='Pressable'||n.type==='MapButton').length,0);
 });

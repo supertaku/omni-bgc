@@ -23,6 +23,8 @@ const files = [
   'src/features/assistant/cards.tsx',
   'src/features/assistant/contracts.ts',
   'src/features/assistant/AssistantScreen.tsx',
+  'src/features/assistant/ModelScreen.tsx',
+  'src/features/assistant/modelStyles.ts',
   'src/features/assistant/useDirectoryConversation.ts',
   'src/domain/**/*.ts',
   'src/data/queries.ts',

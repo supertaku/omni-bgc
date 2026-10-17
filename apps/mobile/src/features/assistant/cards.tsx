@@ -338,6 +338,26 @@ export function MessageContent({
           ) : null}
         </View>
       );
+    case 'itinerary-preview':
+      return (
+        <View style={[s.card, s.cardBody]}>
+          <Text accessibilityRole="header" style={s.heading}>
+            Temporary itinerary preview
+          </Text>
+          <Text style={s.caption}>
+            For this session only. Not saved. Visit durations exclude travel; no route is provided.
+          </Text>
+          {payload.preview.stops.map((stop, index) => (
+            <View key={`${stop.placeId}:${index}`}>
+              <Text style={s.body}>
+                {index + 1}. {stop.name}
+              </Text>
+              <Text style={s.caption}>Visit duration: {stop.durationMinutes} minutes</Text>
+            </View>
+          ))}
+          <Text style={s.body}>Total visit time: {payload.preview.totalVisitMinutes} minutes</Text>
+        </View>
+      );
     // Future payloads may still be read, but cannot reactivate deferred UI.
     case 'route':
       return (

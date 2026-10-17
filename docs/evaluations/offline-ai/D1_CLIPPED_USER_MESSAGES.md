@@ -101,3 +101,19 @@ and dependency locks: exact hashes PASS. Reported logical/stored totals were
 `c2-stage-ntfs-compression.log` and `c2-post-compression-audit.json`. No R4 path or
 CMake evidence was removed. Full local model download still requires its space
 guard; reviewed streaming contingency remains unexecuted.
+
+## U2 physical acceptance — October 17 status
+
+The new U2 release completed 705 tasks and seven native tests; independent artifact
+audit PASS. Installed APK size 62,064,134, SHA256
+`bf25e268e8387383982b5ce9b17dfa74a0542e9c5165aac967d54fbcc7838cdc`.
+Original-resolution independent review confirms full office and multiline messages,
+live and after restart. A downsampled screenshot initially appeared truncated;
+inspection of the original and a separate inspection crop resolved that ambiguity.
+Original captures remain unchanged. Parent ACCEPTS the bounded model-less D1 gate
+in `.g/ai-m10/d1/u2-physical-acceptance.json`.
+
+The owner's subsequent feature/UI changes require a new U3 release and fresh
+screenshots. U2 acceptance does not cover those changes or model activation.
+The full pinned PC model now passed exact size/SHA checks; earlier interrupted
+USB transport attempts remain preserved and unimported. No inference acceptance.

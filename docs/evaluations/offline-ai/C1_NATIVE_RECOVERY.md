@@ -55,3 +55,10 @@ commit with no copied ignored native source/build outputs, restore only named
 authorized generated assets and pinned tool dependencies, then independently
 build/audit a second ARM64 preview. Preserve all original R4 evidence. No ADB or
 installation until host gates pass and owner authorization is established.
+
+October 17 provenance addendum: C1 and C2 completed as documented in the current
+handoff. DEC-059 subsequently adds explicitly reviewed preview timing diagnostics
+to `OmniLocalAiModule.kt`. Recovery manifest schema v2 retains the original eight
+R4 hashes in `recovered_native` and inventories current hashes in `native` with a
+named `reviewed_changes` record. The strict index/worktree/hash/autolinking gate
+is unchanged. Historical C1/R4 receipts continue to describe their original bytes.

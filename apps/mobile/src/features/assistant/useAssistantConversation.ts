@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import type { Place, SavedState } from '../../contracts';
+import type { Place } from '../../contracts';
 import type { ConversationMessage, AssistantPayload } from './contracts';
 import { answerDirectoryQuery } from './directory';
 import { createFoodResearchAnswer } from '../food/assistant';
 import { foodResearch } from '../food/directory';
 import { createAssistantRuntime, type AssistantRuntime } from '../../ai/assistantRuntime';
-import type { PendingAction } from '../../ai/mutationCoordinator';
 import type { ModelStatus } from '../../ai/modelManager';
 
 const research = createFoodResearchAnswer(foodResearch);
@@ -19,9 +18,7 @@ const message = (payload: AssistantPayload): ConversationMessage => ({
 /** UI epochs own visibility; native provider independently owns resource quiescence. */
 export function useAssistantConversation(
   places: Place[],
-  saved: SavedState,
   focus: (place: Place) => boolean,
-  onSavedChange?: (saved: SavedState) => void,
   onOpenPlace?: (place: Place) => void,
 ) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
@@ -29,13 +26,10 @@ export function useAssistantConversation(
   const [busy, setBusy] = useState(false);
   const [cancelled, setCancelled] = useState(false);
   const [status, setStatus] = useState('Local directory · AI not connected');
-  const [pending, setPending] = useState<PendingAction | null>(null);
   const [setupStatus, setSetupStatus] = useState<ModelStatus | null>(null);
-  const [confirming, setConfirming] = useState(false);
-  const confirmingRef = useRef(false);
   const pendingScroll = useRef(false);
-  const current = useRef({ places, saved, focus, onSavedChange, onOpenPlace });
-  current.current = { places, saved, focus, onSavedChange, onOpenPlace };
+  const current = useRef({ places, focus, onOpenPlace });
+  current.current = { places, focus, onOpenPlace };
   const live = useRef(true),
     busyRef = useRef(false),
     epoch = useRef(0);
@@ -57,7 +51,9 @@ export function useAssistantConversation(
             ? [payload.placeId]
             : payload.kind === 'menus'
               ? payload.items.map((row) => row.placeId)
-              : [];
+              : payload.kind === 'itinerary-preview'
+                ? payload.preview.stops.map((stop) => stop.placeId)
+                : [];
       const snapshots = sourcePlaces.filter((place) => ids.includes(place.id));
       return {
         ...message(payload),
@@ -79,7 +75,14 @@ export function useAssistantConversation(
     try {
       await runtime.current?.history.append(records);
     } catch {
-      if (live.current) setStatus('AI history unavailable · current chat stays in memory');
+      if (live.current)
+        append([
+          {
+            kind: 'status',
+            severity: 'error',
+            text: 'I couldn’t keep this message in history. You can still chat for this session.',
+          },
+        ]);
     }
   };
   useEffect(() => {
@@ -113,13 +116,19 @@ export function useAssistantConversation(
               message({
                 kind: 'status',
                 severity: 'info',
-                text: 'Saved conversation. Earlier answers are historical; ask again to check current sources.',
+                text: 'Here’s your earlier conversation. Ask again to check the latest recorded sources.',
               }),
               ...restored,
             ]);
         } catch {
           if (active && live.current)
-            setStatus('AI history unavailable · current chat stays in memory');
+            append([
+              {
+                kind: 'status',
+                severity: 'error',
+                text: 'I couldn’t open your history. You can still chat for this session.',
+              },
+            ]);
         }
         try {
           const initialized = await created.initialize();
@@ -158,11 +167,9 @@ export function useAssistantConversation(
         epoch.current++;
         request.current?.abort();
         runtime.current?.agent.cancel();
-        runtime.current?.mutations.cancelAll();
         busyRef.current = false;
         if (live.current) {
           setBusy(false);
-          setPending(null);
           setStatus('Paused · local directory ready');
         }
       }
@@ -184,28 +191,24 @@ export function useAssistantConversation(
     epoch.current++;
     request.current?.abort();
     runtime.current?.agent.cancel();
-    runtime.current?.mutations.cancelAll();
     busyRef.current = false;
     setBusy(false);
     setCancelled(true);
-    setPending(null);
     append([
       {
         kind: 'capability',
         state: 'cancelled',
-        text: 'Stopped. Partial model text is not a completed action.',
+        text: 'Stopped. Ready when you are.',
       },
     ]);
   };
   const send = (query = draft) => {
     const text = query.trim();
-    if (!text || text.length > 1000 || busyRef.current || confirmingRef.current) return false;
+    if (!text || text.length > 1000 || busyRef.current) return false;
     const turnEpoch = ++epoch.current;
     busyRef.current = true;
     setBusy(true);
     setCancelled(false);
-    setPending(null);
-    runtime.current?.mutations.cancelAll();
     const abort = new AbortController();
     request.current = abort;
     if (query === draft) setDraft('');
@@ -264,9 +267,6 @@ export function useAssistantConversation(
           if (turn.status === 'canceled') return;
           output = turn.payloads;
           sourcePlaces = turn.places ?? [];
-          const preview = turn.results.find((result) => result.status === 'needs_confirmation');
-          if (live.current && epoch.current === turnEpoch)
-            setPending(preview ? (preview.data as PendingAction) : null);
           const displayed = output.flatMap((payload) =>
             payload.kind === 'places'
               ? payload.placeIds
@@ -274,9 +274,15 @@ export function useAssistantConversation(
                 ? [payload.placeId]
                 : payload.kind === 'menus'
                   ? payload.items.map((row) => row.placeId)
-                  : [],
+                  : payload.kind === 'itinerary-preview'
+                    ? payload.preview.stops.map((stop) => stop.placeId)
+                    : [],
           );
-          if (output.some((payload) => ['places', 'place', 'menus'].includes(payload.kind)))
+          if (
+            output.some((payload) =>
+              ['places', 'place', 'menus', 'itinerary-preview'].includes(payload.kind),
+            )
+          )
             resolved.current = [
               ...new Set(displayed.filter((id) => sourcePlaces.some((place) => place.id === id))),
             ].slice(0, 12);
@@ -285,10 +291,7 @@ export function useAssistantConversation(
             setStatus('Local AI unavailable · directory fallback ready');
           }
         } else {
-          const latest = await import('../../data/store')
-            .then((store) => store.loadSaved())
-            .catch(() => current.current.saved);
-          output = answerDirectoryQuery(text, current.current.places, latest, research);
+          output = answerDirectoryQuery(text, current.current.places, undefined, research);
         }
       } catch {
         if (!live.current || epoch.current !== turnEpoch || abort.signal.aborted) return;
@@ -317,35 +320,15 @@ export function useAssistantConversation(
     });
     return true;
   };
-  const confirm = async () => {
-    const service = runtime.current;
-    if (!pending || !service || confirmingRef.current) return;
-    confirmingRef.current = true;
-    setConfirming(true);
-    try {
-      const savedState = await service.mutations.confirm(pending.pendingId);
-      current.current.onSavedChange?.(savedState);
-      append([
-        { kind: 'status', severity: 'info', text: 'Confirmed change saved on this device.' },
-      ]);
-    } catch {
-      append([
-        {
-          kind: 'status',
-          severity: 'error',
-          text: 'Change was not saved. Sources or saved state changed; request a fresh preview.',
-        },
-      ]);
-    } finally {
-      confirmingRef.current = false;
-      if (live.current) {
-        setPending(null);
-        setConfirming(false);
-      }
-    }
+  const dismissItineraryPreview = () => {
+    if (busyRef.current) cancel();
+    runtime.current?.itineraryPreview.clear();
+    resolved.current = [];
+    setMessages((before) => before.filter((entry) => entry.payload.kind !== 'itinerary-preview'));
   };
   const clear = async () => {
     cancel();
+    runtime.current?.itineraryPreview.clear();
     resolved.current = [];
     clearRequested.current = true;
     try {
@@ -363,7 +346,7 @@ export function useAssistantConversation(
   };
   const modelOperation = async (operation: 'download' | 'import' | 'activate' | 'remove') => {
     const service = runtime.current;
-    if (!service || busyRef.current || confirmingRef.current) return;
+    if (!service || busyRef.current) return;
     if (!initializationSettled.current) {
       setStatus('Checking local model setup…');
       return;
@@ -382,18 +365,28 @@ export function useAssistantConversation(
         });
       else if (operation === 'activate') {
         await service.activate(abort.signal);
-        if (live.current && epoch.current === operationEpoch && !abort.signal.aborted)
-          ready.current = true;
       } else await service.removeModel();
       if (live.current && epoch.current === operationEpoch) {
+        ready.current = service.provider.state === 'READY';
         setSetupStatus(service.getManager()?.getStatus() ?? null);
         setStatus(
           ready.current ? 'Local AI · CPU · offline' : 'Local directory · model staged or absent',
         );
       }
     } catch {
-      if (live.current && epoch.current === operationEpoch)
+      if (live.current && epoch.current === operationEpoch) {
+        // An import can fail after release while the checked active file remains.
+        // Recover its availability, but never claim the released engine is ready.
+        if (service.provider.state !== 'READY')
+          await service
+            .getManager()
+            ?.recover()
+            .catch(() => undefined);
+        if (!live.current || epoch.current !== operationEpoch) return;
+        ready.current = service.provider.state === 'READY';
+        setSetupStatus(service.getManager()?.getStatus() ?? null);
         setStatus('Model setup unavailable · directory fallback ready');
+      }
     } finally {
       if (live.current && epoch.current === operationEpoch) {
         busyRef.current = false;
@@ -429,15 +422,10 @@ export function useAssistantConversation(
     send,
     cancel,
     status,
-    pending,
-    confirming,
-    confirm,
-    cancelPending: () => {
-      runtime.current?.mutations.cancelAll();
-      setPending(null);
-    },
+    dismissItineraryPreview,
     clear,
     setupStatus,
+    modelReady: ready.current,
     modelOperation,
     openPlace,
   };

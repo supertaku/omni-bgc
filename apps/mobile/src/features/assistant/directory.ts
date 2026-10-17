@@ -90,13 +90,16 @@ const sampleEvidence = (place: Place, citation: Place['citations'][number] | und
   citation.verificationMethod === 'synthetic-preview';
 const missing = (text: string): AssistantPayload[] => [{ kind: 'text', text }];
 export const WALKING_DIRECTIONS_DEFERRED = 'Walking directions are not available in this version.';
-export const VISIT_PLANNING_DEFERRED = 'Visit planning is not available in this version.';
+export const VISIT_PLANNING_DEFERRED =
+  'Set up a model in Models and I can help preview your visit. Previews aren’t saved, and don’t include routes or travel estimates.';
+export const SAVED_FEATURE_UNAVAILABLE =
+  'I can help you explore, but saved places and favorites aren’t available in this version.';
 
 /** Literal local search only. No model, inferred cuisine, distances, hours or itinerary planning. */
 export function answerDirectoryQuery(
   query: string,
   places: readonly Place[],
-  saved: SavedState,
+  _saved?: SavedState,
   researchAnswer?: (query: string, places: readonly Place[]) => AssistantPayload[] | null,
 ): AssistantPayload[] {
   const text = normalize(query);
@@ -109,17 +112,10 @@ export function answerDirectoryQuery(
     /\bhow (?:do|can|would) (?:i|we) get\b/.test(text)
   )
     return missing(WALKING_DIRECTIONS_DEFERRED);
+  if (/\b(saved|save|bookmarks?|favorites?|favourites?)\b/.test(text))
+    return missing(SAVED_FEATURE_UNAVAILABLE);
   if (/\b(itinerary|stops|plan|trip)\b/.test(text)) {
     return missing(VISIT_PLANNING_DEFERRED);
-  }
-  if (/\b(saved|bookmarks|favorites|favourites)\b/.test(text)) {
-    const matches = saved.placeIds.flatMap((id) => {
-      const place = places.find((p) => p.id === id);
-      return place ? [place] : [];
-    });
-    return matches.length
-      ? [collection('Your saved places', matches)]
-      : missing('Your saved list is empty. Search for a place or category to explore.');
   }
   if (
     /\b(hours|open now|rating|ratings|review|reviews|parking availability|weather|busy|reservation)\b/.test(
@@ -235,8 +231,8 @@ export function answerDirectoryQuery(
             text: hasSample
               ? 'Sample menu entries are fictional examples. Prices and recipes do not describe real BGC businesses.'
               : budget === null
-                ? 'These are the menu items recorded in the local directory.'
-                : 'These recorded items have a supported PHP price within your budget.',
+                ? 'Here’s what I found in the recorded menus.'
+                : 'These recorded items fit your budget, with a source for each price.',
           },
           {
             kind: 'menus',
@@ -246,13 +242,13 @@ export function answerDirectoryQuery(
           },
         ]
       : missing(
-          'No matching menu items are recorded. Try a place name, or open its details to check available sources.',
+          'I couldn’t find a recorded menu item that matches. Try a place name, or check its details.',
         );
   }
   if (!terms.length && !text) return missing('Try a place, building or dish name.');
   if (!matches.length)
     return missing(
-      'No matching places in the local directory. Try a shorter name or a category like coffee, food or parks.',
+      'I couldn’t find a match in the local directory. Try a shorter name, or coffee, food or parks.',
     );
   return [
     {
@@ -260,7 +256,7 @@ export function answerDirectoryQuery(
       text:
         matches.length === 1
           ? 'Here’s the matching place in your local directory.'
-          : `Found ${matches.length} matching places in your local directory.`,
+          : `Found ${matches.length} places in the local directory.`,
     },
     collection('Places to explore', matches),
   ];

@@ -1,27 +1,17 @@
 import type { Place, Citation } from '../contracts';
+import type { ItineraryPreview, PreviewOperation, PreviewStop } from './itineraryPreview';
 import type { EvidenceEnvelope, UnifiedRetrieval, Authority } from './retrieval';
 import { decodeToolProposal, utf8Bytes, type ToolName, type ToolProposal } from './tools';
 
-export type ActionPreview = {
-  pendingId: string;
-  requestId: string;
-  kind: string;
-  summary: string;
-  expiresAt: number;
-  placeIds: readonly string[];
-};
 export type ToolActionAdapters = {
   focusMapPlace?: (place: Place) => boolean | Promise<boolean>;
-  previewSaved?: (
-    placeId: string,
-    operation: 'save' | 'remove',
-    requestId: string,
-  ) => Promise<ActionPreview>;
+  getItineraryPreview?: (signal?: AbortSignal) => Promise<ItineraryPreview>;
   previewItinerary?: (
-    stops: { placeId: string; durationMinutes: number }[],
+    stops: PreviewStop[],
     requestId: string,
-    operation?: 'replace' | 'append' | 'remove' | 'reorder',
-  ) => Promise<ActionPreview>;
+    operation?: PreviewOperation,
+    signal?: AbortSignal,
+  ) => Promise<ItineraryPreview>;
   cancelPending?: () => void;
 };
 export type ToolExecutionContext = {
@@ -35,7 +25,7 @@ export type ToolExecutionContext = {
 export type ToolResult = {
   callId: string;
   name: ToolName;
-  status: 'ok' | 'empty' | 'unavailable' | 'denied' | 'needs_confirmation';
+  status: 'ok' | 'empty' | 'unavailable' | 'denied';
   authority: Authority;
   sourceRecordIds: string[];
   citations: Citation[];
@@ -90,9 +80,6 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
       case 'find_menu_items':
         r = result(p, await retrieval.findMenuItems(p.arguments));
         break;
-      case 'get_saved_places':
-        r = result(p, await retrieval.getSavedPlaces());
-        break;
       case 'find_approved_offices':
         r = result(p, await retrieval.findApprovedOffices(p.arguments));
         break;
@@ -120,21 +107,16 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
             )
           : unavailable(p, 'Research listings require an explicit user request.', true);
         break;
-      case 'focus_map_place':
-      case 'preview_saved_change': {
+      case 'focus_map_place': {
         const id = p.arguments.placeId;
         if (context.expectedActionPlaceIds && !context.expectedActionPlaceIds.has(id)) {
-          r = unavailable(
-            p,
-            'This action does not match the referenced displayed result. Choose the exact place.',
-            true,
-          );
+          r = unavailable(p, "That isn't the place you referred to. Try its exact name.", true);
           break;
         }
         if (!context.resolvedPlaceIds.has(id)) {
           r = unavailable(
             p,
-            'Resolve an approved place from a current read tool before this action.',
+            'Search for that exact approved place first, then I can show it on the map.',
             true,
           );
           break;
@@ -142,142 +124,119 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
         const latest = await retrieval.getPlaceDetails(id);
         assertNotAborted(context.signal);
         if (!latest.data) {
-          r = unavailable(p, 'Place is unavailable or source approval changed.');
+          r = unavailable(p, "That place isn't available from the approved records anymore.");
           break;
         }
-        if (p.name === 'focus_map_place') {
-          const c = latest.data.coordinate;
-          if (
-            !actions.focusMapPlace ||
-            !c ||
-            c.length !== 2 ||
-            !c.every(Number.isFinite) ||
-            Math.abs(c[0]) > 180 ||
-            Math.abs(c[1]) > 90
-          ) {
-            r = unavailable(p, 'No verified eligible map location is available.');
-            break;
-          }
-          const focused = await actions.focusMapPlace(latest.data);
-          r = {
-            ...result(p, latest),
-            authority: 'ui',
-            status: focused ? 'ok' : 'unavailable',
-            data: focused ? { placeId: id, focused: true } : null,
-            warnings: focused ? [] : ['Map scope is unavailable for this place.'],
-          };
-        } else {
-          if (!actions.previewSaved) {
-            r = unavailable(p, 'Saved-change preview is unavailable.');
-            break;
-          }
-          const preview = await actions.previewSaved(id, p.arguments.operation, context.requestId);
-          r = {
-            ...result(p, latest),
-            authority: 'ui',
-            status: 'needs_confirmation',
-            data: preview,
-            warnings: ['No change has been saved. Confirm with the app button.'],
-          };
+        const c = latest.data.coordinate;
+        if (
+          !actions.focusMapPlace ||
+          !c ||
+          c.length !== 2 ||
+          !c.every(Number.isFinite) ||
+          Math.abs(c[0]) > 180 ||
+          Math.abs(c[1]) > 90
+        ) {
+          r = unavailable(p, "I don't have an approved map location for that place.");
+          break;
         }
+        const focused = await actions.focusMapPlace(latest.data);
+        r = {
+          ...result(p, latest),
+          authority: 'ui',
+          status: focused ? 'ok' : 'unavailable',
+          data: focused ? { placeId: id, focused: true } : null,
+          warnings: focused ? [] : ["That place isn't covered by the current map."],
+        };
         break;
       }
+      case 'get_itinerary_preview':
       case 'preview_itinerary_change': {
-        if (!actions.previewItinerary) {
-          r = unavailable(p, 'Itinerary preview is unavailable.');
+        if (!actions.getItineraryPreview || !actions.previewItinerary) {
+          r = unavailable(p, "I can't make a temporary itinerary preview right now.");
           break;
         }
-        const places: Place[] = [];
-        const operation = p.arguments.operation ?? 'replace';
-        const localEdit = operation === 'remove' || operation === 'reorder';
-        const saved = (await retrieval.getSavedPlaces()).data;
-        assertNotAborted(context.signal);
-        if (saved.totalItinerary > 20) {
-          r = unavailable(
-            p,
-            'This saved visit list exceeds the 20-stop AI action limit. Existing visits were retained.',
-          );
-          break;
-        }
-        let valid = true;
-        if (operation === 'remove') {
-          const remaining = new Map<string, number>();
-          for (const stop of saved.itinerary) {
-            const key = JSON.stringify([stop.placeId, stop.durationMinutes]);
-            remaining.set(key, (remaining.get(key) ?? 0) + 1);
-          }
-          for (const stop of p.arguments.stops) {
-            const key = JSON.stringify([stop.placeId, stop.durationMinutes]);
-            const count = remaining.get(key) ?? 0;
-            if (!count) {
-              valid = false;
-              break;
-            }
-            remaining.set(key, count - 1);
-          }
-        }
-        if (operation === 'reorder' && saved) {
-          const multiset = (stops: readonly { placeId: string; durationMinutes: number }[]) =>
-            JSON.stringify(stops.map((stop) => [stop.placeId, stop.durationMinutes]).sort());
-          valid = multiset(p.arguments.stops) === multiset(saved.itinerary);
-        }
-        for (const stop of p.arguments.stops) {
+        const operation =
+          p.name === 'preview_itinerary_change' ? (p.arguments.operation ?? 'replace') : undefined;
+        if (p.name === 'preview_itinerary_change') {
+          const newStops = operation === 'replace' || operation === 'append';
           if (
-            operation !== 'reorder' &&
-            context.expectedActionPlaceIds &&
-            !context.expectedActionPlaceIds.has(stop.placeId)
+            p.arguments.stops.some(
+              (stop) =>
+                (newStops && !context.resolvedPlaceIds.has(stop.placeId)) ||
+                (operation !== 'reorder' &&
+                  context.expectedActionPlaceIds &&
+                  !context.expectedActionPlaceIds.has(stop.placeId)),
+            )
           ) {
-            valid = false;
+            r = unavailable(
+              p,
+              "Let's find the exact approved places first, then I can preview the visit list.",
+              true,
+            );
             break;
           }
-          if (
-            localEdit &&
-            !saved?.itinerary.some((existing) => existing.placeId === stop.placeId)
-          ) {
-            valid = false;
-            break;
-          }
-          if (!localEdit && !context.resolvedPlaceIds.has(stop.placeId)) {
-            valid = false;
-            break;
-          }
-          const latest = await retrieval.getPlaceDetails(stop.placeId);
+        }
+        try {
+          const preview =
+            p.name === 'get_itinerary_preview'
+              ? await actions.getItineraryPreview(context.signal)
+              : await actions.previewItinerary(
+                  p.arguments.stops,
+                  context.requestId,
+                  operation,
+                  context.signal,
+                );
           assertNotAborted(context.signal);
-          if (!latest.data && !localEdit) {
-            valid = false;
-            break;
+          if (!Array.isArray(preview.stops) || preview.stops.length > 20)
+            throw new Error('Invalid bounded draft');
+          const places: Place[] = [];
+          const stops: ItineraryPreview['stops'] = [];
+          for (const stop of preview.stops) {
+            decodeToolProposal(
+              {
+                name: 'preview_itinerary_change',
+                arguments: {
+                  stops: [{ placeId: stop.placeId, durationMinutes: stop.durationMinutes }],
+                },
+              },
+              hostCallId,
+            );
+            const latest = await retrieval.getPlaceDetails(stop.placeId);
+            assertNotAborted(context.signal);
+            if (!latest.data) throw new Error('Current source unavailable');
+            places.push(latest.data);
+            stops.push({
+              placeId: latest.data.id,
+              name: latest.data.name,
+              durationMinutes: stop.durationMinutes,
+            });
           }
-          if (latest.data) places.push(latest.data);
-        }
-        if (!valid) {
+          r = {
+            name: p.name,
+            callId: p.callId,
+            status: 'ok',
+            authority: 'ui',
+            data: {
+              stops,
+              totalVisitMinutes: stops.reduce((total, stop) => total + stop.durationMinutes, 0),
+            },
+            sourceRecordIds: [...new Set(places.map((place) => place.id))],
+            citations: places.flatMap((place) => place.citations),
+            appliedFilters: {},
+            sourceFingerprint: JSON.stringify(
+              places.map((place) => [place.id, place.name, place.citations]),
+            ),
+            warnings: [
+              "This is a temporary visit-list preview. The times are for your visits, not travel. The draft won't be saved and doesn't include route directions.",
+            ],
+          };
+        } catch (error) {
+          assertNotAborted(context.signal);
           r = unavailable(
             p,
-            localEdit
-              ? 'Remove requires exact existing itinerary ID/duration tuples and multiplicities. Reorder must preserve every existing ID and duration. Request a fresh saved-list read.'
-              : 'Every new itinerary stop must be resolved from current approved records.',
-            true,
+            "I couldn't update that preview. It may have changed, or a place may no longer have approved records. Try reading it again or starting a new preview.",
           );
-          break;
         }
-        const preview = await actions.previewItinerary(
-          p.arguments.stops,
-          context.requestId,
-          operation,
-        );
-        r = {
-          callId: p.callId,
-          name: p.name,
-          status: 'needs_confirmation',
-          authority: 'ui',
-          sourceRecordIds: places.map((x) => x.id),
-          citations: places.flatMap((x) => x.citations),
-          appliedFilters: {},
-          sourceFingerprint: '',
-          data: preview,
-          warnings: [
-            'Visit list only; no walking route or travel times. Nothing saved until app confirmation.',
-          ],
-        };
         break;
       }
     }
@@ -287,20 +246,18 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
     }
     const serialized = JSON.stringify(r);
     if (serialized.length > 131072 || utf8Bytes(serialized) > 131072)
-      return unavailable(
-        p,
-        'The source result exceeds the bounded local response size. Narrow the search.',
-      );
+      return unavailable(p, "That's too much to show in one reply. Try a more specific search.");
     // Only successfully returned source-approved identities are eligible for subsequent actions.
     if (r.status === 'ok' && ['find_places', 'get_place_details'].includes(r.name)) {
       const places = Array.isArray(r.data) ? (r.data as Place[]) : [r.data as Place];
       places.forEach((place) => context.resolvedPlaceIds.add(place.id));
     }
-    if (r.status === 'ok' && r.name === 'get_saved_places') {
-      const saved = r.data as { places: Place[]; itineraryPlaces: Place[] };
-      [...saved.places, ...saved.itineraryPlaces].forEach((place) =>
-        context.resolvedPlaceIds.add(place.id),
-      );
+    if (
+      r.status === 'ok' &&
+      ['get_itinerary_preview', 'preview_itinerary_change'].includes(r.name)
+    ) {
+      const preview = r.data as ItineraryPreview;
+      preview.stops.forEach((stop) => context.resolvedPlaceIds.add(stop.placeId));
     }
     return r;
   }

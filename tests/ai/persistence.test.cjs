@@ -76,3 +76,18 @@ test('unsupported/corrupt AI history is preserved and cannot open user-state DB'
   await assert.rejects(new ConversationStore().load(),/Unsupported/);
   assert.equal((await sql('query','SELECT value FROM preserve'))[0].value,'TEST original');
 }));
+
+
+test('temporary itinerary content never persists or rehydrates, and retained user rows stay unchanged', async () => withSqlite(async (db, sql) => {
+  await sql('script', "CREATE TABLE retained_favorite(place_id TEXT); INSERT INTO retained_favorite VALUES('OWNER_EXISTING'); CREATE TABLE retained_itinerary(sequence INTEGER, duration_minutes INTEGER); INSERT INTO retained_itinerary VALUES(1,42);");
+  const before = { favorites: await sql('query','SELECT * FROM retained_favorite'), itinerary: await sql('query','SELECT * FROM retained_itinerary') };
+  const { ConversationStore, historyProjection } = loadTs('apps/mobile/src/ai/conversationStore.ts', { 'expo-sqlite': { openDatabaseAsync: async name => { assert.equal(name,'omni-ai-conversations.sqlite'); return db; } } });
+  const preview={id:'ephemeral',payload:{kind:'itinerary-preview',preview:{stops:[{placeId:id,name:'PRIVATE_SYNTHETIC_DRAFT',durationMinutes:37}],totalVisitMinutes:37}},canonicalPlaceIds:[id]};
+  const projected=historyProjection([preview]);assert.equal(projected[0].payload.kind,'status');assert.equal(projected[0].canonicalPlaceIds.length,0);
+  assert.ok(!JSON.stringify(projected).includes('PRIVATE_SYNTHETIC_DRAFT'));assert.ok(!JSON.stringify(projected).includes(id));
+  const history=new ConversationStore();await history.append([preview]);await history.close();await sql('reopen','');
+  const restored=await history.load();assert.equal(restored.length,1);assert.equal(restored[0].payload.kind,'status');assert.match(restored[0].payload.text,/stops were not retained/);
+  const raw=await sql('query','SELECT payload FROM ai_message');assert.ok(!raw[0].payload.includes('PRIVATE_SYNTHETIC_DRAFT'));assert.ok(!raw[0].payload.includes('37'));
+  assert.deepEqual({favorites:await sql('query','SELECT * FROM retained_favorite'),itinerary:await sql('query','SELECT * FROM retained_itinerary')},before);
+  await history.close();
+}));

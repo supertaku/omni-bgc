@@ -4,15 +4,16 @@ const { loadTs } = require('../helpers/load-ts.cjs');
 
 function fixture(options = {}) {
   const cache = new Map(), files = new Map(); let manager, pointers = { active: null, previous: null, staged: null };
-  let listener, idle = true, fetched = 0, imports = 0, initialized = [], released = 0, historyClosed = 0, sequence = 0;
+  let listener, idle = true, fetched = 0, imports = 0, initialized = [], generated = [], released = 0, historyClosed = 0, sequence = 0, savedReads = 0, savedWrites = 0;
   const native = {
     async getCapabilities() { return { android: true, abi: ['arm64-v8a'], backends: ['cpu'] }; },
     async initialize(input) { initialized.push(input.contextTokens); },
     async generate(input) {
+      generated.push(input);
       idle = false;
       setTimeout(() => {
         listener({ requestId: input.requestId, epoch: input.epoch, sequence: 0, type: 'delta', mode: 'delta', text: 'Hello!' });
-        if (input.maxOutputTokens !== 256) { idle = true; listener({ requestId: input.requestId, epoch: input.epoch, sequence: 1, type: 'terminal', reason: 'complete' }); }
+        if (!input.requestId.startsWith('model-smoke-') || input.maxOutputTokens !== 256) { idle = true; listener({ requestId: input.requestId, epoch: input.epoch, sequence: 1, type: 'terminal', reason: 'complete' }); }
       }, 0);
     },
     async cancel() { idle = true; return { accepted: true, nativeQuiescent: false }; },
@@ -21,11 +22,11 @@ function fixture(options = {}) {
   };
   const mocks = {
     'expo-crypto': { randomUUID: () => `00000000-0000-4000-8000-${String(++sequence).padStart(12, '0')}` },
-    'expo-file-system': { File: { pickFileAsync: async () => { await options.onPicker?.(); return { canceled: false, result: { uri: 'content://picker/SYNTHETIC-MODEL' } }; } } },
+    'expo-file-system': { File: { pickFileAsync: async () => { await options.onPicker?.(); return options.pickerCanceled ? { canceled: true } : { canceled: false, result: { uri: 'content://picker/SYNTHETIC-MODEL' } }; } } },
     '../../modules/omni-local-ai': { nativeLocalAi: native },
-    '../data/store': { applySavedPatch: async () => { throw Error('No writes authorized by this test'); }, loadSaved: async () => ({ placeIds: [], itinerary: [], startTime: null }) },
+    '../data/store': { applySavedPatch: async () => { savedWrites++; throw Error('No writes authorized by this test'); }, loadSaved: async () => { savedReads++; throw Error('No saved reads authorized by this runtime'); } },
     '../data/retrieval': { getPlaceDetails: async () => null },
-    './retrieval': { createAppRetrieval: async () => ({}) },
+    './retrieval': { createAppRetrieval: async () => ({ getPlaceDetails: async id => ({data: options.place?.id === id ? options.place : null}) }) },
     './conversationStore': { ConversationStore: class { async load() { return []; } async append() {} async clear() {} async close() { historyClosed++; if (options.historyCloseFailure) throw Error('TEST history close failed'); } } },
     './modelStorage': { createExpoModelManager: async () => manager },
   };
@@ -44,8 +45,8 @@ function fixture(options = {}) {
   };
   manager = new ModelManager(storage, modelResourceCoordinator);
   const { createAssistantRuntime } = loadTs('apps/mobile/src/ai/assistantRuntime.ts', mocks, {}, cache);
-  return { createAssistantRuntime, manager, modelResourceCoordinator, model, files, initialized, mocks, cache,
-    pointers: () => pointers, networkCalls: () => fetched, imports: () => imports, releases: () => released, historyClosed: () => historyClosed };
+  return { createAssistantRuntime, manager, modelResourceCoordinator, model, files, initialized, generated, mocks, cache,
+    pointers: () => pointers, networkCalls: () => fetched, imports: () => imports, releases: () => released, historyClosed: () => historyClosed, savedReads: () => savedReads, savedWrites: () => savedWrites };
 }
 
 test('actual Assistant runtime composes actual manager/provider/shared lease for setup, smoke, ready, uninstall and close', async () => {
@@ -71,16 +72,74 @@ test('runtime always releases native ownership when independent history database
 
 function actualHook(h) {
   const { hookHarness } = require('../helpers/hooks.cjs');
-  const hooks = hookHarness(), events = {};
+  const hooks = hookHarness(), events = {}; let runtime, fallbackCalls = 0;
   const { useAssistantConversation } = loadTs('apps/mobile/src/features/assistant/useAssistantConversation.ts', {
     ...h.mocks, react: hooks.React,
     'react-native': { AppState: { addEventListener: (name, callback) => { events[name] = callback; return { remove: () => delete events[name] }; } } },
-    './directory': { answerDirectoryQuery: () => [] }, '../food/assistant': { createFoodResearchAnswer: () => () => [] }, '../food/directory': { foodResearch: {} },
-    '../../ai/assistantRuntime': { createAssistantRuntime: h.createAssistantRuntime },
+    './directory': { answerDirectoryQuery: () => { fallbackCalls++; return []; } }, '../food/assistant': { createFoodResearchAnswer: () => () => [] }, '../food/directory': { foodResearch: {} },
+    '../../ai/assistantRuntime': { createAssistantRuntime: async (...args) => { runtime = await h.createAssistantRuntime(...args); return runtime; } },
   }, {}, h.cache);
-  const render = () => hooks.render(() => useAssistantConversation([], { placeIds: [], itinerary: [], startTime: null }, () => false));
-  render(); return { render, hooks, events, ready: async () => { await new Promise(resolve => setImmediate(resolve)); return render(); } };
+  const render = () => hooks.render(() => useAssistantConversation([], () => false));
+  render(); return { render, hooks, events, runtime: () => runtime, fallbackCalls: () => fallbackCalls, ready: async () => { await new Promise(resolve => setImmediate(resolve)); return render(); } };
 }
+
+async function activeHook(options) {
+  const h = fixture(options), seed = await h.createAssistantRuntime(() => false);
+  await seed.setup(new AbortController().signal);
+  await seed.activate(new AbortController().signal);
+  await seed.close();
+  const ui = actualHook(h);
+  await ui.ready();
+  assert.equal(ui.runtime().provider.state, 'READY');
+  return { h, ui };
+}
+async function settleChat(ui) {
+  for (let i = 0; i < 40 && ui.render().busy; i++)
+    await new Promise(resolve => setTimeout(resolve, 5));
+  assert.equal(ui.render().busy, false);
+}
+
+test('active model picker cancellation preserves actual readiness and next chat uses native agent', async () => {
+  const { h, ui } = await activeHook({ pickerCanceled: true });
+  const before = h.generated.length, releases = h.releases();
+  await ui.render().modelOperation('import');
+  assert.equal(h.imports(), 0); assert.equal(h.releases(), releases);
+  assert.equal(ui.runtime().provider.state, 'READY'); assert.equal(ui.render().modelReady, true);
+  assert.equal(ui.render().setupStatus.state, 'ACTIVE');
+  assert.equal(ui.render().send('hello'), true); await settleChat(ui);
+  assert.equal(h.generated.length, before + 1); assert.equal(ui.fallbackCalls(), 0);
+  ui.hooks.dispose();
+});
+
+test('failed import after release falls back, then explicit Use rechecks retained active model and restores chat', async () => {
+  const { h, ui } = await activeHook({ onImport: () => { throw Error('TEST_IMPORT_FAILED'); } });
+  const before = h.generated.length;
+  await ui.render().modelOperation('import');
+  assert.equal(ui.runtime().provider.state, 'RELEASED'); assert.equal(ui.render().modelReady, false);
+  assert.equal(ui.render().setupStatus.state, 'ACTIVE'); assert.ok(h.pointers().active);
+  assert.equal(ui.render().send('hello'), true); await settleChat(ui);
+  assert.equal(h.generated.length, before); assert.equal(ui.fallbackCalls(), 1);
+  const loads = h.initialized.length;
+  await ui.render().modelOperation('activate');
+  assert.equal(h.initialized.length, loads + 1); assert.equal(ui.runtime().provider.state, 'READY');
+  assert.equal(ui.render().modelReady, true);
+  assert.equal(ui.render().send('hello'), true); await settleChat(ui);
+  assert.equal(h.generated.length, before + 1); assert.equal(ui.fallbackCalls(), 1);
+  ui.hooks.dispose();
+});
+
+test('explicit retained-model recovery rejects changed bytes before native reload', async () => {
+  const { h, ui } = await activeHook({ onImport: () => { throw Error('TEST_IMPORT_FAILED'); } });
+  await ui.render().modelOperation('import');
+  const loads = h.initialized.length, before = h.generated.length;
+  h.files.get(h.pointers().active.absolutePath).sha256 = '0'.repeat(64);
+  await ui.render().modelOperation('activate');
+  assert.equal(h.initialized.length, loads); assert.equal(ui.render().modelReady, false);
+  assert.equal(h.pointers().active, null); assert.equal(ui.render().setupStatus.state, 'NOT_INSTALLED');
+  ui.render().send('hello'); await settleChat(ui);
+  assert.equal(h.generated.length, before); assert.equal(ui.fallbackCalls(), 1);
+  ui.hooks.dispose();
+});
 
 test('actual hook+runtime keep selected file import alive across expected system-picker background', async () => {
   let ui;
@@ -110,4 +169,14 @@ test('actual runtime canceled activation never commits ACTIVE', async () => {
   await runtime.setup(new AbortController().signal); const abort = new AbortController(); abort.abort();
   await assert.rejects(runtime.activate(abort.signal), /CANCELLED/);
   assert.equal(h.pointers().active, null); assert.equal(h.initialized.length, 0); await runtime.close();
+});
+
+
+test('runtime composes only session itinerary memory and never reads or writes retained saved state',async()=>{
+ const place={id:'00000000-0000-4000-8000-000000000001',name:'Synthetic runtime preview stop',status:'approved',citations:[{status:'approved',sourceId:'TEST',label:'Synthetic source',license:'CC0-1.0',factId:'TEST',snapshotId:'TEST',evidenceId:'TEST',locator:'fixture://test',verificationMethod:'synthetic',rawSha256:'a'.repeat(64),observedAt:'2026-01-01T00:00:00Z',verifiedAt:'2026-01-02T00:00:00Z'}]};
+ const h=fixture({place});const runtime=await h.createAssistantRuntime(()=>false);
+ assert.equal(runtime.mutations,undefined);const draft=await runtime.itineraryPreview.preview([{placeId:place.id,durationMinutes:25}],'HOST');assert.equal(draft.stops[0].name,place.name);
+ assert.equal((await runtime.itineraryPreview.read()).totalVisitMinutes,25);assert.equal(h.savedReads(),0);assert.equal(h.savedWrites(),0);
+ await runtime.close();assert.equal((await runtime.itineraryPreview.read()).stops.length,0);
+ const next=await h.createAssistantRuntime(()=>false);assert.equal((await next.itineraryPreview.read()).stops.length,0);await next.close();assert.equal(h.savedReads(),0);assert.equal(h.savedWrites(),0);
 });

@@ -1,20 +1,12 @@
 import { Share, View } from 'react-native';
 import type { Place, SavedState } from '../../contracts';
 import { Action, Body, CitationList, Heading, Notice, ui } from '../../ui/components';
-import {
-  getOfficeDetails,
-  officeDistrictLabel,
-  officeExpired,
-  operatingOffice,
-  searchOffices,
-} from './service';
+import { getOfficeDetails, officeDistrictLabel, officeExpired, searchOffices } from './service';
 import { officeMapCoverage } from './map';
 import { officePlace } from './OfficeDirectory';
 
 export function OfficeDetailsView({
   place,
-  saved,
-  onSave,
   onChoose,
   places,
 }: {
@@ -25,13 +17,7 @@ export function OfficeDetailsView({
   places?: readonly Place[];
 }) {
   const office = getOfficeDetails(place.id);
-  if (!office)
-    return (
-      <Notice>
-        Office details are unavailable in the current approved pack. Existing saved IDs are
-        retained.
-      </Notice>
-    );
+  if (!office) return <Notice>Office details are unavailable in the current approved pack.</Notice>;
   const expired = officeExpired(office),
     coverage = officeMapCoverage(place.id);
   return (
@@ -79,13 +65,6 @@ export function OfficeDetailsView({
         </Notice>
       )}
       <View style={ui.row}>
-        {onSave && operatingOffice(office) ? (
-          <Action
-            icon="bookmark"
-            label={saved?.placeIds.includes(place.id) ? 'Remove saved office' : 'Save office'}
-            onPress={() => onSave(place)}
-          />
-        ) : null}
         {!expired ? (
           <Action
             label="Share office details"

@@ -3,7 +3,6 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   Platform,
-  Share,
   StatusBar,
   StyleSheet,
   Text,
@@ -15,8 +14,6 @@ import { MapCanvas } from '../map/MapCanvas';
 
 import { Notice, palette, Sheet } from '../ui/components';
 import { getPackStatus } from '../updates';
-import { toggleSavedPlace } from '../data';
-import { officeSavedLabel } from '../features/offices/service';
 import { officeFocus, officeMapPlaces, setOfficeMapScope } from '../features/offices/map';
 import type { MapScope } from '../map/scope';
 import { coversCoordinate } from '../map/scope';
@@ -39,23 +36,14 @@ export function Application() {
   const [flat, setFlat] = useState(false),
     [bodyHeight, setBodyHeight] = useState(0),
     [sheetHeight, setSheetHeight] = useState(0);
-  const [assistantCritical, setAssistantCritical] = useState(false);
+  const [modelsOpen, setModelsOpen] = useState(false);
   const [mapStatus, setMapStatus] = useState<{ state: string; detail?: string }>({
     state: 'preparing',
   });
   const { width } = useWindowDimensions();
   const downloadController = useRef<AbortController | null>(null);
-  const {
-    places,
-    saved,
-    ready,
-    packStatus,
-    startup,
-    savedAvailable,
-    setPackStatus,
-    setSaved,
-    refreshRecords,
-  } = useAppInitialization(downloadController, setError);
+  const { places, ready, packStatus, startup, setPackStatus, refreshRecords } =
+    useAppInitialization(downloadController, setError);
   const { installing, confirming, packChecking, setPackChecking, download, rollback } =
     useContentPackActions(downloadController, refreshRecords, setMessage, setError);
   const {
@@ -75,7 +63,14 @@ export function Application() {
     setQuery,
     setCategory,
     setReturnPanel,
-  } = useExplorerNavigation(confirming || assistantCritical, installing);
+  } = useExplorerNavigation(confirming, installing, () => {
+    if (!modelsOpen) return false;
+    setModelsOpen(false);
+    return true;
+  });
+  useEffect(() => {
+    if (tab !== 'Assistant') setModelsOpen(false);
+  }, [tab]);
   const open = (next: Panel) => {
     setError('');
     setMessage('');
@@ -110,38 +105,7 @@ export function Application() {
       active = false;
     };
   }, [panel, setPackChecking, setPackStatus]);
-  const savedName = (id: string) =>
-    places.find((p) => p.id === id)?.name ??
-    officeSavedLabel(id) ??
-    'Place unavailable in the current directory; saved ID retained';
-  const saveOffice = (place: import('../contracts').Place) => {
-    if (!savedAvailable) return;
-    void toggleSavedPlace(place.id)
-      .then(setSaved)
-      .catch(() => setError('Office could not be saved. Existing saved records were retained.'));
-  };
   const [officeScope, setOfficeScope] = useState<MapScope | null>(null);
-  const exportSaved = () => {
-    void Share.share({
-      title: 'My Omni-BGC saved records',
-      message: [
-        'Omni-BGC · Existing saved places',
-        ...saved.placeIds.map((id) => '• ' + savedName(id)),
-        'Retained itinerary',
-        ...saved.itinerary.map(
-          (s, i) =>
-            i +
-            1 +
-            '. ' +
-            savedName(s.placeId) +
-            ' · My visit duration: ' +
-            s.durationMinutes +
-            ' min',
-        ),
-        'No travel estimates or precise user position included.',
-      ].join('\n'),
-    }).catch(() => setError('The share sheet could not be opened. Nothing was sent.'));
-  };
   const visiblePlaces = useMemo(
     () =>
       officeMapPlaces(
@@ -180,8 +144,6 @@ export function Application() {
     results,
     categories,
     ready,
-    saved,
-    savedAvailable,
     startup,
     mapStatus,
     packStatus,
@@ -198,9 +160,6 @@ export function Application() {
     refreshRecords,
     download,
     rollback,
-    savedName,
-    exportSaved,
-    saveOffice,
   });
   if (!fontsLoaded && !fontError)
     return (
@@ -234,7 +193,7 @@ export function Application() {
             onChange={setTabSafely}
             keyboardVisible={keyboard}
             shakeEnabled
-            shakeBlocked={confirming || assistantCritical || installing || packChecking}
+            shakeBlocked={confirming || installing || packChecking}
             map={
               <View style={styles.screen}>
                 <MapCanvas
@@ -319,13 +278,12 @@ export function Application() {
             assistant={
               <View style={styles.screen}>
                 <AssistantScreen
+                  modelsOpen={modelsOpen}
+                  onModelsChange={setModelsOpen}
                   onBackMap={() => setTabSafely('Map')}
                   places={places}
-                  saved={saved}
-                  onSavedChange={setSaved}
-                  onCriticalChange={setAssistantCritical}
                   onFocusMapPlace={(place) => {
-                    if (confirming || installing || assistantCritical) return false;
+                    if (confirming || installing) return false;
                     const coordinate = officeFocus(place);
                     if (
                       place.status !== 'approved' ||

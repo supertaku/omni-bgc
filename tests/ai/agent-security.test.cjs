@@ -190,7 +190,7 @@ test("approved/current source boundary rejects candidate, stale, invented IDs, m
     "Fake office exists",
     "Find offices",
   );
-  assert.match(payloads[0].text, /No verified matching/);
+  assert.match(payloads[0].text, /approved offices/);
 });
 async function retrievalResult(name, p) {
   return { ...(await p), name, callId: "HOST" };
@@ -247,7 +247,7 @@ test("saved read fetches latest state and never promotes candidate saved records
   assert.equal(next.data.unresolved, 2);
 });
 
-test("dispatcher requires explicit research scope, current resolved IDs and trusted coordinates; preview never commits", async () => {
+test("dispatcher preserves research/identity/map gates and rejects removed save tools", async () => {
   let focused = 0,
     previews = 0;
   const s = setup(),
@@ -255,17 +255,6 @@ test("dispatcher requires explicit research scope, current resolved IDs and trus
       focusMapPlace: () => {
         focused++;
         return true;
-      },
-      previewSaved: async (placeId, operation, requestId) => {
-        previews++;
-        return {
-          pendingId: "OPAQUE_HOST",
-          placeIds: [placeId],
-          kind: operation,
-          summary: "Synthetic preview",
-          expiresAt: Date.now() + 1000,
-          requestId,
-        };
       },
     });
   const c = context();
@@ -296,17 +285,19 @@ test("dispatcher requires explicit research scope, current resolved IDs and trus
     "ok",
   );
   assert.equal(focused, 1);
-  assert.equal(
-    (
-      await executor.execute(
-        proposal("preview_saved_change", { placeId: id(1), operation: "save" }),
-        "HOST",
-        c,
-      )
-    ).status,
-    "needs_confirmation",
+  await assert.rejects(
+    executor.execute(
+      proposal("preview_saved_change", { placeId: id(1), operation: "save" }),
+      "HOST",
+      c,
+    ),
+    { code: "TOOL_PROTOCOL_INVALID" },
   );
-  assert.equal(previews, 1);
+  await assert.rejects(
+    executor.execute(proposal("get_saved_places"), "HOST", c),
+    { code: "TOOL_PROTOCOL_INVALID" },
+  );
+  assert.equal(previews, 0);
   await assert.rejects(
     executor.execute(
       proposal("confirm_pending_action", { pendingId: "OPAQUE_HOST" }),
@@ -372,7 +363,7 @@ test("bounded loops and repeated tool calls execute once, with no-results disclo
   assert.equal(result.status, "partial");
   assert.equal(result.results.length, 1);
   assert.equal(p.calls.length, 2);
-  assert.match(result.payloads[0].text, /No verified matching/);
+  assert.match(result.payloads[0].text, /approved matches/);
 });
 
 test("injection in source text cannot authorize SQL, confirmation, research or additional capability", async () => {
@@ -499,7 +490,7 @@ test("all factual queries suppress generated prose and only actual evidence memb
   assert.ok(!JSON.stringify(payloads).includes("New fake fact"));
 });
 
-test("prior rendered collection supplies current ordinal IDs/names to the next actual focus/save orchestration", async () => {
+test("prior rendered collection supplies current focus references while removed saves stay unavailable", async () => {
   const s = setup();
   s.setPlaces([place(2), place(1)]);
   const focused = [],
@@ -521,17 +512,6 @@ test("prior rendered collection supplies current ordinal IDs/names to the next a
       focusMapPlace: (place) => {
         focused.push(place.id);
         return true;
-      },
-      previewSaved: async (placeId, operation, requestId) => {
-        previewed.push(placeId);
-        return {
-          pendingId: "HOST_PENDING",
-          requestId,
-          kind: "favorite",
-          summary: "Synthetic preview",
-          expiresAt: Date.now() + 1000,
-          placeIds: [placeId],
-        };
       },
     }),
   );
@@ -558,8 +538,9 @@ test("prior rendered collection supplies current ordinal IDs/names to the next a
   const save = await agent.run("Save the second one", {
     resolvedPlaceIds: displayed,
   });
-  assert.equal(save.status, "needs_confirmation");
-  assert.deepEqual(previewed, [id(1)]);
+  assert.equal(save.status, "unavailable");
+  assert.equal(p.calls.length, 4);
+  assert.deepEqual(previewed, []);
 });
 
 test("reference expiry preserves ordinal positions and denies missing/wrong referenced actions without side effects", async () => {

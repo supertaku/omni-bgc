@@ -162,3 +162,61 @@ Overall remains NOT_RELEASE_READY: no model weights downloaded, real local infer
   ZIPs, receipts, 751 frozen sources, logs, registry/configuration, source maps and
   dependency locks. Original R4 untouched; no CMake evidence pruned. Logical/stored
   byte totals and private commands are recorded in D1_CLIPPED_USER_MESSAGES.md.
+
+## October 17, 2026 — U2 physical pass; U3 scope/UI implementation
+
+- U2 release compiled 705 tasks with seven native tests. Exact installed preview
+  SHA256 `bf25e268e8387383982b5ce9b17dfa74a0542e9c5165aac967d54fbcc7838cdc`.
+  Parent and independent original-resolution screenshot inspection accept full
+  short and multiline user messages, live and after restart. The private D1 gate
+  is PRE_MODEL_APP_PASS only. Other app metadata/connectivity settings unchanged.
+- Owner excludes saves/routes and keeps itinerary previews; requests simpler chat,
+  no suggestions, separate cute/clean model management and conversational replies.
+  U3 removes active save tools/UI, preserves retained rows and implements bounded
+  source-validated in-memory previews, a separate Models page and native Back
+  priority. No new design dependency or schema migration. DEC-058 records scope.
+- Initial combined host regressions 190/190 PASS and TypeScript PASS. Independent
+  source review still found six malformed UTF-8 contractions and an existing
+  canceled-import readiness mismatch; both require repairs and actual regressions
+  before freeze. Source review alone does not accept device behavior.
+- DEC-059 inventories preview-only sanitized monotonic native lifecycle events.
+  R4 recovered source inventory remains immutable; current native inventory records
+  the reviewed diagnostic change. Independent source review found no blocking
+  ownership/privacy change; actual compilation/timing validation remains pending.
+- Earlier Windows ADB stdin transport truncated binary at Ctrl-Z. Synthetic
+  regular-file adb push was byte-exact. Two guarded chunk transfers stopped on
+  intermittent read-only ADB stat failures after 822,083,584 and 209,715,200 bytes.
+  Those owned partials/journals are preserved, unimported and never activated.
+- Fresh Python/.NET free-space checks found sufficient room; independently reviewed
+  original downloader completed the entire pinned model on PC at 02:02:19 UTC.
+  Exact 2,588,147,712 bytes and SHA256
+  `181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c` verified.
+  No source/terms drift, remote inference or device transfer in that operation.
+  Prefer one regular-file USB push with independent phone size/SHA over resuming
+  the unapproved chunk-resume candidate. No full model import/inference yet.
+- Host runs remain distinct from real model/device quality. D2–D6 and current
+  120-case scope reconciliation remain open. No push, merge or publication.
+- Full-file USB transfer completed in 103.974 seconds. Exact byte count and SHA
+  match on PC, owned phone partial and final phone file. No existing partial was
+  changed, no settings modified, no import/activation. Private receipt:
+  `d2/model-usb-full-push-receipt.json`.
+- Parent independently reviewed the source-reviewer's repairs and reran 194
+  combined tests: all PASS. Provider readiness now survives canceled Import;
+  released/failed import stays on fallback until explicit verified retained-model
+  reload. Corrupt retained bytes never load. All touched text is valid UTF-8.
+- Full quality initially reported four failures: default Python lacked ruff,
+  pyproj and shapely, and a historical byte-exact chat baseline expected old copy.
+  Existing pinned tool paths resolve the three environment failures: ruff PASS,
+  GIS 16 tests PASS (one existing skip), topology eight PASS. Baseline differences
+  receive independent classification before changing its exact hash; old evidence
+  remains immutable. These deterministic checks do not measure model quality.
+- Independent baseline review confirms 18 unchanged cases, 99 copy-only changes
+  and exactly three removed-save action/entity changes. Updated the adapter to
+  recognize current warning copy; all warning arrays, menu refs/citations/tool
+  envelopes remain equal. New exact LF hash `2daac1a9c7d5bfe2afc51cb3a7ca5275bcb41e7eace5091b288e277be4f04b2b`.
+  Regression retains original historical hash and checks every non-prose envelope
+  with only three named save exceptions. Parent independent 21-test rerun PASS.
+  All 34 host groups resolved PASS with recorded environment/baseline reruns.
+  Parent ACCEPTS source integration for a new isolated U3 build, not device release.
+  Historical raw structural score 28→27 reflects one removed-save expectation;
+  pre-existing raw synthetic collection violation and 120 manual reviews remain.

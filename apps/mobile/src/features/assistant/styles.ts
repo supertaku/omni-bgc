@@ -6,7 +6,6 @@ export const assistantStyles = StyleSheet.create({
   header:{flexDirection:'row',alignItems:'center',gap:12,paddingHorizontal:12,paddingVertical:4,borderBottomWidth:1,borderBottomColor:'#E8E5DE',backgroundColor:palette.canvas},
   backButton:{minHeight:48,flexDirection:'row',alignItems:'center',gap:2,paddingRight:4,flexShrink:1},backText:{fontFamily:'OmniBodySemiBold',fontSize:14,lineHeight:20,color:palette.ink,flexShrink:1},
   headerText:{flex:1,gap:2}, title:{fontFamily:'OmniHeading',fontSize:16,lineHeight:22,color:palette.ink},
-  headerCaption:{fontFamily:'OmniBody',fontSize:12,lineHeight:18,color:palette.muted},
   caption:{fontFamily:'OmniBody',fontSize:14,lineHeight:21,color:palette.muted},
   body:{fontFamily:'OmniBody',fontSize:16,lineHeight:24,color:palette.ink},
   heading:{fontFamily:'OmniHeading',fontSize:16,lineHeight:22,color:palette.ink},
@@ -23,10 +22,8 @@ export const assistantStyles = StyleSheet.create({
   disclosureButton:{minHeight:48,flexDirection:'row',alignItems:'center',gap:5,paddingVertical:4},disclosureText:{fontFamily:'OmniBody',fontSize:12,lineHeight:18,color:palette.muted,flex:1},
   evidence:{gap:10,paddingTop:6,borderTopWidth:1,borderTopColor:'#E3E0D8'},evidenceItem:{gap:3},
   inlineNotice:{padding:11,borderRadius:12,backgroundColor:'#ECEFED',gap:8},errorNotice:{backgroundColor:'#FFF0EF'},
-  suggestionBar:{paddingHorizontal:14},suggestionToggle:{minHeight:48,flexDirection:'row',alignItems:'center',gap:6,alignSelf:'flex-start'},suggestions:{flexDirection:'row',flexWrap:'wrap',gap:6,paddingBottom:8},suggestionChip:{minHeight:48,flexDirection:'row',gap:6,alignItems:'center',paddingHorizontal:11,paddingVertical:7,borderRadius:18,borderWidth:1,borderColor:'#D4D9D7',backgroundColor:palette.surface},suggestionText:{fontFamily:'OmniBodySemiBold',fontSize:13,lineHeight:19,color:palette.ink},
   composerArea:{borderTopWidth:1,borderTopColor:'#E8E5DE',paddingHorizontal:12,paddingTop:6,paddingBottom:8,backgroundColor:palette.canvas,gap:5},
   composer:{flexDirection:'row',alignItems:'flex-end',gap:8,borderWidth:1,borderColor:'#DEDCD6',borderRadius:24,padding:3,backgroundColor:palette.surface},
   input:{flex:1,minHeight:48,maxHeight:112,paddingHorizontal:12,paddingVertical:10,fontFamily:'OmniBody',fontSize:15,color:palette.ink},
-  composerFootnote:{fontFamily:'OmniBody',fontSize:11,lineHeight:17,color:palette.muted,textAlign:'center'},
   send:{width:48,minHeight:48,borderRadius:24,backgroundColor:palette.blue,alignItems:'center',justifyContent:'center'},disabled:{backgroundColor:'#C8D0D9'},
 });

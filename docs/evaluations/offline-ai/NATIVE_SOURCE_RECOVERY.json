@@ -1,8 +1,50 @@
 {
-  "provenance": "Exact existing authored source; no extraction or reconstruction",
+  "provenance": "Byte-exact R4 recovery retained in recovered_native; native enumerates current reviewed source after explicit diagnostic addition.",
   "r4_source_zip_sha256": "4ddc3c2262fe697ac033bee8c352df37b03f9e1a63f8034a69cf3cbfd4051424",
   "r4_source_receipt_sha256": "93a002260356fba7963ed8cbff0e9806f18440ae9bfc533fbecbf9db3498ff14",
   "native": [
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/build.gradle",
+      "bytes": 735,
+      "sha256": "ac1a01adde328d192e63cb43864d908a66d1e093ef94446827dbac0c523d1de3"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/consumer-rules.pro",
+      "bytes": 270,
+      "sha256": "a8538ce431d7dcd464b3b292f8fa96099d88f9d92df63a451d5dbf633b6312d8"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/main/AndroidManifest.xml",
+      "bytes": 72,
+      "sha256": "343d5be1ac17cdd45d1a2f2ddc616c509290e655869125a9422a96d88aa66066"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/test/java/expo/modules/omnilocalai/NativeMessagesTest.kt",
+      "bytes": 1779,
+      "sha256": "da0dbba788531db05a95d4269dca6235b8d1a3b97f12e386a98b452689c83c73"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/test/java/expo/modules/omnilocalai/OwnershipTest.kt",
+      "bytes": 1749,
+      "sha256": "40cfbbfa7b9e0b9e46efe740b3d2c0e2f139d2518fecc87308f1b360ff60e062"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/NativeMessages.kt",
+      "bytes": 3050,
+      "sha256": "2349b6163343c95b64478fbb1261f9c9140e95d9df55fd49870ccc79ee12b55e"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/OmniLocalAiModule.kt",
+      "bytes": 16363,
+      "sha256": "ec0e74e26e12db8103c3489f057afd1e5007e13be85a0bffb30b1ce084ccc55e"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/Ownership.kt",
+      "bytes": 1591,
+      "sha256": "1496b6f89114b791fa4a2e14830ef2c2907b2d84d4a92324e71c8c8a8b771d0c"
+    }
+  ],
+  "recovered_native": [
     {
       "path": "apps/mobile/modules/omni-local-ai/android/build.gradle",
       "bytes": 735,
@@ -42,6 +84,18 @@
       "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/Ownership.kt",
       "bytes": 1591,
       "sha256": "1496b6f89114b791fa4a2e14830ef2c2907b2d84d4a92324e71c8c8a8b771d0c"
+    }
+  ],
+  "schema_version": 2,
+  "reviewed_changes": [
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/OmniLocalAiModule.kt",
+      "recovered_sha256": "c341dc2af24f0f02761fd271d4bcb19b36e5b0b6fbe315b18871219cb45888f3",
+      "current_sha256": "ec0e74e26e12db8103c3489f057afd1e5007e13be85a0bffb30b1ce084ccc55e",
+      "decision": "DEC-059",
+      "reason": "Preview-only sanitized monotonic lifecycle diagnostics required by D3/D5; existing ownership behavior retained.",
+      "independent_review": "integration_review read-only diff review: ownership/privacy ACCEPT_HOST_CANDIDATE; independent report .g/ai-m10/d3/u3-independent-source-review.json",
+      "parent_status": "ACCEPT_HOST_CANDIDATE_PENDING_NATIVE_BUILD"
     }
   ]
 }

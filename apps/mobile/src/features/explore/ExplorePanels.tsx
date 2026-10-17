@@ -1,6 +1,6 @@
 import type { ReactNode, RefObject } from 'react';
 import { Keyboard, Linking, TextInput, View } from 'react-native';
-import type { Place, SavedState } from '../../contracts';
+import type { Place } from '../../contracts';
 import { Action, Body, CitationList, Heading, Notice, palette, ui } from '../../ui/components';
 import { PlaceDetails } from './PlaceDetails';
 import { PlaceRow } from './PlaceIdentity';
@@ -21,8 +21,6 @@ type PanelProps = {
   results: Place[];
   categories: string[];
   ready: boolean;
-  saved: SavedState;
-  savedAvailable: boolean;
   startup: StartupResult | null;
   mapStatus: { state: string; detail?: string };
   packStatus: PackStatus[];
@@ -39,9 +37,6 @@ type PanelProps = {
   refreshRecords: () => Promise<void>;
   download: (value: PackManifest) => void;
   rollback: (value: PackKind) => void;
-  savedName: (id: string) => string;
-  exportSaved: () => void;
-  saveOffice?: (place: Place) => void;
 };
 export function renderExplorePanel({
   panel,
@@ -53,8 +48,6 @@ export function renderExplorePanel({
   results,
   categories,
   ready,
-  saved,
-  savedAvailable,
   startup,
   mapStatus,
   packStatus,
@@ -71,9 +64,6 @@ export function renderExplorePanel({
   refreshRecords,
   download,
   rollback,
-  savedName,
-  exportSaved,
-  saveOffice,
 }: PanelProps) {
   const entry = (p: Place) => <PlaceRow key={p.id} place={p} onPress={() => choose(p)} />;
   let content: ReactNode = null,
@@ -153,7 +143,6 @@ export function renderExplorePanel({
               open('search');
             }}
           />
-          <Action icon="bookmark" label="Saved places" onPress={() => open('saved')} />
           <Action
             icon="building"
             label="Offices"
@@ -172,7 +161,7 @@ export function renderExplorePanel({
           key={selected.id}
           place={selected}
           {...(selected.category === 'office'
-            ? { places, onChoose: choose, saved, onSave: savedAvailable ? saveOffice : undefined }
+            ? { places, onChoose: choose }
             : selected.category === 'Building'
               ? { places, onChoose: choose }
               : {})}
@@ -189,56 +178,12 @@ export function renderExplorePanel({
       );
       break;
     case 'saved':
-      title = 'Saved on this device';
-      expanded = true;
-      content = (
-        <>
-          {!savedAvailable ? (
-            <>
-              <Notice error>
-                Saved storage could not be opened. Existing records have been retained.
-              </Notice>
-              <Action label="Retry saved storage" onPress={() => void refreshRecords()} />
-            </>
-          ) : null}
-          {saved.placeIds.length ? (
-            saved.placeIds.map((id) => {
-              const place = places.find((p) => p.id === id);
-              return (
-                <View key={id} style={ui.card}>
-                  <Heading>{savedName(id)}</Heading>
-                  {place ? <Action label="View on Map" onPress={() => choose(place)} /> : null}
-                </View>
-              );
-            })
-          ) : (
-            <Body muted>No previously saved places.</Body>
-          )}
-          <Action label="View retained itinerary" onPress={() => open('itinerary')} />
-          <Action label="Share existing saved records" onPress={exportSaved} />
-        </>
-      );
-      break;
     case 'itinerary':
-      title = 'Retained itinerary';
-      expanded = true;
+      title = 'Feature unavailable';
       content = (
-        <>
-          <Body muted>Your existing stops remain on this device.</Body>
-          {saved.startTime ? <Body>Start time: {saved.startTime}</Body> : null}
-          {saved.itinerary.length ? (
-            saved.itinerary.map((stop, index) => (
-              <View key={stop.placeId} style={ui.card}>
-                <Heading>
-                  {index + 1}. {savedName(stop.placeId)}
-                </Heading>
-                <Body muted>Your visit duration: {stop.durationMinutes} minutes</Body>
-              </View>
-            ))
-          ) : (
-            <Body muted>No previously saved stops.</Body>
-          )}
-        </>
+        <Body>
+          Saved places are not included. Ask the Assistant for a temporary itinerary preview.
+        </Body>
       );
       break;
     case 'pack':

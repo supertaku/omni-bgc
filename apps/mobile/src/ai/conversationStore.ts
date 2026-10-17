@@ -14,7 +14,13 @@ export function historyProjection(messages: readonly ConversationMessage[]): Con
     .map((message): ConversationMessage => {
       const p = message.payload;
       let payload: AssistantPayload;
-      if (retainedKinds.has(p.kind))
+      if (p.kind === 'itinerary-preview')
+        payload = {
+          kind: 'status',
+          severity: 'info',
+          text: 'A temporary itinerary preview was shown. Its stops were not retained. Ask again to create a new preview.',
+        };
+      else if (retainedKinds.has(p.kind))
         payload = {
           ...p,
           text: ('text' in p ? p.text : '').slice(0, 4000),
@@ -44,7 +50,11 @@ export function historyProjection(messages: readonly ConversationMessage[]): Con
         id: message.id.slice(0, 120),
         payload,
         canonicalPlaceIds: [
-          ...new Set(message.canonicalPlaceIds?.filter((id) => UUID.test(id)) ?? []),
+          ...new Set(
+            p.kind === 'itinerary-preview'
+              ? []
+              : (message.canonicalPlaceIds?.filter((id) => UUID.test(id)) ?? []),
+          ),
         ].slice(0, 20),
       };
     })

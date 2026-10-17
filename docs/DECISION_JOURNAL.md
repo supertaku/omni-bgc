@@ -378,3 +378,36 @@ Statuses: **ACCEPTED** (baseline), **PROVISIONAL** (needs spike), **OPEN** (awai
   USB preflight was rejected before execution by automatic approval review for
   absent explicit owner authorization. No device fact or acceptance is inferred;
   obtain direct owner consent before retrying. See current completion handoff.
+
+### DEC-058 — Conversation-first UI and temporary itinerary previews
+- Date/authority: 2026-10-17 Asia/Manila / owner's direct follow-up instructions.
+  Exclude saves and routes; retain itinerary previews. Remove chat suggestions,
+  diagnostic captions and the inline model/history panel. Provide a separate
+  Models page using existing native components, cream/blue palette, Nunito and
+  accessible controls. Keep conversation and map owners mounted through navigation.
+- WHY/HOW: `omni-local-tools-v2` removes saved-place reads/writes and uses a
+  session-only itinerary owner. Preview edits require fresh approved source
+  records, bounded visit durations, exact tuple operations, cancellation and
+  revision checks. Preview content is not restored as an executable history item.
+  Existing database rows and migrations remain intact; no schema/data deletion.
+- Casual responses retain source, research and uncertainty disclosures where
+  they affect a decision. Removed feature requests receive a truthful limitation.
+  Existing 120-case evaluation and adjudication must be reconciled to this scope;
+  historical save/route results cannot stand in for current acceptance.
+- Independent source review requested repairs for six corrupted contractions and
+  canceled-import readiness. Parent acceptance requires those repairs, host
+  regressions, a new frozen release and physical chat/Models/Back/keyboard checks.
+  No visual or model quality acceptance is inferred from source review.
+
+### DEC-059 — Bounded preview lifecycle timing evidence
+- Date/authority: 2026-10-17 Asia/Manila / parent M10 measurement implementation.
+  Add failure-isolated `OmniAiPerf` events only for `com.omnibgc.aipreview`.
+  Fixed event names and numeric monotonic times/counters describe hash/load,
+  generation callback, Stop/cancel, native idle and release phases. Never log
+  prompts, generated text, tool arguments, model paths or raw SDK messages.
+- Preserve native ownership, cancellation fencing and close order. Keep recovered
+  R4 source hashes immutable in the recovery manifest; explicitly inventory the
+  reviewed current native change separately. Independent read-only source review
+  found no blocking ownership/privacy defect; compilation and phone validation
+  remain required. First nonempty native text callback is not a measured SDK token;
+  rendered latency, token throughput and energy need their own valid evidence.

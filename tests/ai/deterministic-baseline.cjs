@@ -20,10 +20,10 @@ function adapt(q,payloads){
   const entityIds=[...new Set(menus?menus.items.map(i=>i.placeId):places?.placeIds??[])];
   const warnings=[];
   if(/Walking directions are not available/.test(text))warnings.push('navigation-unavailable');
-  if(/Visit planning is not available/.test(text))warnings.push('planning-unavailable');
+  if(/Visit planning is not available|Set up a model in Models and I can help preview your visit\./.test(text))warnings.push('planning-unavailable');
   if(/Live opening status/.test(text))warnings.push('live-data-unavailable');
-  if(/No matching places/.test(text))warnings.push('missing-records');
-  if(/No matching menu items/.test(text))warnings.push('missing-menu-records');
+  if(/No matching places|I couldn’t find a match in the local directory\./.test(text))warnings.push('missing-records');
+  if(/No matching menu items|I couldn’t find a recorded menu item that matches\./.test(text))warnings.push('missing-menu-records');
   if(/fictional/.test(text))warnings.push('fictional-demo');
   const itemRefs=menus?menus.items.map(({placeId,item})=>({entityId:placeId,itemId:item.id})):[];
   const citations=menus?menus.items.flatMap(({placeId,item})=>[item.citation,item.priceCitation,item.tagCitation].filter(Boolean).map(c=>({...c,entityId:placeId,itemId:item.id}))):[];

@@ -178,16 +178,16 @@ test('App attribution retains license/data details and gates pack checking witho
     assert.equal(h.alerts.length,0);assert.equal(h.counts().packInstalls,0);
   }
   assert.equal(h.counts().historyDeletes,0);
-  assert.equal(component(tree,'AssistantScreen').props.saved,stored);h.dispose();
+  assert.equal(component(tree,'AssistantScreen').props.saved,undefined);h.dispose();
 });
 
-test('App keeps graph initialization, saved-place reads and readonly itinerary without adding route entry points',async()=>{
+test('App preserves startup readers but exposes no saved panel, retained itinerary or share action',async()=>{
+  const before=JSON.stringify(stored);
   const h=applicationHarness();let tree=await h.ready();assert.equal(h.counts().graphRefreshes,1);assert.equal(h.counts().savedReads,1);
-  component(tree,'MapChrome').props.onMore();tree=h.render();action(tree,'Saved places').props.onPress();tree=h.render();
-  assertReducedChrome(tree);
-  assert.equal(excludedActions(tree).length,0);action(tree,'Share existing saved records').props.onPress();assert.equal(h.shares.length,1);
-  assert.match(h.shares[0].message,/Retained itinerary/);assert.match(h.shares[0].message,/25 min/);assert.ok(!h.shares[0].message.includes(String(mapped.coordinate[0])));
-  action(tree,'View retained itinerary').props.onPress();tree=h.render();assert.equal(component(tree,'Sheet').props.title,'Retained itinerary');
-  assert.equal(excludedActions(tree).length,0);assert.equal(nodes(tree).filter(node=>node.type==='Action').length,0);
-  assert.equal(component(tree,'AssistantScreen').props.saved,stored);h.dispose();
+  component(tree,'MapChrome').props.onMore();tree=h.render();assertReducedChrome(tree);
+  for(const label of ['Saved places','Share existing saved records','View retained itinerary'])
+    assert.equal(nodes(tree).some(n=>n.props.label===label),false,label);
+  assert.equal(component(tree,'AssistantScreen').props.saved,undefined);
+  assert.equal(component(tree,'AssistantScreen').props.onSavedChange,undefined);
+  assert.equal(h.shares.length,0);assert.equal(JSON.stringify(stored),before);h.dispose();
 });

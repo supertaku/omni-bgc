@@ -52,17 +52,20 @@ test('directions always defer with exact wording and no origin, route or place h
     assert.equal(result[0].text,'Walking directions are not available in this version.',query);
   }
 });
-test('saved results omit removed records and deferral leaves the saved itinerary intact',()=>{
-  assert.equal(payload('My saved places','places').total,1);
+test('removed saved feature never reads retained state and itinerary preview needs local AI',()=>{
   const original=JSON.stringify(saved);
+  const blocked=new Proxy(saved,{get(){throw Error('Saved state must not be read');}});
+  for(const query of ['My saved places','Save this place','Show favorites','Save this itinerary']) {
+    const result=answerDirectoryQuery(query,places,blocked);
+    assert.equal(result[0].kind,'text');assert.match(result[0].text,/not|aren.t available/);
+  }
   for(const query of ['Show my itinerary','Create a trip','Plan my visit']) {
-    const result=answerDirectoryQuery(query,places,saved);
-    assert.equal(result.length,1);assert.equal(result[0].kind,'text');
-    assert.equal(result[0].text,'Visit planning is not available in this version.');
+    const result=answerDirectoryQuery(query,places,blocked);
+    assert.equal(result.length,1);assert.match(result[0].text,/Set up a model in Models/);
   }
   assert.equal(JSON.stringify(saved),original);
-  assert.ok(!answerDirectoryQuery('My saved places',places,{...saved,placeIds:[]})[0].text.includes('Save'));
 });
+
 test('absent records and live facts produce explicit unavailable states',()=>{
   assert.equal(answerDirectoryQuery('Find coffee',[],saved).some(p=>p.kind==='places'),false);
   assert.equal(payload('Which restaurants are open now','capability').state,'unsupported-query');
@@ -73,7 +76,7 @@ test('a stale item cannot become an ordinary menu result through an approved bra
   for(const query of ['Show menu for Test Old Kitchen','Menu under PHP 200']) {
     const result=answerDirectoryQuery(query,[approved],saved);
     assert.equal(result.some(payload=>payload.kind==='menus'),false);
-    assert.match(result[0].text,/No matching menu items/);
+    assert.match(result[0].text,/find a recorded menu item that matches/);
   }
   assert.equal(approved.menus[0].citation.status,'stale');
 });

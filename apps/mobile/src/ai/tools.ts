@@ -1,7 +1,7 @@
 import { UUID } from '../data/parser';
 import { parsePhpCentavos } from '../domain/money';
 
-export const TOOL_CONTRACT_REVISION = 'omni-local-tools-v1';
+export const TOOL_CONTRACT_REVISION = 'omni-local-tools-v2';
 export const MAX_PROPOSAL_BYTES = 8192;
 export const TOOL_NAMES = [
   'find_places',
@@ -12,9 +12,8 @@ export const TOOL_NAMES = [
   'get_food_research_details',
   'find_approved_offices',
   'get_office_details',
-  'get_saved_places',
+  'get_itinerary_preview',
   'focus_map_place',
-  'preview_saved_change',
   'preview_itinerary_change',
 ] as const;
 export type ToolName = (typeof TOOL_NAMES)[number];
@@ -39,9 +38,8 @@ export type ToolArguments = {
   get_food_research_details: { restaurantId: string; offset?: number; limit?: number };
   find_approved_offices: { query?: string; district?: string; buildingId?: string; limit?: number };
   get_office_details: { placeId: string };
-  get_saved_places: Record<string, never>;
+  get_itinerary_preview: Record<string, never>;
   focus_map_place: { placeId: string };
-  preview_saved_change: { placeId: string; operation: 'save' | 'remove' };
   preview_itinerary_change: {
     stops: { placeId: string; durationMinutes: number }[];
     operation?: 'replace' | 'append' | 'remove' | 'reorder';
@@ -168,12 +166,8 @@ export function decodeToolProposal(raw: unknown, hostCallId: string): ToolPropos
     get_food_research_details: [['restaurantId', 'offset', 'limit'], ['restaurantId']],
     find_approved_offices: [['query', 'district', 'buildingId', 'limit'], []],
     get_office_details: [['placeId'], ['placeId']],
-    get_saved_places: [[], []],
+    get_itinerary_preview: [[], []],
     focus_map_place: [['placeId'], ['placeId']],
-    preview_saved_change: [
-      ['placeId', 'operation'],
-      ['placeId', 'operation'],
-    ],
     preview_itinerary_change: [['stops', 'operation'], ['stops']],
   };
   keys(a, ...schemas[name]);
@@ -192,13 +186,9 @@ export function decodeToolProposal(raw: unknown, hostCallId: string): ToolPropos
   }
   if (
     'operation' in a &&
-    !(
-      name === 'preview_itinerary_change'
-        ? ['replace', 'append', 'remove', 'reorder']
-        : ['save', 'remove']
-    ).includes(a.operation as string)
+    !['replace', 'append', 'remove', 'reorder'].includes(a.operation as string)
   )
-    invalid('Invalid saved operation');
+    invalid('Invalid preview operation');
   if ('stops' in a) {
     if (!Array.isArray(a.stops) || a.stops.length > 20) invalid('Invalid stops');
     const seen = new Set<string>();
@@ -273,9 +263,9 @@ const specs: Record<
     properties: { placeId: id },
     required: ['placeId'],
   },
-  get_saved_places: {
+  get_itinerary_preview: {
     description:
-      'Read current favorites, ordered itinerary IDs/planned visit durations and local start-time setting. Unresolved retained stops are labeled; truncated observations are not the full list. Never infer travel time or assume prior prompt state is current.',
+      'Read only the current temporary visit-list draft in session memory. It contains planned visit durations, never favorites, persisted stops or travel times.',
     properties: {},
   },
   focus_map_place: {
@@ -283,14 +273,9 @@ const specs: Record<
     properties: { placeId: id },
     required: ['placeId'],
   },
-  preview_saved_change: {
-    description: 'Non-mutating preview only. A real UI confirmation button is required to commit.',
-    properties: { placeId: id, operation: { enum: ['save', 'remove'], type: 'string' } },
-    required: ['placeId', 'operation'],
-  },
   preview_itinerary_change: {
     description:
-      'Non-mutating visit-list preview. operation replace (default) replaces the list; append adds stops; remove removes one occurrence of each exact supplied existing ID/duration tuple; reorder preserves the exact existing ID/duration multiset. Read get_saved_places first. Unmentioned stops remain for append/remove. No travel times. UI confirmation required.',
+      'Temporary visit-list preview in memory only. operation replace (default) replaces the draft; append adds stops; remove removes one occurrence of each exact current draft ID/duration tuple; reorder preserves its exact ID/duration multiset. Read get_itinerary_preview first for edits. No favorites, saving, confirmation, walking routes or travel times. All displayed stops require current approved source records.',
     properties: {
       operation: { type: 'string', enum: ['replace', 'append', 'remove', 'reorder'] },
       stops: {

@@ -20,7 +20,7 @@ export function MapChrome({category,onCategory,onSearch,onFilters,onFlat,flat,on
         {['All','Food','Coffee','Shops'].map(value=><Pressable key={value} onPress={()=>onCategory(value)} accessibilityRole="button" accessibilityLabel={`${value} places`} accessibilityState={{selected:category===value}} style={({pressed})=>[styles.chipTarget,pressed&&styles.pressed]}>
           <View style={[styles.chip,category===value&&styles.chipSelected]}><Icon name={categoryIcons[value]} size={17} color={categoryColors[value]}/><Text style={[styles.chipText,category===value&&{color:palette.blue}]}>{value}</Text></View>
         </Pressable>)}
-        <Pressable onPress={onMore} accessibilityRole="button" accessibilityLabel="More categories and saved places" style={styles.chipTarget}><View style={styles.chip}><Icon name="more" size={19}/><Text style={styles.chipText}>More</Text></View></Pressable>
+        <Pressable onPress={onMore} accessibilityRole="button" accessibilityLabel="More categories" style={styles.chipTarget}><View style={styles.chip}><Icon name="more" size={19}/><Text style={styles.chipText}>More</Text></View></Pressable>
       </ScrollView>
     </View>
     <View style={styles.tools}>
