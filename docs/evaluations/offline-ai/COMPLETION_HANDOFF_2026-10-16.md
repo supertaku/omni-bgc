@@ -3,8 +3,9 @@
 **Current decision: NOT_RELEASE_READY. C0–C2 are ACCEPT_HOST; D0 device preflight
 and authorized installation PASS. U2 repaired D1 user-message clipping and passed
 bounded model-less physical checks. U3 implements the owner's later chat/Models
-and feature-scope changes and is awaiting release/physical acceptance. D2–D6
-actual model acceptance remains pending. See the October 17 journal below.**
+and feature-scope changes and now passes host artifact and no-model physical UI
+acceptance. October 18 U3n removes normal model file import at the owner's request;
+its release/physical check is pending. D2–D6 model acceptance remains pending.**
 
 Branch `codex/offline-ai-native-recovery`; source recovery commit
 `00f2446692eaebde15087d51e1e078c559ab5fe9`. No push, main merge or publication.
@@ -61,8 +62,19 @@ Private D1 `u2-physical-acceptance.json` bounds this to model-less U2 only.
 The owner's later instructions remove saves, routes and suggestions, retain
 temporary itinerary previews, simplify chat copy and move setup/removal to Models.
 DEC-058/059 document the new source contract and preview timing diagnostics.
-U3 is not installed yet. Saved databases remain retained, with no active save
-tools or UI. Physical acceptance and real model evaluation must use the new build.
+U3 is installed and its tested no-model UI is accepted. APK SHA256
+`ddf6d655f074b2f4b23fa85eed135650dde2233b4e75ea2d9b05fbbf4a1da26c`,
+62,061,026 bytes, source `a09b1b8d3677c18baeb90a644b74a820c64fe318`.
+Independent audit verifies 384 frozen files, 11 module blobs, 85 compiled sources
+and seven native tests. Saved databases remain retained with no active save tools
+or UI. Actual model acceptance is separate and pending.
+
+October 18 owner update (DEC-060): normal model setup offers Download, Use and
+Remove, without a file import button or help text. U3n source passes six screen
+tests, TypeScript, lint and formatting plus independent narrow review. A fresh
+release and phone absence check remain required. An authorized old U3 test import
+failed and returned NOT_INSTALLED; no app-private model verification, activation or
+generation succeeded. PC/phone staging SHA verification does not imply installation.
 
 ## Device authorization history and accepted preflight
 

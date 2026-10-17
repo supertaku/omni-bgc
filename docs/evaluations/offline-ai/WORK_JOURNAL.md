@@ -220,3 +220,39 @@ Overall remains NOT_RELEASE_READY: no model weights downloaded, real local infer
   Parent ACCEPTS source integration for a new isolated U3 build, not device release.
   Historical raw structural score 28→27 reflects one removed-save expectation;
   pre-existing raw synthetic collection violation and 120 manual reviews remain.
+
+## October 18, 2026 — Resume and simpler model setup
+
+- U3 source `a09b1b8d3677c18baeb90a644b74a820c64fe318` compiled 705 tasks in
+  6m12s, seven native tests PASS. Independent actual APK audit verifies 384 frozen
+  sources, 11 native index/commit blobs, 85 embedded sources, 19 ARM64 libraries,
+  retained JNI/DEX classes, 24 offline assets, unchanged certificate/permissions.
+  APK 62,061,026 bytes, SHA256
+  `ddf6d655f074b2f4b23fa85eed135650dde2233b4e75ea2d9b05fbbf4a1da26c`.
+  Three audit-tool/environment attempts are preserved; exact raw UTF-8 comparison
+  resolves Python newline translation without relaxing the source check.
+- Authorized same-package update succeeds; other Omni package metadata and actual
+  pre/post connectivity settings unchanged. Parent and independent original-size
+  screenshot review ACCEPT tested no-model U3 UI, draft/Back/keyboard and complete
+  short/multiline text. No suggestions, footer or inline Local AI/history panel.
+  Formal office fallback and disabled Remove styling remain small polish items.
+- Baseline: MemAvailable 3,590,588 KiB of 7,495,244; battery 78%, USB charging,
+  36.0 C, thermal status0. Actual `cmd wifi status` says disabled; airplane1,
+  mobile-data0, wifi_on3. Do not infer radio state from wifi_on alone or change it.
+  Fixed 24-swipe own-app frame sample records 3,874 aggregate window frames,
+  0.03% reported jank and p95 9ms; not isolated MapLibre FPS or input latency.
+  Performance limits remain the predeclared values; no real inference yet.
+- Fresh resume found keyguard; no unrelated capture or bypass. Owner unlocked on
+  request. Verified installed U3 hash and reopened only the preview.
+- Owner now removes user-facing file import. DEC-060 records the smaller normal
+  flow: Download, Use, Remove. Removed Import button/help/retry copy and narrowed
+  the screen operation type. Six screen tests and TypeScript PASS; independent
+  narrow diff review ACCEPT. New U3n release/physical check pending.
+- The old authorized U3 test-import attempt returned a generic setup error and
+  NOT_INSTALLED. No successful app-private import/hash, activation, native generation
+  or device model-quality claim. Exact full PC/phone staging bytes remain verified;
+  they are separate from an installed model. Preserve the failed attempt evidence.
+- Private real-native 120-case runner candidate remains unintegrated. Independent
+  review reproduced early lease release and a receipt-provenance gap despite its
+  initial passing host tests; author is repairing them. Old key remains immutable;
+  new per-case scope key is being prepared before actual semantic inference.

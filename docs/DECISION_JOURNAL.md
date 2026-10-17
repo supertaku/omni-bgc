@@ -411,3 +411,15 @@ Statuses: **ACCEPTED** (baseline), **PROVISIONAL** (needs spike), **OPEN** (awai
   found no blocking ownership/privacy defect; compilation and phone validation
   remain required. First nonempty native text callback is not a measured SDK token;
   rendered latency, token throughput and energy need their own valid evidence.
+
+### DEC-060 — Download-only model setup for users
+- Date/authority: 2026-10-18 Asia/Manila / owner: "remove import model file, too
+  complicated for the users." Supersedes DEC-058's normal model-import entry.
+- Normal Models now offers Download, Use and Remove; remove the file picker,
+  import help and import-retry wording. Retain exact pinned artifact verification,
+  explicit setup/activation/removal consent, safe cancellation and offline use.
+  Internal test/storage import code grants no model tool, normal UI entry or
+  exported Android interface. Prior owner USB testing authorization is unchanged.
+- Independent review accepts the narrow two-file change; six screen tests and
+  TypeScript pass. New release/install and physical absence check remain required.
+  No device-wide connectivity change is authorized or made by this decision.

@@ -28,18 +28,19 @@ test('dedicated Models page requires explicit download and activation consent, c
  const h=harness();const page=h.render({modelsOpen:true});let tree=page.type(page.props);
  control(tree,'Download reviewed local model').props.onPress();assert.equal(h.calls.length,0);
  h.alerts.at(-1)[2].find(b=>b.text==='Download').onPress();assert.deepEqual(h.calls,['download']);
- control(tree,'Import reviewed local model file').props.onPress();assert.equal(h.calls.at(-1),'import');
+ assert.doesNotMatch(JSON.stringify(tree),/Import|Already have the file|fingerprint/);
  assert.equal(control(tree,'Use this model').props.disabled,true);
  h.controller.setupStatus={state:'PENDING_NATIVE_SMOKE_TEST',bytesReceived:10,totalBytes:10};
  const ready=h.render({modelsOpen:true});tree=ready.type(ready.props);assert.equal(control(tree,'Use this model').props.disabled,false);
- control(tree,'Use this model').props.onPress();assert.equal(h.calls.at(-1),'import');h.alerts.at(-1)[2].find(b=>b.text==='Use model').onPress();assert.equal(h.calls.at(-1),'activate');
+ control(tree,'Use this model').props.onPress();assert.equal(h.calls.at(-1),'download');h.alerts.at(-1)[2].find(b=>b.text==='Use model').onPress();assert.equal(h.calls.at(-1),'activate');
  control(tree,'Remove local model').props.onPress();assert.match(h.alerts.at(-1)[1],/history and map stay/);assert.equal(h.calls.at(-1),'activate');
  control(tree,'Delete all AI history').props.onPress();assert.match(h.alerts.at(-1)[1],/model and map stay/);
  control(tree,'Back to Assistant').props.onPress();assert.deepEqual(h.calls.at(-1),['models',false]);h.hooks.dispose();
 });
 test('Models page uses friendly progress and disables concurrent operations; errors expose no raw native details',()=>{
  const h=harness({busy:true,setupStatus:{state:'DOWNLOADING',bytesReceived:5,totalBytes:10}});let page=h.render({modelsOpen:true}),tree=page.type(page.props);
- assert.match(JSON.stringify(tree),/Downloading.*50/);for(const label of ['Use this model','Download reviewed local model','Import reviewed local model file','Remove local model','Delete all AI history'])assert.equal(control(tree,label).props.disabled,true,label);
+ assert.match(JSON.stringify(tree),/Downloading.*50/);for(const label of ['Use this model','Download reviewed local model','Remove local model','Delete all AI history'])assert.equal(control(tree,label).props.disabled,true,label);
+ assert.doesNotMatch(JSON.stringify(tree),/Import|Already have the file|fingerprint/);
  control(tree,'Stop model setup').props.onPress();
  h.controller.busy=false;h.controller.setupStatus={state:'FAILED',bytesReceived:0,totalBytes:0,error:'PRIVATE_NATIVE_PATH'};
  page=h.render({modelsOpen:true});tree=page.type(page.props);assert.match(JSON.stringify(tree),/another try/);assert.doesNotMatch(JSON.stringify(tree),/PRIVATE_NATIVE_PATH/);h.hooks.dispose();

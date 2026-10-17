@@ -4,7 +4,7 @@ import { Icon, palette } from '../../ui/components';
 import { assistantStyles as s } from './styles';
 import { modelStyles as m } from './modelStyles';
 
-type ModelOperation = 'download' | 'import' | 'activate' | 'remove';
+type ModelOperation = 'download' | 'activate' | 'remove';
 type ModelScreenProps = {
   busy: boolean;
   status: ModelStatus | null;
@@ -95,7 +95,7 @@ export function ModelScreen({
             </View>
             {failed ? (
               <Text accessibilityLiveRegion="polite" style={m.error}>
-                We couldn't finish setup. Try again, or import the reviewed model file.
+                We couldn't finish setup. Please try downloading again.
               </Text>
             ) : null}
             {status?.state === 'PENDING_NATIVE_SMOKE_TEST' ? (
@@ -143,20 +143,6 @@ export function ModelScreen({
             >
               <Text style={m.secondaryText}>Download model</Text>
             </Pressable>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Import reviewed local model file"
-              accessibilityState={{ disabled: busy }}
-              disabled={busy}
-              style={m.secondaryButton}
-              onPress={() => run('import')}
-            >
-              <Text style={m.secondaryText}>Import a model file</Text>
-            </Pressable>
-            <Text style={s.caption}>
-              Already have the file? Import it here. We check its size and fingerprint before using
-              it.
-            </Text>
             {busy ? (
               <Pressable
                 accessibilityRole="button"
