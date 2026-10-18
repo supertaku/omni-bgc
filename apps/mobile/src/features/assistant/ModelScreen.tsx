@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import { EvaluationScreen, type EvaluationStart } from '../../qa/ai-evaluation/EvaluationScreen';
-import type { EvaluationReceipt, EvaluationExportResult } from '../../qa/ai-evaluation/contracts';
 import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import type { ModelStatus } from '../../ai/modelManager';
 import { Icon, palette } from '../../ui/components';
@@ -17,12 +14,6 @@ type ModelScreenProps = {
   onOperation: (operation: ModelOperation) => Promise<void>;
   onStop: () => void;
   onClear: () => Promise<void>;
-  evaluationAvailable?: boolean;
-  onEvaluation?: (input: EvaluationStart) => Promise<{ runId: string }>;
-  onEvaluationExport?: (
-    runId: string,
-    receipt: EvaluationReceipt,
-  ) => Promise<EvaluationExportResult>;
 };
 const stateCopy: Record<ModelStatus['state'], string> = {
   NOT_INSTALLED: 'Not installed yet',
@@ -45,11 +36,7 @@ export function ModelScreen({
   onOperation,
   onStop,
   onClear,
-  evaluationAvailable = false,
-  onEvaluation,
-  onEvaluationExport,
 }: ModelScreenProps) {
-  const [evaluationOpen, setEvaluationOpen] = useState(false);
   const canActivate =
     !busy &&
     (status?.state === 'PENDING_NATIVE_SMOKE_TEST' || (status?.state === 'ACTIVE' && !modelReady));
@@ -62,16 +49,6 @@ export function ModelScreen({
   const run = (operation: ModelOperation) => {
     void onOperation(operation);
   };
-  if (evaluationOpen && evaluationAvailable && onEvaluation && onEvaluationExport)
-    return (
-      <EvaluationScreen
-        busy={busy}
-        onRun={onEvaluation}
-        onExport={onEvaluationExport}
-        onStop={onStop}
-        onBack={() => setEvaluationOpen(false)}
-      />
-    );
   return (
     <View style={s.screen}>
       <View style={m.page}>
@@ -98,19 +75,6 @@ export function ModelScreen({
                 <Text
                   accessibilityRole="header"
                   style={m.title}
-                  onLongPress={
-                    evaluationAvailable && onEvaluation && onEvaluationExport
-                      ? () =>
-                          Alert.alert(
-                            'Open preview QA?',
-                            'Synthetic evaluation is separate from chat. No run starts until you import a receipt and confirm Start.',
-                            [
-                              { text: 'Cancel', style: 'cancel' },
-                              { text: 'Open QA', onPress: () => setEvaluationOpen(true) },
-                            ],
-                          )
-                      : undefined
-                  }
                 >
                   Gemma 4 E2B
                 </Text>

@@ -49,9 +49,6 @@ export function AssistantScreen({
     modelReady,
     modelOperation,
     openPlace,
-    evaluationAvailable,
-    runEvaluation,
-    exportEvaluation,
   } = useAssistantConversation(
     places,
     onFocusMapPlace ??
@@ -91,9 +88,6 @@ export function AssistantScreen({
         onOperation={modelOperation}
         onStop={cancel}
         onClear={clear}
-        evaluationAvailable={evaluationAvailable}
-        onEvaluation={runEvaluation}
-        onEvaluationExport={exportEvaluation}
       />
     );
   return (

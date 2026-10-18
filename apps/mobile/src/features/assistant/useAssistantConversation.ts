@@ -8,8 +8,6 @@ import { foodResearch } from '../food/directory';
 import { createAssistantRuntime, type AssistantRuntime } from '../../ai/assistantRuntime';
 import type { ModelStatus } from '../../ai/modelManager';
 import { modelSetupDiagnostic } from '../../ai/modelSetupDiagnostics';
-import type { EvaluationStart } from '../../qa/ai-evaluation/EvaluationScreen';
-import type { EvaluationInputs, EvaluationReceipt } from '../../qa/ai-evaluation/contracts';
 
 const research = createFoodResearchAnswer(foodResearch);
 let messageSerial = 0;
@@ -30,9 +28,6 @@ export function useAssistantConversation(
   const [cancelled, setCancelled] = useState(false);
   const [status, setStatus] = useState('Local directory · AI not connected');
   const [setupStatus, setSetupStatus] = useState<ModelStatus | null>(null);
-  const [evaluationAvailable, setEvaluationAvailable] = useState(false);
-  const [evaluationHeld, setEvaluationHeld] = useState(false);
-  const evaluationHeldRef = useRef(false);
   const pendingScroll = useRef(false);
   const current = useRef({ places, focus, onOpenPlace });
   current.current = { places, focus, onOpenPlace };
@@ -193,112 +188,6 @@ export function useAssistantConversation(
     };
   }, []);
 
-  useEffect(() => {
-    let active = true;
-    void import('../../qa/ai-evaluation/gate')
-      .then((module) => module.isEvaluationAvailable())
-      .then((value) => {
-        if (active) setEvaluationAvailable(value);
-      })
-      .catch(() => undefined);
-    return () => {
-      active = false;
-    };
-  }, []);
-  const runEvaluation = async ({ envelope, onProgress }: EvaluationStart) => {
-    const receipt = envelope.receipt;
-    const service = runtime.current;
-    if (
-      !service ||
-      busyRef.current ||
-      evaluationHeldRef.current ||
-      !initializationSettled.current ||
-      service.provider.state !== 'READY'
-    )
-      throw new Error('Exclusive READY provider required');
-    ++epoch.current;
-    evaluationHeldRef.current = true;
-    setEvaluationHeld(true);
-    busyRef.current = true;
-    setBusy(true);
-    const abort = new AbortController();
-    request.current = abort;
-    let sink:
-      ReturnType<typeof import('../../qa/ai-evaluation/privateSink').createPrivateSink> | undefined;
-    let gate: typeof import('../../qa/ai-evaluation/gate') | undefined,
-      nativeBorrowStarted = false;
-    try {
-      gate = await import('../../qa/ai-evaluation/gate');
-      await gate.assertEvaluationGate(service.provider, envelope);
-      if (abort.signal.aborted) throw new Error('Evaluation canceled');
-      const [{ runNativeEvaluation }, { createPrivateSink }, input, { recorder }] =
-        await Promise.all([
-          import('../../qa/ai-evaluation/runner'),
-          import('../../qa/ai-evaluation/privateSink'),
-          import('../../qa/ai-evaluation/inputs.json'),
-          import('../../qa/ai-evaluation/traces'),
-        ]);
-      sink = createPrivateSink(receipt.runId);
-      nativeBorrowStarted = true;
-      const healthRecord = recorder('__health__', sink);
-      await runNativeEvaluation({
-        provider: service.provider,
-        inputs: input.default as EvaluationInputs,
-        receipt,
-        sink,
-        signal: abort.signal,
-        onProgress,
-        beforeCase: () =>
-          service.provider.state === 'READY'
-            ? gate!.evaluationHealth((value) => healthRecord('health', value))
-            : Promise.resolve(false),
-        healthDuringCase: () => gate!.evaluationHealth((value) => healthRecord('health', value)),
-      });
-      return { runId: receipt.runId };
-    } finally {
-      let idleProven = false,
-        sinkClosed = false;
-      try {
-        if (nativeBorrowStarted) await gate!.awaitEvaluationIdle(service.provider);
-        else if (!(await service.provider.getCapabilities()).nativeIdleKnown)
-          throw new Error('Idle not proven');
-        idleProven = true;
-      } finally {
-        try {
-          sink?.close();
-          sinkClosed = true;
-        } finally {
-          if (idleProven && sinkClosed) {
-            evaluationHeldRef.current = false;
-            busyRef.current = false;
-            if (live.current) {
-              ready.current = service.provider.state === 'READY';
-              setEvaluationHeld(false);
-              setBusy(false);
-            }
-          } else if (live.current) {
-            ready.current = false;
-            setStatus(
-              'Evaluation remains locked until native idle is confirmed. Restart the app before trying again.',
-            );
-          }
-        }
-      }
-    }
-  };
-  const exportEvaluation = async (runId: string, receipt: EvaluationReceipt) => {
-    if (busyRef.current || evaluationHeldRef.current)
-      throw new Error('Evaluation or cleanup is still active');
-    evaluationHeldRef.current = true;
-    setEvaluationHeld(true);
-    try {
-      const { exportEvaluationTrace } = await import('../../qa/ai-evaluation/export');
-      return await exportEvaluationTrace(runId, receipt);
-    } finally {
-      evaluationHeldRef.current = false;
-      if (live.current) setEvaluationHeld(false);
-    }
-  };
   const cancel = () => {
     epoch.current++;
     request.current?.abort();
@@ -316,7 +205,7 @@ export function useAssistantConversation(
   };
   const send = (query = draft) => {
     const text = query.trim();
-    if (!text || text.length > 1000 || busyRef.current || evaluationHeldRef.current) return false;
+    if (!text || text.length > 1000 || busyRef.current) return false;
     const turnEpoch = ++epoch.current;
     busyRef.current = true;
     setBusy(true);
@@ -433,14 +322,12 @@ export function useAssistantConversation(
     return true;
   };
   const dismissItineraryPreview = () => {
-    if (evaluationHeldRef.current) return;
     if (busyRef.current) cancel();
     runtime.current?.itineraryPreview.clear();
     resolved.current = [];
     setMessages((before) => before.filter((entry) => entry.payload.kind !== 'itinerary-preview'));
   };
   const clear = async () => {
-    if (evaluationHeldRef.current) return;
     cancel();
     runtime.current?.itineraryPreview.clear();
     resolved.current = [];
@@ -460,7 +347,7 @@ export function useAssistantConversation(
   };
   const modelOperation = async (operation: 'download' | 'import' | 'activate' | 'remove') => {
     const service = runtime.current;
-    if (!service || busyRef.current || evaluationHeldRef.current) return;
+    if (!service || busyRef.current) return;
     if (!initializationSettled.current) {
       setStatus('Checking local model setup…');
       return;
@@ -531,7 +418,7 @@ export function useAssistantConversation(
     messages,
     draft,
     setDraft,
-    busy: busy || evaluationHeld,
+    busy,
     cancelled,
     pendingScroll,
     send,
@@ -543,8 +430,5 @@ export function useAssistantConversation(
     modelReady: ready.current,
     modelOperation,
     openPlace,
-    evaluationAvailable,
-    runEvaluation,
-    exportEvaluation,
   };
 }

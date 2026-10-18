@@ -15,7 +15,6 @@ import { refreshInstalledGraph } from '../routing';
 import { browsingPlaces } from '../features/explore/directory';
 import { getPackStatus } from '../updates';
 import type { PackStatus } from '../updates/contracts';
-import { runNativeProof } from '../qa/native-proof';
 
 const emptySaved: SavedState = { placeIds: [], itinerary: [], startTime: null };
 const initialize = createStartupLoader({
@@ -71,8 +70,6 @@ export function useAppInitialization(
         setReady(true);
       }
     });
-    if (__DEV__ && process.env.EXPO_PUBLIC_NATIVE_QA === '1')
-      void runNativeProof().catch((cause) => console.warn('OMNI_QA', String(cause)));
     // Read the active controller/epoch at cleanup time, not their boot snapshots.
     const cancelActiveDownload = () => downloadController.current?.abort();
     const disposeIfCurrent = () => {
