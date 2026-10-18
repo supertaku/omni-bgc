@@ -65,3 +65,7 @@
 /docs/evaluations/mobile-ui/**/*.log whitespace=-blank-at-eof,cr-at-eol
 # Preserve Gradle's verbatim indented blank line in the failed-build evidence.
 /docs/evaluations/program/release/path-length-failure.log whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+
+# Packaged resources are checksum-bound; never convert their checkout bytes.
+/apps/mobile/assets/** -text
+/apps/mobile/assets/** whitespace=cr-at-eol

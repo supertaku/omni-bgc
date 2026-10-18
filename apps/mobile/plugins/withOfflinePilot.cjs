@@ -11,7 +11,10 @@ module.exports = config => withDangerousMod(config, ['android', async cfg => {
   }
   const bytes=fs.readFileSync(path.join(source,'manifest.json'));
   const reviewed=fs.readFileSync(path.join(cfg.modRequest.projectRoot,'../../data/manifests/offline-pilot-inventory.json'));
-  if (!bytes.equals(reviewed)) throw new Error('Offline pilot inventory changed; parent review required.');
+  // Pin reviewed inventory text; only CRLF/LF differences are permitted.
+  const inventoryHash = data => crypto.createHash('sha256').update(data.toString('utf8').replace(/\r\n/g, '\n')).digest('hex');
+  const reviewedInventorySha256 = '6b11ba01f46c8e582b2d52ca989cd1bcfe95a2909aba5c29bfd81f436ae3e97e';
+  if (inventoryHash(bytes) !== reviewedInventorySha256 || inventoryHash(reviewed) !== reviewedInventorySha256) throw new Error('Offline pilot inventory changed; parent review required.');
   const style=fs.readFileSync(path.join(cfg.modRequest.projectRoot,'src/map/pilot-style.json'));
   if (!style.equals(fs.readFileSync(path.join(source,'style.json')))) throw new Error('Authored map style does not match generated reviewed pack.');
   for (const entry of JSON.parse(bytes).files) {
