@@ -111,7 +111,7 @@ async function call(f, name, args = {}) {
 }
 
 test("v2 registry rejects removed saved tools and permanent settings in preview schemas", () => {
-  assert.equal(TOOL_CONTRACT_REVISION, "omni-local-tools-v2");
+  assert.equal(TOOL_CONTRACT_REVISION, "omni-local-tools-v3");
   const names = toolDefinitions().map((x) => x.name);
   assert.ok(names.includes("get_itinerary_preview"));
   assert.ok(

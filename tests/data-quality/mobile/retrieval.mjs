@@ -8,6 +8,8 @@ const require=createRequire(path.join(root,'apps/mobile/package.json'));const ts
 const modules={};
 function load(file,mocks={}){const js=ts.transpileModule(fs.readFileSync(path.join(root,file),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;const ctx={exports:{},require:n=>mocks[n]??modules[n]??{},Date,Map,Set,Promise,console};vm.runInNewContext(js,ctx);return ctx.exports;}
 modules['../domain/money']=load('apps/mobile/src/domain/money.ts');
+modules['./money']=modules['../domain/money'];
+modules['../domain/priceBounds']=load('apps/mobile/src/domain/priceBounds.ts');
 const parser=load('apps/mobile/src/data/parser.ts');modules['./parser']=parser;
 const lexical=load('apps/mobile/src/data/lexical.ts');modules['./lexical']=lexical;
 const id=n=>`00000000-0000-4000-8000-${String(n).padStart(12,'0')}`;

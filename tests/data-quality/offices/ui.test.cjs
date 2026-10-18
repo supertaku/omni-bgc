@@ -36,7 +36,8 @@ test('approved directory paginates and sends exact UUID to details',()=>{
 test('office details disclose unknown precision/floor, omit all save controls and retain allowed sharing',async()=>{
  const h=harness(false);h.service.replaceOfficeDirectory([record],true);const place=h.directory.officePlace(record);let saved;
  let tree=h.render(()=>h.details.OfficeDetailsView({place,onSave:value=>saved=value,saved:{placeIds:[],itinerary:[],startTime:null}}));
- assert.match(text(tree),/Floor\/suite:\s+Not recorded/);assert.match(text(tree),/map location is not verified/);
+ assert.match(text(tree),/Floor\/suite:\s+Not recorded/);assert.match(text(tree),/Map location is unavailable/);
+ assert.doesNotMatch(text(tree),/Sources|Verification method|Evidence basis|Not verified/);
  assert.equal(nodes(tree).some(n=>n.props?.label==='Save office'||n.props?.label==='Remove saved office'),false);assert.equal(saved,undefined);await action(tree,'Share office details').props.onPress();assert.equal(h.shares.length,1);
  h.service.replaceOfficeDirectory([{...record,validUntil:'2025-01-01T00:00:00Z'}],true);tree=h.render(()=>h.details.OfficeDetailsView({place,onSave:()=>assert.fail('Expired save')}));
  assert.match(text(tree),/Stale office record/);assert.equal(nodes(tree).some(n=>n.type==='Action'),false);

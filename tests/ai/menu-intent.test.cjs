@@ -73,14 +73,9 @@ test("price questions and follow-ups can reach the approved menu service", async
       inputs[0].allowedCapabilities.includes("find_menu_items"),
       question,
     );
-    assert.ok(
-      !inputs[0].allowedCapabilities.includes("search_food_research"),
-      question,
-    );
-    assert.ok(
-      !inputs[0].allowedCapabilities.includes("get_food_research_details"),
-      question,
-    );
+    const researchExpected = !question.includes("Do not include research");
+    assert.equal(inputs[0].allowedCapabilities.includes("search_food_research"), researchExpected, question);
+    assert.equal(inputs[0].allowedCapabilities.includes("get_food_research_details"), researchExpected, question);
   }
 });
 

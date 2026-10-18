@@ -66,6 +66,12 @@ export class NativeLiteRtProvider implements LocalAIProvider {
   ) {
     this.state = bridge ? 'MODEL_MISSING' : 'UNAVAILABLE';
   }
+  /** Non-sensitive identity of the already verified loaded model, for preview QA binding only. */
+  getEvaluationModelIdentity() {
+    return this.model
+      ? { sha256: this.model.sha256, bytes: this.model.bytes, backendRequested: this.backend }
+      : null;
+  }
   async getCapabilities(): Promise<ProviderCapabilities> {
     const native = this.bridge ? await this.bridge.getCapabilities() : undefined;
     return {

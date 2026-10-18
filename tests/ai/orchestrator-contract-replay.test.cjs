@@ -19,9 +19,14 @@ test("all 120 historic multilingual question INPUTS exercise actual bounded host
   assert.equal(report.inference, "NOT_RUN");
   assert.equal(report.networkCalls, 0);
   assert.equal(report.rows.filter((row) => row.scopeExcluded).length, 10);
+  assert.equal(report.rows.filter((row) => row.inputClarification).length, 1);
+  assert.equal(
+    report.rows.find((row) => row.inputClarification).questionId,
+    "prices-10",
+  );
   assert.ok(
     report.rows.every((row) =>
-      row.scopeExcluded
+      row.scopeExcluded || row.inputClarification
         ? row.controlledRead === "unavailable" &&
           row.prohibitedProposal === "unavailable"
         : row.controlledRead === "completed" &&

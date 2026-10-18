@@ -11,6 +11,7 @@ function harness(overrides={}) {
  const {AssistantScreen}=loadTs('apps/mobile/src/features/assistant/AssistantScreen.tsx',{
   react:hooks.React,'react/jsx-runtime':{jsx:element,jsxs:element,Fragment:'Fragment'},'react-native':native,
   '../../ui/components':{Icon:'Icon',palette},'./cards':{MessageContent:'MessageContent'},'./directory':{placeMatchesCategory:()=>true},'./useAssistantConversation':{useAssistantConversation:()=>controller},
+  '../../qa/ai-evaluation/EvaluationScreen':{EvaluationScreen:'EvaluationScreen'},
  });
  const props={places:[],onOpenPlace(){},onBackMap(){},onModelsChange:open=>calls.push(['models',open])};
  return {controller,calls,alerts,hooks,render:(extra={})=>hooks.render(()=>AssistantScreen({...props,...extra}))};

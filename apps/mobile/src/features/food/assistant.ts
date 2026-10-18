@@ -2,7 +2,8 @@ import type { Place } from '../../contracts';
 import type { AssistantPayload } from '../assistant/contracts';
 import type { createFoodResearchService } from './service';
 import { normalizeFoodText } from './service';
-import { parsePhpCentavos } from '../../domain/money';
+import { parseUserPhpPriceBounds } from '../../domain/priceBounds';
+import { excludesFoodResearch } from './sourcePolicy';
 
 /** Explicit injection keeps legacy canonical-only evaluations isolated from research. */
 export function createFoodResearchAnswer(service: ReturnType<typeof createFoodResearchService>) {
@@ -11,6 +12,7 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
     places: readonly Place[],
     selectedId?: string,
   ): AssistantPayload[] | null => {
+    if (excludesFoodResearch(query)) return null;
     if (!service.available || !places.some((p) => service.getFoodEstablishmentDetails(p.id)))
       return null;
     const text = normalizeFoodText(query);
@@ -40,31 +42,9 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
     const containsName = (name: string) =>
       (' ' + text + ' ').includes(' ' + normalizeFoodText(name) + ' ');
     const named = service.restaurants.filter((r) => containsName(r.name));
-    const maxMatch = query.match(
-      /(?:under|below|less than|budget(?:\s+of)?|for)\s*(?:PHP|₱)?\s*(\d+(?:\.\d{1,2})?)(?![\d.,a-z])/i,
-    );
-    const range = query.match(
-      /between\s*(?:PHP|₱)?\s*(\d+(?:\.\d{1,2})?)\s*(?:and|to|-)\s*(?:PHP|₱)?\s*(\d+(?:\.\d{1,2})?)(?![\d.,a-z])/i,
-    );
-    const budgetRequested =
-      /\b(under|below|less than|budget|between)\b/.test(text) ||
-      /\bfor\s*(?:PHP|₱)?\s*[-+\d]/i.test(query);
-    if (
-      budgetRequested &&
-      ((!range && !maxMatch) ||
-        (range &&
-          (parsePhpCentavos(range[1]) === null ||
-            parsePhpCentavos(range[2]) === null ||
-            parsePhpCentavos(range[1])! > parsePhpCentavos(range[2])!)) ||
-        (maxMatch && parsePhpCentavos(maxMatch[1]) === null))
-    ) {
-      return [
-        {
-          kind: 'text',
-          text: 'Use a non-negative PHP budget with up to two decimal places and an ordered price range.',
-        },
-      ];
-    }
+    const priceRequest = parseUserPhpPriceBounds(query);
+    if (priceRequest.kind === 'invalid') return [{ kind: 'text', text: priceRequest.message }];
+    const priceBounds = priceRequest.kind === 'valid' ? priceRequest.bounds : undefined;
     const wantsHours = /\b(hours|schedule)\b/.test(text);
     if (wantsHours) {
       const r =
@@ -75,7 +55,10 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
             : null;
       if (!r)
         return [
-          { kind: 'text', text: 'Include the restaurant name to retrieve its listed hours.' },
+          {
+            kind: 'text',
+            text: 'Include the restaurant name to retrieve its listed hours.',
+          },
         ];
       return [
         {
@@ -94,17 +77,14 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
     const menu =
       /\b(menu|menus|dish|dishes|dessert|desserts|meat|seafood|chicken|poultry|noodles|rice|bread|fish|tea|coffee)\b/.test(
         text,
-      ) ||
-      !!maxMatch ||
-      !!range;
+      ) || !!priceBounds;
     const locationRequest = /\b(where|location)\b/.test(text);
     const wantsRestaurants =
       /\b(restaurants|restaurant|establishments|cafes|cafés)\b/.test(text) &&
       !/\b(menu|menus|dish|dishes)\b/.test(text) &&
-      !maxMatch &&
-      !range;
+      !priceBounds;
     const fillers = new Set(
-      'find where is in bgc show me the menu menus of what food foods can i get for pesos peso php dishes dish under below less than between and to restaurants restaurant establishments serve which are listed this operating hours location at please directory available a'.split(
+      'find where is in bgc show me the menu menus of what food foods can i get for pesos peso php dishes dish under below less than between and to at most least up budget of hindi hihigit sa piso restaurants restaurant establishments serve which are listed this operating hours location at please directory available a'.split(
         ' ',
       ),
     );
@@ -113,7 +93,8 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
       cafes: 'cafe',
       cafés: 'café',
     };
-    let searchText = text;
+    let searchText =
+      priceRequest.kind === 'valid' ? normalizeFoodText(priceRequest.queryWithoutPrice) : text;
     named.forEach((r) => {
       searchText = searchText.replace(normalizeFoodText(r.name), ' ');
     });
@@ -127,7 +108,7 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
       menu &&
       !wantsRestaurants &&
       !locationRequest &&
-      (!named.length || terms || /\b(menu|menus|dish|dishes)\b/.test(text) || maxMatch || range)
+      (!named.length || terms || /\b(menu|menus|dish|dishes)\b/.test(text) || priceBounds)
     ) {
       const scopes = named.length ? named.map((r) => r.id) : [undefined];
       const foodTerms = terms
@@ -153,8 +134,8 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
           query: terms,
           category: foodTerms || undefined,
           restaurantId,
-          minPhp: range?.[1],
-          maxPhp: range?.[2] ?? maxMatch?.[1],
+          minPhp: priceBounds?.minPhp,
+          maxPhp: priceBounds?.maxPhp,
           limit: 12,
         }),
       );
@@ -169,7 +150,10 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
                 placeIds: named.map((r) => r.id).slice(0, 12),
                 total: named.length,
               },
-              { kind: 'text', text: 'Menu information is not yet available for this request.' },
+              {
+                kind: 'text',
+                text: 'Menu information is not yet available for this request.',
+              },
             ]
           : [
               {
@@ -180,7 +164,7 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
       return [
         {
           kind: 'text',
-          text: 'Partial research menu records; branch and variant coverage may differ. Estimates are approximate; starting prices are minimum listed amounts, not fixed variant prices.',
+          text: 'Here’s what I found. Estimates are approximate, and starting prices can vary with the option you choose.',
         },
         {
           kind: 'food-menus',
@@ -202,7 +186,7 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
     return [
       {
         kind: 'text',
-        text: 'Research directory records. Open details for recorded location, hours and sources.',
+        text: 'Here’s what I found. Tap a name to see its details.',
       },
       {
         kind: 'places',

@@ -9,6 +9,7 @@ import { ConversationStore } from './conversationStore';
 import { createExpoModelManager } from './modelStorage';
 import { createProviderSmokeRunner, type ModelManager } from './modelManager';
 import { GEMMA_4_E2B } from './modelCatalog';
+import { modelSetupDiagnostic } from './modelSetupDiagnostics';
 
 export async function createAssistantRuntime(focus: (place: Place) => boolean) {
   const provider = new NativeLiteRtProvider();
@@ -38,8 +39,11 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
       return true;
     })());
   const setup = async (signal: AbortSignal) => {
+    modelSetupDiagnostic('provider_release');
     await provider.release();
+    modelSetupDiagnostic('manager_create');
     manager ??= await createExpoModelManager();
+    modelSetupDiagnostic('download_install');
     await manager.install(
       GEMMA_4_E2B.id,
       { kind: 'download', userInitiated: true, licenseAcknowledged: true },
@@ -50,6 +54,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     signal: AbortSignal,
     pickerVisibility?: (visible: boolean) => void,
   ) => {
+    modelSetupDiagnostic('picker_open');
     pickerVisibility?.(true);
     const picked = await (async () => {
       try {
@@ -58,9 +63,16 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
         pickerVisibility?.(false);
       }
     })();
-    if (picked.canceled || signal.aborted) return;
+    if (picked.canceled || signal.aborted) {
+      modelSetupDiagnostic('picker_canceled');
+      return;
+    }
+    modelSetupDiagnostic('picker_selected');
+    modelSetupDiagnostic('provider_release');
     await provider.release();
+    modelSetupDiagnostic('manager_create');
     manager ??= await createExpoModelManager();
+    modelSetupDiagnostic('import_install');
     await manager.install(
       GEMMA_4_E2B.id,
       {

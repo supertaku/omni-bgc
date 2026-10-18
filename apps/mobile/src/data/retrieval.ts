@@ -9,15 +9,21 @@ import {
   matchesLexicalText,
 } from './lexical';
 import { parsePhpCentavos } from '../domain/money';
+import { checkedPhpBounds } from '../domain/priceBounds';
 
 export type PlaceFilters = { category?: string; query?: string };
 export type MenuFilters = {
   branchId?: string;
   query?: string;
+  minPricePhp?: string;
   maxPricePhp?: string;
   requiredTags?: readonly string[];
 };
-export type BranchMenuItem = { branchId: string; branchName: string; item: MenuItem };
+export type BranchMenuItem = {
+  branchId: string;
+  branchName: string;
+  item: MenuItem;
+};
 function identifier(id: string): void {
   if (!UUID.test(id)) throw new Error('Invalid immutable entity ID');
 }
@@ -32,7 +38,7 @@ export function filterMenuItems(
 ): BranchMenuItem[] {
   if (filters.branchId !== undefined) identifier(filters.branchId);
   const terms = lexicalAlternatives(filters.query ?? '');
-  const budget = filters.maxPricePhp === undefined ? null : phpCentavos(filters.maxPricePhp);
+  const { min, max } = checkedPhpBounds(filters.minPricePhp, filters.maxPricePhp);
   if (filters.requiredTags?.some((t) => typeof t !== 'string' || !t.trim() || t.length > 80))
     throw new Error('Invalid explicit tag filter');
   const results: BranchMenuItem[] = [];
@@ -72,7 +78,7 @@ export function filterMenuItems(
           !filters.requiredTags.every((t) => item.tags?.includes(t)))
       )
         continue;
-      if (budget !== null) {
+      if (min !== null || max !== null) {
         if (
           !item.priceValue ||
           item.priceValue.currency !== 'PHP' ||
@@ -85,7 +91,7 @@ export function filterMenuItems(
         } catch {
           continue;
         }
-        if (amount > budget) continue;
+        if ((min !== null && amount < min) || (max !== null && amount > max)) continue;
       }
       results.push({ branchId: place.id, branchName: place.name, item });
     }

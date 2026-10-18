@@ -2,6 +2,7 @@ import type { Place, Citation } from '../contracts';
 import type { ItineraryPreview, PreviewOperation, PreviewStop } from './itineraryPreview';
 import type { EvidenceEnvelope, UnifiedRetrieval, Authority } from './retrieval';
 import { decodeToolProposal, utf8Bytes, type ToolName, type ToolProposal } from './tools';
+import { applyExplicitPhpBounds, type PhpPriceBounds } from '../domain/priceBounds';
 
 export type ToolActionAdapters = {
   focusMapPlace?: (place: Place) => boolean | Promise<boolean>;
@@ -18,6 +19,12 @@ export type ToolExecutionContext = {
   requestId: string;
   signal?: AbortSignal;
   researchEnabled: boolean;
+  /** Host-parsed explicit current query constraints, independent of model proposals. */
+  userPriceBounds?: PhpPriceBounds;
+  /** Ordinary recorded-menu fallback, not an explicit research-only request. */
+  ordinaryMenuResearch?: boolean;
+  /** Request-local provenance for ordinary research details; explicit research is separate. */
+  resolvedResearchRestaurantIds?: Set<string>;
   resolvedPlaceIds: Set<string>;
   /** Host-resolved ordinal scope, when the user's follow-up names an earlier result. */
   expectedActionPlaceIds?: ReadonlySet<string>;
@@ -77,25 +84,67 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
       case 'get_verified_entrances':
         r = result(p, await retrieval.getVerifiedEntrances(p.arguments.placeId));
         break;
-      case 'find_menu_items':
-        r = result(p, await retrieval.findMenuItems(p.arguments));
+      case 'find_menu_items': {
+        const effective = applyExplicitPhpBounds(p.arguments, context.userPriceBounds, {
+          min: 'minPricePhp',
+          max: 'maxPricePhp',
+        });
+        r = result(p, await retrieval.findMenuItems(effective));
         break;
+      }
       case 'find_approved_offices':
         r = result(p, await retrieval.findApprovedOffices(p.arguments));
         break;
       case 'get_office_details':
         r = result(p, await retrieval.getOfficeDetails(p.arguments.placeId));
         break;
-      case 'search_food_research':
-        r = context.researchEnabled
-          ? result(p, await retrieval.searchFoodResearch(p.arguments))
-          : unavailable(
-              p,
-              'Research listings require an explicit user request. Canonical search is never silently widened.',
-              true,
-            );
+      case 'search_food_research': {
+        if (!context.researchEnabled) {
+          r = unavailable(
+            p,
+            'This request excludes recorded research listings. I can check approved records instead.',
+            true,
+          );
+          break;
+        }
+        const effective = applyExplicitPhpBounds(p.arguments, context.userPriceBounds, {
+          min: 'minPhp',
+          max: 'maxPhp',
+        });
+        if (context.ordinaryMenuResearch) {
+          const approved = await retrieval.findMenuItems({
+            query: effective.query ?? effective.category,
+            minPricePhp: effective.minPhp,
+            maxPricePhp: effective.maxPhp,
+          });
+          assertNotAborted(context.signal);
+          if (approved.status === 'ok') {
+            r = unavailable(p, 'I found a menu match. Let me check that first.');
+            break;
+          }
+        }
+        r = result(
+          p,
+          await retrieval.searchFoodResearch({
+            ...effective,
+            menuItemsOnly: context.ordinaryMenuResearch || undefined,
+          }),
+        );
+        if (context.ordinaryMenuResearch && r.status === 'ok') {
+          context.resolvedResearchRestaurantIds ??= new Set();
+          for (const row of r.data as import('./retrieval').ResearchRow[])
+            context.resolvedResearchRestaurantIds.add(row.restaurant.id);
+        }
         break;
+      }
       case 'get_food_research_details':
+        if (
+          context.ordinaryMenuResearch &&
+          !context.resolvedResearchRestaurantIds?.has(p.arguments.restaurantId)
+        ) {
+          r = unavailable(p, 'Let’s find a menu match first so I can check the right restaurant.');
+          break;
+        }
         r = context.researchEnabled
           ? result(
               p,
@@ -103,9 +152,10 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
                 p.arguments.restaurantId,
                 p.arguments.offset,
                 p.arguments.limit,
+                context.userPriceBounds,
               ),
             )
-          : unavailable(p, 'Research listings require an explicit user request.', true);
+          : unavailable(p, 'This request excludes recorded research listings.', true);
         break;
       case 'focus_map_place': {
         const id = p.arguments.placeId;
@@ -196,7 +246,12 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
               {
                 name: 'preview_itinerary_change',
                 arguments: {
-                  stops: [{ placeId: stop.placeId, durationMinutes: stop.durationMinutes }],
+                  stops: [
+                    {
+                      placeId: stop.placeId,
+                      durationMinutes: stop.durationMinutes,
+                    },
+                  ],
                 },
               },
               hostCallId,

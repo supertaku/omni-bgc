@@ -1,7 +1,8 @@
 import { UUID } from '../data/parser';
 import { parsePhpCentavos } from '../domain/money';
+import { checkedPhpBounds } from '../domain/priceBounds';
 
-export const TOOL_CONTRACT_REVISION = 'omni-local-tools-v2';
+export const TOOL_CONTRACT_REVISION = 'omni-local-tools-v3';
 export const MAX_PROPOSAL_BYTES = 8192;
 export const TOOL_NAMES = [
   'find_places',
@@ -23,6 +24,7 @@ export type ToolArguments = {
   get_verified_entrances: { placeId: string };
   find_menu_items: {
     query?: string;
+    minPricePhp?: string;
     maxPricePhp?: string;
     branchId?: string;
     limit?: number;
@@ -32,11 +34,21 @@ export type ToolArguments = {
     query?: string;
     category?: string;
     restaurantId?: string;
+    minPhp?: string;
     maxPhp?: string;
     limit?: number;
   };
-  get_food_research_details: { restaurantId: string; offset?: number; limit?: number };
-  find_approved_offices: { query?: string; district?: string; buildingId?: string; limit?: number };
+  get_food_research_details: {
+    restaurantId: string;
+    offset?: number;
+    limit?: number;
+  };
+  find_approved_offices: {
+    query?: string;
+    district?: string;
+    buildingId?: string;
+    limit?: number;
+  };
   get_office_details: { placeId: string };
   get_itinerary_preview: Record<string, never>;
   focus_map_place: { placeId: string };
@@ -46,7 +58,12 @@ export type ToolArguments = {
   };
 };
 export type ToolProposal = {
-  [N in ToolName]: { version: 1; callId: string; name: N; arguments: ToolArguments[N] };
+  [N in ToolName]: {
+    version: 1;
+    callId: string;
+    name: N;
+    arguments: ToolArguments[N];
+  };
 }[ToolName];
 export class ToolValidationError extends Error {
   readonly code = 'TOOL_PROTOCOL_INVALID';
@@ -161,8 +178,11 @@ export function decodeToolProposal(raw: unknown, hostCallId: string): ToolPropos
     find_places: [['query', 'category', 'limit'], []],
     get_place_details: [['placeId'], ['placeId']],
     get_verified_entrances: [['placeId'], ['placeId']],
-    find_menu_items: [['query', 'maxPricePhp', 'branchId', 'limit', 'requiredTags'], []],
-    search_food_research: [['query', 'category', 'restaurantId', 'maxPhp', 'limit'], []],
+    find_menu_items: [
+      ['query', 'minPricePhp', 'maxPricePhp', 'branchId', 'limit', 'requiredTags'],
+      [],
+    ],
+    search_food_research: [['query', 'category', 'restaurantId', 'minPhp', 'maxPhp', 'limit'], []],
     get_food_research_details: [['restaurantId', 'offset', 'limit'], ['restaurantId']],
     find_approved_offices: [['query', 'district', 'buildingId', 'limit'], []],
     get_office_details: [['placeId'], ['placeId']],
@@ -174,9 +194,17 @@ export function decodeToolProposal(raw: unknown, hostCallId: string): ToolPropos
   for (const k of ['query', 'category', 'district'])
     if (k in a) text(a[k], k === 'query' ? 256 : 80);
   for (const k of ['placeId', 'branchId', 'restaurantId', 'buildingId']) if (k in a) uuid(a[k]);
-  for (const k of ['maxPricePhp', 'maxPhp'])
+  for (const k of ['minPricePhp', 'maxPricePhp', 'minPhp', 'maxPhp'])
     if (k in a && (typeof a[k] !== 'string' || parsePhpCentavos(a[k] as string) === null))
       invalid('Exact PHP decimal required');
+  try {
+    if (name === 'find_menu_items')
+      checkedPhpBounds(a.minPricePhp as string | undefined, a.maxPricePhp as string | undefined);
+    if (name === 'search_food_research')
+      checkedPhpBounds(a.minPhp as string | undefined, a.maxPhp as string | undefined);
+  } catch {
+    invalid('Ordered exact PHP bounds required');
+  }
   if ('limit' in a)
     integer(a.limit, 1, ['find_places', 'find_approved_offices'].includes(name) ? 12 : 20);
   if ('offset' in a) integer(a.offset, 0, 1000);
@@ -216,7 +244,11 @@ const id = { type: 'string', pattern: UUID.source };
 const limit = { type: 'integer', minimum: 1, maximum: 20 };
 const specs: Record<
   ToolName,
-  { description: string; properties: Record<string, unknown>; required?: string[] }
+  {
+    description: string;
+    properties: Record<string, unknown>;
+    required?: string[];
+  }
 > = {
   find_places: {
     description: 'Current approved canonical places only. Empty means no verified matches.',
@@ -235,9 +267,10 @@ const specs: Record<
   },
   find_menu_items: {
     description:
-      'Approved branch-bound menu. PHP budget is exact decimal string. No unknown-price or unknown-tag match.',
+      'Approved branch-bound menu. Optional inclusive minimum/maximum PHP filter bounds (the host converts explicit under/below wording to the prior centavo) are exact decimal strings. No unknown-price, non-PHP or unknown-tag match.',
     properties: {
       query: str,
+      minPricePhp: { type: 'string', pattern: '^\\d{1,12}(?:\\.\\d{1,2})?$' },
       maxPricePhp: { type: 'string', pattern: '^\\d{1,12}(?:\\.\\d{1,2})?$' },
       branchId: id,
       limit,
@@ -246,17 +279,34 @@ const specs: Record<
   },
   search_food_research: {
     description:
-      'Only for explicitly requested RESEARCH listings. Candidate/estimated data, rights pending, no verified locations.',
-    properties: { query: str, category: str, restaurantId: id, maxPhp: str, limit },
+      'Recorded food/menu research for ordinary menu or price requests when approved menus have no matching records, or for explicit research requests. Research/estimated/starting prices and branch qualifiers are not approved branch facts. Rights pending; no verified locations.',
+    properties: {
+      query: str,
+      category: str,
+      restaurantId: id,
+      minPhp: str,
+      maxPhp: str,
+      limit,
+    },
   },
   get_food_research_details: {
-    description: 'Explicit research details, recorded hours not open now. Pagination max 20.',
-    properties: { restaurantId: id, offset: { type: 'integer', minimum: 0, maximum: 1000 }, limit },
+    description:
+      'Recorded research details and hours, never open-now status or approved branch facts. Ordinary menu requests must first resolve this restaurant through a qualifying search_food_research read in the current request. Pagination max20; source exclusions still apply.',
+    properties: {
+      restaurantId: id,
+      offset: { type: 'integer', minimum: 0, maximum: 1000 },
+      limit,
+    },
     required: ['restaurantId'],
   },
   find_approved_offices: {
     description: 'Approved current operating offices only; excludes all research candidates.',
-    properties: { query: str, district: str, buildingId: id, limit: { ...limit, maximum: 12 } },
+    properties: {
+      query: str,
+      district: str,
+      buildingId: id,
+      limit: { ...limit, maximum: 12 },
+    },
   },
   get_office_details: {
     description: 'Approved current operating office with citations.',
@@ -277,7 +327,10 @@ const specs: Record<
     description:
       'Temporary visit-list preview in memory only. operation replace (default) replaces the draft; append adds stops; remove removes one occurrence of each exact current draft ID/duration tuple; reorder preserves its exact ID/duration multiset. Read get_itinerary_preview first for edits. No favorites, saving, confirmation, walking routes or travel times. All displayed stops require current approved source records.',
     properties: {
-      operation: { type: 'string', enum: ['replace', 'append', 'remove', 'reorder'] },
+      operation: {
+        type: 'string',
+        enum: ['replace', 'append', 'remove', 'reorder'],
+      },
       stops: {
         type: 'array',
         maxItems: 20,

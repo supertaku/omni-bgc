@@ -1,161 +1,73 @@
-import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import type { Citation, Place } from '../../contracts';
-import { CategoryArtwork, Icon, palette } from '../../ui/components';
 import type { AssistantActions, AssistantPayload } from './contracts';
 import { assistantStyles as s } from './styles';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { WALKING_DIRECTIONS_DEFERRED, VISIT_PLANNING_DEFERRED } from './directory';
-import { FoodHoursView, FoodMenuRow, FoodSourceDisclosure } from '../food/ResearchDetails';
-import { foodResearch } from '../food/directory';
+import { formatFoodPrice } from '../food/service';
 
-export function SourceDisclosure({
-  citations,
-  status,
-  subject,
+/** Only the name is interactive; opening still goes through the conversation's fresh-ID guard. */
+function ResultName({
+  name,
+  index,
+  place,
+  onOpenPlace,
 }: {
-  citations: Citation[];
-  status?: Place['status'];
-  subject?: string;
+  name: string;
+  index: number;
+  place?: Place;
+  onOpenPlace: AssistantActions['onOpenPlace'];
 }) {
-  const [expanded, setExpanded] = useState(false);
-  const sourceCount = new Set(citations.map((citation) => citation.sourceId)).size;
-  return (
-    <View>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${expanded ? 'Hide' : 'Show'} source details${subject ? ` for ${subject}` : ''}`}
-        accessibilityState={{ expanded }}
-        onPress={() => setExpanded((value) => !value)}
-        style={s.disclosureButton}
-      >
-        <Icon name="info" size={15} color={palette.muted} />
-        <Text style={s.disclosureText}>
-          {citations.length
-            ? `${status ?? 'Recorded'} · ${sourceCount} source${sourceCount === 1 ? '' : 's'}`
-            : `${status ?? 'Recorded'} · No sources`}
-        </Text>
-        <Icon name={expanded ? 'up' : 'down'} size={14} color={palette.muted} />
-      </Pressable>
-      {expanded ? (
-        <View style={s.evidence}>
-          {status ? <Text style={s.caption}>Record status: {status}</Text> : null}
-          {citations.length ? (
-            citations.map((citation, index) => (
-              <View key={`${citation.sourceId}:${index}`} style={s.evidenceItem}>
-                <Text style={s.body}>{citation.label}</Text>
-                <Text style={s.caption}>
-                  {citation.status} · {citation.license}
-                </Text>
-                <Text style={s.caption}>
-                  Observed {citation.observedAt} · Verified {citation.verifiedAt ?? 'Not recorded'}
-                </Text>
-                <Text style={s.caption}>Source: {citation.sourceId}</Text>
-                {citation.locator ? (
-                  <Text selectable style={s.caption}>
-                    {citation.locator}
-                  </Text>
-                ) : null}
-              </View>
-            ))
-          ) : (
-            <Text style={s.caption}>There is no supporting citation in this local record.</Text>
-          )}
-        </View>
-      ) : null}
-    </View>
-  );
-}
-function MapButton({
-  label = 'View on Map',
-  accessibilityLabel = label,
-  onPress,
-}: {
-  label?: string;
-  accessibilityLabel?: string;
-  onPress: () => void;
-}) {
-  return (
+  const label = `${index + 1}. ${name}`;
+  return place ? (
     <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={accessibilityLabel}
-      onPress={onPress}
-      style={({ pressed }) => [s.mapButton, pressed && { opacity: 0.7 }]}
+      accessibilityRole="link"
+      accessibilityLabel={`Open ${name}`}
+      accessibilityHint="Opens this place's details"
+      onPress={() => onOpenPlace(place)}
+      style={s.resultNameButton}
     >
-      <Text style={s.mapButtonText}>{label}</Text>
+      <Text style={[s.body, s.resultLink]}>{label}</Text>
     </Pressable>
+  ) : (
+    <Text style={s.body}>{label}</Text>
   );
 }
 
+const supportedFact = (place: Place | undefined, citation?: Citation) =>
+  citation?.status === 'approved' ||
+  (!!place &&
+    isDemoPlace(place) &&
+    citation?.verificationMethod === 'synthetic-preview' &&
+    citation.sourceId === 'OMNI-UX-V2-FICTIONAL-PREVIEW');
+
+/** Kept as the existing entry point; result presentation is now an ordinary text row. */
 export function PlaceCard({
   place,
   onOpenPlace,
-  distanceM,
+  index = 0,
 }: {
   place: Place;
   onOpenPlace: AssistantActions['onOpenPlace'];
   distanceM?: number;
+  index?: number;
 }) {
-  const sample = isDemoPlace(place) && place.coordinate === null;
-  const mapped = place.coordinate !== null;
-  const research = foodResearch.getFoodEstablishmentDetails(place.id);
   return (
-    <View style={s.card}>
-      <View style={s.placeRow}>
-        <View
-          style={s.placeArtwork}
-          accessible={false}
-          importantForAccessibility="no-hide-descendants"
-        >
-          <CategoryArtwork category={place.category} size={30} />
-        </View>
-        <View style={s.placeBody}>
-          <Text style={s.heading}>{place.name}</Text>
-          <Text style={s.caption}>
-            {[
-              place.category.replace(/[_-]/g, ' '),
-              place.building,
-              place.floor ? `Floor ${place.floor}` : null,
-            ]
-              .filter(Boolean)
-              .join(' · ')}
-          </Text>
-          {sample ? (
-            <Text style={s.sampleLabel}>Fictional sample · No map location</Text>
-          ) : !mapped ? (
-            <Text style={s.caption}>Map location unavailable</Text>
-          ) : null}
-          {!sample &&
-          mapped &&
-          distanceM !== undefined &&
-          Number.isFinite(distanceM) &&
-          distanceM >= 0 ? (
-            <Text style={s.caption}>{Math.round(distanceM)} m</Text>
-          ) : null}
-        </View>
-        <MapButton
-          label={sample ? 'View sample' : mapped ? 'View on Map' : 'View details'}
-          accessibilityLabel={
-            sample
-              ? `View sample ${place.name}`
-              : mapped
-                ? `View ${place.name} on Map`
-                : `View details for ${place.name}`
-          }
-          onPress={() => onOpenPlace(place)}
-        />
-      </View>
-      <View style={s.placeEvidence}>
-        {research ? (
-          <FoodSourceDisclosure evidence={foodResearch.getFoodResearchEvidence(place.id)} />
-        ) : (
-          <SourceDisclosure
-            citations={place.citations}
-            status={place.status}
-            subject={place.name}
-          />
-        )}
-      </View>
+    <View style={s.resultRow}>
+      <ResultName name={place.name} index={index} place={place} onOpenPlace={onOpenPlace} />
+      <Text style={s.resultMeta}>
+        {[
+          place.category.replace(/[_-]/g, ' '),
+          place.building,
+          place.floor ? `Floor ${place.floor}` : null,
+        ]
+          .filter(Boolean)
+          .join(' · ')}
+      </Text>
+      {isDemoPlace(place) ? <Text style={s.resultMeta}>Fictional example</Text> : null}
+      {place.status === 'stale' ? (
+        <Text style={s.resultMeta}>These details may have changed.</Text>
+      ) : null}
     </View>
   );
 }
@@ -193,27 +105,25 @@ export function MessageContent({
         const place = resolve(id);
         return place ? [place] : [];
       });
-      if (!matches.length)
-        return (
-          <View style={s.inlineNotice}>
-            <Text style={s.body}>
-              These places are no longer in the local directory. Search again to see the latest
-              installed records.
-            </Text>
-          </View>
-        );
       return (
         <View style={s.collection}>
-          <Text style={s.collectionTitle}>
-            {payload.title} · {payload.total}
+          <Text style={s.body}>
+            {matches.length
+              ? matches.length === 1
+                ? 'Here’s one to check out.'
+                : `Here are ${matches.length} places to check out.`
+              : 'Those places aren’t available anymore. Try another search.'}
           </Text>
-          {matches.map((place) => (
-            <PlaceCard key={place.id} place={place} onOpenPlace={actions.onOpenPlace} />
+          {matches.map((place, index) => (
+            <PlaceCard
+              key={place.id}
+              place={place}
+              index={index}
+              onOpenPlace={actions.onOpenPlace}
+            />
           ))}
           {payload.total > payload.placeIds.length ? (
-            <Text style={s.caption}>
-              Showing the first {payload.placeIds.length}. Search a name to narrow your results.
-            </Text>
+            <Text style={s.caption}>There are more matches. Try a name to narrow it down.</Text>
           ) : null}
         </View>
       );
@@ -221,41 +131,32 @@ export function MessageContent({
     case 'place': {
       const place = resolve(payload.placeId);
       return place ? (
-        <PlaceCard place={place} distanceM={payload.distanceM} onOpenPlace={actions.onOpenPlace} />
+        <PlaceCard place={place} onOpenPlace={actions.onOpenPlace} />
       ) : (
-        <Text style={s.body}>This place is no longer in the local directory.</Text>
+        <Text style={s.body}>That place isn’t available anymore. Try its name again.</Text>
       );
     }
-    case 'food-hours':
-      return (
-        <View style={[s.card, s.cardBody]}>
-          <Text style={s.heading}>{payload.restaurantName}</Text>
-          <FoodHoursView hours={payload.hours} />
-          <FoodSourceDisclosure evidence={payload.evidence} />
-        </View>
-      );
     case 'food-menus':
       return (
         <View style={s.collection}>
-          <Text style={s.collectionTitle}>
-            {payload.title} · {payload.total}
-          </Text>
-          {payload.items.map(({ placeId, restaurantName, item, evidence }) => (
-            <View key={item.id} style={[s.card, s.cardBody]}>
-              <Text style={s.eyebrow}>{restaurantName}</Text>
-              <FoodMenuRow item={item} evidence={evidence} />
-              {resolve(placeId) ? (
-                <MapButton
-                  label="View details"
-                  onPress={() => actions.onOpenPlace(resolve(placeId)!)}
-                />
-              ) : null}
+          <Text style={s.body}>Here are a few menu picks.</Text>
+          <Text style={s.caption}>Prices and branch availability may differ.</Text>
+          {payload.items.map(({ placeId, restaurantName, item }, index) => (
+            <View key={`${placeId}:${item.id}`} style={s.resultRow}>
+              <ResultName
+                name={item.name}
+                index={index}
+                place={resolve(placeId)}
+                onOpenPlace={actions.onOpenPlace}
+              />
+              <Text style={s.body}>
+                {restaurantName} · {formatFoodPrice(item)}
+              </Text>
             </View>
           ))}
           {payload.total > payload.items.length ? (
             <Text style={s.caption}>
-              Showing the first {payload.items.length}. Add a restaurant or dish name to narrow your
-              search.
+              There are more matches. Try a restaurant or dish name to narrow it down.
             </Text>
           ) : null}
         </View>
@@ -263,121 +164,108 @@ export function MessageContent({
     case 'menus':
       return (
         <View style={s.collection}>
-          <Text style={s.collectionTitle}>
-            {payload.title} · {payload.total}
-          </Text>
-          {payload.items.map(({ placeId, item }) => {
+          <Text style={s.body}>Here’s what I found on the menus.</Text>
+          {payload.items.map(({ placeId, item }, index) => {
             const place = resolve(placeId);
             return (
-              <View key={`${placeId}:${item.id}`} style={[s.card, s.cardBody]}>
-                <Text style={s.eyebrow}>{place?.name ?? 'Branch unavailable'}</Text>
-                <Text style={s.heading}>{item.name}</Text>
+              <View key={`${placeId}:${item.id}`} style={s.resultRow}>
+                <ResultName
+                  name={item.name}
+                  index={index}
+                  place={place}
+                  onOpenPlace={actions.onOpenPlace}
+                />
+                {place ? <Text style={s.resultMeta}>{place.name}</Text> : null}
+                <Text style={s.body}>
+                  {supportedFact(place, item.priceCitation) && (item.price || item.priceValue)
+                    ? (item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`)
+                    : 'Price not recorded'}
+                </Text>
                 {place && isDemoPlace(place) ? (
-                  <Text style={s.sampleLabel}>
-                    Fictional sample menu · Prices and recipes are examples
-                  </Text>
+                  <Text style={s.resultMeta}>Fictional example menu</Text>
                 ) : null}
-                {(item.priceCitation?.status === 'approved' ||
-                  (place &&
-                    isDemoPlace(place) &&
-                    item.priceCitation?.verificationMethod === 'synthetic-preview' &&
-                    item.priceCitation.sourceId === 'OMNI-UX-V2-FICTIONAL-PREVIEW')) &&
-                (item.price || item.priceValue) ? (
-                  <Text style={s.body}>
-                    {item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`}
-                  </Text>
-                ) : (
-                  <Text style={s.caption}>Price not recorded</Text>
-                )}
-                {(item.tagCitation?.status === 'approved' ||
-                  (place &&
-                    isDemoPlace(place) &&
-                    item.tagCitation?.verificationMethod === 'synthetic-preview' &&
-                    item.tagCitation.sourceId === 'OMNI-UX-V2-FICTIONAL-PREVIEW')) &&
-                item.tags?.length ? (
-                  <Text style={s.caption}>{item.tags.join(' · ')}</Text>
+                {item.citation.status === 'stale' ? (
+                  <Text style={s.resultMeta}>Price and availability may have changed.</Text>
+                ) : null}
+                {supportedFact(place, item.tagCitation) && item.tags?.length ? (
+                  <Text style={s.resultMeta}>{item.tags.join(' · ')}</Text>
                 ) : null}
                 {item.tagCitation?.status === 'approved' && item.allergens?.length ? (
-                  <Text style={s.caption}>Recorded allergens: {item.allergens.join(', ')}</Text>
+                  <Text style={s.resultMeta}>Recorded allergens: {item.allergens.join(', ')}</Text>
                 ) : null}
-                {item.checkedAt ? <Text style={s.caption}>Checked {item.checkedAt}</Text> : null}
-                {place ? (
-                  <MapButton
-                    label={
-                      isDemoPlace(place) && place.coordinate === null
-                        ? 'View sample'
-                        : place.coordinate
-                          ? 'View on Map'
-                          : 'View details'
-                    }
-                    accessibilityLabel={
-                      isDemoPlace(place) && place.coordinate === null
-                        ? `View sample ${place.name}`
-                        : place.coordinate
-                          ? `View ${place.name} on Map`
-                          : `View details for ${place.name}`
-                    }
-                    onPress={() => actions.onOpenPlace(place)}
-                  />
-                ) : null}
-                <SourceDisclosure
-                  citations={[
-                    item.citation,
-                    ...(item.priceCitation ? [item.priceCitation] : []),
-                    ...(item.tagCitation ? [item.tagCitation] : []),
-                  ]}
-                />
               </View>
             );
           })}
           {payload.total > payload.items.length ? (
             <Text style={s.caption}>
-              Showing the first {payload.items.length} items. Add a place or dish name to narrow
-              your search.
+              There are more matches. Try a place or dish name to narrow it down.
             </Text>
           ) : null}
         </View>
       );
+    case 'food-hours': {
+      const hours = payload.hours;
+      return (
+        <View style={s.collection}>
+          <ResultName
+            name={payload.restaurantName}
+            index={0}
+            place={resolve(payload.placeId)}
+            onOpenPlace={actions.onOpenPlace}
+          />
+          <Text style={s.body}>
+            {hours.text ?? 'I don’t have recorded hours for this restaurant yet.'}
+          </Text>
+          {hours.text ? (
+            <Text style={s.caption}>
+              {hours.kind === 'delivery'
+                ? 'These are delivery hours; dine-in hours may differ.'
+                : hours.kind === 'ordering'
+                  ? 'These are ordering hours; dine-in hours may differ.'
+                  : hours.kind === 'unknown'
+                    ? 'The schedule context isn’t confirmed.'
+                    : 'These are recorded restaurant hours.'}
+            </Text>
+          ) : null}
+          {hours.venueText ? (
+            <Text style={s.caption}>
+              Venue hours: {hours.venueText}. These don’t establish the restaurant’s hours.
+            </Text>
+          ) : null}
+          <Text style={s.caption}>
+            Check for holiday changes. These records can’t confirm what’s open right now.
+          </Text>
+        </View>
+      );
+    }
     case 'itinerary-preview':
       return (
-        <View style={[s.card, s.cardBody]}>
-          <Text accessibilityRole="header" style={s.heading}>
-            Temporary itinerary preview
-          </Text>
-          <Text style={s.caption}>
-            For this session only. Not saved. Visit durations exclude travel; no route is provided.
-          </Text>
+        <View style={s.collection}>
+          <Text style={s.body}>Here’s your temporary visit list.</Text>
           {payload.preview.stops.map((stop, index) => (
-            <View key={`${stop.placeId}:${index}`}>
-              <Text style={s.body}>
-                {index + 1}. {stop.name}
-              </Text>
-              <Text style={s.caption}>Visit duration: {stop.durationMinutes} minutes</Text>
+            <View key={`${stop.placeId}:${index}`} style={s.resultRow}>
+              <ResultName
+                name={stop.name}
+                index={index}
+                place={resolve(stop.placeId)}
+                onOpenPlace={actions.onOpenPlace}
+              />
+              <Text style={s.resultMeta}>{stop.durationMinutes} minutes for your visit</Text>
             </View>
           ))}
-          <Text style={s.body}>Total visit time: {payload.preview.totalVisitMinutes} minutes</Text>
+          <Text style={s.body}>That’s {payload.preview.totalVisitMinutes} minutes of visits.</Text>
+          <Text style={s.caption}>
+            For this session only. Not saved. Travel time and route directions aren’t included.
+          </Text>
         </View>
       );
-    // Future payloads may still be read, but cannot reactivate deferred UI.
     case 'route':
-      return (
-        <View style={s.inlineNotice}>
-          <Text style={s.body}>{WALKING_DIRECTIONS_DEFERRED}</Text>
-        </View>
-      );
+      return <Text style={s.body}>{WALKING_DIRECTIONS_DEFERRED}</Text>;
     case 'itinerary':
-      return (
-        <View style={s.inlineNotice}>
-          <Text style={s.body}>{VISIT_PLANNING_DEFERRED}</Text>
-        </View>
-      );
+      return <Text style={s.body}>{VISIT_PLANNING_DEFERRED}</Text>;
     case 'evidence':
-      return (
-        <View style={[s.card, s.cardBody]}>
-          <Text style={s.heading}>{payload.title}</Text>
-          <SourceDisclosure citations={payload.citations} />
-        </View>
-      );
+      // Citations remain in the payload and source guards, without a chat disclosure UI.
+      return null;
     case 'status':
       return (
         <View style={[s.inlineNotice, payload.severity === 'error' && s.errorNotice]}>
@@ -389,10 +277,6 @@ export function MessageContent({
     case 'capability':
       return (
         <View style={s.inlineNotice}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <Icon name="info" size={18} color={palette.muted} />
-            <Text style={s.collectionTitle}>{capabilityLabels[payload.state]}</Text>
-          </View>
           <Text accessibilityLiveRegion="polite" style={s.body}>
             {payload.text}
           </Text>
@@ -400,16 +284,3 @@ export function MessageContent({
       );
   }
 }
-const capabilityLabels = {
-  'model-unavailable': 'AI not connected',
-  'model-not-installed': 'AI not installed',
-  loading: 'Checking local records',
-  generating: 'Working',
-  cancelled: 'Search cancelled',
-  offline: 'Available offline',
-  'retrieval-unavailable': 'Local directory unavailable',
-  'unsupported-query': 'Information unavailable',
-  'citation-missing': 'Source details unavailable',
-  'structured-result': 'Local results',
-  'partial-message': 'Response in progress',
-};

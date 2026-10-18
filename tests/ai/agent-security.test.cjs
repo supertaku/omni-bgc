@@ -190,7 +190,7 @@ test("approved/current source boundary rejects candidate, stale, invented IDs, m
     "Fake office exists",
     "Find offices",
   );
-  assert.match(payloads[0].text, /approved offices/);
+  assert.match(payloads[0].text, /couldn’t find an office match/);
 });
 async function retrievalResult(name, p) {
   return { ...(await p), name, callId: "HOST" };
@@ -363,7 +363,7 @@ test("bounded loops and repeated tool calls execute once, with no-results disclo
   assert.equal(result.status, "partial");
   assert.equal(result.results.length, 1);
   assert.equal(p.calls.length, 2);
-  assert.match(result.payloads[0].text, /approved matches/);
+  assert.match(result.payloads[0].text, /couldn’t find a match/);
 });
 
 test("injection in source text cannot authorize SQL, confirmation, research or additional capability", async () => {

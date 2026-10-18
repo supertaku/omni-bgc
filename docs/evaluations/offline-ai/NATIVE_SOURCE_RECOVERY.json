@@ -35,8 +35,8 @@
     },
     {
       "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/OmniLocalAiModule.kt",
-      "bytes": 16363,
-      "sha256": "ec0e74e26e12db8103c3489f057afd1e5007e13be85a0bffb30b1ce084ccc55e"
+      "bytes": 17672,
+      "sha256": "4a1fcd2124e572acdf1084770618de3f53623d550466b9185d1d609ba2c42c0b"
     },
     {
       "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/Ownership.kt",
@@ -96,6 +96,16 @@
       "reason": "Preview-only sanitized monotonic lifecycle diagnostics required by D3/D5; existing ownership behavior retained.",
       "independent_review": "integration_review read-only diff review: ownership/privacy ACCEPT_HOST_CANDIDATE; independent report .g/ai-m10/d3/u3-independent-source-review.json",
       "parent_status": "ACCEPT_HOST_CANDIDATE_PENDING_NATIVE_BUILD"
+    },
+    {
+      "path": "apps/mobile/modules/omni-local-ai/android/src/main/java/expo/modules/omnilocalai/OmniLocalAiModule.kt",
+      "previous_reviewed_sha256": "ec0e74e26e12db8103c3489f057afd1e5007e13be85a0bffb30b1ce084ccc55e",
+      "recovered_sha256": "c341dc2af24f0f02761fd271d4bcb19b36e5b0b6fbe315b18871219cb45888f3",
+      "current_sha256": "4a1fcd2124e572acdf1084770618de3f53623d550466b9185d1d609ba2c42c0b",
+      "decision": "DEC-062",
+      "reason": "Read-only exact-preview-package own APK identity and resource metadata for authorized private device evaluation; no path argument or command API; existing runtime ownership unchanged.",
+      "independent_review": ".g/ai-m10/d4/qa-independent-review-2026-10-18-v2.json",
+      "parent_status": "ACCEPT_HOST_SOURCE_PENDING_NATIVE_BUILD"
     }
   ]
 }

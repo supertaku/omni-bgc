@@ -423,3 +423,69 @@ Statuses: **ACCEPTED** (baseline), **PROVISIONAL** (needs spike), **OPEN** (awai
 - Independent review accepts the narrow two-file change; six screen tests and
   TypeScript pass. New release/install and physical absence check remain required.
   No device-wide connectivity change is authorized or made by this decision.
+
+### DEC-061 — Minimal conversational results and place details
+- Date/authority: 2026-10-18 Asia/Manila / owner's direct UI follow-ups.
+- Chat has only Back and settings icons, with accessibility labels retained.
+  Places and dishes render as numbered text with tappable names through the
+  existing fresh-record handoff. Remove visible Sources, candidate/verification
+  badges and engineering metadata from chat and place/food/office details.
+  Preserve estimated/starting prices, stale/fictional notices and useful hours,
+  dietary and branch limitations. No source approval, schema or data edits.
+- Parent and independent review accept presentation changes for integration;
+  19 chat tests and 13 details tests pass. Physical wrapping, accessibility,
+  name-to-details flow and screenshots remain required on the new APK.
+
+### DEC-062 — Explicit bounded private native evaluation lane
+- Date/authority: 2026-10-18 Asia/Manila / completion-plan D4 actual120 evaluation.
+- Reuse one already verified READY provider with an exclusive borrow through
+  runner settlement, positive native idle and trace closure. Stop/background
+  cannot enable chat, setup, history clear, another run or export early. Unknown
+  idle stays locked; no second runtime or production data write is introduced.
+- Build defaults evaluation off; only an explicit isolated preview build enables
+  a hidden Models heading gesture and confirmation. Import only a bounded QA
+  receipt, not model weights. Inputs preserve exact120 synthetic queries with
+  declared UUID/time/relationship adaptation, no production coordinates or oracle.
+- Native additions read only own APK SHA and PSS/free-memory/thermal metadata,
+  restricted to exact preview package. Full host source/APK verifier associations
+  and phone own APK/model/input/scope checks bind each run. These are consistency
+  associations, not authenticated signatures. SAF trace/sidecar exports require
+  explicit folder selection and readback SHA; private originals remain retained.
+- Independent repaired review closes four reproduced initial blockers; parent
+  independently reruns18 checks. ACCEPT_HOST_SOURCE is bounded to reviewed code;
+  native compilation, final tool-v3 merged regressions and actual device evidence
+  remain pending. Real model outputs, accuracy and performance are NOT_RUN.
+
+- DEC-062 setup-observation addendum: the prior device import failed before any
+  observed native hash. Expo can conflate picker errors with cancellation, and
+  recovery with no pointer overwrites FAILED with NOT_INSTALLED; neither proves
+  the exact failure cause. Explicit QA builds add failure-isolated fixed phase
+  names and allowlisted setup error codes, otherwise UNCLASSIFIED. No URI, path,
+  raw SDK message or user content is logged. Independent11/11 runtime/diagnostic
+  checks PASS; no lifecycle or storage rule is changed to hide the failed import.
+
+### DEC-063 — Exact budget ranges and ordinary recorded-menu queries
+- Date/authority: 2026-10-18 Asia/Manila / owner requests database-backed menu
+  queries under a price or between two prices, with minimal conversational results.
+- Tools-v3 adds canonical minPricePhp and research minPhp. Parse PHP amounts as
+  exact integer centavos; between includes both endpoints. Under/below/less-than
+  exclude equality; at-most/up-to/budget include equality. Unsupported/negative,
+  malformed, over-precision, reversed, negated or disjunctive prices clarify.
+  Ordinary ordinal street and quantity/time language does not become money.
+- Current explicit user bounds replace model price filters without changing raw
+  proposal evidence. Enforce both endpoints in production and weak-adapter
+  boundaries, details and final revalidation, and in deterministic fallback.
+- Ordinary menu intent may query the separate recorded food collection after
+  canonical menu precedence. Approved/verified-only and research/estimate opt-outs
+  exclude that lane in model and fallback paths. Ordinary research details need
+  a qualifying request-local search. Never promote a research ID to map/itinerary
+  authority, canonical facts or coordinates. Preserve evidence, expiry and rights.
+- Canonical fallback admits only approved branches or actual existing fictional
+  demos; individual menu approval does not approve a candidate/stale branch.
+  Research adapters remain separate and receive full research records.
+- Independent and parent73/73 tests PASS with additional independent real-demo,
+  status, centavo and source-preference probes. Original U3 adapter/key remain
+  immutable: exactly5 of120 historical fallback rows change (taxonomy-01,
+  prices-01/02/04/10). Record a separate post-prose current baseline. Host
+  structural results are not actual model quality; D4 v3 scope/key must be frozen
+  before inference. No source/data/schema/status/rights changes or public release.

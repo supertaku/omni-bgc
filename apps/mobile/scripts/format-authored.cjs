@@ -32,6 +32,8 @@ const files = [
   'src/data/store.ts',
   'src/data/savedPatch.ts',
   'src/ai/**/*.ts',
+  'src/qa/ai-evaluation/**/*.ts',
+  'src/qa/ai-evaluation/**/*.tsx',
   'src/features/assistant/useAssistantConversation.ts',
   'src/features/assistant/directory.ts',
   'src/map/presentation.ts',

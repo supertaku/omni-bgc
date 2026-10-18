@@ -53,6 +53,26 @@ class OmniLocalAiModule : Module() {
     AsyncFunction("getCapabilities") {
       mapOf("android" to true, "abi" to Build.SUPPORTED_ABIS.toList(), "backends" to listOf("cpu", "gpu"), "thermalBlocked" to thermalBlocked())
     }
+    // Read-only QA metadata; no caller-controlled path or command. Exact preview package only.
+    AsyncFunction("getEvaluationIdentity") { promise: Promise ->
+      control.execute { complete(promise) {
+        val context = requireNotNull(appContext.reactContext)
+        require(context.packageName == "com.omnibgc.aipreview") { "RUNTIME_UNSUPPORTED" }
+        mapOf("packageName" to context.packageName, "apkSha256" to sha256(File(context.applicationInfo.sourceDir)))
+      } }
+    }
+    AsyncFunction("getEvaluationHealth") {
+      val context = requireNotNull(appContext.reactContext)
+      require(context.packageName == "com.omnibgc.aipreview") { "RUNTIME_UNSUPPORTED" }
+      val memAvailableKiB = File("/proc/meminfo").useLines { lines ->
+        val fields = lines.firstOrNull { it.startsWith("MemAvailable:") }?.substringAfter(':')?.trim()?.split(Regex("\\s+"))
+        fields?.takeIf { it.getOrNull(1) == "kB" }?.firstOrNull()?.toLongOrNull() ?: -1L
+      }
+      val power = context.getSystemService(android.content.Context.POWER_SERVICE) as PowerManager
+      mapOf("packageName" to context.packageName, "appPssKiB" to android.os.Debug.getPss(),
+        "memAvailableKiB" to memAvailableKiB,
+        "thermalStatus" to if (Build.VERSION.SDK_INT >= 29) power.currentThermalStatus else 0)
+    }
     AsyncFunction("privateModelsDirectory") { modelRoot().absolutePath }
     AsyncFunction("sha256File") { path: String, promise: Promise ->
       control.execute { complete(promise) {

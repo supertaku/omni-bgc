@@ -53,7 +53,6 @@ export function FoodHoursView({ hours }: { hours: FoodHours }) {
   return (
     <View style={{ gap: 6 }}>
       <Body>{hours.text ?? 'Restaurant hours not recorded.'}</Body>
-      <Body muted>{hours.evidence}</Body>
       {hours.text ? (
         <Body muted>
           {hours.kind === 'delivery'
@@ -71,18 +70,12 @@ export function FoodHoursView({ hours }: { hours: FoodHours }) {
           <Body muted>Venue hours do not establish restaurant hours.</Body>
         </>
       ) : null}
-      <Body muted>Current opening status and holiday closures are not confirmed offline.</Body>
+      <Body muted>Check with the restaurant for today's hours and holiday changes.</Body>
     </View>
   );
 }
 
-export function FoodMenuRow({
-  item,
-  evidence,
-}: {
-  item: FoodMenuItem;
-  evidence: FoodEvidence | null;
-}) {
+export function FoodMenuRow({ item }: { item: FoodMenuItem; evidence: FoodEvidence | null }) {
   return (
     <View
       style={{ paddingVertical: 10, gap: 4, borderBottomWidth: 1, borderColor: palette.divider }}
@@ -99,9 +92,8 @@ export function FoodMenuRow({
           .join(' · ')}
       </Body>
       {item.branch ? (
-        <Body muted>Menu reference: {item.branch} · confirm branch availability</Body>
+        <Body muted>Listed for {item.branch} · availability here may differ</Body>
       ) : null}
-      <FoodSourceDisclosure evidence={evidence} />
     </View>
   );
 }
@@ -112,7 +104,11 @@ export function ResearchMenu({ restaurantId }: { restaurantId: string }) {
   if (!r) return null;
   return (
     <View>
-      <Body muted>{r.menuStatus} · partial recorded items</Body>
+      {r.items.length ? (
+        <Body muted>
+          Some menu items may be missing. Prices and branch availability may differ.
+        </Body>
+      ) : null}
       {!r.items.length ? (
         <Body>Menu information is not yet available.</Body>
       ) : (

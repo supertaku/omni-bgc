@@ -77,6 +77,10 @@ export async function revalidateToolResult(
         r.appliedFilters.restaurantId as string,
         r.appliedFilters.offset as number,
         r.appliedFilters.limit as number,
+        {
+          minPhp: r.appliedFilters.minPhp as string | undefined,
+          maxPhp: r.appliedFilters.maxPhp as string | undefined,
+        },
       );
       break;
     case 'get_itinerary_preview':
@@ -92,7 +96,12 @@ export async function revalidateToolResult(
             {
               name: 'preview_itinerary_change',
               arguments: {
-                stops: [{ placeId: stop.placeId, durationMinutes: stop.durationMinutes }],
+                stops: [
+                  {
+                    placeId: stop.placeId,
+                    durationMinutes: stop.durationMinutes,
+                  },
+                ],
               },
             },
             r.callId,
@@ -172,12 +181,12 @@ export function composeGroundedAnswer(
         kind: 'text',
         text:
           r.authority === 'research'
-            ? "I couldn't find a matching research entry. Research listings are separate from approved facts."
+            ? 'I couldn’t find a menu match for that. Try another dish or price range.'
             : ['find_approved_offices', 'get_office_details'].includes(r.name)
-              ? "I couldn't find any approved offices for that yet."
+              ? 'I couldn’t find an office match for that yet.'
               : r.name === 'find_menu_items'
-                ? "I couldn't find matching menu items in the approved records yet."
-                : "I couldn't find any approved matches for that yet.",
+                ? 'I couldn’t find matching menu items yet.'
+                : 'I couldn’t find a match for that yet.',
       });
       continue;
     }
@@ -221,7 +230,7 @@ export function composeGroundedAnswer(
         for (const row of rows.filter((row) => !row.items.length))
           payloads.push({
             kind: 'text',
-            text: `${row.restaurant.name} · Research only. No recorded menu items in this page. Research date: ${row.restaurant.researchDate ?? 'not recorded'}. No verified location.`,
+            text: `${row.restaurant.name}: I don’t have menu items for this page yet.`,
           });
         payloads.push({
           kind: 'food-menus',
@@ -261,7 +270,6 @@ export function composeGroundedAnswer(
               office.building,
               office.floor,
               office.address,
-              `Recorded verification: ${office.verifiedAt}; valid until ${office.validUntil}.`,
             ]
               .filter(Boolean)
               .join('\n'),
@@ -273,7 +281,10 @@ export function composeGroundedAnswer(
         break;
       case 'get_itinerary_preview':
       case 'preview_itinerary_change':
-        payloads.push({ kind: 'itinerary-preview', preview: r.data as ItineraryPreview });
+        payloads.push({
+          kind: 'itinerary-preview',
+          preview: r.data as ItineraryPreview,
+        });
         break;
     }
     if (r.citations.length)
@@ -283,7 +294,11 @@ export function composeGroundedAnswer(
         citations: r.citations,
       });
     if (r.warnings.length)
-      payloads.push({ kind: 'status', severity: 'info', text: r.warnings.join(' ').slice(0, 700) });
+      payloads.push({
+        kind: 'status',
+        severity: 'info',
+        text: r.warnings.join(' ').slice(0, 700),
+      });
   }
   if (!payloads.length) {
     if (isGeneralConversation(query) && generatedText.trim() && safeGeneralText(generatedText))
@@ -291,7 +306,7 @@ export function composeGroundedAnswer(
     else
       payloads.push({
         kind: 'text',
-        text: "I can't confirm that from the offline info on this device. I can help you find approved places, recorded menus and current offices, show a place on the map or preview a temporary visit list. Ask for research listings if you'd like those too. Live updates and route directions aren't available.",
+        text: 'I don’t have enough info for that yet. Try a place, dish, or company name.',
       });
   }
   if (
@@ -302,7 +317,7 @@ export function composeGroundedAnswer(
     payloads.push({
       kind: 'status',
       severity: 'info',
-      text: "These offline records can't confirm live availability, what's open now, dietary safety, traffic or travel times. Route directions aren't available.",
+      text: 'I can’t confirm live availability, what’s open right now, dietary safety, traffic, or travel times. Route directions aren’t available.',
     });
   return payloads;
 }

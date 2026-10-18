@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const { test } = require('node:test');
-const ts = require('../../../node_modules/typescript');
+const ts = require(path.join(process.cwd(),'apps/mobile/node_modules/typescript'));
 
 // Execute component event handlers against native element stubs. This verifies
 // state/callback contracts; it makes no claim about native layout or gestures.
@@ -21,7 +21,7 @@ function harness(relative, options = {}) {
   const icons = { Icon: 'Icon', BrandMark: 'BrandMark', CategoryArtwork: 'CategoryArtwork', IconAction: 'IconAction' };
   const palette = { ink: '#10243A', blue: '#1756C0', muted: '#48596B', canvas: '#F7F6F0', surface: '#FFFFFF' };
   const scheduled = [];
-  const file = path.resolve(__dirname, relative);
+  const local = path.resolve(__dirname, relative); const file = fs.existsSync(local) ? local : path.resolve(process.cwd(),'apps/mobile/src/features/assistant',relative);
   const compiled = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX } }).outputText;
   const context = { exports: {}, setTimeout(callback) { scheduled.push(callback); return callback; }, clearTimeout(callback) { const index = scheduled.indexOf(callback); if (index >= 0) scheduled.splice(index, 1); }, require(name) {
     if (name === 'react') return React;
@@ -34,13 +34,14 @@ function harness(relative, options = {}) {
     if (name === './cards') return { MessageContent: 'MessageContent' };
     if (name === '../food/directory') return { foodResearch: { getFoodEstablishmentDetails: () => null } };
     if (name === '../food/assistant') return { createFoodResearchAnswer: () => () => null };
+    if (name === '../food/service') return require(path.join(process.cwd(),'tests/helpers/load-ts.cjs')).loadTs('apps/mobile/src/features/food/service.ts');
     if (name === '../food/ResearchDetails') return { FoodHoursView: 'FoodHoursView', FoodMenuRow: 'FoodMenuRow', FoodSourceDisclosure: 'FoodSourceDisclosure' };
     if (name.endsWith('/demoDirectory')) return { isDemoPlace: value => typeof value === 'object' && value.demo === true };
     if (name === './useAssistantConversation') {
       // This legacy screen-layout harness deliberately uses the deterministic hook.
       // Actual async native-facing hook behavior is covered by tests/ai/assistant-ui.test.cjs.
       const hookContext={...context,exports:{}};
-      const hook=ts.transpileModule(fs.readFileSync(path.join(__dirname,'useDirectoryConversation.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
+      const hook=ts.transpileModule(fs.readFileSync(path.join(process.cwd(),'apps/mobile/src/features/assistant/useDirectoryConversation.ts'),'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
       vm.runInNewContext(hook,hookContext);
       return { useAssistantConversation: (...args) => ({ ...hookContext.exports.useDirectoryConversation(...args),
         status: 'Local directory · AI not connected', pending: null, confirming: false,
@@ -54,7 +55,7 @@ function harness(relative, options = {}) {
   vm.runInNewContext(compiled, context, { filename: file });
   return { exports: context.exports, dimensions, render(name, props) { cursor = 0; effects = []; const result = context.exports[name](props); for (const effect of effects) effect(); return result; }, finishSearch() { while (scheduled.length) scheduled.shift()(); } };
 }
-function nodes(tree) { if (!tree || typeof tree !== 'object') return []; if (Array.isArray(tree)) return tree.flatMap(nodes); return [tree, ...nodes(tree.props?.children)]; }
+function nodes(tree) { if (!tree || typeof tree !== 'object') return []; if (Array.isArray(tree)) return tree.flatMap(nodes); if (typeof tree.type === 'function') return nodes(tree.type(tree.props)); return [tree, ...nodes(tree.props?.children)]; }
 function action(tree, label) { const found = nodes(tree).find(node => node.props?.accessibilityLabel === label || ['IconAction','Action'].includes(node.type) && node.props?.label === label); assert.ok(found, `Missing accessible control ${label}`); return found; }
 const record = { id: 'TEST ONLY', name: 'Test café with a long accessible title', category: 'Coffee', building: 'Test Building', coordinate:[121.05,14.55], citations: [], menus: [], status: 'candidate' };
 
@@ -92,7 +93,7 @@ test('compact Assistant preserves draft and conversation without suggestions or 
   assert.ok(!nodes(tree).some(node => node.props?.accessibilityLabel === 'Data, privacy and offline settings'));
   assert.ok(!nodes(tree).some(node => node.props?.accessibilityLabel === 'More Assistant options'));
   const headerText=nodes(tree).filter(node=>node.type==='Text').map(node=>node.props.children).join(' ');
-  assert.match(headerText,/Back to Map/);assert.doesNotMatch(headerText,/AI not connected|Local search|CPU/);
+  assert.doesNotMatch(headerText,/Back to Map|Assistant|Models/);assert.doesNotMatch(headerText,/AI not connected|Local search|CPU/);
   const input = () => nodes(tree).find(node => node.type === 'TextInput');
   input().props.onChangeText('Unsent café query');
   action(tree, 'Back to Map').props.onPress(); tree = ui.render('AssistantScreen', props);
@@ -109,27 +110,20 @@ test('compact Assistant preserves draft and conversation without suggestions or 
   assert.deepEqual(nodes(tree).filter(node=>node.type==='MessageContent').map(node=>node.props.payload),payloads);
 });
 
-test('Assistant results render vertical rows and canonical Map handoff; no invented distance', () => {
-  const ui = harness('cards.tsx'); let opened;
-  const actions = { onOpenPlace: place => opened = place };
-  const list = ui.render('MessageContent', { payload: { kind: 'places', title: 'Results', placeIds: [record.id], total: 1 }, places: [record], actions });
-  assert.ok(!nodes(list).some(node => node.type === 'ScrollView'));
-  const tree = ui.render('PlaceCard', { place: record, onOpenPlace: actions.onOpenPlace, distanceM: -1 });
-  const mapButton = nodes(tree).find(node => node.props?.accessibilityLabel === `View ${record.name} on Map`);
-  assert.ok(mapButton); mapButton.props.onPress(); assert.equal(opened, record);
-  const text = nodes(tree).filter(node => node.type === 'Text').map(node => node.props.children).join(' ');
-  assert.ok(!text.includes('-1 m'));assert.equal(mapButton.props.label,'View on Map');assert.match(text,/Test Building/);
-  assert.equal(nodes(tree).filter(node=>node.type==='Pressable'||node.type?.name==='MapButton').length,1);
-  assert.ok(!nodes(tree).some(node=>node.type==='Icon'&&node.props.name==='chevron'));
+test('Assistant results render numbered names with the existing guarded place handoff',()=>{
+ const ui=harness('cards.tsx');let opened;
+ const tree=ui.render('MessageContent',{payload:{kind:'places',placeIds:[record.id],total:1,title:'Results'},places:[record],actions:{onOpenPlace:p=>opened=p}});
+ action(tree,`Open ${record.name}`).props.onPress();assert.equal(opened,record);
+ const text=nodes(tree).filter(n=>n.type==='Text').map(n=>n.props.children).join(' ');
+ assert.match(text,/1\./);assert.match(text,/Test Building/);assert.doesNotMatch(text,/View on Map|candidate|sources/i);
+ assert.equal(nodes(tree).filter(n=>n.type==='Pressable').length,1);
 });
 
-test('unlocated source-derived records offer details without claiming a map coordinate',()=>{
-  const ui=harness('cards.tsx');let opened;
-  const unlocated={...record,coordinate:null,floor:'2'};
-  const tree=ui.render('PlaceCard',{place:unlocated,onOpenPlace:place=>opened=place});
-  action(tree,`View details for ${record.name}`).props.onPress();assert.equal(opened,unlocated);
-  const text=nodes(tree).filter(node=>node.type==='Text').map(node=>node.props.children).join(' ');
-  assert.match(text,/Floor 2/);assert.match(text,/Map location unavailable/);assert.ok(!text.includes('View on Map'));
+test('unlocated records link their exact details without geographic claims',()=>{
+ const ui=harness('cards.tsx');let opened;const place={...record,coordinate:null,floor:'2'};
+ const tree=ui.render('PlaceCard',{place,onOpenPlace:p=>opened=p});action(tree,`Open ${place.name}`).props.onPress();assert.equal(opened,place);
+ const text=nodes(tree).filter(n=>n.type==='Text').map(n=>n.props.children).join(' ');
+ assert.match(text,/Floor 2/);assert.doesNotMatch(text,/View on Map|meters| m$/);
 });
 
 test('legacy route and itinerary payloads cannot expose navigation or call hidden actions',()=>{
@@ -147,17 +141,9 @@ test('legacy route and itinerary payloads cannot expose navigation or call hidde
   assert.equal(actionsCalled,0);
 });
 
-test('compact source disclosure retains classification, license, timestamps and source identity',()=>{
-  const ui=harness('cards.tsx');
-  const citation={sourceId:'TEST SOURCE',label:'Test evidence',license:'Test license',status:'candidate',observedAt:'2026-10-10',verifiedAt:null,locator:'TEST LOCATOR'};
-  const props={citations:[citation,{...citation,label:'Separate fact from the same source'}],status:'candidate',subject:record.name};
-  let tree=ui.render('SourceDisclosure',props);
-  const text=()=>nodes(tree).filter(node=>node.type==='Text').map(node=>node.props.children).join(' ');
-  assert.match(text(),/candidate/);assert.match(text(),/1 source/);assert.ok(!text().includes('Test license'));
-  action(tree,`Show source details for ${record.name}`).props.onPress();tree=ui.render('SourceDisclosure',props);
-  assert.equal(action(tree,`Hide source details for ${record.name}`).props.accessibilityState.expanded,true);
-  for(const value of ['Test license','TEST SOURCE','2026-10-10','Not recorded','TEST LOCATOR'])assert.ok(text().includes(value));
-  assert.ok(text().includes('Separate fact from the same source'));
+test('source payload remains data while ordinary chat hides source disclosure UI',()=>{
+ const ui=harness('cards.tsx');const payload={kind:'evidence',title:'Sources',citations:[{sourceId:'TEST',status:'candidate'}]};const before=JSON.stringify(payload);
+ assert.equal(ui.render('MessageContent',{payload,places:[record],actions:{onOpenPlace(){}}}),null);assert.equal(JSON.stringify(payload),before);
 });
 
 test('composer search can stop without showing a stale completed result',()=>{
@@ -210,20 +196,16 @@ test('search sheet cannot collapse into peek; large text and landscape keep scro
 });
 
 
-test('fictional result handoff says View sample and suppresses geographic distance', () => {
-  const ui=harness('cards.tsx');let opened;
-  const sample={...record,demo:true,coordinate:null};
-  const tree=ui.render('PlaceCard',{place:sample,onOpenPlace:place=>opened=place,distanceM:120});
-  action(tree,`View sample ${sample.name}`).props.onPress();assert.equal(opened,sample);
-  const text=nodes(tree).filter(node=>node.type==='Text').map(node=>node.props.children).join(' ');
-  assert.match(text,/Fictional sample/);assert.ok(!text.includes('120 m'));
+test('fictional example name remains labelled and never claims geographic distance',()=>{
+ const ui=harness('cards.tsx');let opened;const sample={...record,demo:true,coordinate:null};
+ const tree=ui.render('PlaceCard',{place:sample,onOpenPlace:p=>opened=p,distanceM:120});action(tree,`Open ${sample.name}`).props.onPress();assert.equal(opened,sample);
+ const text=nodes(tree).filter(n=>n.type==='Text').map(n=>n.props.children).join(' ');assert.match(text,/Fictional example/);assert.doesNotMatch(text,/120 m/);
 });
 
-
-test('temporary itinerary renders visits without saved-state or route controls',()=>{
-  const ui=harness('cards.tsx');const preview={stops:[{placeId:record.id,name:'Synthetic preview stop',durationMinutes:25}],totalVisitMinutes:25};
-  const tree=ui.render('MessageContent',{payload:{kind:'itinerary-preview',preview},places:[record],actions:{onOpenPlace(){throw Error('Unexpected action');}}});
-  const text=nodes(tree).filter(n=>n.type==='Text').flatMap(n=>Array.isArray(n.props.children)?n.props.children:[n.props.children]).join(' ');
-  assert.match(text,/Temporary itinerary preview/);assert.match(text,/Synthetic preview stop/);assert.match(text,/25/);assert.match(text,/Not saved/);assert.match(text,/no route/);
-  assert.equal(nodes(tree).filter(n=>n.type==='Pressable'||n.type==='MapButton').length,0);
+test('temporary itinerary renders numbered names without save or navigation controls',()=>{
+ const ui=harness('cards.tsx');let opened;const preview={stops:[{placeId:record.id,name:record.name,durationMinutes:25}],totalVisitMinutes:25};
+ const tree=ui.render('MessageContent',{payload:{kind:'itinerary-preview',preview},places:[record],actions:{onOpenPlace:p=>opened=p}});
+ const text=nodes(tree).filter(n=>n.type==='Text').flatMap(n=>Array.isArray(n.props.children)?n.props.children:[n.props.children]).join(' ');
+ assert.match(text,/temporary visit list/);assert.match(text,/25/);assert.match(text,/Not saved/);assert.match(text,/route directions aren’t included/);
+ action(tree,`Open ${record.name}`).props.onPress();assert.equal(opened,record);assert.equal(nodes(tree).filter(n=>n.type==='Pressable').length,1);
 });

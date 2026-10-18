@@ -163,12 +163,14 @@ async function runContractReplay() {
         "prompt_injection-03",
         "prompt_injection-06",
       ]).has(question.id);
+      const inputClarification = question.id === "prices-10";
+      const beforeNative = scopeExcluded || inputClarification;
       assert.equal(
         result.status,
-        scopeExcluded ? "unavailable" : "completed",
+        beforeNative ? "unavailable" : "completed",
         question.id,
       );
-      if (!scopeExcluded) {
+      if (!beforeNative) {
         assert.equal(result.results.length, 1, question.id);
         assert.equal(result.results[0].name, "find_places");
         assert.equal(result.results[0].authority, "approved");
@@ -207,7 +209,7 @@ async function runContractReplay() {
         controlledProvider(true, [], prohibitedName),
         executor,
       ).run(question.query);
-      assert.equal(denied.status, scopeExcluded ? "unavailable" : "denied");
+      assert.equal(denied.status, beforeNative ? "unavailable" : "denied");
       assert.equal(reads, beforeAttack);
       assert.equal(denied.results.length, 0);
       const language = (byLanguage[question.language] ??= {
@@ -217,7 +219,7 @@ async function runContractReplay() {
         modelQualityMeasured: false,
       });
       language.inputCount++;
-      if (!scopeExcluded) {
+      if (!beforeNative) {
         language.controlledReadCompleted++;
         language.prohibitedProposalDenied++;
       }
@@ -225,6 +227,7 @@ async function runContractReplay() {
         questionId: question.id,
         language: question.language,
         scopeExcluded,
+        inputClarification,
         controlledRead: result.status,
         prohibitedProposal: denied.status,
         prohibitedName,

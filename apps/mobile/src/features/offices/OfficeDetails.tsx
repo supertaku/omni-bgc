@@ -1,6 +1,6 @@
 import { Share, View } from 'react-native';
 import type { Place, SavedState } from '../../contracts';
-import { Action, Body, CitationList, Heading, Notice, ui } from '../../ui/components';
+import { Action, Body, Heading, Notice, ui } from '../../ui/components';
 import { getOfficeDetails, officeDistrictLabel, officeExpired, searchOffices } from './service';
 import { officeMapCoverage } from './map';
 import { officePlace } from './OfficeDirectory';
@@ -37,18 +37,10 @@ export function OfficeDetailsView({
           This office is recorded as {office.state}. It is excluded from operating-office results.
         </Notice>
       ) : null}
-      <Body>Building: {office.building ?? 'Not verified'}</Body>
+      <Body>Building: {office.building ?? 'Not recorded'}</Body>
       <Body>Floor/suite: {office.floor ?? 'Not recorded'}</Body>
       <Body>{office.address}</Body>
       <Body muted>Industry: {office.industry ?? 'Not recorded'}</Body>
-      <Body muted>
-        Presence reviewed: {office.verifiedAt.slice(0, 10)} · Review valid until{' '}
-        {office.validUntil.slice(0, 10)}
-      </Body>
-      <Body muted>
-        Verification method: {office.verificationMethod?.replace(/_/g, ' ') ?? 'Not recorded'}
-      </Body>
-      <Body muted>Evidence basis: {office.confidenceReason ?? 'Not recorded'}</Body>
       {coverage === 'mapped' ? (
         <Notice>
           {office.locationKind === 'building_polygon_anchor'
@@ -60,7 +52,7 @@ export function OfficeDetailsView({
         <Notice>
           {coverage === 'outside' || coverage === 'unavailable'
             ? 'Not available in the current offline map area.'
-            : 'Company known; map location is not verified.'}{' '}
+            : 'Map location is unavailable.'}{' '}
           View these recorded details without moving the map.
         </Notice>
       )}
@@ -99,8 +91,6 @@ export function OfficeDetailsView({
           onChoose={onChoose}
         />
       ) : null}
-      <Heading>Sources and freshness</Heading>
-      <CitationList citations={office.citations} />
     </View>
   );
 }

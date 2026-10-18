@@ -49,6 +49,9 @@ export function AssistantScreen({
     modelReady,
     modelOperation,
     openPlace,
+    evaluationAvailable,
+    runEvaluation,
+    exportEvaluation,
   } = useAssistantConversation(
     places,
     onFocusMapPlace ??
@@ -66,6 +69,17 @@ export function AssistantScreen({
   const send = () => {
     sendQuery(draft);
   };
+  const latestQuestion = [...messages].reverse().find((entry) => entry.payload.kind === 'user');
+  const checkingMenus =
+    latestQuestion?.payload.kind === 'user' &&
+    /\b(menu|menus|dish|dishes|food|ramen|coffee|kape|pagkain|pesos?|php)\b/i.test(
+      latestQuestion.payload.text,
+    );
+  const progressText = status.startsWith('Checking local sources')
+    ? checkingMenus
+      ? 'Looking through the menus…'
+      : 'Looking for a few matches…'
+    : 'One moment…';
   if (modelsOpen)
     return (
       <ModelScreen
@@ -77,6 +91,9 @@ export function AssistantScreen({
         onOperation={modelOperation}
         onStop={cancel}
         onClear={clear}
+        evaluationAvailable={evaluationAvailable}
+        onEvaluation={runEvaluation}
+        onEvaluationExport={exportEvaluation}
       />
     );
   return (
@@ -90,13 +107,8 @@ export function AssistantScreen({
             style={s.backButton}
           >
             <Icon name="back" size={20} />
-            <Text style={s.backText}>Back to Map</Text>
           </Pressable>
-          <View style={s.headerText}>
-            <Text accessibilityRole="header" style={s.title}>
-              Assistant
-            </Text>
-          </View>
+          <View style={s.headerText} />
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Open models"
@@ -107,7 +119,6 @@ export function AssistantScreen({
             style={s.backButton}
           >
             <Icon name="settings" size={18} />
-            <Text style={s.backText}>Models</Text>
           </Pressable>
         </View>
         <ScrollView
@@ -163,7 +174,7 @@ export function AssistantScreen({
             <View style={[s.inlineNotice, { flexDirection: 'row', alignItems: 'center', gap: 10 }]}>
               <ActivityIndicator color={palette.blue} />
               <Text accessibilityLiveRegion="polite" style={s.body}>
-                One moment…
+                {progressText}
               </Text>
             </View>
           ) : null}

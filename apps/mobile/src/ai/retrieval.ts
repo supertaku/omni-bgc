@@ -3,6 +3,7 @@ import type { BranchMenuItem, MenuFilters, PlaceFilters } from '../data/retrieva
 import { approvedEvidence } from '../data/lexical';
 import { UUID } from '../data/parser';
 import { parsePhpCentavos } from '../domain/money';
+import { checkedPhpBounds } from '../domain/priceBounds';
 import type { createFoodResearchService } from '../features/food/service';
 import type { FoodFilters, FoodEvidence, FoodMenuItem } from '../features/food/contracts';
 import type { OfficeDetails, OfficeFilters } from '../features/offices/contracts';
@@ -73,7 +74,7 @@ function envelope<T>(
   };
 }
 const researchWarning =
-  'Research only; rights review pending, branch and price qualifiers apply. No verified coordinates or open-now claim.';
+  'Prices and availability can vary by branch. Estimates and starting prices may differ from your final choice. Check current hours with the restaurant.';
 
 /** The only AI factual facade. Canonical/research/local results remain disjoint. */
 export function createUnifiedRetrieval(deps: RetrievalDependencies) {
@@ -128,11 +129,11 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
       );
     },
     async findMenuItems(filters: MenuFilters & { limit?: number } = {}) {
-      const budget =
-        filters.maxPricePhp === undefined ? null : parsePhpCentavos(filters.maxPricePhp);
-      if (filters.maxPricePhp !== undefined && budget === null)
-        throw new Error('Invalid exact PHP budget');
-      const rows = await deps.findMenuItems(filters);
+      const { min, max } = checkedPhpBounds(filters.minPricePhp, filters.maxPricePhp);
+      const rows = await deps.findMenuItems({
+        ...filters,
+        requiredTags: filters.requiredTags ? [...filters.requiredTags] : undefined,
+      });
       // SQL owns expiry. Repeat lineage checks to prevent a weaker adapter from promotion.
       const data: BranchMenuItem[] = [];
       for (const row of rows) {
@@ -158,10 +159,11 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
           delete item.tagCitation;
         }
         delete item.allergens;
-        if (budget !== null) {
+        if (min !== null || max !== null) {
           const amount =
             item.priceValue?.currency === 'PHP' ? parsePhpCentavos(item.priceValue.amount) : null;
-          if (amount === null || amount > budget) continue;
+          if (amount === null || (min !== null && amount < min) || (max !== null && amount > max))
+            continue;
         }
         if (filters.branchId !== undefined && filters.branchId !== row.branchId) continue;
         if (filters.requiredTags?.some((tag) => !item.tags?.includes(tag))) continue;
@@ -180,14 +182,31 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
         filters,
       );
     },
-    async searchFoodResearch(filters: FoodFilters = {}) {
+    async searchFoodResearch(filters: FoodFilters & { menuItemsOnly?: boolean } = {}) {
+      const { min, max } = checkedPhpBounds(filters.minPhp, filters.maxPhp);
       const service = deps.foodResearch;
       let data: ResearchRow[] = [];
       if (service?.available) {
-        if (filters.maxPhp !== undefined || filters.category)
+        if (
+          filters.menuItemsOnly ||
+          filters.minPhp !== undefined ||
+          filters.maxPhp !== undefined ||
+          filters.category
+        )
           data = service
-            .searchFoodMenuItems({ ...filters, limit: Math.min(filters.limit ?? 20, 20) })
-            .results.filter((row) => UUID.test(row.restaurant.id) && UUID.test(row.item.id))
+            .searchFoodMenuItems({
+              ...filters,
+              limit: Math.min(filters.limit ?? 20, 20),
+            })
+            .results.filter((row) => {
+              if (!UUID.test(row.restaurant.id) || !UUID.test(row.item.id)) return false;
+              const amount = row.item.currency === 'PHP' ? parsePhpCentavos(row.item.amount) : null;
+              return (
+                amount !== null &&
+                (min === null || amount >= min) &&
+                (max === null || amount <= max)
+              );
+            })
             .map(({ restaurant, item }) => ({
               restaurant,
               items: [item],
@@ -196,7 +215,10 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
         else {
           let remaining = 20;
           data = service
-            .searchFoodEstablishments({ ...filters, limit: Math.min(filters.limit ?? 12, 12) })
+            .searchFoodEstablishments({
+              ...filters,
+              limit: Math.min(filters.limit ?? 12, 12),
+            })
             .results.filter((r) => UUID.test(r.id))
             .map((restaurant) => {
               const items = service
@@ -223,7 +245,13 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
       if (!service?.available) result.status = 'unavailable';
       return result;
     },
-    async getFoodResearchDetails(restaurantId: string, offset = 0, limit = 20) {
+    async getFoodResearchDetails(
+      restaurantId: string,
+      offset = 0,
+      limit = 20,
+      priceBounds: { minPhp?: string; maxPhp?: string } = {},
+    ) {
+      const { min, max } = checkedPhpBounds(priceBounds.minPhp, priceBounds.maxPhp);
       const service = deps.foodResearch;
       const restaurant = service?.available
         ? service.getFoodEstablishmentDetails(restaurantId)
@@ -233,7 +261,17 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
           ? [
               {
                 restaurant,
-                items: service!.getFoodEstablishmentMenu(restaurantId, offset, limit),
+                items: service!
+                  .getFoodEstablishmentMenu(restaurantId, offset, limit)
+                  .filter((item) => {
+                    if (min === null && max === null) return true;
+                    const amount = item.currency === 'PHP' ? parsePhpCentavos(item.amount) : null;
+                    return (
+                      amount !== null &&
+                      (min === null || amount >= min) &&
+                      (max === null || amount <= max)
+                    );
+                  }),
                 evidence: service!.getFoodResearchEvidence(restaurantId),
               },
             ]
@@ -243,7 +281,7 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
         data,
         data.map((r) => r.restaurant.id),
         [],
-        { restaurantId, offset, limit },
+        { restaurantId, offset, limit, ...priceBounds },
         [researchWarning],
       );
     },

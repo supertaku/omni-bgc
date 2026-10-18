@@ -28,7 +28,7 @@ export function answerOfficeQuery(
     return [
       {
         kind: 'text',
-        text: 'No current approved offices match this search. Unverified office research is kept separate from Assistant answers.',
+        text: 'I couldn’t find a verified office for that. Try a company or building name.',
       },
     ];
   const result: AssistantPayload[] = [

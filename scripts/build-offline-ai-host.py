@@ -22,8 +22,9 @@ JDK = Path('C:/Program Files/Android/Android Studio/jbr')
 JDK17 = Path(os.environ.get('OMNI_AI_JDK17', str(ROOT / '.g/jdks/eclipse_adoptium-17-amd64-windows.2')))
 SDK = Path(os.environ.get('ANDROID_HOME', str(ROOT.parents[1] / 'AppData/Local/Android/Sdk')))
 PACKAGE = 'com.omnibgc.aipreview'
+EVALUATION_HARNESS = False
 SOURCE_ROOTS = ('apps/mobile', 'packages', 'data/manifests', 'docs/geography', 'docs/evaluations/offline-ai', 'docs/architecture', 'tests/ai', 'tests/helpers')
-SOURCE_FILES = ('scripts/build-offline-ai-host.py', 'scripts/check-offline-ai-source.py', 'AGENTS.md', 'docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md', 'docs/DECISION_JOURNAL.md')
+SOURCE_FILES = ('scripts/build-offline-ai-host.py', 'scripts/check-offline-ai-source.py', 'scripts/prepare-ai-device-evaluation.cjs', 'scripts/create-ai-device-evaluation-receipt.cjs', 'AGENTS.md', 'docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md', 'docs/DECISION_JOURNAL.md')
 
 
 def require(value, message):
@@ -61,7 +62,7 @@ def extended(path):
 
 def environment():
     result = os.environ.copy()
-    result.update(JAVA_HOME=str(JDK), ANDROID_HOME=str(SDK), ANDROID_SDK_ROOT=str(SDK), GRADLE_USER_HOME=os.environ.get('GRADLE_USER_HOME', str(ROOT / '.g')), NODE_ENV='production', EXPO_PUBLIC_NATIVE_QA='0', NODE_OPTIONS='--dns-result-order=ipv4first', EXPO_OFFLINE='1', EXPO_NO_TELEMETRY='1', CI='1', OMNI_AI_PREVIEW='1')
+    result.update(JAVA_HOME=str(JDK), ANDROID_HOME=str(SDK), ANDROID_SDK_ROOT=str(SDK), GRADLE_USER_HOME=os.environ.get('GRADLE_USER_HOME', str(ROOT / '.g')), NODE_ENV='production', EXPO_PUBLIC_NATIVE_QA='0', EXPO_PUBLIC_AI_EVALUATION='1' if EVALUATION_HARNESS else '0', NODE_OPTIONS='--dns-result-order=ipv4first', EXPO_OFFLINE='1', EXPO_NO_TELEMETRY='1', CI='1', OMNI_AI_PREVIEW='1')
     return result
 
 
@@ -144,6 +145,7 @@ def refresh(stage):
                'staging_changes': ['Remove ancestor .g Metro exclusion; preview identity set by OMNI_AI_PREVIEW=1'],
                'build_workflow_sha256': sha(Path(__file__)),
                'native_source_control': source_control,
+               'evaluation_harness_enabled': EVALUATION_HARNESS,
                'device_operations': False, 'distribution_authorized': False}
     dump(stage / 'source-receipt.json', receipt)
     print(json.dumps({'stage': str(stage), 'source_count': len(records)}), flush=True)
@@ -278,7 +280,7 @@ def verify(stage):
     divergence = [row['path'] for row in receipt['authored_sources'] if not (ROOT / row['path']).is_file() or sha(ROOT / row['path']) != row['sha256']]
     app_divergence = [path for path in divergence if path.startswith(('apps/mobile/', 'packages/', 'data/manifests/', 'docs/geography/'))]
     require(not app_divergence, 'Application source changed since freeze: ' + ', '.join(app_divergence))
-    result = {'status': 'HOST_COMPILED_STATIC_APK_VERIFIED', 'apk': str(apk), 'sha256': sha(apk), 'bytes': apk.stat().st_size, 'package': PACKAGE, 'native_libraries': libraries, 'source_receipt_sha256': sha(stage / 'source-receipt.json'), 'model_weights_bundled': False, 'physical_device_tested': False, 'on_device_inference': 'NOT_RUN_PENDING_M10', 'distribution_authorized': False,
+    result = {'status': 'HOST_COMPILED_STATIC_APK_VERIFIED', 'apk': str(apk), 'sha256': sha(apk), 'bytes': apk.stat().st_size, 'package': PACKAGE, 'native_libraries': libraries, 'source_receipt_sha256': sha(stage / 'source-receipt.json'), 'evaluation_harness_enabled': receipt.get('evaluation_harness_enabled', False), 'model_weights_bundled': False, 'physical_device_tested': False, 'on_device_inference': 'NOT_RUN_PENDING_M10', 'distribution_authorized': False,
               'build_workflow_sha256': sha(Path(__file__)), 'source_snapshot_sha256': sha(stage / 'frozen-source-snapshot.zip'),
               'expo_registration': [str(file) for file in registrations], 'source_map_sha256': sha(maps[0]), 'embedded_source_hashes': checked,
               'generated_android_hashes': {str(file.relative_to(stage)): sha(file) for file in (stage / 'apps/mobile/android/build.gradle', stage / 'apps/mobile/android/settings.gradle', stage / 'apps/mobile/android/gradle.properties', stage / 'apps/mobile/android/app/build.gradle', stage / 'isolated-build.init.gradle', *registrations) if file.is_relative_to(stage)},
@@ -296,9 +298,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--stage', default='ai-host-r1')
     parser.add_argument('--phase', choices=('prepare', 'refresh', 'prebuild', 'build', 'verify', 'all'), default='all')
+    parser.add_argument('--enable-evaluation-harness', action='store_true', help='Explicit private preview QA opt-in; normal builds force the flag off.')
     args = parser.parse_args()
+    EVALUATION_HARNESS = args.enable_evaluation_harness
     stage = (ROOT / '.g' / args.stage).resolve()
     require(stage.parent == (ROOT / '.g').resolve() and stage.name.startswith('ai-host-'), 'Output must be direct .g/ai-host-* child.')
+    if (stage / 'source-receipt.json').is_file():
+        require(load(stage / 'source-receipt.json').get('evaluation_harness_enabled', False) == EVALUATION_HARNESS, 'Evaluation flag differs from frozen stage; use matching explicit flag or a fresh stage.')
     for name, work in [('prepare', prepare), ('refresh', refresh), ('prebuild', prebuild), ('build', build), ('verify', verify)]:
         if args.phase == name or (args.phase == 'all' and name != 'refresh'):
             work(stage)

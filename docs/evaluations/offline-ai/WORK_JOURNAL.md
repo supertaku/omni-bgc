@@ -256,3 +256,66 @@ Overall remains NOT_RELEASE_READY: no model weights downloaded, real local infer
   review reproduced early lease release and a receipt-provenance gap despite its
   initial passing host tests; author is repairing them. Old key remains immutable;
   new per-case scope key is being prepared before actual semantic inference.
+
+- U3n fresh host release and independent audit PASS: APK SHA256
+  `bb4ac6e35a2db073c2464aabfe16f9d3eb319f857b9c762924e08bf97554e837`,
+  62,060,618 bytes. Superseded before installation by subsequent owner UI changes.
+  U3 remains installed; do not claim the updated header/details were device-tested.
+- DEC-061 presentation integration: independently accepted details candidate13/13
+  plus parent19/19 minimal-chat checks. Copied exact reviewed files only after base
+  and candidate byte checks. Chat now uses numbered linked names and icon controls;
+  no source/verification UI. Existing lineage and meaningful price guards remain.
+- DEC-062 repaired QA candidate: initial review's four counterexamples are closed
+  by independent re-review18/18 plus lease/provenance/byte-limit probes. Parent
+  reran18 tests before accepting core source. Selectively merged two screen hunks
+  preserving newer icons/no Import and added an isolated screen-test mock for the
+  internal QA component. Merged24/24 screen/QA tests pass. No model inference.
+  Preserve original recovered native inventory; explicitly update current hash
+  only for reviewed read-only exact-preview metadata APIs. Native build pending.
+
+- Parent current integrated AI suite173/173 PASS; TypeScript PASS and ESLint
+  zero errors with the same two MapCanvas hook-dependency warnings. Root detail
+  copy also removes raw intake menu-status strings and uses ordinary location,
+  hours and branch wording. Model readiness internals stay behind simple setup copy.
+- Compressed124 owned U3n generated native library files using NTFS compression,
+  independently rehashed every file before/after; no bytes/source/artifacts deleted.
+  Reclaimed about0.97GB for U4 staging. Private inventory is retained underd3.
+- POCO disconnected during a read-only check; no target was selected. Owner
+  reconnected/unlocked explicitly. Fresh one-device preflight and phone staged
+  model size/SHA PASS; Wi-Fi was already enabled by owner, no settings changed.
+  Prepared only an initial isolated U4 source/dependency stage; preserve its
+  preparation receipt privately, then refresh final reviewed committed source
+  before prebuild. No U4 native compilation or installation has happened yet.
+
+- DEC-063 price candidate accepted after parent73/73 and independent73/73 plus
+  adversarial branch/demo/centavo/opt-out probes. Copied18 explicit files after
+  checksum/base checks; preserved old QA orchestration source and selectively
+  reapplied its bounded user-observation hunks after formatting. No data changes.
+  Exactly5 historical fallback rows differ;115 remain byte-equal before later
+  prose cleanup. Original U3/key evidence remains immutable.
+- Casual copy removes source-panel instructions, research/verification engineering
+  captions and office verification dates from ordinary replies; meaningful price,
+  branch/current-hours limits remain. Host evidence and expiry gates are retained.
+  D4 scope is explicitly versioned for v3 before inference, with raw proposal vs
+  effective bounds and hidden grounding vs rendered coverage scored separately.
+
+- Full34 quality groups run with existing pinned Python tool paths.31 initially
+  PASS; retrieval-js lacked the new checkedPhpBounds VM dependency; AI-layer kept
+  old engineering-copy/research-policy assertions; refactoring-js pinned U3 and
+  used a raw candidate in its positive vocabulary fixture. Repaired test adapters
+  and reviewed expectations, preserving denial/entity/authority checks and adding
+  explicit candidate exclusion. Reruns: retrieval1/1, AI-layer173/173,
+  refactoring21/21 PASS. Original failed logs retained; all34 now resolved PASS.
+- Post-prose current fallback SHA256
+  `101448c9da0c49856d5b052a71d2b7a3a6bb24d854d758c27a174a0375c3804e`.
+  Independent regeneration matches. All120 non-prose fields equal the reviewed
+  price candidate; only five accepted semantic deltas from U3. Restored the
+  abstract live-data-unavailable classifier for the same refusal's new copy;
+  did not discard warnings to obtain a new hash. Original/U3 snapshots unchanged.
+
+- Final independent merged ACCEPT_HOST_SOURCE:126 focused+3 menu-intent tests,
+  TypeScript and19 production files lint pass. Private report binds36 inputs,
+  all120 non-prose baseline rows, only five semantic U3 changes. Final formatter
+  collapsed the two reviewed friendly warning calls; semantics unchanged.
+  Parent ACCEPTS this source for fresh U4 compilation, not device/model release.
+  Initial/final formatting logs retained separately; final format check PASS.

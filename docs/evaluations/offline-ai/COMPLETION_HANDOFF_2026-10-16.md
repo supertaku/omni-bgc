@@ -125,3 +125,18 @@ Changed paths and outcomes: [C0 baseline](C0_SOURCE_BASELINE.md),
 `scripts/check-offline-ai-source.py`, guarded host builder, quality runner, seven
 source-control tests, narrow Git ignores/attributes, DEC-057 and daily work journal.
 Private build/device evidence remains ignored; all earlier failed logs are retained.
+
+
+October18 current U4 integration (DEC-061/062/063): parent and independent review
+ACCEPT_HOST_SOURCE for icon-only chat, numbered linked names, no source/status
+panels, simpler Models, exact budget/range filters and bounded private evaluation.
+All34 host groups are resolved PASS, including explicit retained failure/rerun
+receipts. AI-layer173, refactoring21 and mobile retrieval reruns pass. Independent
+merged source checks126 focused plus3 menu-intent tests, TypeScript and lint pass.
+Actual U4 compilation/installation and model inference remain pending at this
+source freeze. U3 remains the last installed/physically accepted no-model preview.
+The original/U3 baseline and old evaluation keys are retained. Current fallback
+SHA101448c9da0c49856d5b052a71d2b7a3a6bb24d854d758c27a174a0375c3804e
+changes only five reviewed non-prose cases from U3; historical synthetic adapter
+structural limitations remain separate from actual model quality. A private v3
+key is under independent review and still needs final APK/source/model binding.

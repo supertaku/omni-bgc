@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { EvaluationScreen, type EvaluationStart } from '../../qa/ai-evaluation/EvaluationScreen';
+import type { EvaluationReceipt, EvaluationExportResult } from '../../qa/ai-evaluation/contracts';
 import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import type { ModelStatus } from '../../ai/modelManager';
 import { Icon, palette } from '../../ui/components';
@@ -14,13 +17,19 @@ type ModelScreenProps = {
   onOperation: (operation: ModelOperation) => Promise<void>;
   onStop: () => void;
   onClear: () => Promise<void>;
+  evaluationAvailable?: boolean;
+  onEvaluation?: (input: EvaluationStart) => Promise<{ runId: string }>;
+  onEvaluationExport?: (
+    runId: string,
+    receipt: EvaluationReceipt,
+  ) => Promise<EvaluationExportResult>;
 };
 const stateCopy: Record<ModelStatus['state'], string> = {
   NOT_INSTALLED: 'Not installed yet',
   DOWNLOADING: 'Downloading…',
   VERIFYING: 'Checking your model…',
   STAGED: 'Finishing setup…',
-  PENDING_NATIVE_SMOKE_TEST: 'Ready to try',
+  PENDING_NATIVE_SMOKE_TEST: 'Downloaded',
   ACTIVE: 'Ready to chat',
   FAILED: 'Setup needs another try',
   PAUSED: 'Setup paused',
@@ -36,7 +45,11 @@ export function ModelScreen({
   onOperation,
   onStop,
   onClear,
+  evaluationAvailable = false,
+  onEvaluation,
+  onEvaluationExport,
 }: ModelScreenProps) {
+  const [evaluationOpen, setEvaluationOpen] = useState(false);
   const canActivate =
     !busy &&
     (status?.state === 'PENDING_NATIVE_SMOKE_TEST' || (status?.state === 'ACTIVE' && !modelReady));
@@ -49,6 +62,16 @@ export function ModelScreen({
   const run = (operation: ModelOperation) => {
     void onOperation(operation);
   };
+  if (evaluationOpen && evaluationAvailable && onEvaluation && onEvaluationExport)
+    return (
+      <EvaluationScreen
+        busy={busy}
+        onRun={onEvaluation}
+        onExport={onEvaluationExport}
+        onStop={onStop}
+        onBack={() => setEvaluationOpen(false)}
+      />
+    );
   return (
     <View style={s.screen}>
       <View style={m.page}>
@@ -60,7 +83,6 @@ export function ModelScreen({
             style={s.backButton}
           >
             <Icon name="back" size={20} />
-            <Text style={s.backText}>Assistant</Text>
           </Pressable>
           <Text accessibilityRole="header" style={[s.title, { flex: 1 }]}>
             Models
@@ -73,7 +95,23 @@ export function ModelScreen({
                 <Icon name="assistant" color={palette.blue} size={28} />
               </View>
               <View style={m.modelName}>
-                <Text accessibilityRole="header" style={m.title}>
+                <Text
+                  accessibilityRole="header"
+                  style={m.title}
+                  onLongPress={
+                    evaluationAvailable && onEvaluation && onEvaluationExport
+                      ? () =>
+                          Alert.alert(
+                            'Open preview QA?',
+                            'Synthetic evaluation is separate from chat. No run starts until you import a receipt and confirm Start.',
+                            [
+                              { text: 'Cancel', style: 'cancel' },
+                              { text: 'Open QA', onPress: () => setEvaluationOpen(true) },
+                            ],
+                          )
+                      : undefined
+                  }
+                >
                   Gemma 4 E2B
                 </Text>
                 <Text style={s.caption}>2.59 GB · Apache 2.0</Text>
@@ -99,9 +137,7 @@ export function ModelScreen({
               </Text>
             ) : null}
             {status?.state === 'PENDING_NATIVE_SMOKE_TEST' ? (
-              <Text style={s.caption}>
-                Your file is checked. We'll test it on this phone before turning it on.
-              </Text>
+              <Text style={s.caption}>Tap Use to finish setting up your model.</Text>
             ) : null}
             <Pressable
               accessibilityRole="button"
@@ -112,7 +148,7 @@ export function ModelScreen({
               onPress={() =>
                 Alert.alert(
                   'Use this model?',
-                  'We’ll test the checked model on this phone first. Chat is enabled only if those checks pass.',
+                  'This may take a moment. Keep the app open while your model gets ready.',
                   [
                     { text: 'Cancel', style: 'cancel' },
                     { text: 'Use model', onPress: () => run('activate') },
@@ -159,7 +195,7 @@ export function ModelScreen({
             accessibilityLabel="Remove local model"
             accessibilityState={{ disabled: busy || !installed }}
             disabled={busy || !installed}
-            style={m.quietRow}
+            style={[m.quietRow, (busy || !installed) && { opacity: 0.5 }]}
             onPress={() =>
               Alert.alert(
                 'Remove model?',
@@ -171,7 +207,9 @@ export function ModelScreen({
               )
             }
           >
-            <Text style={m.destructiveText}>Remove model</Text>
+            <Text style={[m.destructiveText, (busy || !installed) && { color: palette.muted }]}>
+              Remove model
+            </Text>
           </Pressable>
           <View style={m.conversation}>
             <Text accessibilityRole="header" style={s.heading}>

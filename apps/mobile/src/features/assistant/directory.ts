@@ -2,6 +2,8 @@ import type { Place, SavedState } from '../../contracts';
 import type { AssistantPayload } from './contracts';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { parsePhpCentavos as centavos } from '../../domain/money';
+import { checkedPhpBounds, parseUserPhpPriceBounds } from '../../domain/priceBounds';
+import { stripFoodSourcePreference } from '../food/sourcePolicy';
 import { answerOfficeQuery } from '../offices/assistant';
 
 const normalize = (value: string) =>
@@ -128,25 +130,31 @@ export function answerDirectoryQuery(
       {
         kind: 'capability',
         state: 'unsupported-query',
-        text: 'Live opening status, availability and reviews are not recorded. View a place’s recorded details and sources.',
+        text: 'I can’t check live opening status, availability, or reviews. Tap a place to see its details.',
       },
     ];
   }
+  const priceRequest = parseUserPhpPriceBounds(query);
+  if (priceRequest.kind === 'invalid') return missing(priceRequest.message);
+  const priceBounds = priceRequest.kind === 'valid' ? priceRequest.bounds : undefined;
+  const { min, max } = checkedPhpBounds(priceBounds?.minPhp, priceBounds?.maxPhp);
   const officeAnswer = answerOfficeQuery(query, places);
   if (officeAnswer) return officeAnswer;
-  const research = researchAnswer?.(query, places);
-  if (research) return research;
   const isMenu =
+    !!priceBounds ||
     /\b(menu|menus|dish|dishes|under|budget|price|prices|allergen|allergens|vegan|vegetarian|gluten)\b/.test(
       text,
     );
-  const budgetMatch = query.match(
-    /(?:under|below|budget(?:\s+of)?|less than)\s*(?:₱|PHP)?\s*(\d+(?:\.\d{1,2})?)(?![\d.])/i,
+  if (!isMenu) {
+    const research = researchAnswer?.(query, places);
+    if (research) return research;
+  }
+  const searchText = normalize(
+    stripFoodSourcePreference(
+      priceRequest.kind === 'valid' ? priceRequest.queryWithoutPrice : query,
+    ),
   );
-  const budget = budgetMatch ? centavos(budgetMatch[1]) : null;
-  if (budgetMatch && budget === null)
-    return missing('Use a PHP budget with up to two decimal places.');
-  const words = text.split(' ').filter((word) => !fillers.has(word));
+  const words = searchText.split(' ').filter((word) => !fillers.has(word));
   const ignored = new Set([
     'menu',
     'menus',
@@ -169,24 +177,27 @@ export function answerDirectoryQuery(
     'allergen',
     'allergens',
   ]);
-  const terms = words.filter((word) => !ignored.has(word) && !(budgetMatch && /^\d+$/.test(word)));
+  const terms = words.filter((word) => !ignored.has(word) && !(priceBounds && /^\d+$/.test(word)));
   const requestedCategories = [
     ...new Set(terms.map(category).filter((value): value is string => !!value)),
   ];
   const literals = terms.filter((word) => !category(word));
-  const named = places.filter((place) =>
+  const canonicalPlaces = places.filter(
+    (place) => place.status === 'approved' || isDemoPlace(place),
+  );
+  const named = canonicalPlaces.filter((place) =>
     [place.name, ...place.aliases].some((name) => normalize(name) === terms.join(' ')),
   );
   const matches = named.length
     ? named
-    : places.filter(
+    : canonicalPlaces.filter(
         (place) =>
           requestedCategories.every((value) => placeMatchesCategory(place, value)) &&
           literals.every((word) => searchable(place).includes(word)),
       );
   if (isMenu) {
     // Item, price and dietary evidence remain attached to the original branch record.
-    const items = places.flatMap((place) =>
+    const items = canonicalPlaces.flatMap((place) =>
       place.menus
         .filter((item) => {
           if (item.citation.status !== 'approved' && !sampleEvidence(place, item.citation))
@@ -207,7 +218,7 @@ export function answerDirectoryQuery(
             !literals.every((word) => branchText.includes(word) || itemText.includes(word))
           )
             return false;
-          if (budget !== null) {
+          if (min !== null || max !== null) {
             if (
               !item.priceValue ||
               item.priceValue.currency !== 'PHP' ||
@@ -217,26 +228,31 @@ export function answerDirectoryQuery(
             )
               return false;
             const amount = centavos(item.priceValue.amount);
-            if (amount === null || amount > budget) return false;
+            if (amount === null || (min !== null && amount < min) || (max !== null && amount > max))
+              return false;
           }
           return true;
         })
         .map((item) => ({ placeId: place.id, item })),
     );
     const hasSample = items.some((item) => isDemoPlace(item.placeId));
+    if (!items.length) {
+      const research = researchAnswer?.(query, places);
+      if (research) return research;
+    }
     return items.length
       ? [
           {
             kind: 'text',
             text: hasSample
               ? 'Sample menu entries are fictional examples. Prices and recipes do not describe real BGC businesses.'
-              : budget === null
+              : !priceBounds
                 ? 'Here’s what I found in the recorded menus.'
-                : 'These recorded items fit your budget, with a source for each price.',
+                : 'Here’s what fits your budget.',
           },
           {
             kind: 'menus',
-            title: budget === null ? 'From the menu' : `Within ₱${budgetMatch![1]}`,
+            title: !priceBounds ? 'From the menu' : 'Within your price range',
             items: items.slice(0, 12),
             total: items.length,
           },

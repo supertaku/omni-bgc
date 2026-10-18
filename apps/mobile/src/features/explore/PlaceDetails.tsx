@@ -1,19 +1,11 @@
 import { useState, type ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { Citation, Place, SavedState } from '../../contracts';
-import {
-  Body,
-  CategoryArtwork,
-  CitationList,
-  Icon,
-  Notice,
-  palette,
-  type IconName,
-} from '../../ui/components';
+import { Body, CategoryArtwork, Icon, Notice, palette, type IconName } from '../../ui/components';
 import { demoDetails, isDemoPlace } from './demoDirectory';
 import { foodResearch } from '../food/directory';
 import { OfficeDetailsView, OfficeTenantList } from '../offices/OfficeDetails';
-import { FoodHoursView, FoodSourceDisclosure, ResearchMenu } from '../food/ResearchDetails';
+import { FoodHoursView, ResearchMenu } from '../food/ResearchDetails';
 
 function DetailSection({
   title,
@@ -102,7 +94,6 @@ export function PlaceDetails({
   const menus = place.menus.filter(
     (item) => item.citation.status !== 'candidate' || supported(item.citation),
   );
-  const sourceCount = new Set(place.citations.map((citation) => citation.sourceId)).size;
   return (
     <View style={styles.details}>
       {place.category === 'Building' ? (
@@ -115,22 +106,12 @@ export function PlaceDetails({
             .filter(Boolean)
             .join(' · ')}
         </Body>
-        <Text style={styles.status}>
-          {research
-            ? 'Research record · evidence varies'
-            : sample
-              ? 'Fictional sample'
-              : place.status === 'candidate'
-                ? 'Candidate · not verified'
-                : place.status === 'stale'
-                  ? 'Stale · information may have changed'
-                  : 'Approved record'}
-        </Text>
+        {place.status === 'stale' ? <Body muted>Information may have changed.</Body> : null}
         {research ? (
           <>
             <Body muted>{research.zone}</Body>
             {research.locationOriginal && !research.floor ? (
-              <Body muted>Location unresolved: {research.locationOriginal}</Body>
+              <Body muted>Listed location: {research.locationOriginal}</Body>
             ) : null}
           </>
         ) : null}
@@ -179,15 +160,6 @@ export function PlaceDetails({
               {item.citation.status === 'stale' ? (
                 <Body muted>Price and availability may have changed.</Body>
               ) : null}
-              <CitationList
-                citations={[
-                  item.citation,
-                  ...[item.priceCitation, item.tagCitation].filter(
-                    (citation): citation is NonNullable<typeof citation> => !!citation,
-                  ),
-                  ...(item.relationshipCitations ?? []),
-                ]}
-              />
             </View>
           ))}
         </DetailSection>
@@ -199,37 +171,6 @@ export function PlaceDetails({
           ))}
         </DetailSection>
       ) : null}
-      <DetailSection
-        title="Sources"
-        icon="info"
-        summary={`${place.status} · ${sourceCount} source${sourceCount === 1 ? '' : 's'}`}
-      >
-        {research ? (
-          <FoodSourceDisclosure evidence={foodResearch.getFoodResearchEvidence(research.id)} />
-        ) : place.citations.length ? (
-          place.citations.map((citation, index) => (
-            <View key={`${citation.sourceId}:${index}`} style={styles.citation}>
-              <Body>{citation.label}</Body>
-              <Body muted>
-                {citation.status} · {citation.sourceId}
-              </Body>
-              <Body muted>License: {citation.license}</Body>
-              <Body muted>Observed: {citation.observedAt}</Body>
-              <Body muted>Verified: {citation.verifiedAt ?? 'Not verified'}</Body>
-              {citation.locator ? <Body muted>Evidence: {citation.locator}</Body> : null}
-              {citation.factId ? <Body muted>Fact: {citation.factId}</Body> : null}
-              {citation.snapshotId ? <Body muted>Snapshot: {citation.snapshotId}</Body> : null}
-              {citation.evidenceId ? <Body muted>Evidence ID: {citation.evidenceId}</Body> : null}
-              {citation.rawSha256 ? <Body muted>Raw SHA256: {citation.rawSha256}</Body> : null}
-              {citation.verificationMethod ? (
-                <Body muted>Verification method: {citation.verificationMethod}</Body>
-              ) : null}
-            </View>
-          ))
-        ) : (
-          <Body muted>Source information is unavailable for this record.</Body>
-        )}
-      </DetailSection>
     </View>
   );
 }
@@ -246,7 +187,6 @@ const styles = StyleSheet.create({
   title: { fontFamily: 'OmniBodySemiBold', fontSize: 16, color: palette.ink, flex: 1 },
   summary: { fontFamily: 'OmniBody', fontSize: 12, color: palette.muted, flexShrink: 1 },
   content: { paddingLeft: 30, paddingBottom: 12, gap: 8 },
-  status: { fontFamily: 'OmniBodySemiBold', fontSize: 13, color: palette.muted },
   identity: { flexDirection: 'row', gap: 10, alignItems: 'center' },
   metadata: { flex: 1, minWidth: 0 },
   metadataText: { fontFamily: 'OmniBody', fontSize: 13, lineHeight: 19, color: palette.muted },

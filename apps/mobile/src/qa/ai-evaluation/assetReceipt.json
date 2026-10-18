@@ -1,0 +1,8 @@
+{
+  "derivative": {
+    "path": "apps/mobile/src/qa/ai-evaluation/inputs.json",
+    "bytes": 83991,
+    "sha256": "0367e86519d8bb58a862d155ef1134c524dbcbda1047035dfd377c86a315afff"
+  },
+  "scopeAddendumSha256": "2cf59274918134e2efe80f84233e03a6a8c36a582856019527babf3549abe900"
+}

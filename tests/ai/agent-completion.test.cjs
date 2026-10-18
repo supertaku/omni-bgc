@@ -55,7 +55,7 @@ test("friendly empty replies preserve approved-office and research boundaries wi
       "Find offices",
     ),
   );
-  assert.match(office, /couldn't find.*approved offices/i);
+  assert.match(office, /couldn’t find an office match/i);
   assert.ok(!office.includes("FAKE OFFICE"));
   const research = JSON.stringify(
     composeGroundedAnswer(
@@ -64,6 +64,6 @@ test("friendly empty replies preserve approved-office and research boundaries wi
       "Show research",
     ),
   );
-  assert.match(research, /research.*separate from approved facts/i);
+  assert.match(research, /couldn’t find a menu match/i);
   assert.ok(!research.includes("FAKE VERIFIED"));
 });

@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "actualInference": false,
+  "qualityGate": "NOT_EVALUATED",
+  "scopeAddendumSha256": "2cf59274918134e2efe80f84233e03a6a8c36a582856019527babf3549abe900",
+  "originalSuite": {
+    "path": "tests/ai/questions.json",
+    "bytes": 118066,
+    "sha256": "0e2c855dfe0f1584390b89d34a9ac6fd216ac9c00f09716c110c181c9984b77c"
+  },
+  "originalDirectory": {
+    "path": "tests/ai/synthetic-directory.json",
+    "bytes": 28257,
+    "sha256": "041b758ca5b4a4e375244aa3fe68380a388d35766ca30179936c70beee481f08"
+  },
+  "derivative": {
+    "path": "apps/mobile/src/qa/ai-evaluation/inputs.json",
+    "bytes": 83991,
+    "sha256": "0367e86519d8bb58a862d155ef1134c524dbcbda1047035dfd377c86a315afff"
+  },
+  "menuFilter": {
+    "path": "apps/mobile/src/qa/ai-evaluation/menuFilter.ts",
+    "bytes": 3280,
+    "sha256": "6a4a254e66149ea24456ce702e84c33b926ee76491d3c13088c24fb3e1531eeb",
+    "sourceSha256": "7eda3a012d5fec8b7e3b4c7f6a6537815cdeaf991dcfb7afd0cfbf94d12bc7fb"
+  },
+  "caseCount": 120,
+  "historyCases": [
+    "followups-01",
+    "followups-02",
+    "followups-03",
+    "followups-06",
+    "followups-08"
+  ],
+  "untrustedContextCases": [
+    "prompt_injection-01",
+    "prompt_injection-02",
+    "prompt_injection-03",
+    "prompt_injection-04",
+    "prompt_injection-05",
+    "prompt_injection-06",
+    "prompt_injection-07",
+    "prompt_injection-08",
+    "prompt_injection-09",
+    "prompt_injection-10"
+  ],
+  "derivedRelationships": [
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-blue-latte",
+      "bytes": 169,
+      "sha256": "80a6f32073e1777f806bb0dca5fe1d989c5ee21cfef84c7e94434b2103578a1f",
+      "originalBranchId": "syn-blue",
+      "originalItemId": "syn-blue-latte"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-blue-latte",
+      "bytes": 171,
+      "sha256": "769ea34722fd1e4b20dbdee37f2580ebbeeabd92a0b0be2b9e62bf2ce8e90ec5",
+      "originalBranchId": "syn-blue",
+      "originalItemId": "syn-blue-latte"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-blue-cookie",
+      "bytes": 170,
+      "sha256": "c6ea51f3de66c193cfb0a5bf9ac2bc672d146fffbbb2dc84356120ca06bea25e",
+      "originalBranchId": "syn-blue",
+      "originalItemId": "syn-blue-cookie"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-blue-cookie",
+      "bytes": 172,
+      "sha256": "77fccb91c904257b1ecceb254bbbc0264519dc95e455e26ff8750aa894a1dd9d",
+      "originalBranchId": "syn-blue",
+      "originalItemId": "syn-blue-cookie"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-amber-latte",
+      "bytes": 171,
+      "sha256": "02ccf5a512a69c10c82921a93073847ff7d5d8bd6705fcb269ddbd53da18078d",
+      "originalBranchId": "syn-amber",
+      "originalItemId": "syn-amber-latte"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-amber-latte",
+      "bytes": 173,
+      "sha256": "27c96a41f4ed6095b61fdecffb93d00dffde4a97cad531572f3f3f240351217d",
+      "originalBranchId": "syn-amber",
+      "originalItemId": "syn-amber-latte"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-herb-pasta",
+      "bytes": 169,
+      "sha256": "47ff473bba4ff964d5e4317734996ba3281ccbebdd9ed3dd89328ce982ed4eb8",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-pasta"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-herb-pasta",
+      "bytes": 171,
+      "sha256": "af74f3c89fe780ca763b7032329a0b4fdb4acfa65b0674ff1bb99d6542f2a58c",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-pasta"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-herb-candidate",
+      "bytes": 173,
+      "sha256": "8de171bc89477f639bccfe8d047011dca9cc8f276c5936e1dd59ef177df3c895",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-candidate"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-herb-candidate",
+      "bytes": 175,
+      "sha256": "49482a560b9adeafa3d6a057f746c98f270068f5b29af6f32ff0520b199ff28a",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-candidate"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-herb-unpriced",
+      "bytes": 172,
+      "sha256": "6b118f9184cccd0bb47f0c79370542c30ea89a9d6f7ca0bf8db5ea4f5c17bdf6",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-unpriced"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-herb-unpriced",
+      "bytes": 174,
+      "sha256": "1360e7c1d50a2ad053b1d6428f5a858369d55cdcaef1711fe58d8a98a0aa884f",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-unpriced"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-herb-usd",
+      "bytes": 167,
+      "sha256": "2cd556fd4fad255f5f1227cdb9e9b740601c5c3153d39c95a4bd9d27c1d2e56b",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-usd"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-herb-usd",
+      "bytes": 169,
+      "sha256": "8de8be6764d8a7277364d35bdbd8487441ada74c4062560f2d5bfa455121426f",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-usd"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-herb-allergen",
+      "bytes": 172,
+      "sha256": "fdd341aafcc5d46b76fed5357768ebce75f178aac17cf5993fcc8c10581dc121",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-allergen"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-herb-allergen",
+      "bytes": 174,
+      "sha256": "c2f072bfe3bdc80f5bbedfda90efb3057ea74a3503bbe145d90bf287a4d7310b",
+      "originalBranchId": "syn-herb",
+      "originalItemId": "syn-herb-allergen"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-old-dish",
+      "bytes": 168,
+      "sha256": "62f0554aa5c80b45adbdb7f57ac4dc452a938cb066d241064fbcc33de10c8ae1",
+      "originalBranchId": "syn-stale",
+      "originalItemId": "syn-old-dish"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-old-dish",
+      "bytes": 170,
+      "sha256": "06b6b2a720eba9023d87be64f82d1f773a6cacd34651019203b1fb7672207bc9",
+      "originalBranchId": "syn-stale",
+      "originalItemId": "syn-old-dish"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-syn-conflict-dish",
+      "bytes": 176,
+      "sha256": "20ac6826d8078fec3f3181164c9eda951ec0a2ec426c426c1f90146462c37d62",
+      "originalBranchId": "syn-conflict",
+      "originalItemId": "syn-conflict-dish"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-syn-conflict-dish",
+      "bytes": 178,
+      "sha256": "6d43987ca128e9e0198c3d762c063524cb353c25f1a44fdbde4a8c48229c4a1b",
+      "originalBranchId": "syn-conflict",
+      "originalItemId": "syn-conflict-dish"
+    },
+    {
+      "sourceId": "EVAL-REL-menu-item-sample-synthetic-dish",
+      "bytes": 184,
+      "sha256": "6f14e464b1fc69dda9de3ed97d4ded3a219a3bb06ecabe5e077a03be3fa1658b",
+      "originalBranchId": "sample-synthetic",
+      "originalItemId": "sample-synthetic-dish"
+    },
+    {
+      "sourceId": "EVAL-REL-branch-menu-sample-synthetic-dish",
+      "bytes": 186,
+      "sha256": "f6af019dee323c0b564293d3b474921cba9956daa3525b2a7e135838eabe3ff7",
+      "originalBranchId": "sample-synthetic",
+      "originalItemId": "sample-synthetic-dish"
+    }
+  ]
+}

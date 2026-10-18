@@ -33,7 +33,8 @@ test('place details omit unsupported sections/actions; content sections start ex
   const place={id:'TEST',name:'Test retail',category:'Shops',menus:[],citations:[],status:'candidate'};
   const tree=h.render('PlaceDetails',{place});
   const sections=nodes(tree).filter(node=>typeof node.type==='function');
-  assert.deepEqual(sections.map(section=>section.props.title),['Overview','Sources']);
+  assert.deepEqual(sections.map(section=>section.props.title),['Overview']);
+  assert.doesNotMatch(JSON.stringify(tree),/Candidate|not verified|Sources|CitationList/);
   assert.ok(!nodes(tree).some(node=>/Save|Directions|Plan|Itinerary/.test(node.props.accessibilityLabel??'')));
   const overview=sections[0];let expanded=h.render(overview.type,overview.props);
   assert.equal(action(expanded,'Collapse Overview').props.accessibilityState.expanded,true);
@@ -41,27 +42,29 @@ test('place details omit unsupported sections/actions; content sections start ex
   assert.equal(action(expanded,'Expand Overview').props.accessibilityState.expanded,false);
   expanded=h.render(overview.type,overview.props);assert.equal(action(expanded,'Expand Overview').props.accessibilityState.expanded,false);
 });
-test('fictional metadata gets meaningful optional sections and supported item provenance',()=>{
+test('fictional metadata retains useful sections without technical source disclosures',()=>{
   const demo={hours:'Daily 08:00–17:00 · sample',services:['Sample seating'],notice:'Fictional',locationNotice:'No location'};
   const h=harness('apps/mobile/src/features/explore/PlaceDetails.tsx',{'./demoDirectory':{demoDetails:()=>demo,isDemoPlace:()=>true}});
   const citation={sourceId:'OMNI-UX-V2-FICTIONAL-PREVIEW',verificationMethod:'synthetic-preview',status:'candidate',label:'Fictional evidence'};
   const tree=h.render('PlaceDetails',{place:{name:'Sample',category:'Coffee',status:'candidate',citations:[citation],menus:[{id:'dish',name:'Sample dish',citation}]}});
   const sections=nodes(tree).filter(node=>typeof node.type==='function');
-  assert.deepEqual(sections.map(node=>node.props.title),['Overview','Operating hours','Menu or products','Amenities and services','Sources']);
+  assert.deepEqual(sections.map(node=>node.props.title),['Overview','Operating hours','Menu or products','Amenities and services']);
   const menu=sections[2],rendered=h.render(menu.type,menu.props);
   assert.equal(action(rendered,'Collapse Menu or products').props.accessibilityState.expanded,true);
-  assert.ok(nodes(rendered).some(node=>node.type==='CitationList'&&node.props.citations.length>0&&!node.props.initialExpanded));
+  assert.equal(nodes(rendered).some(node=>node.type==='CitationList'),false);
 });
-test('approved menu cannot promote candidate price, tags or allergens; unique sources retain lineage',()=>{
+test('hidden sources do not weaken price/tag guards or mutate underlying lineage',()=>{
   const h=harness('apps/mobile/src/features/explore/PlaceDetails.tsx',{'./demoDirectory':{demoDetails:()=>null,isDemoPlace:()=>false}});
   const approved={sourceId:'SOURCE',status:'approved',factId:'FACT',snapshotId:'SNAPSHOT',evidenceId:'EVIDENCE',rawSha256:'HASH',locator:'LOCATOR'};
   const candidate={...approved,status:'candidate'};
   const props={place:{name:'Test',category:'Food',status:'approved',citations:[approved,{...approved,factId:'OTHERFACT'}],menus:[{id:'DISH',name:'Supported dish',price:'UNAPPROVED PRICE',tags:['UNAPPROVED TAG'],allergens:['UNAPPROVED ALLERGEN'],citation:approved,priceCitation:candidate,tagCitation:candidate}]}};
+  const retained=JSON.stringify(props.place.citations);
   let tree=h.render('PlaceDetails',props);
   const allText=tree=>nodes(tree).flatMap(node=>Array.isArray(node.props.children)?node.props.children.filter(value=>typeof value==='string'):typeof node.props.children==='string'?[node.props.children]:[]).join(' ');
   assert.doesNotMatch(allText(tree),/UNAPPROVED PRICE|UNAPPROVED TAG|UNAPPROVED ALLERGEN/);
-  const sources=nodes(tree).find(node=>node.props.title==='Sources');assert.equal(sources.props.summary,'approved · 1 source');
-  for(const value of ['FACT','SNAPSHOT','EVIDENCE','HASH','LOCATOR'])assert.ok(allText(tree).includes(value),value);
+  assert.equal(nodes(tree).some(node=>node.props.title==='Sources'||node.type==='CitationList'),false);
+  for(const value of ['FACT','SNAPSHOT','EVIDENCE','HASH','LOCATOR'])assert.ok(!allText(tree).includes(value),value);
+  assert.equal(JSON.stringify(props.place.citations),retained);
   props.place.menus[0].priceCitation=approved;props.place.menus[0].tagCitation=approved;tree=h.render('PlaceDetails',props);
   assert.match(allText(tree),/UNAPPROVED PRICE/);assert.match(allText(tree),/UNAPPROVED TAG/);assert.match(allText(tree),/UNAPPROVED ALLERGEN/);
   const evidence=harness('apps/mobile/src/ui/components.tsx');
