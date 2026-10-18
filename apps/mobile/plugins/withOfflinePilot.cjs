@@ -7,10 +7,10 @@ const crypto = require('node:crypto');
 module.exports = config => withDangerousMod(config, ['android', async cfg => {
   const source = path.join(cfg.modRequest.projectRoot, 'assets/generated/omni');
   if (!fs.existsSync(path.join(source, 'manifest.json'))) {
-    throw new Error('Build the reviewed internal offline pilot with pipelines/map-pack/build.py first.');
+    throw new Error('The reviewed bundled offline pilot is missing. Restore the packaged resources.');
   }
   const bytes=fs.readFileSync(path.join(source,'manifest.json'));
-  const reviewed=fs.readFileSync(path.join(cfg.modRequest.projectRoot,'../../data/manifests/offline-pilot-inventory.json'));
+  const reviewed=fs.readFileSync(path.join(cfg.modRequest.projectRoot,'config/map/pilot-inventory.json'));
   // Pin reviewed inventory text; only CRLF/LF differences are permitted.
   const inventoryHash = data => crypto.createHash('sha256').update(data.toString('utf8').replace(/\r\n/g, '\n')).digest('hex');
   const reviewedInventorySha256 = '6b11ba01f46c8e582b2d52ca989cd1bcfe95a2909aba5c29bfd81f436ae3e97e';
@@ -18,8 +18,10 @@ module.exports = config => withDangerousMod(config, ['android', async cfg => {
   const style=fs.readFileSync(path.join(cfg.modRequest.projectRoot,'src/map/pilot-style.json'));
   if (!style.equals(fs.readFileSync(path.join(source,'style.json')))) throw new Error('Authored map style does not match generated reviewed pack.');
   for (const entry of JSON.parse(bytes).files) {
-    if (entry.path.startsWith('/') || entry.path.split('/').some(x=>x==='..'||!x)) throw new Error('Invalid asset path');
-    const data=fs.readFileSync(path.join(source,entry.path));
+    if (entry.path.startsWith('/') || entry.path.includes('\\') || entry.path.includes(':') || entry.path.split('/').some(x=>x==='..'||x==='.'||!x)) throw new Error('Invalid asset path');
+    const resourcePath=path.join(source,entry.path);
+    if(!fs.realpathSync(resourcePath).startsWith(fs.realpathSync(source)+path.sep)) throw new Error('Pilot resource escapes bundle');
+    const data=fs.readFileSync(resourcePath);
     if(data.length!==entry.bytes || crypto.createHash('sha256').update(data).digest('hex')!==entry.sha256) throw new Error('Bundled map resource failed checksum: '+entry.path);
   }
   const target = path.join(cfg.modRequest.platformProjectRoot, 'app/src/main/assets/omni');
@@ -33,7 +35,7 @@ module.exports = config => withDangerousMod(config, ['android', async cfg => {
       const choice=catalog.entries.find(e=>e.id===catalog.selected);
       if(!choice || choice.assetDirectory!=='gex' || choice.inventory!=='expanded-resources.json' || choice.style!=='expanded-style.json')throw new Error('Unknown expanded map catalog selection');
       const resources=JSON.parse(fs.readFileSync(path.join(cfg.modRequest.projectRoot,'src/map',choice.inventory),'utf8'));
-      const approvalBytes=fs.readFileSync(path.join(cfg.modRequest.projectRoot,'../../docs/geography/internal-pack-approval.json'));
+      const approvalBytes=fs.readFileSync(path.join(cfg.modRequest.projectRoot,'config/map/expanded-pack-approval.json'));
       const approval=JSON.parse(approvalBytes);
       const hash=data=>crypto.createHash('sha256').update(data).digest('hex');
       if(hash(approvalBytes)!==resources.internalApprovalSha256 || approval.parent_decision!=='ACCEPT' || approval.use!=='INTERNAL_RESEARCH_PREVIEW_BUNDLE_ONLY' || approval.public_distribution_authorized!==false || approval.navigation_authorized!==false || approval.sourceManifestSha256!==resources.packSha256)throw new Error('Expanded internal bundle lacks exact parent review');

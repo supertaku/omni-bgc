@@ -8,7 +8,7 @@ import { OfficeDirectory } from '../offices/OfficeDirectory';
 import { getLocalStoreHealth, type StartupResult } from '../../data';
 import { REVIEWED_PACK_CATALOG } from '../../updates/reviewed-catalog';
 import type { PackKind, PackManifest, PackStatus } from '../../updates/contracts';
-import geometryPack from '../../../../../data/manifests/offline-pilot-inventory.json';
+import geometryPack from '../../../config/map/pilot-inventory.json';
 import type { Panel } from '../../app/useExplorerNavigation';
 
 type PanelProps = {

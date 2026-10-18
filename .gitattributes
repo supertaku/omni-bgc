@@ -69,3 +69,6 @@
 # Packaged resources are checksum-bound; never convert their checkout bytes.
 /apps/mobile/assets/** -text
 /apps/mobile/assets/** whitespace=cr-at-eol
+
+/apps/mobile/config/** -text
+/apps/mobile/config/** whitespace=cr-at-eol
