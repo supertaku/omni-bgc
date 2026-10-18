@@ -4,7 +4,7 @@ const assert = require('node:assert/strict'); const { test, beforeEach } = requi
 const root = path.resolve(__dirname, '../../..');
 const ts = require(path.join(root, 'apps/mobile/node_modules/typescript'));
 require.extensions['.ts'] = (module, filename) => module._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS } }).outputText, filename);
-const engine = require(path.join(root, 'packages/routing/index.ts'));
+const engine = require(path.join(root, 'apps/mobile/src/routing/engine.ts'));
 const contracts = require(path.join(root, 'apps/mobile/src/updates/contracts.ts'));
 const bytesHash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 let active = null; let bytes = new Uint8Array(); let trusted = []; let exists = true; let recover = async () => active;

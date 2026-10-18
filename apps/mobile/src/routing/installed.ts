@@ -1,7 +1,7 @@
 /** Install only the exact active, locally reviewed core artifact. No acquisition. */
 import { File } from 'expo-file-system';
 import * as Crypto from 'expo-crypto';
-import { clearGraph, installGraph, type GraphPack } from '../../../../packages/routing';
+import { clearGraph, installGraph, type GraphPack } from './engine';
 import { getActivePack } from '../updates';
 import { canonical, validateManifest } from '../updates/contracts';
 import { REVIEWED_MANIFEST_SHA256 } from '../updates/reviewed-catalog';

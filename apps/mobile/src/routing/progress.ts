@@ -1,5 +1,5 @@
 /** Pure in-memory progress matching; callers own ephemeral state. No GPS storage. */
-import { distance, lineLength, projectOnLine, validCoordinate, type Coordinate } from './index';
+import { distance, lineLength, projectOnLine, validCoordinate, type Coordinate } from './engine';
 export type ProgressState = { routeVersion: string; alongM: number; segment: number; offRoute: boolean; offRouteFixes: number; onRouteFixes: number; lastObservedAt?: string };
 export type ProgressFix = { coordinate: Coordinate; accuracyM: number; observedAt: string };
 export type ProgressResult = { state: ProgressState; accepted: boolean; reason: string | null; remainingM: number };
