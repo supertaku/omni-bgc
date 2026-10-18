@@ -1,0 +1,115 @@
+{
+  "status": "PARENT_REVIEW_CANDIDATE",
+  "created_at_utc": "2026-10-09T09:56:43.911742+00:00",
+  "historical_lane_manifest_sha256": "c9634661cd4b8cdd0499a6b7164b15ac590cd78db9fe25c9ca5e79c94e52c57f",
+  "reason": "Independent probes found free-text placeholder approval and padded raster kind gaps; parent now rejects trimmed/case-insensitive placeholders and tests every required metadata field.",
+  "changed_records": [
+    {
+      "path": "pipelines/sources/governance.py",
+      "lane_sha256": "145ba505247cc0b5f785fd64ec5d35c686b4b5612993ecd9b3ccf5494392a7af",
+      "parent_sha256": "9347d3ac79ee163052eeee23de90c8f6695aa8633e85b2fceb216c2086ce5588"
+    },
+    {
+      "path": "pipelines/sources/test_governance.py",
+      "lane_sha256": "89d36333853b477c65e85c6b1d7bfda852c62f7379be8da8d7e2d29948c77e89",
+      "parent_sha256": "612cfe24f6b3854b092982512baeae27d56f4feec5d17ba3c4ec439119c1ce56"
+    }
+  ],
+  "records": [
+    {
+      "path": "data/licenses/README.md",
+      "bytes": 1367,
+      "sha256": "1f7df76a51a7face6619f3ac952305f876ef38d77cb63114cd803af5e769cd0a"
+    },
+    {
+      "path": "data/manifests/service-area-v1.json",
+      "bytes": 3858,
+      "sha256": "07775a690ac1d99f94e436d9461b48ed1c28822c95bc6cb05e0614c3cf55dd31"
+    },
+    {
+      "path": "docs/architecture/M1_DATA_GOVERNANCE.md",
+      "bytes": 7697,
+      "sha256": "90bb4c6f7a91b810c6b3bff55f7d057564d4eb9c17cac4e66d6bf73518583310"
+    },
+    {
+      "path": "docs/data-source-register/README.md",
+      "bytes": 2471,
+      "sha256": "f8a8e985badc1ee69f4c3f0a5fe1b508121c2e4d0d1eace2fc159fb321651853"
+    },
+    {
+      "path": "docs/data-source-register/source-register-v1.header.csv",
+      "bytes": 264,
+      "sha256": "24b996868957176910965781dac3af66e492148b52d293ad07fa4e3bbab920c8"
+    },
+    {
+      "path": "docs/data-source-register/source-register.csv",
+      "bytes": 351,
+      "sha256": "7f30d7abb357ceec819e2b816bb962d76032d517460101763b657526c694d2a6"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/DRAFT_PARENT_DECISION.md",
+      "bytes": 2638,
+      "sha256": "c6c6177aea69accb5327b0b2b2b0a3b0473fbad534cc528e71f14d167052334a"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/HANDOFF.md",
+      "bytes": 2496,
+      "sha256": "bbe5a6ad0f8a4156e4f165330511488c40455b018c42e04638aa30b7b5060be7"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/primary-fetch-evidence.json",
+      "bytes": 3632,
+      "sha256": "8c32f4580aec828fc533ffa3bd9c7030ef05c05a93137a63d24fdb3182ab8ed2"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/primary-fetch-sandbox-failure.json",
+      "bytes": 2204,
+      "sha256": "bd0d09de2277794263b5c544ac43d574467665fc3a2b23a8b546ff754de3b4e1"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/register-migration.json",
+      "bytes": 924,
+      "sha256": "a882b088bda91617c219a9f2ac35764f8e714c33f6d5869dd9520dbf72963890"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/TASK_PLAN_AND_WORK_LOG.md",
+      "bytes": 5312,
+      "sha256": "32f373da80ac04830b8ec1b6c2775ab07a94dafdd9b942542e2723057556023c"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/test-governance.log",
+      "bytes": 1726,
+      "sha256": "a61dcab849b6c8c3381a6af4f695d2fdaced2cb66ac99c1aa604ef9ae16fcf07"
+    },
+    {
+      "path": "docs/evaluations/m1/governance/validation.json",
+      "bytes": 607,
+      "sha256": "23fe7774dcbd52b228f7bc613d26a08c109d805ff06cf5f3ccea53d6dcf45d00"
+    },
+    {
+      "path": "pipelines/sources/fetch_policy_evidence.py",
+      "bytes": 2168,
+      "sha256": "697d67d7ab5c56006d9a5048072c93434e04462cdaf7bdd162b1d8762af20606"
+    },
+    {
+      "path": "pipelines/sources/governance.py",
+      "bytes": 9646,
+      "sha256": "9347d3ac79ee163052eeee23de90c8f6695aa8633e85b2fceb216c2086ce5588"
+    },
+    {
+      "path": "pipelines/sources/migrate_register.py",
+      "bytes": 664,
+      "sha256": "1d377497a75c5918f77ce036a9b3617496f223e213babe67cec94497ac368083"
+    },
+    {
+      "path": "pipelines/sources/test_governance.py",
+      "bytes": 8219,
+      "sha256": "612cfe24f6b3854b092982512baeae27d56f4feec5d17ba3c4ec439119c1ce56"
+    },
+    {
+      "path": "pipelines/sources/validate_governance.py",
+      "bytes": 2857,
+      "sha256": "45e9c852b8c2bd97a47c85e01bf7d17a51ad5b3c74b95467411bf80d929b321f"
+    }
+  ]
+}

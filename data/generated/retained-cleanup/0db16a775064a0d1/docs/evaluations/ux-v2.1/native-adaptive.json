@@ -1,0 +1,28 @@
+[
+  {
+    "check": "large text 1.5x",
+    "status": "PASS",
+    "detail": {
+      "fontScale": 1.5,
+      "fullScrollableDetails": true,
+      "explicitButtons": true
+    }
+  },
+  {
+    "check": "landscape",
+    "status": "PASS",
+    "detail": {
+      "rotation": 1,
+      "detailsAndAssistantAccessible": true
+    }
+  },
+  {
+    "check": "Android reduced motion",
+    "status": "PASS",
+    "detail": {
+      "transitionAnimationScale": 0,
+      "buttonsAndState": true,
+      "interpretation": "Android reduce-motion setting and final screens; zero-duration code verified in deterministic tests, animation duration not measured by screenshot."
+    }
+  }
+]

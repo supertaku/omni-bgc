@@ -8,7 +8,7 @@
     "android": "expo run:android",
     "prebuild": "expo prebuild --platform android",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint App.tsx index.ts src",
+    "lint": "eslint App.tsx index.ts src modules/omni-local-ai/index.ts",
     "format:check": "node scripts/format-authored.cjs",
     "format": "node scripts/format-authored.cjs --write",
     "check:dependencies": "node scripts/dependency-audit.cjs --check",

@@ -1,0 +1,14 @@
+{
+  "added_row_values": 0,
+  "automatic_moves": 0,
+  "automatic_promotions": 0,
+  "current_snapshot_id": "sha256:77cf09748398f5aead0b7a601a37e8b22b1ec5825e6f874b1a5cc66d7445ab6f",
+  "identity_change_suggestions": [],
+  "mode": "INTERNAL_OFFICE_REFRESH_REVIEW",
+  "previous_snapshot_id": "sha256:858b712a786ddc88a7aa7063cf4e3231e9d2b1a73dd8ec0c91c61a15e8894c23",
+  "publication_allowed": false,
+  "rejected_after": 0,
+  "rejected_before": 0,
+  "removed_row_values": 0,
+  "unchanged_row_values": 2
+}

@@ -1,0 +1,490 @@
+TAP version 13
+# Subtest: all 120 accepted directory observations retain exact deterministic payloads
+ok 1 - all 120 accepted directory observations retain exact deterministic payloads
+  ---
+  duration_ms: 1027.1504
+  type: 'test'
+  ...
+# Subtest: Explore NFC/category rules and Assistant NFKC/vocabulary remain distinct
+ok 2 - Explore NFC/category rules and Assistant NFKC/vocabulary remain distinct
+  ---
+  duration_ms: 200.9322
+  type: 'test'
+  ...
+# Subtest: PHP uses integer centavos at all supported boundaries and rejects unsupported syntax
+ok 3 - PHP uses integer centavos at all supported boundaries and rejects unsupported syntax
+  ---
+  duration_ms: 5.2374
+  type: 'test'
+  ...
+# Subtest: style display modes preserve resources, ordering, paint and independent layout properties
+ok 4 - style display modes preserve resources, ordering, paint and independent layout properties
+  ---
+  duration_ms: 2.1709
+  type: 'test'
+  ...
+# Subtest: POI features retain order/identity and copy coordinates without creating locations
+ok 5 - POI features retain order/identity and copy coordinates without creating locations
+  ---
+  duration_ms: 1.0124
+  type: 'test'
+  ...
+# Subtest: asset validation fails closed on corrupt data, duplicates, currency and cross-branch joins
+ok 6 - asset validation fails closed on corrupt data, duplicates, currency and cross-branch joins
+  ---
+  duration_ms: 3.1824
+  type: 'test'
+  ...
+# Subtest: exact centavos and evidence types survive category/budget filters
+ok 7 - exact centavos and evidence types survive category/budget filters
+  ---
+  duration_ms: 3.0723
+  type: 'test'
+  ...
+# Subtest: Unicode, exact tokens, building and unknown floor remain distinct
+ok 8 - Unicode, exact tokens, building and unknown floor remain distinct
+  ---
+  duration_ms: 3.286
+  type: 'test'
+  ...
+# Subtest: research injection does not grant canonical approval or open navigation/live/dietary paths
+ok 9 - research injection does not grant canonical approval or open navigation/live/dietary paths
+  ---
+  duration_ms: 7.0527
+  type: 'test'
+  ...
+# Subtest: duplicate restaurant names retain branches and retrieval ordering is stable
+ok 10 - duplicate restaurant names retain branches and retrieval ordering is stable
+  ---
+  duration_ms: 2.6399
+  type: 'test'
+  ...
+# Subtest: mounted conversation resolves listed hours after an unambiguous research restaurant response
+ok 11 - mounted conversation resolves listed hours after an unambiguous research restaurant response
+  ---
+  duration_ms: 172.5031
+  type: 'test'
+  ...
+# Subtest: all supplied restaurants, items and ten target Assistant queries work locally
+ok 12 - all supplied restaurants, items and ten target Assistant queries work locally
+  ---
+  duration_ms: 2177.8402
+  type: 'test'
+  ...
+# Subtest: research menu renders bounded rows, descriptions, hours contexts and expandable accessible sources
+ok 13 - research menu renders bounded rows, descriptions, hours contexts and expandable accessible sources
+  ---
+  duration_ms: 37.8625
+  type: 'test'
+  ...
+# Subtest: conversation cancels only the pending timer, retains draft, sequences IDs and reads latest records
+ok 14 - conversation cancels only the pending timer, retains draft, sequences IDs and reads latest records
+  ---
+  duration_ms: 165.0144
+  type: 'test'
+  ...
+# Subtest: conversation failures preserve the existing response and become idle
+ok 15 - conversation failures preserve the existing response and become idle
+  ---
+  duration_ms: 37.5919
+  type: 'test'
+  ...
+# Subtest: initialization retains saved rows on failed retry and suppresses boot publication after unmount
+ok 16 - initialization retains saved rows on failed retry and suppresses boot publication after unmount
+  ---
+  duration_ms: 109.3845
+  type: 'test'
+  ...
+# Subtest: pack UI requires confirmation, tracks cancellation signal and refreshes after success
+ok 17 - pack UI requires confirmation, tracks cancellation signal and refreshes after success
+  ---
+  duration_ms: 153.6691
+  type: 'test'
+  ...
+# Subtest: pack cancellation/errors and failed rollback retain explicit errors and clear operation guards
+ok 18 - pack cancellation/errors and failed rollback retain explicit errors and clear operation guards
+  ---
+  duration_ms: 67.6494
+  type: 'test'
+  ...
+# Subtest: repeated active reads revalidate exact bytes and retain balanced index lifetime
+ok 19 - repeated active reads revalidate exact bytes and retain balanced index lifetime
+  ---
+  duration_ms: 213.42
+  type: 'test'
+  ...
+# Subtest: corrupt active content recovers previous verified slot; rejected rollback retains active slot
+ok 20 - corrupt active content recovers previous verified slot; rejected rollback retains active slot
+  ---
+  duration_ms: 162.5066
+  type: 'test'
+  ...
+# Subtest: untrusted/corrupt packs and pre-aborted install fail closed without pointer mutation
+ok 21 - untrusted/corrupt packs and pre-aborted install fail closed without pointer mutation
+  ---
+  duration_ms: 98.7843
+  type: 'test'
+  ...
+# Subtest: cuisine queries match only literal source tags or names, without guessing
+ok 22 - cuisine queries match only literal source tags or names, without guessing
+  ---
+  duration_ms: 6.8935
+  type: 'test'
+  ...
+# Subtest: category and alias search preserve canonical IDs and record classification
+ok 23 - category and alias search preserve canonical IDs and record classification
+  ---
+  duration_ms: 13.873
+  type: 'test'
+  ...
+# Subtest: budget includes only supported same-currency prices and exact decimal boundary
+ok 24 - budget includes only supported same-currency prices and exact decimal boundary
+  ---
+  duration_ms: 4.0707
+  type: 'test'
+  ...
+# Subtest: dietary labels cannot match an unsupported tag
+ok 25 - dietary labels cannot match an unsupported tag
+  ---
+  duration_ms: 0.8889
+  type: 'test'
+  ...
+# Subtest: directions always defer with exact wording and no origin, route or place handoff
+ok 26 - directions always defer with exact wording and no origin, route or place handoff
+  ---
+  duration_ms: 0.529
+  type: 'test'
+  ...
+# Subtest: saved results omit removed records and deferral leaves the saved itinerary intact
+ok 27 - saved results omit removed records and deferral leaves the saved itinerary intact
+  ---
+  duration_ms: 1.1788
+  type: 'test'
+  ...
+# Subtest: absent records and live facts produce explicit unavailable states
+ok 28 - absent records and live facts produce explicit unavailable states
+  ---
+  duration_ms: 0.4451
+  type: 'test'
+  ...
+# Subtest: a stale item cannot become an ordinary menu result through an approved branch
+ok 29 - a stale item cannot become an ordinary menu result through an approved branch
+  ---
+  duration_ms: 0.5971
+  type: 'test'
+  ...
+# Subtest: sample menus stay candidate, disclose fiction and cannot create geographic routes
+ok 30 - sample menus stay candidate, disclose fiction and cannot create geographic routes
+  ---
+  duration_ms: 0.803
+  type: 'test'
+  ...
+# Subtest: browsing preserves source status and reviewed IDs without promoting records
+ok 31 - browsing preserves source status and reviewed IDs without promoting records
+  ---
+  duration_ms: 2.2653
+  type: 'test'
+  ...
+# Subtest: category chips match typed source categories and Unicode multiword names
+ok 32 - category chips match typed source categories and Unicode multiword names
+  ---
+  duration_ms: 2.3972
+  type: 'test'
+  ...
+# Subtest: approved projection buildings and tenant offices are searchable with original distinct IDs
+ok 33 - approved projection buildings and tenant offices are searchable with original distinct IDs
+  ---
+  duration_ms: 18.648
+  type: 'test'
+  ...
+# Subtest: missing/conflicting/invalid building coordinates cannot create a map destination or tenant match
+ok 34 - missing/conflicting/invalid building coordinates cannot create a map destination or tenant match
+  ---
+  duration_ms: 1.2114
+  type: 'test'
+  ...
+# Subtest: a company name or copied parent display name cannot substitute for approved occupancy relationship
+ok 35 - a company name or copied parent display name cannot substitute for approved occupancy relationship
+  ---
+  duration_ms: 1.0658
+  type: 'test'
+  ...
+# Subtest: actual SQLite FTS joins office name and approved building name across tokens
+ok 36 - actual SQLite FTS joins office name and approved building name across tokens
+  ---
+  duration_ms: 1837.7627
+  type: 'test'
+  ...
+# Subtest: v2 directory denies exterior points and stale FTS text, and does not clamp coordinates
+ok 37 - v2 directory denies exterior points and stale FTS text, and does not clamp coordinates
+  ---
+  duration_ms: 472.678
+  type: 'test'
+  ...
+# Subtest: content scope hash mismatch rejects projection without accepting a downloaded polygon
+ok 38 - content scope hash mismatch rejects projection without accepting a downloaded polygon
+  ---
+  duration_ms: 82.6696
+  type: 'test'
+  ...
+# Subtest: a different menu scope does not prevent current base directory use
+ok 39 - a different menu scope does not prevent current base directory use
+  ---
+  duration_ms: 71.3639
+  type: 'test'
+  ...
+# Subtest: in-flight startup callers share one request per stage and retry explicitly
+ok 40 - in-flight startup callers share one request per stage and retry explicitly
+  ---
+  duration_ms: 3.1659
+  type: 'test'
+  ...
+# Subtest: graph/transit failures retain directory and original saved data with stage diagnostics
+ok 41 - graph/transit failures retain directory and original saved data with stage diagnostics
+  ---
+  duration_ms: 3.3258
+  type: 'test'
+  ...
+# Subtest: storage capability failure blocks only saved read; never fabricates writable empty saved state
+ok 42 - storage capability failure blocks only saved read; never fabricates writable empty saved state
+  ---
+  duration_ms: 0.7856
+  type: 'test'
+  ...
+# Subtest: saved read and offline metadata failures stay independently visible even if logging throws
+ok 43 - saved read and offline metadata failures stay independently visible even if logging throws
+  ---
+  duration_ms: 0.6097
+  type: 'test'
+  ...
+# Subtest: a safely rejected walking pack is unavailable rather than reported ready
+ok 44 - a safely rejected walking pack is unavailable rather than reported ready
+  ---
+  duration_ms: 0.6075
+  type: 'test'
+  ...
+# Subtest: production content reads remain usable when saved SQLite cannot open
+ok 45 - production content reads remain usable when saved SQLite cannot open
+  ---
+  duration_ms: 69.572
+  type: 'test'
+  ...
+# Subtest: failed saved connection cleanup does not poison unrelated content reads
+ok 46 - failed saved connection cleanup does not poison unrelated content reads
+  ---
+  duration_ms: 63.6921
+  type: 'test'
+  ...
+# Subtest: fresh local migrations are exact and persisted preferences survive reopen
+ok 47 - fresh local migrations are exact and persisted preferences survive reopen
+  ---
+  duration_ms: 330.6929
+  type: 'test'
+  ...
+# Subtest: missing local table/settings row recover without clearing surviving favorites
+ok 48 - missing local table/settings row recover without clearing surviving favorites
+  ---
+  duration_ms: 253.6871
+  type: 'test'
+  ...
+# Subtest: unsupported version/malformed table preserve all existing saved rows
+ok 49 - unsupported version/malformed table preserve all existing saved rows
+  ---
+  duration_ms: 275.1776
+  type: 'test'
+  ...
+# Subtest: missing native RTree capability fails before any migration/write
+ok 50 - missing native RTree capability fails before any migration/write
+  ---
+  duration_ms: 0.4526
+  type: 'test'
+  ...
+# Subtest: Expo native plugin includes both accepted database compile capabilities
+ok 51 - Expo native plugin includes both accepted database compile capabilities
+  ---
+  duration_ms: 2.0052
+  type: 'test'
+  ...
+# Subtest: integrity failure preserves file and skips migrations/repair
+ok 52 - integrity failure preserves file and skips migrations/repair
+  ---
+  duration_ms: 0.3581
+  type: 'test'
+  ...
+# Subtest: atomic office favorites serialize rapid toggles and preserve itinerary/settings across reopen
+ok 53 - atomic office favorites serialize rapid toggles and preserve itinerary/settings across reopen
+  ---
+  duration_ms: 245.2447
+  type: 'test'
+  ...
+# C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\app-refinement.test.cjs:30
+#   throw Error(`Unexpected directory import ${name}`);
+#   ^
+# Error: Unexpected directory import ../offices/service
+#     at C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\app-refinement.test.cjs:30:9
+#     at apps/mobile/src/features/explore/directory.ts:13:19
+#     at Script.runInContext (node:vm:149:12)
+#     at Script.runInNewContext (node:vm:154:17)
+#     at Object.runInNewContext (node:vm:310:38)
+#     at compile (C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\app-refinement.test.cjs:23:6)
+#     at Object.<anonymous> (C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\app-refinement.test.cjs:26:17)
+#     at Module._compile (node:internal/modules/cjs/loader:1706:14)
+#     at Object..js (node:internal/modules/cjs/loader:1839:10)
+#     at Module.load (node:internal/modules/cjs/loader:1441:32)
+# Node.js v22.20.0
+# Subtest: tests\\ui\\app-refinement.test.cjs
+not ok 12 - tests\\ui\\app-refinement.test.cjs
+  ---
+  duration_ms: 860.1946
+  type: 'test'
+  location: 'C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\app-refinement.test.cjs:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: place details omit unsupported sections/actions; content sections start expanded and retain collapse
+not ok 55 - place details omit unsupported sections/actions; content sections start expanded and retain collapse
+  ---
+  duration_ms: 237.8929
+  type: 'test'
+  location: 'C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\mobile-interactions.test.cjs:30:1'
+  failureType: 'testCodeFailure'
+  error: 'Unexpected import ../offices/OfficeDetails'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    require (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:23:11)
+    evalmachine.<anonymous>:11:25
+    Script.runInContext (node:vm:149:12)
+    Script.runInNewContext (node:vm:154:17)
+    Object.runInNewContext (node:vm:310:38)
+    harness (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:25:6)
+    TestContext.<anonymous> (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:31:11)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+  ...
+# Subtest: fictional metadata gets meaningful optional sections and supported item provenance
+not ok 56 - fictional metadata gets meaningful optional sections and supported item provenance
+  ---
+  duration_ms: 42.3865
+  type: 'test'
+  location: 'C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\mobile-interactions.test.cjs:43:1'
+  failureType: 'testCodeFailure'
+  error: 'Unexpected import ../offices/OfficeDetails'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    require (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:23:11)
+    evalmachine.<anonymous>:11:25
+    Script.runInContext (node:vm:149:12)
+    Script.runInNewContext (node:vm:154:17)
+    Object.runInNewContext (node:vm:310:38)
+    harness (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:25:6)
+    TestContext.<anonymous> (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:45:11)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+  ...
+# Subtest: approved menu cannot promote candidate price, tags or allergens; unique sources retain lineage
+not ok 57 - approved menu cannot promote candidate price, tags or allergens; unique sources retain lineage
+  ---
+  duration_ms: 48.3513
+  type: 'test'
+  location: 'C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\ui\\mobile-interactions.test.cjs:54:1'
+  failureType: 'testCodeFailure'
+  error: 'Unexpected import ../offices/OfficeDetails'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    require (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:23:11)
+    evalmachine.<anonymous>:11:25
+    Script.runInContext (node:vm:149:12)
+    Script.runInNewContext (node:vm:154:17)
+    Object.runInNewContext (node:vm:310:38)
+    harness (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:25:6)
+    TestContext.<anonymous> (C:\Users\joshu\Documents\Omni-BGC\tests\ui\mobile-interactions.test.cjs:55:11)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+  ...
+# Subtest: compact selected sheet drag resizes immediately and measured short content caps expansion
+ok 58 - compact selected sheet drag resizes immediately and measured short content caps expansion
+  ---
+  duration_ms: 71.2627
+  type: 'test'
+  ...
+# Subtest: single floating Chat remains independent of search tools and has 48dp accessible target
+ok 59 - single floating Chat remains independent of search tools and has 48dp accessible target
+  ---
+  duration_ms: 28.3376
+  type: 'test'
+  ...
+# Subtest: broad search sheet stays inside measured keyboard viewport despite stale window height
+ok 60 - broad search sheet stays inside measured keyboard viewport despite stale window height
+  ---
+  duration_ms: 63.5903
+  type: 'test'
+  ...
+# Subtest: portrait stays portrait when keyboard makes window wider than its remaining height
+ok 61 - portrait stays portrait when keyboard makes window wider than its remaining height
+  ---
+  duration_ms: 43.8151
+  type: 'test'
+  ...
+# Subtest: sensor hook probes availability, listens only in foreground, cleans listeners, respects blockers
+ok 62 - sensor hook probes availability, listens only in foreground, cleans listeners, respects blockers
+  ---
+  duration_ms: 61.841
+  type: 'test'
+  ...
+# Subtest: unsupported accelerometer or availability rejection leaves button navigation operational
+ok 63 - unsupported accelerometer or availability rejection leaves button navigation operational
+  ---
+  duration_ms: 57.7527
+  type: 'test'
+  ...
+# Subtest: shake toggles both screen directions through the same mounted pager
+ok 64 - shake toggles both screen directions through the same mounted pager
+  ---
+  duration_ms: 9.6205
+  type: 'test'
+  ...
+# Subtest: foreground, enabled, dialog, editing and transition safeguards each block shaking
+ok 65 - foreground, enabled, dialog, editing and transition safeguards each block shaking
+  ---
+  duration_ms: 0.366
+  type: 'test'
+  ...
+# Subtest: deliberate opposing peaks switch once, cooldown survives resets, repeated shake later works
+ok 66 - deliberate opposing peaks switch once, cooldown survives resets, repeated shake later works
+  ---
+  duration_ms: 1.0443
+  type: 'test'
+  ...
+# Subtest: stationary, walking, rotation, casual hand movement, tapping, pickup and pocket spike reject
+ok 67 - stationary, walking, rotation, casual hand movement, tapping, pickup and pocket spike reject
+  ---
+  duration_ms: 3.6851
+  type: 'test'
+  ...
+# Subtest: one axis repeated spikes, slow alternating motion, changing axes and too-fast chatter reject
+ok 68 - one axis repeated spikes, slow alternating motion, changing axes and too-fast chatter reject
+  ---
+  duration_ms: 1.7174
+  type: 'test'
+  ...
+# Subtest: invalid samples, non-monotonic time, resume gaps and insufficient peaks do not switch
+ok 69 - invalid samples, non-monotonic time, resume gaps and insufficient peaks do not switch
+  ---
+  duration_ms: 0.762
+  type: 'test'
+  ...
+1..69
+# tests 69
+# suites 0
+# pass 65
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3423.3224

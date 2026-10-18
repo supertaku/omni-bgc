@@ -1,0 +1,200 @@
+{
+  "acceptance_blockers": [
+    "Screenshot referenced in supplied plan was not attached; visual intent reconciliation pending.",
+    "Authored perimeter needs specialist/human geographic review to confirm commercial corridors and exclude external residential neighborhoods.",
+    "Historical anchor sites/buildings are candidates; current-world verification and office-tower identity reconciliation pending.",
+    "75 m context and 200 m acquisition margins need cut-edge/connector review in later milestones.",
+    "Source redistribution and public release remain unauthorized."
+  ],
+  "active": false,
+  "bbox": [
+    121.0455,
+    14.5437,
+    121.0584,
+    14.5596
+  ],
+  "boundary_role": "PROJECT_DEFINED_ENGINEERING_SCOPE",
+  "context": {
+    "distance_m": 75,
+    "path": "data/research/expansion/context-area.geojson",
+    "searchable": false
+  },
+  "coordinate_order": "longitude,latitude",
+  "coordinate_reference_system": "EPSG:4326",
+  "data_imported": false,
+  "distribution_authorized": false,
+  "edge_policy": {
+    "acquisition_buffer": "not service, search or routing coverage",
+    "context_and_exclusion": "context has display-only precedence outside service; exclusion always denies detail/search",
+    "point_membership": "inclusive_boundary"
+  },
+  "exclusion_path": "data/research/expansion/exclusion-areas.geojson",
+  "geometry": {
+    "coordinates": [
+      [
+        [
+          121.0455,
+          14.5501
+        ],
+        [
+          121.047,
+          14.5477
+        ],
+        [
+          121.0505,
+          14.5467
+        ],
+        [
+          121.052,
+          14.5437
+        ],
+        [
+          121.0535,
+          14.5437
+        ],
+        [
+          121.05565,
+          14.5465
+        ],
+        [
+          121.0584,
+          14.54675
+        ],
+        [
+          121.0584,
+          14.5519
+        ],
+        [
+          121.05565,
+          14.554
+        ],
+        [
+          121.05555,
+          14.55725
+        ],
+        [
+          121.054,
+          14.55955
+        ],
+        [
+          121.0517,
+          14.5596
+        ],
+        [
+          121.0515,
+          14.5561
+        ],
+        [
+          121.04685,
+          14.55615
+        ],
+        [
+          121.0457,
+          14.5532
+        ],
+        [
+          121.0455,
+          14.5501
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "ingest_buffer": {
+    "authorizes_navigation": false,
+    "distance_m": 200,
+    "metric_crs": "EPSG:32651",
+    "quad_segs": 16,
+    "source_envelope_covers_buffer": false,
+    "status": "INITIAL_CANDIDATE_MARGIN"
+  },
+  "legal_district_boundary": false,
+  "manifest_version": 2,
+  "name": "BGC commercial engineering candidate",
+  "preserved_pilot": {
+    "path": "data/manifests/service-area-v1.json",
+    "sha256": "07775a690ac1d99f94e436d9461b48ed1c28822c95bc6cb05e0614c3cf55dd31"
+  },
+  "record_approval_required": true,
+  "route_correctness_claim": false,
+  "routing_support": {
+    "geometry": null,
+    "navigation_eligible_edges": 0,
+    "status": "DEFERRED_NOT_AUTHORITATIVE"
+  },
+  "search_inclusion_geometry": {
+    "coordinates": [
+      [
+        [
+          121.0455,
+          14.5501
+        ],
+        [
+          121.047,
+          14.5477
+        ],
+        [
+          121.0505,
+          14.5467
+        ],
+        [
+          121.052,
+          14.5437
+        ],
+        [
+          121.0535,
+          14.5437
+        ],
+        [
+          121.05565,
+          14.5465
+        ],
+        [
+          121.0584,
+          14.54675
+        ],
+        [
+          121.0584,
+          14.5519
+        ],
+        [
+          121.05565,
+          14.554
+        ],
+        [
+          121.05555,
+          14.55725
+        ],
+        [
+          121.054,
+          14.55955
+        ],
+        [
+          121.0517,
+          14.5596
+        ],
+        [
+          121.0515,
+          14.5561
+        ],
+        [
+          121.04685,
+          14.55615
+        ],
+        [
+          121.0457,
+          14.5532
+        ],
+        [
+          121.0455,
+          14.5501
+        ]
+      ]
+    ],
+    "type": "Polygon"
+  },
+  "service_area_id": "omni-bgc:service-area:bgc-commercial-v2",
+  "source_design_sha256": "66e33f159c52b9c8b29839187ddc1e045d03731dd6158c43210af48791d4e0fe",
+  "status": "PENDING_PARENT_REVIEW",
+  "zones_path": "data/research/expansion/zones.geojson"
+}

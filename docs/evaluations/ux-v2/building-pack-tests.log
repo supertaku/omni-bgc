@@ -1,1 +1,0 @@
-{"result": "PASS", "tiles": 27, "uniqueSourceFeatureIds": 548, "uniquePackagedBuildingsAndParts": 40, "sourceZebraCrossings": 6, "checks": ["all IDs trace to retained geometry", "candidate gate retained", "source/display fields match interpretation", "valid bases", "zebra decoration sourced only"]}

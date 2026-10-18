@@ -1,0 +1,2883 @@
+[
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0073"
+    ],
+    "canonical_url": "https://lafilgroup.com.ph/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "420698911eb9ee0f0867df30923ad1daade5a3787a462fe26e69c1b9c26ceb7d",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:00083af27240fc44597d6e578db69bf49cca33bef8f1635aac1c54f2ea4b06da",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0110",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0144"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/satellite-office",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "91a4641d026cb5dc5fb2592150ea12f6a394d087c922aa89bc57ebc93e5ae725",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:13bd2ca6851ea0145603c3981b897da81db56caa2342633c51ea6e20c7a33190",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0090"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=625",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "b0652d0e1872cfbdafca4995cef77e1fca9fd5d53c3cb0e9c693d89f2b5a1424",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:14bce762c11384b940fd41f6cbe358a94ed8d1d8e91370b0476f048be39d3984",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0128"
+    ],
+    "canonical_url": "https://help.xendit.co/hc/en-us/articles/360038195131-Does-Xendit-apply-VAT",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "2b84404b2cbc4c0239bd41dc1cbb24e681731476e969a2ab6eb3a297d476c6d2",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:1f1b2b6c7d9c91edeabf9b9e11a98d8c22ea639d63a87abf3f455da8589bdf22",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0176"
+    ],
+    "canonical_url": "https://ph.linkedin.com/company/qiagen/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "73d3424c1b54143088c3b49855839a46487efd41f75ceb131a4919c3c5bf9a49",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:1f2a3f06ebebef77de70fae2ed26b0486191c2bafd42ef23b4a7828f3dd8a1ac",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0004"
+    ],
+    "canonical_url": "https://philjobnet.gov.ph/job-vacancies/job/administrative-officer-1207400",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "8f8ef8e75201ef791a3d5fdcddc24a769334bd3cc5589e2bcaad100536bdf071",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:20623644cce6f104291b661af55b0b243e906213f30ceca2cf6e1f611d676788",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0178"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/getz-advanced",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "5ef6df75648d22c5d845ef827474f2f6662e520f53e91f87f1328099afab46b9",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:20c45c56862ae7a775e7682a6b20976ef36b4921f8273c445743bf90925e2cbf",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0107"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=64",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "0e34bc003f7afc9c9c648933a18271937d4fcc4e058d6f5a5c8907e284c78374",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:2354377f4d5ff647db7ea567ec13ca8ae17f8da7ce460209e98ddd199de19f13",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0097"
+    ],
+    "canonical_url": "https://payrecon.ph/contact/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "177e900b7097760625636de37631c63fe37af4963389967741d2d44ee0105eaa",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:23759f72982b7575646f27869ff886186546f48272e6ae85a5cce00716707277",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0042"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1700860",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "da609aa9e8f8a62305b0924dd97c202dd77bd2a31cf7e0d5eacb41324fc9443d",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:2b07288ee84604bbf6d858fce3d4bd3444b9b165b70f154cab36c2aceaa3f927",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0008",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0017",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0018",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0021",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0022",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0024",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0025",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0027",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0030",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0032",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0035",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0036",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0039",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0043",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0048",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0053",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0054",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0061",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0063",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0067",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0069",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0070",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0075",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0080",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0082",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0086",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0087",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0094",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0105",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0106",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0108",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0113",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0118",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0124",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0127",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0133",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0143",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0145",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0150",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0160",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0177"
+    ],
+    "canonical_url": "https://britcham.org.ph/members-list/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "dc1b2eb5b26d5348aef1eece092841f5c58bcd23d6cec35cbb5a47da8191db82",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:2b8d23b02d7c2f76424b504f2167b107658b75ccc47bd4db4306203a6c304724",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0096"
+    ],
+    "canonical_url": "https://www.paymongo.com/en-ph/company/press",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "6d8763fd0eaf8f889786fef607aca6762c8f15cad14cc455e2e367eb0dc383a3",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:2bea9c0c0481973e66ba4a2ac624d051824373ae198a24e1583b7d33e83e4807",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0172"
+    ],
+    "canonical_url": "https://ph.linkedin.com/company/cashelglobal",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "cb75a5a09af82025a3939bc78823bfc320e6cfdc823c871b22c3e6179b089089",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:2c5b36834eab011888cc5b6b87ec63e3a63ced134dfb07f0439e8978e26f531f",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0173"
+    ],
+    "canonical_url": "https://ph.linkedin.com/company/claymoresolutions",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "312e95d282d0f8dfadf7e42ba232283ece0b9a690ab2f977fe893acc6a2fbdfc",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:2db890e557c1c1fe72869a8f684e2742a0ca67e38ad862e52a255e66c97d4ca6",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0052"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1973301",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "f5a579470cf2557c886848f0a3bb98e860719d441d555fdb778119af29a6363b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:2dd5fbc869e3d0f50cc86dcb0f13c24e09df5a20dcab1e00b03b461c5305c63c",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0077"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1909144",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "b7c6f2c75a1018136df6958448c64dbf56265fdd21b2f9a4ff38d4be6041cfc6",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:31b37b06f9c411414aef6e9a30be8d00531c9ca118ea29ee90b45f55c9e6907f",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0141"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=127",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "f5e44ea579fb45efab050f44a58345f16c33dbc3e92e3430ff8f6a12036b56fe",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:3490f56aa06814b08d7929910a030bcce10d243573050f758f73b899d8b8af03",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0146"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/signaramaph",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "42188f1ce78773844b8aad544195b567e511ab0ae30cf8c208c98efd373603ff",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:39a9e399ae05f53a5458c1666a399aef4932d50e0efabd33c60b60bc335a5b89",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0088"
+    ],
+    "canonical_url": "https://www.lionunion.com/property/twoneo/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "531069cdbf32a57ddfafd7dcf105842c07d33bf601ed94d02d07f18d5d3ce252",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:3c3b43b6898382beef2e5a2180bb67fb323fe027052fb9687a0c307eae394af7",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0071",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0072",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0175"
+    ],
+    "canonical_url": "https://ph.linkedin.com/company/kmc-solutions-inc",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "b47b890cf18d99afbdac0e5ed472d8cb66f05e453866ac7b8e1d60f06d345708",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:4201915f973e00ca9f83f54c8fa6e1d3bedaad28d20d1679079624ad1ae0cfe9",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0051"
+    ],
+    "canonical_url": "https://olfu.herdin.ph/index.php/registry?cid=5636&layout=details&view=research",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "1a4eeb50aaa83208bc81b055e883c4534bcf2bcb3bcc6daadd5f64fdf7021292",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:4253eed00119dde46223f932bfc904c08aed578f0246fd1a5e2d7b5497b076fb",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0009"
+    ],
+    "canonical_url": "https://aws.amazon.com/legal/marketingentities/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "960ad5fb5087e94bdd56909aa594cab857dcdb47e9b20c2f7e9697fd4ba97f2a",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:43e696bd755294d77f1869b060ed3d9c366073ebcbd60fc585efead51d1b7a98",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0119"
+    ],
+    "canonical_url": "https://www.techadvise.com.sg/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "0210319a46ac584827ae2194d63b60fff69ab9721ce13a064abb5c4c071d9ef6",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:45bc2e27c16cbe966b8070f224e01e5458d968b26edf68f711d1b56c31c05258",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0038"
+    ],
+    "canonical_url": "https://www.ericsson.com/4adc2b/assets/local/legal/doc/list-of-entities-bcr-processor.pdf",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "c7e43843ffb664050f667a375e5db56759cfcd2be552681d8518d20c354e640b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:4d757088b444bb315de72142a5a6ac988dc5421452b2d6cb575ff665f49e9626",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0114"
+    ],
+    "canonical_url": "https://www.steelasia.com/contact",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "473a7fb74ea3a8a77f8317fd481c04a02f13e4294f42c8175f8ec1c6b0d0a759",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:53d7be1532e24f5ba3644d7669a56d3eab6907d8064f38dbd43d1978560f9b1e",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0111"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/seidopro-global-inc",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "e0c8c42aade8380d8929318251adccbcee35d2721fbe1f8158ccbaa71e751ab8",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:5d8127abae67774d537d93d7445730cc184920cf0fab90a09e00088bddb6763a",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0125"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/valuehubofficial/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "ad707d33b2760dd3ed195f50ce6593bee570eafe154beb039af9a039e967bb3f",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:60ae78223e777bd9f74912d40bb2b4661d7402282f61c1155dfdeefdf1833a65",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0011"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=172",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d150eabbc90f42f06d9921879e5fef7219fcafd3a38eeed83e3506a7bd096990",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6350d8def1c10b0a51143688431a2a833224b837597ad4e83bcf8ce86f977c6f",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0092"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/osg-global-consulting-inc-/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "fe6a880d00d82f1ca5c5245c813d1169a21beaf380876a27e6202cc1137911e1",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:639e3488a796d472d1bdcbe62444f25ea940080947bdd4f075600cbab9ed70e8",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0055"
+    ],
+    "canonical_url": "https://incorporation.ph/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "72a8e98614c96657e868e75220a21c273991dfe35c531b2eeb15c1c6632b7115",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6428febfda96fc2c4956c884f94d5db14bb21a4ff9e41169f31c0ffef1c24dfe",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0115",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0116",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0117"
+    ],
+    "canonical_url": "https://www.sunlife.com.ph/en/about-us/where-to-find-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "e821299050fd04bcf0511c7b9bc94dc1082ba8ebbe4489f9523e8b06f556b6c9",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6436dcf61dfcf9e1e37fee79e7d25ac9d16595547a08326eebe7e6e47fa48fb1",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0123"
+    ],
+    "canonical_url": "https://www.unilever.com.ph/contact/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "58281bbdedbbff455d6eb76d9b208f79e09336f5148cb4fb2c5dc0900b071b62",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:652bc18fec5f5ed37da24adf6fa1c5eee65f263ef43983cb9f3bce88d3096573",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0076"
+    ],
+    "canonical_url": "https://www.looming.tech/contact",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "6e1ad4640ce9651dd1f92fefd65b2ae503c3acef70c788696f666b4dffd44755",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:661e6a4df0b3f02b6f29bbb24e11065614c889251338ebca40d03eef0279d1b5",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0109"
+    ],
+    "canonical_url": "https://www.sap.com/bulgaria/about/company/office-locations/philippines.html",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "1c899ce6acf5ebd7b66da8b2b7b0a1b2ff39eab4a462d0edb83903182aff179b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:67a0c0df6aa491c038612fbe69e1a2cad33664e8c153dd196bad98cc7b419911",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0102",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0103"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/projecttsolutions",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "5d8f75e0de2e53ca05a807551aa6986ca8c20a04696742ebddae4922d71ced7d",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:696c230efde9d709ba6674207a5b62c04dadfe3a9a22b6b7f9c032a6c5e98f6f",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0015"
+    ],
+    "canonical_url": "https://aviatnetworks.com/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "a537b2e5fd36e300671823facf321d6a2ad318aae7c08c5095f34439557eeddd",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:69a76380939d0b30914c15325af3757f84441186f2a6384082c0bd1a2f81f57b",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0147"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1959051",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "913b8d4bed29a51d875cf3b0c80ac7284cdbff90140276888de57e34b0ecdaca",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6cc0005a201d43fbe13732e9d84d40f7b414a232819811490d85a889a4f5ef28",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0148"
+    ],
+    "canonical_url": "https://ph.linkedin.com/company/uctasia",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "8e8108c5b503a4326c95922edf251438bca4dce3bb386614aa8bb71723ba0f1a",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6cec59ca34ed1529c6587f62707c214fdce8d8271189f22a51e509dc74fc01f8",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0006"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1756334",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "f9d3d44e9bec7a1e9d3e1cecf8538a772a7032d79e941706c3a2543f073156ed",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6dd4583316c20619634563dcc7da1d81960f7e95caa5329ba527f8d9761ef2cb",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0179"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1947657",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "e99a0f3bc96388cc9d8961696f1958e5356e65cad59eff0a3ba8aa9ee2d69997",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6e3e167a2c869173cf4897afaa165bdac22a91326795e0c2597a31bfc39e8dc4",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0037"
+    ],
+    "canonical_url": "https://www.emigosolutions.com/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "dbe8ec1fff9fa311d2f784ac18a4aff5deb29f7a83f210e2e799526733600237",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:6ed5835acb8a6c63c66a29094ccb360c7a98f4af01e01723c308914fd9aa62aa",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0099"
+    ],
+    "canonical_url": "https://corporate.pse.com.ph/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "76ed6d884ffd4e2130629af66e4c945f054d41a80ec22685a96d4966d7b7823c",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:72705d0dbfbcc0293b9440228cb53f0febb7fbaf79fc207cdc57e68a634f0850",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0016"
+    ],
+    "canonical_url": "https://aviasg.com/en/media/our-news/avion-express/avion-express-philippines-to-launch-acmi-operations",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "0b9891a4b140ddfde11ae90a13f24e1eb4746fc718ca5fff3b3404b38c6337c5",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:74bfdc9339b51dc26644d503187349dfd771a3e2d94128849445607688392447",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0074"
+    ],
+    "canonical_url": "https://app.glueup.com/event/from-click-to-delivery-exploring-ecommerce-excellence-with-ficci-and-lazada-122090/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d5a474d047eb8efeebd20bc34959a7f3bc5099bd53dd932e37a47ce9e5b1b950",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:75e0086169ace054ea2b258ca38dfa2e51fb2c8f79f21296a860a406af590291",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0056"
+    ],
+    "canonical_url": "https://www.pdic.gov.ph/files/BSDStats/Bank%20Directory_KB%20_website.pdf",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "5cfc229d41b4155041cf8a57efcb7a2162eaf377012a9dcdf593c7c8a872677d",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:77a729e8ce605c9db2a3d7ff2e7309058038487585ce94439028a9baec858229",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0041"
+    ],
+    "canonical_url": "https://www.filinvestgroup.com/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d4b8fb57d78317595b2c66c740bf5a66daff247193cf267e5be267cfd3e21d3a",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:78435f8afe4c7b2fa44cccb0b9a6dd96fc5ce1c959eebebcbd4878295b05b034",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0139"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/legato-health-technologies-philippines",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "4d6427301b73ee37b02c683d2b24f893ab270b35a87ee54297b53f6a6d3c7ffe",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:7a7cf6aff61529765305765be824d6a91d8fb0f2a5286b45e04122f1b8552039",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0057",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0058"
+    ],
+    "canonical_url": "https://www.infor.com/en-sg/about/contact",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "48ee786dbad3071f398c38f6bab141766a8508fdefa1edebec1fa0f58fbd08a0",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:7d1385a0052ebaae40373314a42c215cd71b554700dba154febb530472b43832",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0046"
+    ],
+    "canonical_url": "https://www.colliers.com/en-ph/properties/office-space-for-lease-in-bonifacio-global-city-taguig/phl-twoneo/phl22000198",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d819f9852308319b59d31ed001a390f2a7f33f1e2508f27265095ff134d87aac",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:7eb085f7a11935ac100f1d589de4fc9771c459275ddb745df187837dfb443635",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0100"
+    ],
+    "canonical_url": "https://pilipinas.shell.com.ph/about-us/contact-us.html",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "494533ed918a65cb19dd0dac7ad2bbc914aeee85ef420123f67894669fa42378",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:8032117539828dc6b32b66c413546e21d8eecdc009be5db143e78ef32fe954d5",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0026"
+    ],
+    "canonical_url": "https://www.ctbcbank.com.ph/Locations/En_Branches.html",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "82b2db6784555e4cd843e2dcf2cc0506bdf31446f8470d03741b52d7aea11ee1",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:812d61e0bde6cc0a5081ab1a034ce4a8d253a5f09ce3996fbc9721c48c88dbdc",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0065"
+    ],
+    "canonical_url": "https://jmrinfotech.com/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "6096622acdd44acc8f4d1e986dce319e7637c15395c8d485810f16895aa56992",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:81405f1266a1cb6654362e1e3b4e722994a2f83ac564dd5864e0febba5384344",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0078"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/m-se/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "b8495a4d50f69bc0372e4bca80a141b3737fefe478032189471644f161f13cd1",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:8166d5096ff7740ee654a150c057e7f2acc160597034773b0a6e89353f9ff332",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0132"
+    ],
+    "canonical_url": "https://acquire.ai/ph/contact-us",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "36005aa57d92e90397dd0a2c3e8a90768096277d89750dfd4d4fb6bac131579a",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:82d2d2317983bf242788cbdc22e0b882ae9022a8b5474a9fc833d3aacaef4fc7",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0134"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/elite-empire-leasing-and-management-inc",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "8606903d98cefa3d8e9c29a7ba39ac38b8fce8c11a6d086e273ffbe3dcf440cd",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:83e5a7741de8a66a7f58fce233087900b35f3dd63b418e9ea2506d7de1d04d5b",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0158",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0159"
+    ],
+    "canonical_url": "https://www.hcltech.com/geo-presence/philippines",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "00a1afa7286624dc2454b846085bc0dab79cc01778c61682dd82402c105366f9",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:869988c53f5bb56b35b2bc5d74babcd9c8fcf62d0094ded0eb2aece93338404b",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0003"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1874043",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "16e2135f20d39f7bc4ad59a6e3da534086475ec1a49b9909c320723f55579981",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:87cb929feea47c49ce618f232adbd0135a03d9db816efe5311445475ac5f4620",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0014"
+    ],
+    "canonical_url": "https://aviasg.com/en/the-group/general-contacts",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "a86717911bc3f382535de758f3a5833c6cca6aa522cbb89fb9a5e59e8fda7bf1",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:892ce67cb12e88e75871c6410bfc13c0bfd9d40bacd6065809b77a6ab695429c",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0034"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=36",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "5b142c116d9fd58972bb8ecef2008a859e299bea9a7c8afa0c9ec661b02940c3",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:8ee2d1a39cf7176068e7f6943fd44c18dd854f9a085eb04bcc2b5dbeb5a11d80",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0033"
+    ],
+    "canonical_url": "https://digiplus.com.ph/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "83c3583859a20ed7324953ded499c0e47a5bee4cc4fbf1066ed6b4ed51b32899",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:8f74ce1fe00e6f5a87c8d7318ee2ef593f6e83a10bf20ef42698b9421976a25d",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0129"
+    ],
+    "canonical_url": "https://ph.linkedin.com/jobs/view/finance-intern-at-zendesk-4289612032",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "450ebc832b6e35c92e88c4c9b67432ecca43beeaec30fd0bd5ff5a18a247f952",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:922e7bc67ce293beb40dff01e76ab1203af9dd4a047e515ea4358e518b980bac",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0140"
+    ],
+    "canonical_url": "https://www.lseg.com/en/careers/where-we-work/manila-philippines",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "2b03ac37e70847aac38abceb85f5a0c4f0eb3551deef117ebe5fd9c751a1043e",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:935a820f2b767bdf494fddf57bca54cf0b2a201d53e97e614a95c15ab421abc8",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0170"
+    ],
+    "canonical_url": "https://ph.linkedin.com/company/247aiph",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "e756cafaeff6c029aa0777241761382db5da282997f2aaa30cd7f62c0c713326",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:95796ac3a6c21cf854034ebee5a65198a5a02cdf1aa6ee2d7f4b1f4b9a45cbab",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0029"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/decastroconsultingph/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "58edf611bbcd62180521df2a0e56b9097e3118b0c6e44007eacfc0f5381e3f73",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:95c5a983b8e012b6095a71d78699c67ac04cedb61eff4d7cd45581fa7a92494d",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0045"
+    ],
+    "canonical_url": "https://www.fortinet.com/corporate/about-us/global-offices",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "e6009c5bf6b7f0f15b063a5bb0e30000ae0d29a1b7ded63866bb85285009b351",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:9933d72afcf2c657b99429f0b39994594ca175c9107b06650240ff8d2794a092",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0154",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0155",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0156",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0157",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0162",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0163",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0165",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0169"
+    ],
+    "canonical_url": "https://savillsph.com/building/commerce-and-industry-plaza/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "6933899f0e000a32e132c3161c96db42078b6ce84f28980f99c929cc7fe6fb50",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:99d0adf87eb989bdb31dd64819303c00030c7ba1e4a7754bd8fd8890f4c3ae98",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0161"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/megaworld-at-the-fort/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "8aec79c514958dff8c8ac8f77c898b44b6b4904d96d1b04155cbc2a5c7abd1c8",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:9b495cf464128f80c9c5fcb9279a5f7a9113cdf5fb68a24f4b3c0903c8a05f37",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0089"
+    ],
+    "canonical_url": "https://ph.linkedin.com/company/nextbanksoftware",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "2c0c7ecce18601f5d5a541a54403fedd9c6b7dc02c92dafe95f10a861fa0b9c3",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:9d2b7973ac0fecf2a9b19059e1f8e6855465f78d7559c394b263faa7192c234e",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0121"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/tsikot",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "0265892fe27245d00fc0ce1f75957ceba0593591c016dc07fdf8d13c70d0a323",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:a080b98537a9fdc2f572248e6e42ae3c8e1966a9ce7da577ea16c22b1f7b1712",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0079"
+    ],
+    "canonical_url": "https://www.marajogroup.com/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "fc8e13d3805d48c177f524f5249cd7a14e4bb80ba8d2f949b42a7871f8880785",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:a099a9aa48797f3db21e7f0fbbb9896960b40a57f0096040682bf8e53d21ef12",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0007"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/downloadHtml.do?file_id=1691637",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "9c639f66fa0755a2595a98cc9eed5ccae65541289c23a156aa1fa12fccb57846",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:a67bf203836f39c34f87a5f0f2990355a9105582366ca02f59dcd01eef866a38",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0126"
+    ],
+    "canonical_url": "https://westernpacificinc.com/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "78880f2d5972bfc4ddd48761e2d73cf5ce3ae453b8b38640081b27994c553281",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:a6de1ab44283c40e66b20964c72172e64786b071c0d911fd44437b05cf1329a7",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0050"
+    ],
+    "canonical_url": "https://www.galenascale.com/contact",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "89d27737dc077e6dda649490f162d5c673d3721b29b847107b0ebcf8f026a78b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:ac548132d60f58ab04fca9e119af057275162e86e1dbc7bc24b66dc383cabfe4",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0019"
+    ],
+    "canonical_url": "https://www.bcg.com/offices/manila",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d6d72151d41bfb6ec72aa7053a98da7308d77faaf2db882cb77bcc165d769873",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:add5fc89162c57dcadab431a765929fdaab56eb2cae6ca53809399989c7ac4f0",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0012"
+    ],
+    "canonical_url": "https://asblpcompanies.com/contact/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "510ddd8b816d0ff50eed92db5856f2d5147a1ef03223573e0151473a39b616fa",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:aeabe70366701b0bdd6e109ecee0fff6569af1ce050b7b7fc21efaa30586d9fb",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0083"
+    ],
+    "canonical_url": "https://www.mouritech.com/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "7b04dc6bb9e5a1278bcae8d2ce94bd2c0a62df414c8f1fe61166242bf08a61a1",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:b1ae62bd2144d2c23819c4e479984f2a54b06cba964c77b73cd645971464c9db",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0013"
+    ],
+    "canonical_url": "https://www.atlassian.com/company/careers/detail/1dd8b9da-c224-443e-bbe5-fa35a84e4444",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d5eb194e5f89845479217aa0336119a6d610ffba664254334548d929e14b5643",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:b26550c7d5dc354b7e192dbf1f9a33472dedd64c6814dfae002aa27142e242f5",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0062"
+    ],
+    "canonical_url": "https://www.globe.com.ph/business/connectivity/internet/broadband-terms",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "49a90b45f66ffe3750cf5b8a1e475ad05d2bac935c341e436924e8b0ff4c2ce4",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:b29c20f6aeb409b8548196f2eea46455d2edd509dcc50010b469504142980939",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0040"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/fexco",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "61bc91f1b2a3fb8a31b32b5dbbad98723a1cd47bda9d046cd1a3b1ca2a9613cf",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:b8610742bdba913f3b5acbda2122ffeb16156446c4d14f2dbf4ff99cffbeea20",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0068"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=88",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "f061244ea702eeff528438ee46aee90001160adf04d01002d745cee78986b9a4",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:c363cafd599e38c110249811dca0e4fc9126e82c1c8ec7816520d40f884de816",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0047"
+    ],
+    "canonical_url": "https://www.futurenetph.com/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "ed584626f2d5d7707872a74aafeed3137f92977be5a4ebeddbae3bfb73cbe635",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:c5fdb922277fb5c794b1316545634d7ec6a06902327416bd68e6fa48638edc5d",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0104"
+    ],
+    "canonical_url": "https://jobs-ta.pwc.com/global/en/AC-Manila-Careers-FAQ",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d7e8e1c7dcbe784661c5658306525dabc784bf49289025146c7428ddca2db3fa",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:c6c6f8b145ba5157ec094fb07075009cefa71fa00114e073c838f377a1421b9f",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0031"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/dfnn-group-of-companies",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "6664d8b56cdc726aa5819a5b62cd4aa954a5b978651aa4811fc031bdc489c9e6",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:c701d4c8232d59acbc2fdd517fe9cff2db7c75997490a3fbe0bf307cfaf82420",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0028"
+    ],
+    "canonical_url": "https://cutc.ph/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d92913058f707062b07b1de914271f8c21028b12affff6add6a415ee42b29be1",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:cb129ec34ba4beaee36a51cc613ecb4371fc047d8154760a85cdce2de5e3decd",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0120"
+    ],
+    "canonical_url": "https://www.ctc-n.org/networking-and-collaboration/collaboration/network-members/thinking-machines-data-science-inc",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d4ac3961bfa66bfd16d75f54ab0512f573245eb9e067c38ac029bb759567c33b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:cb5ced17b9d255263fcce218b126c369190bfc10394ab2af0ca4c6cfd4a4392b",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0149"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=700",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "888dc2a73ad9627ad15bbd00d8b9602411366f0864496b033df6cc9e9821ae8c",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:cb9d49b8e35282c397b485af62caadd1e139075b30baef3df16fe762290adb65",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0001",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0002",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0005",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0064",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0151",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0152",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0153",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0171"
+    ],
+    "canonical_url": "https://ibpap.org/members-list",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "3320c0e6f3f62b78a6054782a1a4bd7c785e426b1f13ac9b12ee24b2e1a0d065",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:cef6d5171e9f7da206657aacc9f83bad1e335b63d4a4c83aec53c775d83037d6",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0142"
+    ],
+    "canonical_url": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=685",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "525d2ff05d4f49570fff74a42f9abe0817a1a87f0a18c296d4ad5bae59ad0b1a",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:d18edcf3ca96e5305ff0bd4f61f8f3c1725c45e4b4ab9aebb5b780fc6cafe4b7",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0112"
+    ],
+    "canonical_url": "https://sigmaavit.ph/contact-us/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "e4a8877d215a8c4af3df6faaae056760d29af34294709ebe81599168b359a5a1",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:d9bd7ccd2794941a0271a09185a85db7e4ef5fbe2daa83ecf3e9419b9e1e9f5a",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0091"
+    ],
+    "canonical_url": "https://www.officepro.ph/post/office-developer-highlight-neo-group",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "45a6eae40339575a1fc18f6a98c872a4f35f0628ae4e0a93fb228b0bd129032b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:da505bd4c7fc36954ad688bf9e6b5933e065b817ba73120b988db90b543b68ec",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0135"
+    ],
+    "canonical_url": "https://www.formica.com/en-ph/contact-us",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "0764fe939e5feffc3c408f3df514e2977d8f5a56251f98a7c671b4b06ca458b0",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:dcac462a7dd481e5491950800ea08fb9cb50d23e57d0d27f55e47c09a78fb610",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0010",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0023",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0059",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0081",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0136",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0138",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0164",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0166",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0167"
+    ],
+    "canonical_url": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "3a769b8f5cbf93f3200eb1dd911263a4668a809dda1d1999d92152064fcfb529",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:dd7e3ae3ecdb0bbe273ec34f15115fd38df82d889a6821b88149d53dfa203f0f",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0098"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/paysophl/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "abd558d9b0a9ca4545159a82ad554c74685127c52a6d00eeb093e115e0f94a1e",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:df58b71c69f7bc58a8a30037ff2c53fe0d617ae393a83519448ca5b0416cb2b1",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0101"
+    ],
+    "canonical_url": "https://accessibility.pg.com/en-sg/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "a5c777ed02d8627882adf25cb82a7ca24a6bd55807dc725dfc69d5538e135b1b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:e02a9fac378f025b0b974243bb99fb914a22b1369a9ba78059ff602e00484dd9",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0066"
+    ],
+    "canonical_url": "https://www.careers.jnj.com/tr-tr/jobs/r-095523/team-lead-global-atr/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "f4b5d58f956a8868726718eb603f92d2d85131d7408416c0618d9a577f8dafa5",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:e1eed5542c64ba4aea81baad94bbc4fb24f8482e1ac9c5f76cd6758d4a86434e",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0060"
+    ],
+    "canonical_url": "https://careers.ing.com/en/working-in-philippines",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "f2363bdc922753a6b76d15cc577935ef8ba9e08f36bcb575f6cb8c8d2c3b2142",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:e32bdbaec073bd6a7304f24c75ef205475032085d96f07eff62895c2dbef6a9f",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0122"
+    ],
+    "canonical_url": "https://www.ubiquity.com/company/careers",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "612107e926eac382028af264abcbd4b2352f15540896a22097eba20f1b545285",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:e46d23593723eb5a0353900a03952c569731a12fa5151d178b3937c905cb8a7b",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0130",
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0131"
+    ],
+    "canonical_url": "https://www.accenture.com/en/about/location?loc=Ireland",
+    "fetched_at": null,
+    "issues": [
+      "wrong_jurisdiction_url"
+    ],
+    "license": null,
+    "metadata_sha256": "220e7298f55fcf2c976c7fed82583ccf32d74d6f47f82d231511f2d1e38747c7",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:e86f0481ca880434eef440bbd8abab6b4d4662ae852676625b68ba9e25c6544e",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0085"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/n-pax-group",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "3e090f60a29f14655f6cd06d64164853fa78a6bcda6420dd13213cc3a4d7eeb3",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:e8a17c0c3a10052a6dae0b6fae6b656b3faddbe549d7edefac528a4140dc1a61",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0049"
+    ],
+    "canonical_url": "https://gcash.com/g4b-terms-and-conditions/july-22-2026",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "34a33e0c40c73e5459586a88ae5a3bdbfa543d53f7163e808e079f7048a04d13",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:e953425cb9afed63d7428c46b6d3281becccce2b84beba79b76aeb8f8d67c11e",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0168"
+    ],
+    "canonical_url": "https://www.mreit.com.ph/assets/genericpage/files/frame-2/1.-MREIT-Inc.-SEC-Form-17-Q-Q1-2026-vF2-signed.pdf",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "17c4f47f69f5172c6a3dbf0e7260ef03f56f850ee7cd05119d869e5487e41cfb",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:eb042e671f7cfafd1af0b13fba440d9d7f0f7550213037892e5b7006278df8be",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0044"
+    ],
+    "canonical_url": "https://www.firstcircle.ph/contact-us",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "1478da3c096cddebf678a64069d4668fa3af01cd458bd4efa05c09a3840769b3",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:eb8cfa55d95794c31dfba8d2f970cc0b6ca5c53d12c7d8efa303b7f70b5a36f2",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0020"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/c-g-o/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "9663a4e1e842cb84969659d243ac37558fb416d1392c174bfc4c12d0a6ce1b2b",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:eddd784e6f2d8aad521b9ab69a8ed4db11eea5f575c8039fbb150bac0cdde6ea",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0174"
+    ],
+    "canonical_url": "https://careers.hcltech.com/go/Philippines/9556355/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "d2a290f3314fe84bd856fefb5bae716253f2340a2ba457a562f1b5c6e35ee7cd",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:ede7aec7fa105852822f9b9d7f06568d13550ac1ebb595bff3b836ea661bf007",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0084"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/myoffice-philippines",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "e9b8d6f079be691aefa6aabfda413f9d8a442a0d64f4d0c8ff506874a1468b72",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:ee48f7a4d0e83105b065890908cd068c97b69685f1d90b9a178c4005fbe9b51a",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0093"
+    ],
+    "canonical_url": "https://www.outforce.com.ph/workspace/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "34065ce3bec20d44a4428fe45c40c49fc96e540e3d7bd5c8175754654efde270",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:efdae2a89a4af242f6d56dc39bcf7634cf73108bfd16d34495dbd6a569612c86",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0095"
+    ],
+    "canonical_url": "https://paristech.com/contact/",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "57e256dcadc80f02797f5b7d38f5ca1095498fe71e8c9692b685b2591b2c2714",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:f8d56e79d3a3770c6eddc084cdb8799a31679497c4c60a80f75fc28a292fe526",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  },
+  {
+    "candidate_ids": [
+      "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0137"
+    ],
+    "canonical_url": "https://www.linkedin.com/company/insites-consulting",
+    "fetched_at": null,
+    "issues": [],
+    "license": null,
+    "metadata_sha256": "8ac64f71bb454fd606df382c6b95adc4842cd94337f3d8b861668dede5a6f632",
+    "owner": null,
+    "review_status": "unreviewed",
+    "reviewed_at": null,
+    "reviewer": null,
+    "rights": {
+      "geography": "unknown",
+      "images": "unknown",
+      "internal_retain": "unknown",
+      "redistribute_offline": "unknown",
+      "transform": "unknown"
+    },
+    "source_id": "research:office-source:fb06f10e26b321ea9dc5e20f1640f502b6aa584349984565869716881ae91497",
+    "source_kind": null,
+    "source_published_at": null,
+    "valid_until": null,
+    "web_snapshot_sha256": null
+  }
+]

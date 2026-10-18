@@ -29,15 +29,45 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
   let manager: ModelManager | null = null;
   let initialization: Promise<boolean> | null = null;
   let closing: Promise<void> | null = null;
-  const initialize = () =>
-    (initialization ??= (async () => {
+  let closingRequested = false;
+  let lifecycle: Promise<unknown> = Promise.resolve();
+  let activeOperation: AbortController | null = null;
+  // Serialize runtime operations around the existing manager/provider owners;
+  // teardown cancels setup and drains it before releasing native resources.
+  const own = <T>(work: (signal: AbortSignal) => Promise<T>, signal?: AbortSignal): Promise<T> => {
+    if (closingRequested) return Promise.reject(new Error('Assistant runtime is closed'));
+    const result = lifecycle.then(async () => {
+      if (closingRequested) throw new Error('Assistant runtime is closed');
+      const controller = new AbortController();
+      const abort = () => controller.abort();
+      signal?.addEventListener('abort', abort, { once: true });
+      activeOperation = controller;
+      try {
+        if (signal?.aborted) controller.abort();
+        if (controller.signal.aborted) throw new Error('MODEL_SETUP_CANCELLED');
+        return await work(controller.signal);
+      } finally {
+        signal?.removeEventListener('abort', abort);
+        activeOperation = null;
+      }
+    });
+    lifecycle = result.catch(() => undefined);
+    return result;
+  };
+  const initialize = (): Promise<boolean> => {
+    if (closingRequested) return Promise.reject(new Error('Assistant runtime is closed'));
+    return (initialization ??= own(async () => {
       if (!(await provider.getCapabilities()).nativeModulePresent) return false;
-      manager = await createExpoModelManager();
+      manager ??= await createExpoModelManager();
       const pointers = await manager.recover();
       if (!pointers.active) return false;
       await provider.load({ ...pointers.active, contextTokens: 4096 }, 'cpu');
       return true;
-    })());
+    }).catch((error: unknown) => {
+      initialization = null;
+      throw error;
+    }));
+  };
   const setup = async (signal: AbortSignal) => {
     modelSetupDiagnostic('provider_release');
     await provider.release();
@@ -111,17 +141,20 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     agent,
     history,
     initialize,
-    setup,
-    importModel,
-    activate,
-    removeModel,
+    setup: (signal: AbortSignal) => own(setup, signal),
+    importModel: (signal: AbortSignal, pickerVisibility?: (visible: boolean) => void) =>
+      own((ownedSignal) => importModel(ownedSignal, pickerVisibility), signal),
+    activate: (signal: AbortSignal) => own(activate, signal),
+    removeModel: () => own(removeModel),
     resolvePlace: async (id: string) => (await retrieval.getPlaceDetails(id)).data,
     getManager: () => manager,
     close() {
+      closingRequested = true;
+      activeOperation?.abort();
       closing ??= (async () => {
         agent.cancel();
         itineraryPreview.clear();
-        await initialization?.catch(() => undefined);
+        await lifecycle;
         try {
           await history.close();
         } finally {

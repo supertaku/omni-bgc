@@ -1,0 +1,51 @@
+{
+  "createdAt": "2026-10-15T00:00:00Z",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "main.sqlite",
+      "sha256": "6beff535a45f9bde95165335e52d476e7a2367b8b70f091bfca4c7212e50b120",
+      "sizeBytes": 135168,
+      "url": "https://example.invalid/main.sqlite"
+    },
+    {
+      "path": "office-directory.sqlite",
+      "sha256": "40dc0850fd20e1edf66e9eb5847bb5b162d194e2833554219404c9c4fecadad7",
+      "sizeBytes": 135168,
+      "url": "https://example.invalid/office-directory.sqlite"
+    }
+  ],
+  "formatVersion": 1,
+  "kind": "places",
+  "review": {
+    "humanRightsReviewer": "",
+    "licenseObligationsSatisfied": false,
+    "parentReviewer": "",
+    "reviewedAt": "",
+    "userDistributionAuthorized": false
+  },
+  "schemaVersion": 3,
+  "scopeId": "omni-bgc:service-area:high-street-pilot-v1",
+  "snapshots": [
+    {
+      "attribution": "TEST ONLY offices",
+      "id": "00000000-0000-4000-8000-000000000099",
+      "license": "TEST ONLY fictional grant",
+      "permissionEvidenceSha256": "02c7fbecc9d9a5fa988b7013dd9d61f3f3f4f507777e882d2fec1b5e44367396",
+      "permittedUse": "data",
+      "rawSha256": "02c7fbecc9d9a5fa988b7013dd9d61f3f3f4f507777e882d2fec1b5e44367396",
+      "validUntil": "2027-10-14T00:00:00Z"
+    },
+    {
+      "attribution": "TEST ONLY offices",
+      "id": "edb64b0a-1d43-4e99-9904-3cfa397de712",
+      "license": "TEST ONLY fictional grant",
+      "permissionEvidenceSha256": "02c7fbecc9d9a5fa988b7013dd9d61f3f3f4f507777e882d2fec1b5e44367396",
+      "permittedUse": "data",
+      "rawSha256": "02c7fbecc9d9a5fa988b7013dd9d61f3f3f4f507777e882d2fec1b5e44367396",
+      "validUntil": "2026-11-15T00:00:00Z"
+    }
+  ],
+  "validUntil": "2026-11-15T00:00:00Z",
+  "version": "TEST-expiry"
+}

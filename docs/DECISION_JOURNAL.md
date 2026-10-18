@@ -489,3 +489,56 @@ Statuses: **ACCEPTED** (baseline), **PROVISIONAL** (needs spike), **OPEN** (awai
   prices-01/02/04/10). Record a separate post-prose current baseline. Host
   structural results are not actual model quality; D4 v3 scope/key must be frozen
   before inference. No source/data/schema/status/rights changes or public release.
+
+### DEC-064 — Consolidated research and separate host model storage
+- Date/authority: 2026-10-19 Asia/Manila / owner-authorized cleanup and follow-up
+  request to organize research in one place and models separately.
+- `data/` is the authoritative host research hub; `models/` holds one verified
+  current Gemma artifact. Required packaged app assets remain generated build
+  copies. Unique BGC files and authored journals in obsolete workspaces are
+  retained before deletion; duplicate/superseded AI experiments may be removed.
+- This is file organization, not a canonical database migration. Existing
+  SQLite intake/mobile storage and CSV/JSON research remain operational;
+  PostgreSQL/PostGIS runtime and bridge are still unvalidated. Do not relabel
+  candidates, change IDs, edit source bytes or infer publication rights.
+- Keep one working dependency/toolchain set and prove an offline host release
+  before removing alternate caches. Preserve journals and required machine
+  approvals/contracts. Inventory precedes deletion; owner chose no external
+  archive. Git history and pending device/model acceptance remain unchanged.
+
+
+### DEC-065 — Persistent project quality guidance and one portable gate
+- Date/authority: 2026-10-19 Asia/Manila / owner explicitly requested implementation
+  of the code-quality plan, project-only persistence and risk-first hardening.
+- Pin three instruction-only Ponytail skills to upstream commit
+  09c434ab73ca43761c5d8b0c5d341926c2fba710; retain MIT and upstream/local hashes.
+  Remove only unsupported argument-hint metadata from core. AGENTS requires full
+  mode for development and audit/review as appropriate. No hooks/global settings.
+- CI invokes the same portable registry as local checks. Missing/empty suites,
+  unexpected skips, missing prerequisites, nonzero exits and timeouts fail;
+  exact historical-input skips remain visible. Android/private artifact/device
+  lanes retain distinct acceptance. Fresh root/mobile skill discovery is verified
+  with a new Codex app-server process, without a model turn or sidebar chat.
+- Enforce pure/domain/storage/AI/native import direction including literal dynamic
+  edges. Retain three exact existing adapter seams and compatibility exports;
+  no framework change or broad extraction. Serialize runtime setup/teardown,
+  permit failed initialization retry, and reject orphaned history relationships.
+- PostgreSQL/PostGIS is deferred by owner preference. No schema/ID/source-rights,
+  model/runtime dependency, removed feature or physical-device scope change.
+  Current architecture/evidence: docs/quality/README.md and VALIDATION.md.
+
+### DEC-066 — Menu search requires item evidence, not restaurant-name matches
+- Date/authority: 2026-10-19 Asia/Manila / quality-plan correctness hardening of
+  the already recorded U4 relevance defect.
+- A query for ramen matched restaurant-name tokens and incorrectly returned drinks
+  from that restaurant. Reproduced using fictional data before changing code.
+  Menu query text now matches item name/section/category/tags only.
+  Establishment lookup retains restaurant/menu text; explicit restaurantId and
+  named-restaurant menu requests still retrieve that branch's complete menu.
+- Bounded fallback parsing recognizes list/all filler and ramens -> ramen;
+  exact strict-under/inclusive-range amounts, source opt-outs, named approved
+  precedence, evidence and research identity restrictions remain unchanged.
+  No source bytes, prices, approval, IDs or tool wire schema are altered.
+- Synthetic regression excludes restaurant-matched drinks, retains explicit full
+  menus and enforces 499.99 < 500. Host regression is not physical acceptance;
+  repeat the original real-data flow in separately authorized M10.

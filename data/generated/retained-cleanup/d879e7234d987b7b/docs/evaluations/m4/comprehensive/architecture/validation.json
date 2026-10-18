@@ -1,0 +1,98 @@
+{
+  "format_version": 1,
+  "recorded_at_utc": "2026-10-10T03:57:33.256421+00:00",
+  "status": "PARTIAL",
+  "architecture_decision": "DEC-040 PROVISIONAL",
+  "python": "3.13.7",
+  "portable_sqlite": "3.50.4",
+  "canonical_postgresql_runtime": "NOT_RUN",
+  "postgis_runtime": "NOT_RUN",
+  "backup_restore": "NOT_RUN",
+  "canonical_sqlite_bridge": "NOT_IMPLEMENTED",
+  "real_records_approved": 0,
+  "real_records_exported": 0,
+  "checks": [
+    {
+      "check": "canonical-tests",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/data-quality/canonical",
+        "-v"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "canonical-tests.txt",
+      "sha256": "8fa99c516f1706771b88e1ca14a0ae7ad802a79115a49a002f1c8c497c5f82d2"
+    },
+    {
+      "check": "sqlite-bridge-regression",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/data-quality/m1",
+        "-v"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "sqlite-bridge-regression.txt",
+      "sha256": "0ca12a770fe830982f00b54d1d0922fb67199c75378e47ed385040657e527db3"
+    },
+    {
+      "check": "migration-plan",
+      "command": [
+        "python",
+        "packages/database/canonical/migrate.py",
+        "plan"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "log": "migration-plan.txt",
+      "sha256": "e9ce99415f583bda02e1a04c23e07133dd3026e26379c3538190352b741a09e4"
+    },
+    {
+      "check": "runtime-preflight",
+      "command": [
+        "python",
+        "packages/database/canonical/migrate.py",
+        "apply"
+      ],
+      "exit_code": 3,
+      "status": "NOT_RUN",
+      "log": "runtime-preflight.txt",
+      "sha256": "f439afd7c49e648741c63b7037138a4d17cac6d8b281e55f245c46cd36a4ab95"
+    }
+  ],
+  "migration_manifest": [
+    {
+      "version": 1,
+      "file": "001_governance.sql",
+      "sha256": "4796312e55d7c6afc55c6bdedd3bef33c1f8414caed998820a03c9492c096a22"
+    },
+    {
+      "version": 2,
+      "file": "002_domains.sql",
+      "sha256": "b78126a88ec78f70f892a810052b1a0b6e0c777c471c38ec3d3931f4b79053ea"
+    },
+    {
+      "version": 3,
+      "file": "003_publication.sql",
+      "sha256": "e2ebae26660b7b8073529aea5379e9c0c989c271a181ae10d0153abadfa905a2"
+    },
+    {
+      "version": 4,
+      "file": "004_bindings.sql",
+      "sha256": "af72cf16514894c70f2cfe95cd640a78597bbdc19e554d1c55597efab71b8df9"
+    }
+  ],
+  "notes": [
+    "Python/parser checks are not server migration or constraint execution tests.",
+    "No data-source rights or publication approval granted."
+  ]
+}

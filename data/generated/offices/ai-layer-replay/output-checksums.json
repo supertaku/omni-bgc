@@ -1,0 +1,42 @@
+[
+  {
+    "bytes": 42426,
+    "path": "building-review-index.json",
+    "sha256": "61492e634dbbbf61f854cb30d64d1ce5648fb619425f7f74a111ccdf8e6a6d3c"
+  },
+  {
+    "bytes": 590819,
+    "path": "candidates.json",
+    "sha256": "815695df55a3861a01c25f26b64861fa3c50a1ddae86a010b18d54f5e6887180"
+  },
+  {
+    "bytes": 754482,
+    "path": "import-report.json",
+    "sha256": "0b8c1ec927d686d870c0e80acd10a12bdfbca95cb2e06cb61a67be0deaf680a3"
+  },
+  {
+    "bytes": 104865,
+    "path": "input/directory.csv",
+    "sha256": "60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054"
+  },
+  {
+    "bytes": 66279,
+    "path": "input/directory.xlsx",
+    "sha256": "a8bc7a3b91a016996b368e53fd363b941ea1cdcf786bc97fd9918bf36b612464"
+  },
+  {
+    "bytes": 1164,
+    "path": "manifest.json",
+    "sha256": "8e12057221a8466568d9009e9263f1063f0fb0c1991dbb4410f443d67c541d98"
+  },
+  {
+    "bytes": 60098,
+    "path": "review-queue.json",
+    "sha256": "60a769322cdb412d26ae45443c46e2a72b6aab8947fc96f256bf9a22c7a08691"
+  },
+  {
+    "bytes": 103362,
+    "path": "source-catalog.json",
+    "sha256": "dc37b7bf88bfee4b091346e007df7e8a7119a09ac9cfcaab2de910a0b8d68d7b"
+  }
+]

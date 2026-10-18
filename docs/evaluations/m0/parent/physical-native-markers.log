@@ -1,4 +1,0 @@
-10-09 17:08:43.499 10060 15960 I ReactNativeJS: M0_SQLITE lifecycle cycle 1 closed
-10-09 17:08:43.503 10060 15960 I ReactNativeJS: M0_MAP PASS fully rendered local background
-10-09 17:08:43.529 10060 15960 I ReactNativeJS: M0_SQLITE lifecycle cycle 2 closed
-10-09 17:08:43.529 10060 15960 I ReactNativeJS: M0_SQLITE PASS SQLite 3.50.3: FTS5 hit=1, absent=0, integrity=ok, close/reopen=ok

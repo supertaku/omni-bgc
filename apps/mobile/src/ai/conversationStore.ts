@@ -87,7 +87,11 @@ export class ConversationStore {
     try {
       await db.execAsync('PRAGMA foreign_keys=ON');
       const integrity = await rows<{ integrity_check: string }>(db, 'PRAGMA integrity_check');
-      if (integrity.length !== 1 || integrity[0].integrity_check !== 'ok')
+      if (
+        integrity.length !== 1 ||
+        integrity[0].integrity_check !== 'ok' ||
+        (await rows(db, 'PRAGMA foreign_key_check')).length
+      )
         throw new Error('AI history integrity check failed; original file retained.');
       const version = (await rows<{ user_version: number }>(db, 'PRAGMA user_version'))[0]
         ?.user_version;

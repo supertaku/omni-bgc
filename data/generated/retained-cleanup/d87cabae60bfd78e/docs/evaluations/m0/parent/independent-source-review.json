@@ -1,0 +1,17 @@
+{
+  "parent_independent_source_checks": "PASS",
+  "records": 11,
+  "status_counts": {
+    "CANDIDATE": 7,
+    "RESEARCH_ONLY": 4
+  },
+  "redistribution_unknown": 9,
+  "approved": 0,
+  "acquired_raw_datasets": 0,
+  "raw_hashes": 0,
+  "duplicate_ids": 0,
+  "duplicate_canonical_urls": 0,
+  "concept_hashes_verified": 4,
+  "parent_counterexample": "Conditional OSM raw permission is not dataset approval or media/menu permission",
+  "scope": "Inventory consistency only; no legal signoff or exporter implementation"
+}

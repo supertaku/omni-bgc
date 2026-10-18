@@ -28,6 +28,7 @@
 /apps/mobile/package-lock.json -text
 /docs/TOOL_RATIONALE.md -text
 /docs/geography/internal-pack-approval.json -text
+/docs/geography/parent-review-r2.json -text
 /apps/mobile/modules/** -text
 /apps/mobile/scripts/ai-host-assets.cjs -text
 /apps/mobile/scripts/format-authored.cjs -text

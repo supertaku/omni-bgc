@@ -1,0 +1,1794 @@
+{
+  "identity_reviews": [
+    {
+      "action": "manual_keep_merge_split_review",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0130",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0131"
+      ],
+      "kind": "same_company_label_multiple_rows",
+      "match_key": "accenture philippines"
+    },
+    {
+      "action": "manual_keep_merge_split_review",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0152",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0153"
+      ],
+      "kind": "same_company_label_multiple_rows",
+      "match_key": "aic philippines / bill gosling outsourcing"
+    },
+    {
+      "action": "manual_keep_merge_split_review",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0071",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0072",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0175"
+      ],
+      "kind": "same_company_label_multiple_rows",
+      "match_key": "kmc solutions"
+    },
+    {
+      "action": "manual_keep_merge_split_review",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0102",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0103"
+      ],
+      "kind": "same_company_label_multiple_rows",
+      "match_key": "project t"
+    },
+    {
+      "action": "manual_keep_merge_split_review",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0110",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0144"
+      ],
+      "kind": "same_company_label_multiple_rows",
+      "match_key": "satellite office"
+    },
+    {
+      "action": "verify_property_identity_before_linking",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0043",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0058",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0074",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0087",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0089",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0101",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0129"
+      ],
+      "kind": "building_alias_suggestion",
+      "labels": [
+        "Net Park",
+        "Net Park / Seven/NEO",
+        "Seven/NEO",
+        "Seven/NEO (former Net Park)"
+      ]
+    },
+    {
+      "action": "verify_property_identity_before_linking",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0017",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0026",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0076"
+      ],
+      "kind": "building_alias_suggestion",
+      "labels": [
+        "Fort Legend Tower",
+        "Fort Legend Towers"
+      ]
+    },
+    {
+      "action": "verify_property_identity_before_linking",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0131",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0132",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0137",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0148"
+      ],
+      "kind": "building_alias_suggestion",
+      "labels": [
+        "Uptown Place Tower 3",
+        "Uptown Tower 3"
+      ]
+    },
+    {
+      "action": "verify_property_identity_before_linking",
+      "candidate_ids": [
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0032",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0048",
+        "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0127"
+      ],
+      "kind": "building_alias_suggestion",
+      "labels": [
+        "W Fifth Avenue Building",
+        "W Fifth Building",
+        "W Fifth Center"
+      ]
+    }
+  ],
+  "rejected": [],
+  "row_reviews": [
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0001",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0002",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0003",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0004",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0005",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0006",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0007",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0008",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0009",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0010",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0011",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0012",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0013",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0014",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0015",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0016",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0017",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0018",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0019",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0020",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0021",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0022",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0023",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0024",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0025",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0026",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0027",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0028",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0029",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0030",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0031",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0032",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0033",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0034",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0035",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0036",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0037",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0038",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0039",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0040",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0041",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0042",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0043",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0044",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0045",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0046",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0047",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0048",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0049",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0050",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0051",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0052",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0053",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0054",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0055",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0056",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0057",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0058",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0059",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0060",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0061",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0062",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0063",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0064",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0065",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0066",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0067",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0068",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0069",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0070",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0071",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0072",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0073",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0074",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0075",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0076",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0077",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0078",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0079",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0080",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0081",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0082",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0083",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0084",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0085",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0086",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0087",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0088",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0089",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0090",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0091",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0092",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0093",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0094",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0095",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0096",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0097",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0098",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0099",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0100",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0101",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0102",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0103",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0104",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0105",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0106",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0107",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0108",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0109",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0110",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0111",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0112",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0113",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0114",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0115",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0116",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0117",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0118",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0119",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0120",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0121",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0122",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0123",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0124",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0125",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0126",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0127",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0128",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0129",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0130",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography",
+        "wrong_jurisdiction_url"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0131",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography",
+        "wrong_jurisdiction_url"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0132",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0133",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0134",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0135",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0136",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0137",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0138",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0139",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0140",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0141",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0142",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0143",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0144",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0145",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0146",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0147",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0148",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0149",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0150",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0151",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0152",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0153",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0154",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0155",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0156",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0157",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0158",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0159",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0160",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0161",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0162",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0163",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0164",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0165",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0166",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0167",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0168",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0169",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0170",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0171",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0172",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0173",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0174",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0175",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0176",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0177",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0178",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    },
+    {
+      "candidate_id": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0179",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ]
+    }
+  ]
+}

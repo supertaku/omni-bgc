@@ -6,7 +6,7 @@ function fixture(options = {}) {
   const cache = new Map(), files = new Map(); let manager, pointers = { active: null, previous: null, staged: null };
   let listener, idle = true, fetched = 0, imports = 0, initialized = [], generated = [], released = 0, historyClosed = 0, sequence = 0, savedReads = 0, savedWrites = 0;
   const native = {
-    async getCapabilities() { return { android: true, abi: ['arm64-v8a'], backends: ['cpu'] }; },
+    async getCapabilities() { await options.onCapabilities?.(); return { android: true, abi: ['arm64-v8a'], backends: ['cpu'] }; },
     async initialize(input) { initialized.push(input.contextTokens); },
     async generate(input) {
       generated.push(input);
@@ -27,7 +27,7 @@ function fixture(options = {}) {
     '../data/store': { applySavedPatch: async () => { savedWrites++; throw Error('No writes authorized by this test'); }, loadSaved: async () => { savedReads++; throw Error('No saved reads authorized by this runtime'); } },
     '../data/retrieval': { getPlaceDetails: async () => null },
     './retrieval': { createAppRetrieval: async () => ({ getPlaceDetails: async id => ({data: options.place?.id === id ? options.place : null}) }) },
-    './conversationStore': { ConversationStore: class { async load() { return []; } async append() {} async clear() {} async close() { historyClosed++; if (options.historyCloseFailure) throw Error('TEST history close failed'); } } },
+    './conversationStore': { ConversationStore: class { async load() { if (options.historyLoadFailure) throw Error('TEST_HISTORY_CORRUPT'); return []; } async append() {} async clear() {} async close() { historyClosed++; if (options.historyCloseFailure) throw Error('TEST history close failed'); } } },
     './modelStorage': { createExpoModelManager: async () => manager },
   };
   const { modelResourceCoordinator } = loadTs('apps/mobile/src/ai/coordinator.ts', mocks, {}, cache);
@@ -37,7 +37,7 @@ function fixture(options = {}) {
     partialPath: entry => '/private/' + entry.sha256 + '.partial', finalPath: entry => '/private/' + entry.sha256 + '.litertlm',
     size: async path => files.get(path)?.bytes ?? null, freeBytes: async () => model.bytes * 3,
     hash: async path => files.get(path)?.sha256,
-    download: async (entry, destination) => { fetched++; files.set(destination, { bytes: entry.bytes, sha256: entry.sha256 }); },
+    download: async (entry, destination, progress, signal) => { fetched++; await options.onDownload?.(signal); files.set(destination, { bytes: entry.bytes, sha256: entry.sha256 }); },
     importFile: async (uri, destination, signal) => { imports++; assert.equal(uri, 'content://picker/SYNTHETIC-MODEL'); await options.onImport?.(signal); if (signal?.aborted) throw Error('MODEL_SETUP_CANCELLED'); files.set(destination, { bytes: model.bytes, sha256: model.sha256 }); },
     finalize: async (source, destination) => { files.set(destination, files.get(source)); files.delete(source); },
     remove: async path => files.delete(path), readPointers: async () => JSON.parse(JSON.stringify(pointers)),
@@ -179,4 +179,51 @@ test('runtime composes only session itinerary memory and never reads or writes r
  assert.equal((await runtime.itineraryPreview.read()).totalVisitMinutes,25);assert.equal(h.savedReads(),0);assert.equal(h.savedWrites(),0);
  await runtime.close();assert.equal((await runtime.itineraryPreview.read()).stops.length,0);
  const next=await h.createAssistantRuntime(()=>false);assert.equal((await next.itineraryPreview.read()).stops.length,0);await next.close();assert.equal(h.savedReads(),0);assert.equal(h.savedWrites(),0);
+});
+
+
+test('runtime retries a failed initialization rather than caching rejection forever', async () => {
+  let attempts = 0;
+  const h = fixture({ onCapabilities: () => { if (++attempts === 1) throw Error('TEST_TRANSIENT'); } });
+  const runtime = await h.createAssistantRuntime(() => false);
+  await assert.rejects(runtime.initialize(), /TEST_TRANSIENT/);
+  assert.equal(await runtime.initialize(), false);
+  assert.equal(attempts, 2);
+  await runtime.close();
+});
+
+test('runtime close cancels and drains setup before releasing; closed runtime cannot restart', async () => {
+  let entered, resume, capturedSignal;
+  const started = new Promise(resolve => { entered = resolve; });
+  const blocked = new Promise(resolve => { resume = resolve; });
+  const h = fixture({ onDownload: async signal => { capturedSignal = signal; entered(); await blocked; } });
+  const runtime = await h.createAssistantRuntime(() => false);
+  const setup = runtime.setup(new AbortController().signal);
+  const rejectedSetup = assert.rejects(setup, /cancel|closed/i);
+  await started;
+  let closed = false;
+  const closing = runtime.close().then(() => { closed = true; });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(capturedSignal.aborted, true);
+  assert.equal(closed, false);
+  resume();
+  await rejectedSetup;
+  await closing;
+  assert.equal(h.pointers().active, null);
+  assert.equal(h.pointers().staged, null);
+  await assert.rejects(runtime.initialize(), /closed/i);
+  await assert.rejects(runtime.setup(new AbortController().signal), /closed/i);
+});
+
+
+test('history failure remains isolated from a usable no-model directory session', async () => {
+  const h = fixture({ historyLoadFailure: true }), ui = actualHook(h);
+  await ui.ready();
+  assert.ok(ui.render().messages.some(message => /couldn.t open your history/i.test(message.payload.text ?? '')));
+  assert.equal(ui.render().send('hello'), true);
+  await settleChat(ui);
+  assert.equal(ui.fallbackCalls(), 1);
+  assert.equal(h.networkCalls(), 0);
+  assert.equal(ui.render().busy, false);
+  ui.hooks.dispose();
 });

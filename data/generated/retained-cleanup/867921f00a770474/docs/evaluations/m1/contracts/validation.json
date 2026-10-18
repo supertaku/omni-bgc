@@ -1,0 +1,44 @@
+{
+  "captured_at_utc": "2026-10-09T09:57:30.895592+00:00",
+  "python": "3.13.7",
+  "sqlite": "3.50.4",
+  "node": "v22.20.0",
+  "typescript": "Version 6.0.3",
+  "commands": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/data-quality/m1",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "log": "tests.log"
+    },
+    {
+      "command": [
+        "node",
+        "apps/mobile/node_modules/typescript/bin/tsc",
+        "--noEmit",
+        "--strict",
+        "--target",
+        "ES2022",
+        "--module",
+        "commonjs",
+        "packages/domain/index.ts",
+        "packages/geo/index.ts"
+      ],
+      "exit_code": 0,
+      "log": "typecheck.log"
+    }
+  ],
+  "native_android": "NOT_RUN",
+  "native_ios": "NOT_RUN",
+  "actual_bgc_records": 0,
+  "status": "PENDING_PARENT_REVIEW"
+}

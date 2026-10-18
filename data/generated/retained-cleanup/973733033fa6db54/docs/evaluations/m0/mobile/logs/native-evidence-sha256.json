@@ -1,0 +1,22 @@
+[
+  {
+    "Path": "apps/mobile/artifacts/m0-arm64-final.apk",
+    "Bytes": 79899148,
+    "SHA256": "88B93613AFF3E92CAB09CCA8C1CD7696FF86E82E9AC02522A32D37EA7D877B39"
+  },
+  {
+    "Path": "apps/mobile/App.tsx",
+    "Bytes": 3836,
+    "SHA256": "CC4B2F6D0256308B967A6B19A4F6D15810F4627CD603FE2D5F2809C7E0ED2A10"
+  },
+  {
+    "Path": "apps/mobile/package-lock.json",
+    "Bytes": 239025,
+    "SHA256": "3158E39E8FDDE0D2175C86EFE0F5D932CED5A5EA8923BE7B4132D7DBC262FB9C"
+  },
+  {
+    "Path": "docs/evaluations/m0/mobile/screenshots/phone-m0-lifecycle-clean.png",
+    "Bytes": 144023,
+    "SHA256": "81002518C2D96461C775DB10BAE24878582F80F18347E3305E44E191301AFB55"
+  }
+]

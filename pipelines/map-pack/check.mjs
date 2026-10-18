@@ -1,12 +1,11 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import vm from 'node:vm';
 import { createHash, webcrypto } from 'node:crypto';
 import { createRequire } from 'node:module';
 const root = path.resolve(import.meta.dirname, '../..');
 const require = createRequire(path.join(root, 'apps/mobile/package.json'));
-const ts = require('typescript');
+const { loadTs } = require(path.join(root, 'tests/helpers/load-ts.cjs'));
 const { validateStyleMin } = require('@maplibre/maplibre-gl-style-spec');
 const read = name => fs.readFileSync(path.join(root, name));
 const json = name => JSON.parse(read(name));
@@ -71,9 +70,7 @@ for (const [id, entry] of Object.entries(atlas)) {
   for (const property of ['x', 'y', 'width', 'height']) assert.equal(atlas2[id][property], entry[property] * 2);
 }
 function load(name, mocks = {}) {
-  const js = ts.transpileModule(read(name).toString(), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS } }).outputText;
-  const context = { exports: {}, require: name => mocks[name] ?? {}, console, Map, Set, Promise, Uint8Array, ArrayBuffer };
-  vm.runInNewContext(js, context); return context.exports;
+  return loadTs(name, mocks, { Uint8Array, ArrayBuffer });
 }
 const presentation = load('apps/mobile/src/map/presentation.ts');
 for (const category of ['restaurant', 'cafe', 'shop', 'parking', 'park', 'hotel', 'office', 'healthcare', 'transit', 'landmark', 'other']) assert.ok(atlas[presentation.categorySprite(category)]);
@@ -120,17 +117,19 @@ const bundled = load('apps/mobile/src/map/bundled-style.ts', {
   'expo-crypto': { CryptoDigestAlgorithm: { SHA256: 'SHA-256' }, digest: (algorithm, bytes) => webcrypto.subtle.digest(algorithm, bytes), randomUUID: () => 'test-' + ++sequence },
   './bundled-resources.json': inventory, './pilot-style.json': style, '../updates/style-contract': resolver,
 });
-const installed = JSON.parse(await bundled.loadBundledStyle());
+const installed = JSON.parse(await bundled.loadBundledStyle({ pilotOnly: true }));
 assert.match(installed.sources.geography.url, /^pmtiles:\/\/file:\/\/\/app-documents\/bundled-map\/[a-f0-9]{64}\/pilot.pmtiles$/);
 assert.ok(!JSON.stringify(installed).includes('asset://'));
 assert.equal(copies, inventory.files.length);
-await bundled.loadBundledStyle(); assert.equal(copies, inventory.files.length, 'Verified cold reopen must reuse files');
-const destination = 'file:///app-documents/bundled-map/' + inventory.packSha256;
+await bundled.loadBundledStyle({ pilotOnly: true }); assert.equal(copies, inventory.files.length, 'Verified cold reopen must reuse files');
+let destination = 'file:///app-documents/bundled-map/' + inventory.packSha256;
 files.set(destination + '/pilot.pmtiles', Buffer.from('corrupt'));
-await bundled.loadBundledStyle(); assert.equal(copies, inventory.files.length * 2, 'Corruption must trigger reinstallation');
+const repaired = JSON.parse(await bundled.loadBundledStyle({ pilotOnly: true })); assert.equal(copies, inventory.files.length * 2, 'Corruption must trigger reinstallation');
+assert.notEqual(repaired.sources.geography.url, installed.sources.geography.url, 'Repair must use a new URI to bypass stale native descriptors');
+destination = repaired.sources.geography.url.slice('pmtiles://'.length).replace(/\/pilot\.pmtiles$/, '');
 new Directory(destination).delete(); failCopy = true;
-await assert.rejects(bundled.loadBundledStyle(), /interrupted/);
+await assert.rejects(bundled.loadBundledStyle({ pilotOnly: true }), /interrupted/);
 assert.equal([...directories].filter(name => name.includes('/pending-')).length, 0);
 assert.ok(!directories.has(destination), 'Interrupted staging must never publish a destination');
-failCopy = false; await bundled.loadBundledStyle(); assert.ok(directories.has(destination));
+failCopy = false; await bundled.loadBundledStyle({ pilotOnly: true }); assert.ok(directories.has(destination));
 console.log('PASS private-file URLs, checksum copy/reuse/recovery, interrupted install cleanup, moved-directory retention');

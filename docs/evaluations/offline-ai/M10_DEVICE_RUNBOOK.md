@@ -1,5 +1,13 @@
 # M10 — Final physical POCO acceptance runbook
 
+> **October 19 quality-program precedence:** the hashes and import/save UI below
+> describe historical artifacts. Follow DEC-060–066 and the current
+> [quality validation](../../quality/VALIDATION.md) for the newly frozen host
+> candidate. Normal Models has Download/Use/Remove, no Import; saves/routes remain
+> removed and itinerary previews are temporary. Never install an older APK or
+> restore removed tools to satisfy an old row. This quality program performs no
+> phone/USB/ADB activity; M10 remains a separate owner-authorized gate.
+
 > **October 16 C2 recovery addendum:** source recovery and independent clean-checkout
 > build are now ACCEPT_HOST. For subsequent authorized testing use the new clean APK
 > in [C2 reproduction](C2_REPRODUCIBLE_BUILD.md), SHA256

@@ -1,0 +1,16 @@
+{
+  "approved_records": 0,
+  "district_distribution": {
+    "BGC Core": 129,
+    "BGC fringe": 2,
+    "McKinley Hill": 19,
+    "McKinley West": 8,
+    "Uptown Bonifacio": 21
+  },
+  "exported_records": 0,
+  "imported_rows": 179,
+  "input_rows": 179,
+  "rejected_rows": 0,
+  "result": "PASS_DIRECT_INPUT_RECONCILIATION",
+  "source_count": 108
+}

@@ -1,5 +1,0 @@
-
-Algorithm : SHA256
-Hash      : 1F1E3314E53CB4B5E1B01C1B4EBCFE0B2AD8831129208FDA444941EA5E42D509
-Path      : C:\Users\joshu\Documents\Omni-BGC\apps\mobile\android\app\build\outputs\apk\debug\app-debug.apk
-

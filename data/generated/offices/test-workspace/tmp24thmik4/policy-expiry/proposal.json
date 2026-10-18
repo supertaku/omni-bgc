@@ -1,0 +1,8 @@
+{
+  "base_manifest_sha256": "d501030275f3b69f1a208577e0d285bb857f99cc87045635ad34d235c102dc0d",
+  "draft_sha256": "fe3c83a812671836a9c37bdc44b4ef5cd89748372c5469c92e909033c02e289b",
+  "mode": "LOCAL_OFFICE_PACK_PROPOSAL",
+  "office_export_sha256": "a5dda55a21c58d4490c045a7275d0262fc3b1cf16a5af6001d939c525104c2e7",
+  "publication_authorized": false,
+  "user_state_included": false
+}

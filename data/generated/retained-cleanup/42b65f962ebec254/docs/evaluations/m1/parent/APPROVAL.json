@@ -1,0 +1,18 @@
+{
+  "parent_decision": "ACCEPT",
+  "scope": "M1 engineering contracts and source/scope policy only",
+  "reviewed_at_utc": "2026-10-09T10:00:05.720783+00:00",
+  "manifest_counts": {
+    "contracts": 21,
+    "governance_final": 19,
+    "architecture_review": 14
+  },
+  "independent_architectural_review_hashes_matched": 18,
+  "service_area_sha256": "07775a690ac1d99f94e436d9461b48ed1c28822c95bc6cb05e0614c3cf55dd31",
+  "canonical_sources_approved": 0,
+  "canonical_facts_approved": 0,
+  "data_distribution_authorized": false,
+  "production_accepted": false,
+  "native_test": "NOT_RUN for M1; no mobile/native changes",
+  "internal_next_step": "M3 may revalidate exactly allowlisted raw OSM bytes/sidecars and submit concrete internal intake evidence before processing; M4 independent intake tooling may begin. No prior code/media/entity reuse."
+}

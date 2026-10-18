@@ -1,0 +1,28 @@
+{
+  "fixture_only": true,
+  "real_bgc_record_count": 0,
+  "sources": [
+    {
+      "source_id": "fixture",
+      "sha256": "d099ed74c143517503eace6ad131610e4b07cb493e431b679b56229ed7c893fb",
+      "license": "synthetic-test-only",
+      "attribution": "Synthetic test fixture",
+      "meaning": "checksum of synthetic-source.txt; no acquired source"
+    }
+  ],
+  "counts": {
+    "exported_entities": 1,
+    "rejected_entities": 0,
+    "exported_facts": 1,
+    "rejected_facts": 0
+  },
+  "duplicate_rejections_exercised": true,
+  "sample": [
+    {
+      "id": "bdba593d-0357-53ff-ba1f-f79dcd0cf812",
+      "kind": "place",
+      "parent_id": null
+    }
+  ],
+  "native_production_claim": false
+}

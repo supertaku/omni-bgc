@@ -33,71 +33,21 @@ jobs:
       - name: Install mobile JavaScript dependencies
         run: npm ci --prefix apps/mobile
 
-      - name: Typecheck mobile application
-        # Clean checkouts never need the private candidate directory.
-        # The internal research asset must be empty in distributable builds.
+      - name: Prepare empty private research projection
         env:
           CI: 'true'
-        run: |
-          python pipelines/etl/offices/mobile_research.py --empty
-          npm run typecheck --prefix apps/mobile
+        run: python pipelines/etl/offices/mobile_research.py --empty
 
-      - name: Authored source quality and dependency boundaries
-        run: |
-          npm run lint --prefix apps/mobile
-          npm run format:check --prefix apps/mobile
-          npm run check:dependencies --prefix apps/mobile
-          python -m ruff check .
+      - name: Shared portable quality registry
+        env:
+          CI: 'true'
+        run: python apps/mobile/scripts/quality.py --output .g/quality-ci
 
-      - name: Refactoring and synthetic AI contracts
-        run: |
-          node --test tests/refactoring/*.test.cjs tests/ai/evaluate.test.cjs
-          node tests/ai/evaluate.cjs
-          python -m unittest discover -v -s tests/refactoring -p 'test_*.py'
-
-      - name: Governance and contract suites
-        run: |
-          python -m unittest discover -v -s pipelines/sources -p 'test_governance.py'
-          python -m unittest discover -v -s tests/data-quality/m1
-
-      - name: Synthetic GIS and intake suites
-        run: |
-          python -m unittest discover -v -s tests/data-quality/m3
-          python -m unittest discover -v -s tests/routing/m3
-          python -m unittest discover -v -s tests/data-quality/m4
-          python -m unittest discover -v -s tests/data-quality/research
-          python -m unittest discover -v -s tests/data-quality/research-gis
-          python -m unittest discover -v -s tests/data-quality/retrieval
-          python -m unittest discover -v -s tests/data-quality/canonical
-
-      - name: Mobile database projection suite
-        run: python -m unittest discover -v -s tests/data-quality/mobile
-
-      - name: Office research, approved projection and mobile contracts
-        run: |
-          python -m ruff check --isolated --select F401,F821,F822,F823 pipelines/etl/offices pipelines/etl/review-dashboard/dashboard.py pipelines/etl/review-dashboard/offices_view.py tests/data-quality/offices
-          python -m unittest discover -v -s tests/data-quality/offices
-          node --test tests/data-quality/offices/*.test.cjs
-
-      - name: Mobile JavaScript contracts and routing
-        run: |
-          node --test tests/map/mobile/layer-compatibility.test.cjs
-          node --test tests/data-quality/mobile/startup.test.cjs tests/data-quality/mobile/demo-directory.test.cjs
-          node --test tests/ui/screen-navigation.test.cjs tests/ui/mobile-interactions.test.cjs tests/ui/app-refinement.test.cjs
-          node --test apps/mobile/src/features/assistant/ui-v2.test.cjs apps/mobile/src/features/assistant/directory.test.cjs apps/mobile/src/features/explore/directory.test.cjs
-          node tests/data-quality/mobile/contracts.mjs
-          node tests/data-quality/mobile/resume.mjs
-          node --test tests/data-quality/mobile/retrieval.mjs
-          node --test tests/routing/mobile/engine.test.cjs tests/routing/mobile/loader.test.cjs
-          node --test packages/ui/test/*.test.mjs
-          node --test docs/evaluations/mobile-ui/test-itinerary.cjs
-
-      - name: Historical routing integration (optional local input)
-        run: node --test tests/routing/mobile/integration/historical-candidate.test.cjs
-
-      - name: Strict domain, geo, and routing typecheck
-        run: >-
-          apps/mobile/node_modules/.bin/tsc --strict --noEmit --skipLibCheck
-          --target ES2022 --module ESNext --moduleResolution bundler
-          packages/domain/index.ts packages/geo/index.ts
-          packages/routing/index.ts packages/routing/progress.ts
+      - name: Retain synthetic quality results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portable-quality-results
+          path: .g/quality-ci/
+          if-no-files-found: error
+          retention-days: 14

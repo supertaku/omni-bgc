@@ -2,7 +2,7 @@ import type { LocalAIProvider, GenerationInput, GenerationEvent } from './contra
 import { allocateGenerationEpoch } from './contracts';
 import { UUID } from '../data/parser';
 import { parseUserPhpPriceBounds } from '../domain/priceBounds';
-import { excludesFoodResearch } from '../features/food/sourcePolicy';
+import { excludesFoodResearch } from '../domain/foodSourcePolicy';
 import type { Place } from '../contracts';
 import type { AssistantPayload } from '../features/assistant/contracts';
 import type { ToolExecutor, ToolResult, ToolExecutionContext } from './toolExecutor';

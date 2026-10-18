@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "bytes": 104865,
+      "path": "input/directory.csv",
+      "sha256": "60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054",
+      "supplied_filename": "BGC_Company_Offices_Directory_EXPANDED_2026-10-14 (1).csv"
+    },
+    {
+      "bytes": 66279,
+      "path": "input/directory.xlsx",
+      "sha256": "a8bc7a3b91a016996b368e53fd363b941ea1cdcf786bc97fd9918bf36b612464",
+      "supplied_filename": "BGC_Company_Offices_Directory_EXPANDED_2026-10-14 (1).xlsx"
+    }
+  ],
+  "format_version": "office-research-v1",
+  "producer": {
+    "code_sha256": {
+      "import_directory.py": "45bf083d95f18fa41b5f7aba7f3a99f74bf8c965648556a9f334a22cefb08340",
+      "match_review.py": "2a2149937c68c65ce5e342306a4cd5c47251c97e8540b35a60bf8c819adef62b",
+      "normalize.py": "1dfdb444899c9b230a202bf4bbfd9fb566a0f38a7a23af2437d358809a82f48f",
+      "workbook_audit.py": "4fde766e6c16a3325fc0ffb54e42783963a1728ddcb44af649df61f9cc565835"
+    },
+    "version": "office-research-v1"
+  },
+  "retention_basis": "user_supplied_local_files_for_requested_internal_review",
+  "rights_status": "research_only_unknown_third_party_rights",
+  "source_snapshot_id": "sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054"
+}

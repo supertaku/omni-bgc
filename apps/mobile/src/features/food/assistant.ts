@@ -84,11 +84,12 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
       !/\b(menu|menus|dish|dishes)\b/.test(text) &&
       !priceBounds;
     const fillers = new Set(
-      'find where is in bgc show me the menu menus of what food foods can i get for pesos peso php dishes dish under below less than between and to at most least up budget of hindi hihigit sa piso restaurants restaurant establishments serve which are listed this operating hours location at please directory available a'.split(
+      'find where is in bgc show list all me the menu menus of what food foods can i get for pesos peso php dishes dish under below less than between and to at most least up budget of hindi hihigit sa piso restaurants restaurant establishments serve which are listed this operating hours location at please directory available a'.split(
         ' ',
       ),
     );
     const aliases: Record<string, string> = {
+      ramens: 'ramen',
       desserts: 'dessert',
       cafes: 'cafe',
       cafés: 'café',

@@ -1,0 +1,107 @@
+[
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\audit_current.py",
+    "bytes": 6149,
+    "sha256": "2c4acf1ce5f5fe6411e63ab5d5b5feac5d83473c57653a7917cf3236243ce804"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\CANONICAL_INDEPENDENT_REVIEW.md",
+    "bytes": 6603,
+    "sha256": "d9c3511602bb731f87bf1085cd71e17711c1a779591dbc6ac63dd57fd09474fa"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\canonical-independent-review.json",
+    "bytes": 3649,
+    "sha256": "1751688c9ee5b52096d6bcf629b37a0338ed4063ef6fa3c83553cb4437a62d66"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\canonical-plan-rerun.json",
+    "bytes": 705,
+    "sha256": "4e1bd96e60724cb02bd15b81c8e9e571712bcd671da333ad3df66e128be19adc"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\canonical-portable-rerun.log",
+    "bytes": 1994,
+    "sha256": "81ec3a260e131d8da2a1c4ffef762ca2654cd9d5590cfa9b4b93cc768896b980"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\canonical-runtime-preflight-rerun.log",
+    "bytes": 88,
+    "sha256": "e3118c13efd349f26a4770ae8fca80d48c58fc3810f55ce33880bfeb4ac37cd1"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\current-byte-audit.json",
+    "bytes": 5343,
+    "sha256": "789c8a1e3cb79c488bbd17d52e9bee6f469afbdcea3ddc77a389fda234dae075"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\historical-discovery-summary.json",
+    "bytes": 2005,
+    "sha256": "9a0f40b89bfdc714ed0bad7621014e4c34f3d328b0eff0b11c9a42a478eb8ef9"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\independent-document-probe.json",
+    "bytes": 242,
+    "sha256": "5845bb6e0e51e789ff8601f8035635a961c7121d6ec5c258284e5a81c9b47cd1"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\independent-document-probe.log",
+    "bytes": 579,
+    "sha256": "9bc33e9e60c567f228baa2615ff806c7e5d77006e71b6be8a8988eeeec110d2b"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\internal-scope-approval.json",
+    "bytes": 1481,
+    "sha256": "91d9f542595553cc160d85503fd7f81ecbd7e6d0e4e368c2679b648ea164e885"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\RESEARCH_AND_HANDOFF.md",
+    "bytes": 14162,
+    "sha256": "7f298631d8a796469fd9f99e6b8ceb47bfb17c46377a5b7d299106acb9ada467"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\review_document_probe.py",
+    "bytes": 3214,
+    "sha256": "636b7d494503eb98fd59d7f06b3ccbe0645a023f82caa0325939eeb73bb04d87"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\docs\\evaluations\\m4\\comprehensive\\geography\\tests.log",
+    "bytes": 1416,
+    "sha256": "a8c119c011a85c79aa9fd09537a15503d0b0653bed6ca81e6bfc56c710d054bc"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\research\\m4\\geography\\coverage.json",
+    "bytes": 2088,
+    "sha256": "15df45e6319fd5260520f6b00e232185c8014aa3ee40d21c0e1312d9c2bf9071"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\research\\m4\\geography\\search-log.json",
+    "bytes": 3125,
+    "sha256": "ca7f918b1bd120eacd7cc73c49cfeafd0a90f0c51fb9b2604c0d1b85dce71457"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\research\\m4\\geography\\source-register.json",
+    "bytes": 19634,
+    "sha256": "d1469bf60e345c0e2ebded43a1949799cf01aede0e9c57282381de0f313d3359"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\research\\m4\\geography\\web-candidate-leads.json",
+    "bytes": 15503,
+    "sha256": "5a04a9eab1ea14cd539692f3549f8c2fdea287bf5dcbb61b10919ebb551194a9"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\research\\m4\\geography\\zones.json",
+    "bytes": 3254,
+    "sha256": "a39b30130c2d62001a078efa2e878756c7f7315911f201d344733f44106b9658"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\pipelines\\gis\\research_inventory.py",
+    "bytes": 10598,
+    "sha256": "0cb98f7589a016dc5b8ddbd44ea4cff2348497789510737b70d56e89f8693e5c"
+  },
+  {
+    "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\tests\\data-quality\\research-gis\\test_inventory.py",
+    "bytes": 4235,
+    "sha256": "f6e06919e4c2393c6573188369706596acc4112081f5351703d32032086c4e53"
+  }
+]

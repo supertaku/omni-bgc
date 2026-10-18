@@ -15,6 +15,12 @@ Current phase: **offline AI implementation**, authorized by the user's 2026-10-1
 
 ## Working method
 
+### Persistent project skills
+
+Apply the checked-in `.agents/skills/ponytail/SKILL.md` in **full** mode to Omni-BGC development, and use `ponytail-audit` for audits and `ponytail-review` for change reviews. Read the relevant skill before using it. These repository skills apply in future chats opened in this checkout, including `apps/mobile`; they install no hooks or global settings. Pin/update them deliberately using `docs/quality/PONYTAIL_PROVENANCE.json` and retain their MIT notice.
+
+Choose the smallest complete change after tracing callers, tests and failure paths. Never simplify away geographic/source correctness, trust-boundary validation, offline resources, accessibility, native quiescence/ownership, or necessary interfaces. Project invariants and later owner decisions govern; Ponytail does not authorize deletion, publication, device activity or a change in product scope. Current architecture and reproducible quality gates: `docs/quality/README.md`. Historical R1/device reports describe their original artifacts, not acceptance of current source.
+
 1. Read only docs relevant to the assignment: `docs/IMPLEMENTATION_PLAN.md` for milestone scope, `docs/DECISION_JOURNAL.md` when changing product/architecture, source register for data, UI specs for UI, route contracts for graph work. Avoid dumping the full repository into context for small edits.
 2. Work in assigned paths/branch. Coordinate before editing shared domain or schema files.
 3. Make a short task plan with success criteria and risks; run the minimum needed deterministic tests, plus regression tests for touched interfaces.

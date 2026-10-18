@@ -319,3 +319,37 @@ Overall remains NOT_RELEASE_READY: no model weights downloaded, real local infer
   collapsed the two reviewed friendly warning calls; semantics unchanged.
   Parent ACCEPTS this source for fresh U4 compilation, not device/model release.
   Initial/final formatting logs retained separately; final format check PASS.
+
+- October18 U4 final source is local commit
+  `0e00e87d9ffafeaa90e991beff15973f40edccff`. Fresh isolated release succeeds
+  (705 tasks, seven native JVM tests). APK SHA256
+  `4389a54f479e07b2a2faa4130967b01d7a8f0885be24b5e546e10f1cab89d52e`,
+  62,161,214 bytes. Independent audit PASS binds 412 frozen files, 98 compiled
+  source files, 19 native libraries and 24 offline assets. Original R4, U3 and
+  superseded U3n artifacts remain intact. Parent ACCEPT_HOST_FOR_U4_PHYSICAL_TESTS.
+- Authorized same-package U4 update succeeds; installed APK hash matches. Other
+  Omni package metadata and connectivity settings are unchanged. Initial map and
+  restored-chat captures show the new icon header. The saved draft capture was
+  the TextInput placeholder, not user-authored draft text; no draft was edited.
+  USB disconnected before the first fresh query; owner reconnection requested.
+  Numbered real-data results, detail links and Models still need physical checks.
+- Independent private v3 key semantics review ACCEPTS all 120 input associations
+  and the separate 40/31/26 denominator sets. No real native batch has run. Actual
+  model remains NOT_INSTALLED; verified PC/phone staging files are not app setup.
+
+- Resume correction: the failed connection checks were a PC ADB-server access
+  failure in the sandbox, not evidence of a physical USB disconnect. Owner
+  confirmed reconnection; authorized elevated ADB found exactly one ready device.
+  No bypass, device-wide setting change or unrelated capture was performed.
+- U4 physical checks now show numbered underlined names and the icon-only header.
+  Tapping Black Garlic Ramen opens Menya Kokoro details; expanded/full/scroll
+  captures retain useful hours/menu/branch qualifiers without Sources or candidate
+  badges. Models has no Import and shows Not installed yet with Use/Remove
+  disabled. Fresh query exposed a relevance defect: ramen matched restaurant-name
+  text, admitting drinks from Ramen Nagi. Exact plural/list phrases also fail on
+  host. Do not ACCEPT the overall query flow from price-only assertions.
+- Owner now asks to finish testing current changes, end implementation, and give
+  a concise current-capabilities/future-additions summary. Scope is narrowed to
+  this confirmed search correction plus host/build/device verification. Further
+  model setup, native batch/performance acceptance and features are deferred;
+  no new phone download or connectivity authorization is being requested.

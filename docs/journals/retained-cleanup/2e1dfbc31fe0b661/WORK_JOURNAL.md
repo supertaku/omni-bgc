@@ -1,0 +1,15 @@
+# Geographic expansion journal
+
+## 2026-10-14 — GEX-0 candidate implementation
+
+WHY: user requested implementation of the supplied GEX program, which explicitly begins with scope definition/review only. Avoid wider-area app activation before source-backed geometry, exclusions and acceptance. Respect the user's separate AI agent/USB ownership.
+
+HOW: audited relevant v1 GIS/database/map/update contracts and exact historical permission; fetched origin without changing working files; retained dirty shared `codex/food-research` checkout and used additive geography paths. Preserved exact supplied plan. Authored a connected nonrectangular candidate envelope; reconstructed only mandatory anchor geometry from exact retained raw (including original-node High Street relations and closed building parts). Kept engineering refs distinct from canonical identities. Generated zones, exclusion/context/acquisition masks, anchor metadata and local ignored source evidence. Added reusable candidate predicates, serialized verifier, tests and projected internal diagram. No app/pack/schema/AI/graph interfaces changed.
+
+Rejected alternatives: rectangle alone, convex-hull legal-boundary claims, treating OSM named sites as verified tenant identities, automatic office-tower association, broad live API queries, copying restricted directories, converting acquisition buffers to navigation, presumed device success and approval of candidate records. Scoped proposal decisions GEX-0-D01–D07 are in `DECISIONS.md`; global decision-journal owner retains control of existing unrelated edits.
+
+VALIDATION: 13 new adversarial tests and 12 existing raw-discovery regressions PASS; serialized verifier PASS; immutable canonical-LF regeneration PASS. Independent reviewer reconstructed all 21 footprints and metadata from raw, checked four exact lineage hashes and 20 pilot asset copies, and reran 13 tests. Reviewer found/corrected exclusion overlap handling, exclusive-zone wording, hardcoded artifact path and Windows CRLF immutability. Final independent disposition PARTIAL. Exact hashes/results in `validation-summary.json` and `parent-review.json`.
+
+Visual evidence: reviewed `gex-0-r3/boundary-comparison-r2.png` as a UTM schematic. First diagram paint order/arrow corrected without source geometry changes; old images/evidence retained. See QA matrix for rejected initial runs and dependency limitations. Tools: Python 3.13.7/Shapely 2.1.2/pyproj 3.7.2/PROJ 9.5.1, existing bundled image runtime; no installs/downloads of geography/media/tile data. Public owner pages were researched solely as identity leads; failed requests recorded, no restrictions bypassed.
+
+OUTCOME: candidate artifacts/tooling complete for review. GEX-0 overall gate remains unaccepted: missing screenshot, unreviewed perimeter/external-residential classification, unresolved Aura tower identity and current-world review. Rights/publication and physical-device testing remain separate future gates. All approved-record/route counts remain zero. GEX-1 is not initiated. No USB/debugging/device commands run; ask the user before later use.

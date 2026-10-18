@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: company multi-site, aliases, building, industry, district and no-match searches
+ok 1 - company multi-site, aliases, building, industry, district and no-match searches
+  ---
+  duration_ms: 1.9195
+  type: 'test'
+  ...
+# Subtest: empty candidate dataset reports zero without a missing-table exception
+ok 2 - empty candidate dataset reports zero without a missing-table exception
+  ---
+  duration_ms: 0.5696
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 140.869

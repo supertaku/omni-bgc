@@ -1,0 +1,18 @@
+[
+  {
+    "check": "fresh native launch",
+    "status": "PASS"
+  },
+  {
+    "check": "unsent draft, local results and exact direction deferral",
+    "status": "PASS"
+  },
+  {
+    "check": "no Settings/Transit; synthetic menus and saved records",
+    "status": "PASS"
+  },
+  {
+    "check": "native map ready and SQLite integrity",
+    "status": "PASS"
+  }
+]

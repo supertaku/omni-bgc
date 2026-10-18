@@ -1,9 +1,0 @@
-Running 21 checks on your project...
-20/21 checks passed. 1 checks failed. Possible issues detected:
-Use the --verbose flag to see more details about passed checks.
-
-✖ Check for app config fields that may not be synced in a non-CNG project
-This project contains native project folders but also has native configuration properties in app.json, indicating it is configured to use Prebuild. When the android/ios folders are present, if you don't run prebuild in your build pipeline, the following properties will not be synced: scheme, orientation, android, ios, plugins. 
-
-
-1 check failed, indicating possible issues with the project.

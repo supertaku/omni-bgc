@@ -4,7 +4,7 @@ import hooks from 'eslint-plugin-react-hooks';
 export default [
   { ignores: ['node_modules/**', 'android/**', 'ios/**', 'assets/**'] },
   {
-    files: ['App.tsx', 'index.ts', 'src/**/*.ts', 'src/**/*.tsx'],
+    files: ['App.tsx', 'index.ts', 'src/**/*.ts', 'src/**/*.tsx', 'modules/omni-local-ai/index.ts'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },

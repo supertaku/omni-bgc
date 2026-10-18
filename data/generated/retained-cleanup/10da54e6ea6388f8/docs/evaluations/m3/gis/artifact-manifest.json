@@ -1,0 +1,102 @@
+{
+  "distribution_authorized": false,
+  "files": [
+    {
+      "bytes": 4082,
+      "path": "docs/architecture/M3_GIS_INGEST.md",
+      "sha256": "008d95a09bd6ef8e2db40a30d304c4d2edad5b8685a5ba682dddd73507a69ee8"
+    },
+    {
+      "bytes": 423,
+      "path": "docs/evaluations/m3/gis/engineering-identity-map.json",
+      "sha256": "66e555c4480722e9c54a6ae0a48ea316f0c0a48a8bfb75401718088cd8ce7c8b"
+    },
+    {
+      "bytes": 574,
+      "path": "docs/evaluations/m3/gis/gate-tests.log",
+      "sha256": "6ccebdd6ce3944047e84f793545c9d355b87b2011acc8ad878f57960c4b6a564"
+    },
+    {
+      "bytes": 899,
+      "path": "docs/evaluations/m3/gis/geometry-tests.log",
+      "sha256": "e4cf5a4b6cab2de6f3251f19baaf696cbe57b2f58fd734982f59e67816b1c2ba"
+    },
+    {
+      "bytes": 3770,
+      "path": "docs/evaluations/m3/gis/HANDOFF.md",
+      "sha256": "713bb38d68ef9fb20a438fec3171f6c72b2f8d94863b5a238f3751dc7e979b61"
+    },
+    {
+      "bytes": 3306,
+      "path": "docs/evaluations/m3/gis/intake-review.json",
+      "sha256": "4f06e72aeabce2ba0d46d44aaaacd9236ad0cd62b6edb7042f5dfd46ef42e7f9"
+    },
+    {
+      "bytes": 421,
+      "path": "docs/evaluations/m3/gis/output-guard.log",
+      "sha256": "543c81ac7cff473b1e6296e30001d0391df690aab772b71ca6a98ac4f2ba630d"
+    },
+    {
+      "bytes": 113,
+      "path": "docs/evaluations/m3/gis/reproduction-check.log",
+      "sha256": "9004a5560c4ce4cfe5a332ba12efef6cb0336199f66d4a56112266903dfd4121"
+    },
+    {
+      "bytes": 3695,
+      "path": "docs/evaluations/m3/gis/TASK_PLAN_AND_WORK_LOG.md",
+      "sha256": "cbf3032915f3f3ad87c999409e66618930fd30b386b60870b38f99f75768d348"
+    },
+    {
+      "bytes": 1023,
+      "path": "docs/evaluations/m3/gis/topology-tests.log",
+      "sha256": "7b2792f3e00aa97585c00ea41d81d2935606a594cd9ab9fe80c83b2e241c3a97"
+    },
+    {
+      "bytes": 21125,
+      "path": "docs/evaluations/m3/gis/validation.json",
+      "sha256": "10e78e4f2869408cb4b412dfc8b36eed33c0046bd1a6b2aff8661bddc5f26d48"
+    },
+    {
+      "bytes": 3901,
+      "path": "pipelines/gis/geometry.py",
+      "sha256": "823dae4b6a18dabcdad3fa64a4964439a1954c4c403a74cf0b28e7eea9e7d239"
+    },
+    {
+      "bytes": 14258,
+      "path": "pipelines/gis/ingest.py",
+      "sha256": "5adef3380c708eb3f72cf034f98b552be737c498bd1fb6b8486b73825cd7c5b4"
+    },
+    {
+      "bytes": 5052,
+      "path": "pipelines/gis/intake.py",
+      "sha256": "0d71abda81f6ab5038ed07bb23679af978a6f5beeaed475b78119631a1f3b9d9"
+    },
+    {
+      "bytes": 3199,
+      "path": "pipelines/gis/verify_outputs.py",
+      "sha256": "974f48bb4cba8430e8737a755f4edf6e00ed3db7fc276ba82ba625bc5c04c1d8"
+    },
+    {
+      "bytes": 4651,
+      "path": "pipelines/route-graph/candidate.py",
+      "sha256": "cf2a98020fb90d7c9e360444f9f9de42cb43eb5f047bba2dd31a378fa329126d"
+    },
+    {
+      "bytes": 1839,
+      "path": "tests/data-quality/m3/test_gate.py",
+      "sha256": "60045de254db8f1cd8865c4ad0c05a7e90c3b0be3a9bacc5731134c2ea3d462d"
+    },
+    {
+      "bytes": 2793,
+      "path": "tests/data-quality/m3/test_geometry.py",
+      "sha256": "0044fd8df466891bc2720c57afd02f69e6d0161a62e9084c8c0a26d052a6ac4c"
+    },
+    {
+      "bytes": 3833,
+      "path": "tests/routing/m3/test_topology.py",
+      "sha256": "c130a7f70865ed2bb0338b333eeb4d28dcb7a633e63b9419961b4f64eeb2f471"
+    }
+  ],
+  "parent_review": "PENDING",
+  "scope": "M3 GIS owned code/evidence; generated datasets ignored"
+}

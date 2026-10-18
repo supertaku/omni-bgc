@@ -1,64 +1,94 @@
 # Omni-BGC
 
-An offline-first BGC explorer built with Expo and React Native, Android first. The current internal pilot covers High Street. Geographic/source correctness and local persistence take priority over coverage claims.
+Offline-first BGC map and directory app built with Expo/React Native,
+Android first and iOS-compatible. Geographic accuracy, source lineage and
+offline operation take priority over coverage claims.
 
-The app provides an offline Map, search/category filters, expandable place details and source disclosures, a continuously mounted Map/Assistant pager, guarded shake switching, and accessible manual Chat/Back controls. The Assistant performs deterministic local directory/menu search and retains draft/conversation in memory. Existing saved places and itinerary can be read and shared. SQLite diagnostics and reviewed content-pack validation/recovery/rollback remain available.
+The app includes the offline map, place and recorded-menu search, details,
+deterministic Assistant fallback, and local AI/model-management software.
+Research candidates and approved content remain separate. Walking navigation
+is unavailable. Current model setup, real inference quality and performance
+acceptance remain incomplete; host compilation does not establish device
+acceptance. Historical saved records remain stored without restoring removed
+save/route UI. The recorded menu-relevance defect now has a host-tested correction;
+the updated build still requires M10 physical verification.
 
-Walking navigation, itinerary planning and native AI generation are unavailable in this version. Routing infrastructure remains behind reviewed-graph gates. Candidate businesses and fictional sample menus are disclosed separately; they are not approved production facts. No approved remote download catalogue is enabled. Conversations do not persist across process restarts.
+Current architecture, persistent Ponytail skills and the shared local/CI quality
+registry: [engineering quality guide](docs/quality/README.md).
 
-## Stack and structure
+## Where things live
 
-Pinned application stack: Expo 57.0.27, React Native 0.86.3, React 19.2.3, TypeScript 6.0.3, MapLibre RN 11.5.0 and Expo SQLite/FileSystem/Location/Sensors. Python/SQLite validates and projects source-linked data; pure TypeScript implements routing.
+| Directory | Contents |
+| --- | --- |
+| [`apps/mobile/`](apps/mobile/README.md) | App source, authored native AI module, plugins, runtime assets and pinned dependencies |
+| `packages/` | Shared domain, geo, routing, UI and database contracts |
+| [`data/`](data/README.md) | Authoritative BGC research inputs, working datasets, reviews, generated packs and local file catalog |
+| [`models/`](models/README.md) | One verified host Gemma model; weights stay ignored and separate from research |
+| `pipelines/` | Retained research import, validation and pack-generation tools |
+| `tests/`, `.github/` | Deterministic app, data and build regression checks |
+| `docs/` | Required contracts/approvals, current AI records and authored journals |
+| `.g/` | Local build cache/toolchain, one current host release and private cleanup evidence |
 
-- `apps/mobile/src/app`: composition, initialization, navigation and pack UI actions.
-- `apps/mobile/src/features`: Explore/details/panels and deterministic Assistant/conversation.
-- `apps/mobile/src/domain`: pure shared monetary rules.
-- `apps/mobile/src/data`, `updates`, `map`, `routing`, `ui`: native infrastructure and presentation.
-- `packages`: shared domain/geo/routing/UI and database contracts.
-- `pipelines`: governance, intake, GIS and map packaging.
-- `tests`: deterministic data, routing, UI callback, synthetic AI and refactoring regressions.
-- `docs`: decisions, architecture, historical evidence and current handoffs.
+There is no populated single database holding all research. Operational SQLite
+intake/mobile databases and separate food/office CSV/JSON collections coexist.
+PostgreSQL/PostGIS remains a proposed canonical target with pending live
+validation. See the [research hub](data/README.md). Packaged app assets are build
+copies, not a second authoritative research collection.
 
-## Development
+## Development and checks
 
-Use Node 22 (local validation: 22.20.0), npm and Python 3.13. Install with the lockfile:
+Pinned stack: Expo 57.0.27, React Native 0.86.3, React 19.2.3, TypeScript 6.0.3,
+MapLibre RN 11.5.0. Use Node 22 and Python 3.13.
 
 ```powershell
+# Install only when restoring dependencies; cleanup retains the working set.
 npm ci --prefix apps/mobile
 npm run typecheck --prefix apps/mobile
-npm run start --prefix apps/mobile
-```
-
-Android builds require the existing SDK/JDK and exact reviewed assets. Generated geographic/directory packs and some source inputs are ignored because distribution needs separate review; a fresh clone is not a distributable dataset. Follow [map-pack instructions](pipelines/map-pack/README.md), source/rights records and `apps/mobile/scripts/build-preview.ps1` prerequisites. Do not substitute online map URLs or unreviewed content. The script verifies resource/font hashes using the existing native toolchain. No new APK or runtime upgrade is part of R1.
-
-## Quality checks
-
-Install pinned host prerequisites in a development environment:
-
-```powershell
-python -m pip install Shapely==2.2.0 pyproj==3.7.2
-python -m pip install -r packages/database/canonical/requirements-syntax.txt
-python -m pip install -r requirements-quality.txt
 npm run lint --prefix apps/mobile
 npm run format:check --prefix apps/mobile
 npm run check:dependencies --prefix apps/mobile
-npm run test:unit --prefix apps/mobile
-python apps/mobile/scripts/quality.py --output .g/r1/quality
+npm run start --prefix apps/mobile
 ```
 
-The runner reproduces committed CI plus additive R1 gates and saves command logs/results. Formatting explicitly enrolls reviewed source to protect hashed/generated artifacts. Two inherited Map camera dependency warnings require separate native review. See [coding standards](docs/refactoring/R1_CODING_STANDARDS.md).
-
-Resource/source/contrast validation and deterministic replay can use task-local paths without overwriting historical evidence:
+The full host runner uses pinned QA libraries. On this retained Windows setup:
 
 ```powershell
-node apps/mobile/scripts/check-ui-program.cjs --v2.1 --output .g/r1/ui
-node tests/ai/deterministic-baseline.cjs .g/r1/ai
+$env:PYTHONPATH = "$PWD/.g/r1/python-tools;$PWD/.g/ci-python"
+python apps/mobile/scripts/quality.py --output .g/cleanup/quality-new-run
 ```
+
+For another machine, install `requirements-quality.txt`, Shapely 2.2.0,
+pyproj 3.7.2 and the canonical database syntax requirements. A Git local-clone
+test and Gradle's local daemon require ordinary host process access; sandbox
+failures are recorded separately from actual test failures.
+
+Android builds require the existing SDK/JDK and exact reviewed ignored assets.
+Use `scripts/build-offline-ai-host.py` with a fresh `ai-host-*` stage for host-only
+release compilation and verification. See [map-pack setup](pipelines/map-pack/README.md)
+and the [current AI handoff](docs/evaluations/offline-ai/COMPLETION_HANDOFF_2026-10-16.md).
+A fresh public clone does not contain private research packs or model weights.
+
+## Cleanup and records
+
+`python scripts/cleanup.py` generates a dry-run deletion manifest from the
+existing `.g/cleanup/before.jsonl.gz` inventory. `scripts/cleanup.ps1` defaults
+to dry-run; `-Apply` validates the allowlist and retained-file checksums before
+deleting its listed targets. This is a reviewed inventory workflow, not a
+blanket command for deleting `.g`. Use a new inventory directory for a future
+cleanup rather than reusing an old baseline.
+
+`python scripts/cleanup.py --catalog` refreshes the local research file index.
+The [cleanup journal](docs/journals/CLEANUP_2026-10-19.md) records actual outcomes
+and inventory locations. The [decision journal](docs/DECISION_JOURNAL.md) and
+existing work journals remain retained; deleted historical attachments are
+identified by the cleanup inventory rather than claimed to remain available.
 
 ## Offline and acceptance boundaries
 
-Production styles/tiles/glyphs/sprites use local resources and retain OSM attribution. Never offline-cache OSM Foundation public raster tiles. Location permission is optional; precise position must not be uploaded. Saved user records are separate from replaceable content packs. Source/licensing/expiry/lineage/checksum/trust gates remain fail-closed.
-
-Historical screenshots/device evidence describe specific builds. Current R1 host checks cannot prove Android rendering, physical shake, native storage, TalkBack or iOS installation. Internal resources do not grant publication rights or full BGC coverage. iOS offline installation remains unvalidated.
-
-The [offline AI program](docs/OFFLINE_AI_IMPLEMENTATION_PLAN.md) is separate. Retrieval/synthetic evaluation foundations exist; runtime selection requires a physical Android benchmark. R1 introduces no model runtime, remote inference, simulated streaming or tool loop. See [AI architecture](docs/architecture/AI_LOCAL_ASSISTANT.md), [AI handoff](docs/evaluations/offline-ai/HANDOFF.md), [UX V2.1 handoff](docs/evaluations/ux-v2.1/HANDOFF.md), [R1 report](docs/refactoring/R1_IMPLEMENTATION_REPORT.md) and [decision journal](docs/DECISION_JOURNAL.md). The early [implementation plan](docs/IMPLEMENTATION_PLAN.md) remains historical context.
+Keep production styles, tiles, glyphs and sprites local, retain OSM attribution,
+and never cache OSM Foundation public raster tiles for offline use. Location
+permission is optional; precise position must not be uploaded. Source rights,
+IDs, coordinates, checksums, review status and deterministic fallback remain
+unchanged. Research retention does not authorize publication. No remote
+inference, automatic model activation or new phone/USB/ADB activity is part of
+cleanup. iOS offline installation and real-model acceptance remain unvalidated.

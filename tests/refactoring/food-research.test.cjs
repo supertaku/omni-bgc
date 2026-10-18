@@ -428,3 +428,28 @@ test("research menu renders bounded rows, descriptions, hours contexts and expan
     /execute delete/,
   );
 });
+
+
+test("dish queries cannot inherit a match from restaurant names; list/plural phrasing keeps price bounds", () => {
+  const d = fixture(), r = d.restaurants[0];
+  r.name = "TEST Ramen House";
+  r.items = [
+    { ...fixtureItem("test-ramen"), name: "Shoyu ramen", section: "Mains", category: "Noodles", tags: [], description: null, amount: "499.99" },
+    { ...fixtureItem("test-drink"), name: "Iced tea", section: "Drinks", category: "Beverage", tags: [], description: null, amount: "80.00" },
+    { ...fixtureItem("test-expensive"), name: "Special ramen", section: "Mains", category: "Noodles", tags: [], description: null, amount: "500.00" },
+  ];
+  const service = createFoodResearchService(d);
+  assert.deepEqual(Array.from(service.searchFoodMenuItems({ query: "ramen", maxPhp: "499.99" }).results, row => row.item.id), ["test-ramen"]);
+  assert.equal(service.searchFoodEstablishments({ query: "Ramen House" }).total, 1);
+  assert.equal(service.getFoodEstablishmentMenu(r.id).length, 3);
+  const answer = createFoodResearchAnswer(service);
+  const place = { id: r.id, name: r.name, status: "candidate", aliases: [], menus: [], entrances: [], citations: [], coordinate: null, category: "restaurant" };
+  for (const query of ["ramen under PHP 500", "List all ramen dishes under PHP 500", "List all ramens under PHP 500"]) {
+    const payloads = answerDirectoryQuery(query, [place], saved, answer);
+    const menus = payloads.find(payload => payload.kind === "food-menus");
+    assert.ok(menus, query);
+    assert.deepEqual(Array.from(menus.items, row => row.item.id), ["test-ramen"], query);
+  }
+  const named = answerDirectoryQuery("menu TEST Ramen House", [place], saved, answer).find(payload => payload.kind === "food-menus");
+  assert.equal(named.items.length, 3);
+});

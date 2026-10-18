@@ -1,0 +1,134 @@
+{
+  "python_version": "3.13.7",
+  "entity_manifest": {
+    "path": "C:\\Users\\joshu\\Documents\\BGC\\data\\entities\\pilot-entities.json",
+    "bytes": 61264,
+    "current_file_sha256": "18d2cc189cf765c664e4190bfeb9bd257ce32437195e8339a05eb5fb7e9c202a",
+    "M0_reviewed_file_sha256": "18d2cc189cf765c664e4190bfeb9bd257ce32437195e8339a05eb5fb7e9c202a",
+    "current_bytes_match_M0": true,
+    "claimed_content_sha256": "5e401c1814fc43e2b8bd1dfc39588f063d614ed927fc647e52236ba1cf7af652",
+    "computed_content_sha256": "30089f6af014bb4943f97efb838075e8080dfa83359cd5a5224ea81c3671640e",
+    "content_hash_matches": false,
+    "serialization_variant_hashes": {
+      "documented": "30089f6af014bb4943f97efb838075e8080dfa83359cd5a5224ea81c3671640e",
+      "ascii_compact": "30089f6af014bb4943f97efb838075e8080dfa83359cd5a5224ea81c3671640e",
+      "default_spaces": "f4d9e52563ab8683a205f9e4d199998093b892ad218c1dc25bc9141f4ec0a133",
+      "unsorted_compact": "50c0beb0ddd64f3b5b765c6ff1d2669f9fd17e8501407054096f1ee49faccb97"
+    },
+    "claimed_hash_matches_any_checked_variant": false,
+    "entity_count": 31,
+    "complex_count": 2,
+    "duplicate_entity_id_groups": 0,
+    "disposition": "QUARANTINED_UNEXPLAINED_NO_REUSE",
+    "conclusion": "Mismatch is exactly unchanged from independently accepted M0 audit. Four serialization probes do not explain the claimed checksum. Owner explanation/regeneration history unavailable; prior Git read denied by filesystem. No checksum or IDs modified."
+  },
+  "current_pack": {
+    "manifest_sha256": "2fa53a5bd54425bad58b86d592fd69baf687ac048a982e3e1e7489ed96cae808",
+    "scope": "High Street project-defined pilot only",
+    "geometry_records": 548,
+    "tiles": 27,
+    "navigation_eligible_edges": 0,
+    "distribution_authorized": false,
+    "resource_bytes": 212121,
+    "resource_checks": [
+      {
+        "path": "fonts/Noto Sans Regular/0-255.pbf",
+        "exists": true,
+        "actual_bytes": 121664,
+        "actual_sha256": "3e41327172354b9eff5784b9f9fe610d05d541ac3b18e5b4ea3d0507389b3916",
+        "matches": true
+      },
+      {
+        "path": "OFL.txt",
+        "exists": true,
+        "actual_bytes": 4377,
+        "actual_sha256": "0dab92d0544f7b233403f14b84a663bdbfa746982eda629e7f4f9ffe1b036feb",
+        "matches": true
+      },
+      {
+        "path": "OSM-NOTICE.txt",
+        "exists": true,
+        "actual_bytes": 227,
+        "actual_sha256": "28cdcead14cc1333b59ee388ea1620b0065b375f1a755372688361deddd28ba5",
+        "matches": true
+      },
+      {
+        "path": "pilot.pmtiles",
+        "exists": true,
+        "actual_bytes": 80194,
+        "actual_sha256": "8f937770a9e801020b9c0905d50caa124e9a6d5a6ba79e3bfa97e2c5fc0998fc",
+        "matches": true
+      },
+      {
+        "path": "sprite.json",
+        "exists": true,
+        "actual_bytes": 123,
+        "actual_sha256": "3dc6eadc86a14eecd513f3d8a477be78111fc3af3c7dda1816c715ca1d1f9215",
+        "matches": true
+      },
+      {
+        "path": "sprite.png",
+        "exists": true,
+        "actual_bytes": 684,
+        "actual_sha256": "fd640344dfd413fcd47db9505ccb2f69c3ecc61fcd35f6465f3182bc73a688f4",
+        "matches": true
+      },
+      {
+        "path": "sprite@2x.json",
+        "exists": true,
+        "actual_bytes": 124,
+        "actual_sha256": "a48cb5349c5036a3b7e933144782c5768796426e10f2d111da127e88dbccd8a8",
+        "matches": true
+      },
+      {
+        "path": "sprite@2x.png",
+        "exists": true,
+        "actual_bytes": 1015,
+        "actual_sha256": "e6248615c7db78d8e34f6b0774529cbc3ba8e69363f8fff19404c413b12d05ec",
+        "matches": true
+      },
+      {
+        "path": "style.json",
+        "exists": true,
+        "actual_bytes": 3713,
+        "actual_sha256": "5f9496b9af58ca3bc99580d35ae79cf09d788c129ae8b156032c40a6a93031ea",
+        "matches": true
+      }
+    ],
+    "all_nine_resource_hashes_pass": true,
+    "device_and_iOS_proof": "NOT_RUN_CURRENT_RESEARCH"
+  },
+  "two_run_reproduction": [
+    {
+      "file": "candidates.jsonl",
+      "sha256_a": "14a5d8ea695de37424e42a0ca756b608ea76c9da89fb194ad1da71de7ceb4334",
+      "sha256_b": "14a5d8ea695de37424e42a0ca756b608ea76c9da89fb194ad1da71de7ceb4334",
+      "byte_identical": true
+    },
+    {
+      "file": "summary.json",
+      "sha256_a": "9a0f40b89bfdc714ed0bad7621014e4c34f3d328b0eff0b11c9a42a478eb8ef9",
+      "sha256_b": "9a0f40b89bfdc714ed0bad7621014e4c34f3d328b0eff0b11c9a42a478eb8ef9",
+      "byte_identical": true
+    },
+    {
+      "file": "name-review.json",
+      "sha256_a": "0e2117299111308a920a3ef4cf763342d481ec7e620d4ad8846ea58e3247fbc2",
+      "sha256_b": "0e2117299111308a920a3ef4cf763342d481ec7e620d4ad8846ea58e3247fbc2",
+      "byte_identical": true
+    },
+    {
+      "file": "rejections.json",
+      "sha256_a": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "sha256_b": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+      "byte_identical": true
+    }
+  ],
+  "raw_record_fidelity": {
+    "records_checked": 20103,
+    "original_identity_tags_positions_refs_timestamps_match": true,
+    "publication_or_navigation_eligible": 0,
+    "centroids_generated": 0,
+    "district_membership_inferred": 0
+  }
+}

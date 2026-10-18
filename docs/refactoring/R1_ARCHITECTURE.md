@@ -1,5 +1,10 @@
 # R1 architecture and state ownership
 
+> Historical October 14 snapshot, before the native AI implementation and later
+> owner decisions. Current ownership, quality gates and acceptance boundaries are
+> in [the quality guide](../quality/README.md). Original observations below remain
+> evidence of R1 only.
+
 No new runtime provider, DI registry, navigation framework or global state store. App installs the existing gesture/safe-area providers and mounts Application, which owns layout/composition and transient notifications. The pager keeps both screens mounted; features receive typed data and callbacks.
 
 ```mermaid

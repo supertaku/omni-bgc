@@ -1,0 +1,6 @@
+{
+  "activityLaunch": "Starting: Intent { cmp=com.omnibgc.preview/.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: com.omnibgc.preview/.MainActivity\r\nTotalTime: 541\r\nWaitTime: 547\r\nComplete",
+  "mapReadyObservedWithinMs": 1574,
+  "interpretation": "Map-ready polling upper bound includes ADB latency; not pure renderer time.",
+  "reactMainToMapReadyMs": 569
+}

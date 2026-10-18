@@ -1,0 +1,3480 @@
+{
+  "candidates": [
+    {
+      "address": "8F, Sun Life Centre, 5th Avenue corner Rizal Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Sun Life Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0001",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "8F",
+      "industry": "Real estate / services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "168Corebilt Inc. (Corebilt)",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "16F, Bonifacio Stopover Corporate Center, 31st Street corner 2nd Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Bonifacio Stopover Corporate Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0002",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "16F",
+      "industry": "Outsourcing / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "A.S. White Global",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "Units 1911–1912, 19F, PSE Tower, 5th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "PSE Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0003",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "Units 1911–1912, 19F",
+      "industry": "Capital markets / securities brokerage",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "AB Capital Securities, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1874043"
+    },
+    {
+      "address": "Unit 501 (listed), Ecoprime Building, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Ecoprime Building",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0004",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": "Unit 501 (listed)",
+      "industry": "Gaming / entertainment",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "AB Leisure Exponent, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://philjobnet.gov.ph/job-vacancies/job/administrative-officer-1207400"
+    },
+    {
+      "address": "NAC Tower, 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "NAC Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0005",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Real estate / economic zones",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Aboitiz Economic Estates",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "NAC Tower, 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "NAC Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0006",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "Diversified holding company",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Aboitiz Equity Ventures, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1756334"
+    },
+    {
+      "address": "NAC Tower, 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "NAC Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0007",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "Power / energy",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Aboitiz Power Corporation",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1691637"
+    },
+    {
+      "address": "22F, ACCRALAW Tower, 2nd Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "ACCRALAW Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0008",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "22F",
+      "industry": "Legal services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "ACCRALAW",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "21F, Arthaland Century Pacific Tower, 5th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Arthaland Century Pacific Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0009",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "21F",
+      "industry": "Cloud computing",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Amazon Web Services Philippines (AWS)",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://aws.amazon.com/legal/marketingentities/"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0010",
+      "district": "BGC Core",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Financial services / BPO",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "American Express",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "7F, Arthaland Century Pacific Tower, 5th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Arthaland Century Pacific Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0011",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "7F",
+      "industry": "Real estate developer",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Arthaland Corporation",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=172"
+    },
+    {
+      "address": "5F Podium, Avida CityFlex Towers, BGC, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Avida CityFlex Towers",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0012",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "5F Podium",
+      "industry": "Holding company",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "ASBLP Companies and Holding Corp.",
+      "presenceClaim": "Advertised office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://asblpcompanies.com/contact/"
+    },
+    {
+      "address": "2F (directory), Block B3, Bonifacio High Street Central, Lane P corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Block B3, Bonifacio High Street Central",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0013",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "2F (directory)",
+      "industry": "Enterprise software / developer tools",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Atlassian Philippines, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.atlassian.com/company/careers/detail/1dd8b9da-c224-443e-bbe5-fa35a84e4444"
+    },
+    {
+      "address": "21F, Marajo Tower, 312 26th Street West corner 4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Marajo Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0014",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "21F",
+      "industry": "Aviation services / shared operations",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Avia Solutions Group Global Services Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://aviasg.com/en/the-group/general-contacts"
+    },
+    {
+      "address": "15F, Trade and Financial Tower, 7th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Trade and Financial Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0015",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "15F",
+      "industry": "Telecommunications equipment",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Aviat Networks Philippines, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://aviatnetworks.com/contact-us/"
+    },
+    {
+      "address": "Marajo Tower, 26th Street West corner 4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Marajo Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0016",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Aviation / ACMI",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Avion Express Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://aviasg.com/en/media/our-news/avion-express/avion-express-philippines-to-launch-acmi-operations"
+    },
+    {
+      "address": "Unit 1002-B, Fort Legend Towers, 3rd Avenue corner 31st Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Fort Legend Towers",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0017",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 1002-B",
+      "industry": "Legal services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Baranda & Associates",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "9F, Arthaland Century Pacific Tower, 5th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Arthaland Century Pacific Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0018",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "9F",
+      "industry": "Legal services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Barrozo Law Office",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "31F, Menarco Tower, 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Menarco Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0019",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "31F",
+      "industry": "Management consulting",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Boston Consulting Group (BCG)",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.bcg.com/offices/manila"
+    },
+    {
+      "address": "One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0020",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Outsourcing / BPO",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Calibre Global Outsourcing",
+      "presenceClaim": "Listed company address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/c-g-o/"
+    },
+    {
+      "address": "35F, Eco Tower, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Eco Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0021",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "35F",
+      "industry": "Consulting",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Castle Consulting Group Limited, OPC",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "14F, Net Cube, Crescent Park, E-Square, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Net Cube",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0022",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "14F",
+      "industry": "Professional association",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Chartered Institute for Securities & Investment",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "BGC district, Taguig City, Metro Manila, Philippines (office address not established)",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0023",
+      "district": "BGC Core",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Banking / shared services",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Citibank",
+      "presenceClaim": "District presence — exact office unverified",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "27F, Six/NEO, 26th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Six/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0024",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "27F",
+      "industry": "Beverages",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Coca-Cola Beverages Philippines, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "10F, Asian Century Center, 4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Asian Century Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0025",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "10F",
+      "industry": "Telecommunications",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Converge Global Business",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "16F–19F, Fort Legend Towers, 31st Street corner 3rd Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Fort Legend Towers",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0026",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "16F–19F",
+      "industry": "Commercial banking",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "CTBC Bank (Philippines) Corp.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.ctbcbank.com.ph/Locations/En_Branches.html"
+    },
+    {
+      "address": "11F, Eco Tower, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Eco Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0027",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "11F",
+      "industry": "Real estate services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Cushman & Wakefield Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "24F, BGC Corporate Center, 30th Street corner 11th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "BGC Corporate Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0028",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "24F",
+      "industry": "Business services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "CUTC PH",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://cutc.ph/"
+    },
+    {
+      "address": "Level 10-1, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0029",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Level 10-1",
+      "industry": "Management consulting",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "De Castro Consulting PH",
+      "presenceClaim": "Shared / registered office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/decastroconsultingph/"
+    },
+    {
+      "address": "14F, DelRosarioLaw Centre, 21st Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "DelRosarioLaw Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0030",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "14F",
+      "industry": "Legal services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Del Rosario & Del Rosario Law Offices",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "14F, PSE Tower, 5th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "PSE Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0031",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "14F",
+      "industry": "IT / fintech",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "DFNN Group of Companies",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/dfnn-group-of-companies"
+    },
+    {
+      "address": "15F, W Fifth Avenue Building, 5th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "W Fifth Avenue Building",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0032",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "15F",
+      "industry": "Consumer goods",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Diageo Philippines, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "32F–36F, Ecoprime Building, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Ecoprime Building",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0033",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "32F–36F",
+      "industry": "Digital entertainment / gaming",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "DigiPlus Interactive Corp.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://digiplus.com.ph/contact-us/"
+    },
+    {
+      "address": "21F, Udenna Tower, Rizal Drive corner 4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Udenna Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0034",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "21F",
+      "industry": "Telecommunications / holdings",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "DITO CME Holdings Corp.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=36"
+    },
+    {
+      "address": "Unit 2006, Park Triangle Corporate Plaza, 32nd Street corner 11th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Park Triangle Corporate Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0035",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 2006",
+      "industry": "Legal services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Dumlao Law Offices",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "The Beaufort, 5th Avenue corner 23rd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Beaufort",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0036",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": null,
+      "industry": "Banking",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "EastWest Banking Corporation",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "29F–30F, Arthaland Century Pacific Tower, 5th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Arthaland Century Pacific Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0037",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "29F–30F",
+      "industry": "Technology investment",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Emigo Solutions, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.emigosolutions.com/"
+    },
+    {
+      "address": "29F, Twenty-Five Seven McKinley, 25th Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Twenty-Five Seven McKinley",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0038",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "29F",
+      "industry": "Telecommunications equipment / technology",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Ericsson Telecommunications, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.ericsson.com/4adc2b/assets/local/legal/doc/list-of-entities-bcr-processor.pdf"
+    },
+    {
+      "address": "27F, One World Place, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One World Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0039",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "27F",
+      "industry": "Financial services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Esquire Financing Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "Level 10-1, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0040",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Level 10-1",
+      "industry": "Payments / fintech",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Fexco",
+      "presenceClaim": "Shared / registered office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/fexco"
+    },
+    {
+      "address": "6F, The Beaufort, 5th Avenue corner 23rd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Beaufort",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0041",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "6F",
+      "industry": "Conglomerate / property",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Filinvest Development Corporation",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.filinvestgroup.com/contact-us/"
+    },
+    {
+      "address": "Units 1210–1212, 12F, PSE Tower, 5th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "PSE Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0042",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Units 1210–1212, 12F",
+      "industry": "Investments",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Filipino Fund, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1700860"
+    },
+    {
+      "address": "16F, Net Park, 5th Avenue, E-Square Crescent Park, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Net Park",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0043",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "16F",
+      "industry": "Media / publishing",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Financial Times Electronic Publishing Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "10F, Bonifacio One Technology Tower, 31st Street corner Rizal Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Bonifacio One Technology Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0044",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "10F",
+      "industry": "Fintech / lending",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "First Circle Growth Finance Corp.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.firstcircle.ph/contact-us"
+    },
+    {
+      "address": "19F, Menarco Tower, 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Menarco Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0045",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "19F",
+      "industry": "Cybersecurity",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Fortinet Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.fortinet.com/corporate/about-us/global-offices"
+    },
+    {
+      "address": "Two/NEO, 3rd Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Two/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0046",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "IT services / technology",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Fujitsu Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/properties/office-space-for-lease-in-bonifacio-global-city-taguig/phl-twoneo/phl22000198"
+    },
+    {
+      "address": "Unit 4502, The Finance Centre, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Finance Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0047",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "Unit 4502",
+      "industry": "IT / analytics",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "FutureNet and Technology Corp.",
+      "presenceClaim": "Registered / advertised address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.futurenetph.com/"
+    },
+    {
+      "address": "19F, W Fifth Building, 5th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "W Fifth Building",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0048",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "19F",
+      "industry": "Insurance",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "FWD Life Insurance Corporation",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "8F, W Global Center, 9th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "W Global Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0049",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "8F",
+      "industry": "Fintech / digital payments",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "G-Xchange, Inc. (GCash)",
+      "presenceClaim": "Registered / operating corporate address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://gcash.com/g4b-terms-and-conditions/july-22-2026"
+    },
+    {
+      "address": "16F, High Street South Corporate Plaza Tower 2, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "High Street South Corporate Plaza Tower 2",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0050",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "16F",
+      "industry": "Technology",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Galena Scale Technologies",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.galenascale.com/contact"
+    },
+    {
+      "address": "23F, The Finance Centre, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Finance Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0051",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": "23F",
+      "industry": "Pharmaceuticals",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "GlaxoSmithKline Philippines, Inc. (GSK)",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://olfu.herdin.ph/index.php/registry?cid=5636&layout=details&view=research"
+    },
+    {
+      "address": "27F, The Globe Tower, 32nd Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Globe Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0052",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "27F",
+      "industry": "Telecommunications",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Globe Telecom, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1973301"
+    },
+    {
+      "address": "23F, The Finance Centre, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Finance Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0053",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "23F",
+      "industry": "Consumer healthcare",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Haleon Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "HSBC Centre, 3058 Fifth Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "HSBC Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0054",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Banking",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "HSBC Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "8F, Marajo Tower, 26th Street West corner 4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Marajo Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0055",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "8F",
+      "industry": "Business incorporation services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Incorporation.PH",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://incorporation.ph/contact-us/"
+    },
+    {
+      "address": "24F, The Curve, 32nd Street corner 3rd Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Curve",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0056",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "24F",
+      "industry": "Commercial banking",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Industrial and Commercial Bank of China — Manila Branch",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.pdic.gov.ph/files/BSDStats/Bank%20Directory_KB%20_website.pdf"
+    },
+    {
+      "address": "16F–17F, Asian Century Center, 27th Street corner 3rd/4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Asian Century Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0057",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "16F–17F",
+      "industry": "Enterprise software",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Infor Philippines — Asian Century Center office",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.infor.com/en-sg/about/contact"
+    },
+    {
+      "address": "29F, Seven/NEO (former Net Park), 5th Avenue, Crescent Park West, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Seven/NEO (former Net Park)",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0058",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "29F",
+      "industry": "Enterprise software",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Infor Philippines — Seven/NEO office",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.infor.com/en-sg/about/contact"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0059",
+      "district": "BGC Core",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "IT services / BPO",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Infosys",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "22F, Arthaland Century Pacific Tower, 5th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Arthaland Century Pacific Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0060",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "22F",
+      "industry": "Banking / financial services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "ING Bank N.V. — Manila Branch",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://careers.ing.com/en/working-in-philippines"
+    },
+    {
+      "address": "10F KMC office, Arthaland Century Pacific Tower, 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Arthaland Century Pacific Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0061",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "10F KMC office",
+      "industry": "Healthcare services",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "InHealth Ltd.",
+      "presenceClaim": "Coworking / serviced-office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "The Globe Tower, 32nd Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Globe Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0062",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "Telecommunications",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Innove Communications, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.globe.com.ph/business/connectivity/internet/broadband-terms"
+    },
+    {
+      "address": "Suite 1206, Trade and Financial Tower, 7th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Trade and Financial Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0063",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Suite 1206",
+      "industry": "IT / communications",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "IPR",
+      "presenceClaim": "Shared / registered office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "5F, C2 Building Bonifacio High Street Central, 30th Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "C2 Building Bonifacio High Street Central",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0064",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "5F",
+      "industry": "Trade association",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "IT & Business Process Association of the Philippines (IBPAP)",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "35F, Eco Tower, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Eco Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0065",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "35F",
+      "industry": "IT and banking software",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "JMR Infotech Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://jmrinfotech.com/contact-us/"
+    },
+    {
+      "address": "Bonifacio Global City, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0066",
+      "district": "BGC Core",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Healthcare / medical technology",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Johnson & Johnson Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.careers.jnj.com/tr-tr/jobs/r-095523/team-lead-global-atr/"
+    },
+    {
+      "address": "Penthouse, W Office Building, 28th Street corner 11th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "W Office Building",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0067",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Penthouse",
+      "industry": "Consumer goods",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "JT International (Philippines), Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "Unit 1910, 19F, PSE Tower, 5th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "PSE Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0068",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 1910, 19F",
+      "industry": "Property / holding company",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Keppel Philippines Properties, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=88"
+    },
+    {
+      "address": "25F, Picadilly Star, 4th Avenue corner 27th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Picadilly Star",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0069",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "25F",
+      "industry": "Flexible workspace",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "KMC Community Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "8F, Sun Life Centre, 5th Avenue corner Rizal Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Sun Life Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0070",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": "8F",
+      "industry": "Property services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "KMC MAG Group",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "25F, Picadilly Star, 4th Avenue corner 27th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Picadilly Star",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0071",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "25F",
+      "industry": "Office space / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "KMC Solutions",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/kmc-solutions-inc"
+    },
+    {
+      "address": "11F, SM Aura Office Tower, McKinley Parkway, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "SM Aura Office Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0072",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "11F",
+      "industry": "Office space / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "KMC Solutions",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/kmc-solutions-inc"
+    },
+    {
+      "address": "29F, High Street South Corporate Plaza Tower 1, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "High Street South Corporate Plaza Tower 1",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0073",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "29F",
+      "industry": "Food / agribusiness",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "La Filipina Uy Gongco Group of Companies",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://lafilgroup.com.ph/contact-us/"
+    },
+    {
+      "address": "8F, Seven/NEO, 5th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Seven/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0074",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "8F",
+      "industry": "E-commerce",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Lazada Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://app.glueup.com/event/from-click-to-delivery-exploring-ecommerce-excellence-with-ficci-and-lazada-122090/"
+    },
+    {
+      "address": "Unit 802, Eco Tower, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Eco Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0075",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 802",
+      "industry": "Real estate services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "List Sotheby's International Realty",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "24F, Fort Legend Tower, 3rd Avenue corner 31st Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Fort Legend Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0076",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "24F",
+      "industry": "Software engineering",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Looming Tech",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.looming.tech/contact"
+    },
+    {
+      "address": "Unit 3, 11F, Bench Tower, 30th Street corner Rizal Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Bench Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0077",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "Unit 3, 11F",
+      "industry": "Diversified holdings",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "LT Group, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1909144"
+    },
+    {
+      "address": "Level 10-1, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0078",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Level 10-1",
+      "industry": "Events",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "M&SE (MICE and Special Events)",
+      "presenceClaim": "Shared / registered office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/m-se/"
+    },
+    {
+      "address": "7F, Marajo Tower, 312 26th Street West corner 4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Marajo Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0079",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "7F",
+      "industry": "Real estate / property",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Marajo Group of Companies",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.marajogroup.com/contact-us/"
+    },
+    {
+      "address": "Maybank Corporate Center, 7th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Maybank Corporate Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0080",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Banking",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Maybank Philippines, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0081",
+      "district": "BGC Core",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Technology",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Meta",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "24F, PSE Tower, 5th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "PSE Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0082",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "24F",
+      "industry": "Health technology",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Mind You Mental Health Systems Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "21F Units 2116–2117, Park Triangle Corporate Plaza North Tower, 32nd Street corner 11th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Park Triangle Corporate Plaza North Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0083",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "21F Units 2116–2117",
+      "industry": "IT services",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "MOURI Tech Incorporated",
+      "presenceClaim": "Registered office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.mouritech.com/contact-us/"
+    },
+    {
+      "address": "12F Suite 1206, Trade and Financial Tower, 7th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Trade and Financial Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0084",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "12F Suite 1206",
+      "industry": "Virtual office / business services",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "MyOffice Philippines",
+      "presenceClaim": "Virtual office provider",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/myoffice-philippines"
+    },
+    {
+      "address": "One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0085",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Software development",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "N-PAX Group",
+      "presenceClaim": "Listed company address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/n-pax-group"
+    },
+    {
+      "address": "19F, Six/NEO, 26th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Six/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0086",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "19F",
+      "industry": "Audit / consulting",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Navarro Amper & Co. (Deloitte Philippines)",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "37F, Seven/NEO, 5th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Seven/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0087",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "37F",
+      "industry": "Cybersecurity",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "NCC Group",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "Two/NEO, 3rd Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Two/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0088",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": null,
+      "industry": "Commercial real estate",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "NEO Office Group",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.lionunion.com/property/twoneo/"
+    },
+    {
+      "address": "Unit 9B, Net Park, 5th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Net Park",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0089",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 9B",
+      "industry": "Banking software",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Nextbank",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/nextbanksoftware"
+    },
+    {
+      "address": "28F, NAC Tower, 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "NAC Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0090",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "28F",
+      "industry": "Mining / natural resources",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Nickel Asia Corporation",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=625"
+    },
+    {
+      "address": "Two/NEO, 3rd Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Two/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0091",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": null,
+      "industry": "Enterprise software / cloud",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Oracle Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.officepro.ph/post/office-developer-highlight-neo-group"
+    },
+    {
+      "address": "10F, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0092",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "10F",
+      "industry": "Business consulting",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "OSG Global Consulting Inc.",
+      "presenceClaim": "Possible serviced office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/osg-global-consulting-inc-/"
+    },
+    {
+      "address": "Building not disclosed, BGC (precise location not publicly stated), Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0093",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "BPO / outsourcing",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "OutForce",
+      "presenceClaim": "Operating office — address incomplete",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.outforce.com.ph/workspace/"
+    },
+    {
+      "address": "Level 10-1, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0094",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Level 10-1",
+      "industry": "Technology consulting",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "P-TECH People and Technology",
+      "presenceClaim": "Shared / registered office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "35F Penthouse, Eco Tower, 32nd Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Eco Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0095",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "35F Penthouse",
+      "industry": "Software / financial technology",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "PARIS Tech",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://paristech.com/contact/"
+    },
+    {
+      "address": "Unit 3308, 33F, High Street South Corporate Plaza Tower 2, 26th Street corner 11th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "High Street South Corporate Plaza Tower 2",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0096",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 3308, 33F",
+      "industry": "Fintech / payments",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "PayMongo Philippines, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.paymongo.com/en-ph/company/press"
+    },
+    {
+      "address": "12F Unit 1206, Trade and Financial Tower, 7th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Trade and Financial Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0097",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "12F Unit 1206",
+      "industry": "Fintech software",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "PayRecon Philippines Corporation",
+      "presenceClaim": "Shared / registered office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://payrecon.ph/contact/"
+    },
+    {
+      "address": "12F, The Finance Centre, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Finance Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0098",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "12F",
+      "industry": "Payments / fintech",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Pays0",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/paysophl/"
+    },
+    {
+      "address": "6F, PSE Tower, 5th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "PSE Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0099",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "6F",
+      "industry": "Financial-market infrastructure",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Philippine Stock Exchange, Inc. (PSE)",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://corporate.pse.com.ph/contact-us/"
+    },
+    {
+      "address": "41F, The Finance Centre, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "The Finance Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0100",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "41F",
+      "industry": "Energy / oil and gas",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Pilipinas Shell Petroleum Corporation",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://pilipinas.shell.com.ph/about-us/contact-us.html"
+    },
+    {
+      "address": "10F, Net Park / Seven/NEO, 5th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Net Park / Seven/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0101",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "10F",
+      "industry": "Consumer goods",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Procter & Gamble Philippines (P&G)",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://accessibility.pg.com/en-sg/"
+    },
+    {
+      "address": "23F, Bonifacio Stopover Corporate Center, 31st Street corner 2nd Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Bonifacio Stopover Corporate Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0102",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "23F",
+      "industry": "IT / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Project T",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/projecttsolutions"
+    },
+    {
+      "address": "15F–16F, Twenty-Five Seven McKinley, 25th Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Twenty-Five Seven McKinley",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0103",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "15F–16F",
+      "industry": "IT / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Project T",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/projecttsolutions"
+    },
+    {
+      "address": "Six/NEO, 5th Avenue corner 26th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Six/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0104",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Professional services / shared services",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "PwC Acceleration Center Manila",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://jobs-ta.pwc.com/global/en/AC-Manila-Careers-FAQ"
+    },
+    {
+      "address": "Units 803–804, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0105",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Units 803–804",
+      "industry": "Airline corporate office",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Qatar Airways",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "12F, One/NEO, 26th Street corner 3rd Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0106",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "12F",
+      "industry": "Legal services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Quisumbing Torres",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "Unit 10-B, Six/NEO, 5th Avenue corner 26th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Six/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0107",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": "Unit 10-B",
+      "industry": "Agribusiness / holding company",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Roxas Holdings, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=64"
+    },
+    {
+      "address": "One/NEO, 26th Street corner 3rd Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0108",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Fintech / lending",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Salmon Group Ltd.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "27F, NAC Tower, 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "NAC Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0109",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "27F",
+      "industry": "Enterprise software",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "SAP Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.sap.com/bulgaria/about/company/office-locations/philippines.html"
+    },
+    {
+      "address": "20F / 24F, Picadilly Star, 4th Avenue corner 27th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Picadilly Star",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0110",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "20F / 24F",
+      "industry": "Outsourcing / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Satellite Office",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/satellite-office"
+    },
+    {
+      "address": "20F, Four/NEO, 4th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Four/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0111",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "20F",
+      "industry": "Technology / IT services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "SeidoPro Global Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/seidopro-global-inc"
+    },
+    {
+      "address": "12F Unit 1202, Trade and Financial Tower, 7th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Trade and Financial Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0112",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "12F Unit 1202",
+      "industry": "ICT / audiovisual systems",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "SIGMA AVIT Technology Solutions Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://sigmaavit.ph/contact-us/"
+    },
+    {
+      "address": "8F, W Building, 5th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "W Building",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0113",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "8F",
+      "industry": "Marketing / advertising",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Silver Machine Digital Communications",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "25F, Ore Central Building, 31st Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Ore Central Building",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0114",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "25F",
+      "industry": "Steel manufacturing",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "SteelAsia Manufacturing Corporation",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.steelasia.com/contact"
+    },
+    {
+      "address": "8F, Sun Life Centre, 5th Avenue corner Rizal Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Sun Life Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0115",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "8F",
+      "industry": "Asset management / financial services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Sun Life Asset Management Company, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.sunlife.com.ph/en/about-us/where-to-find-us/"
+    },
+    {
+      "address": "2F, Sun Life Centre, 5th Avenue corner Rizal Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Sun Life Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0116",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "2F",
+      "industry": "Pre-need / financial services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Sun Life Financial Plans, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.sunlife.com.ph/en/about-us/where-to-find-us/"
+    },
+    {
+      "address": "2F, Sun Life Centre, 5th Avenue corner Rizal Drive, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Sun Life Centre",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0117",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "2F",
+      "industry": "Life insurance",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Sun Life of Canada (Philippines), Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.sunlife.com.ph/en/about-us/where-to-find-us/"
+    },
+    {
+      "address": "10F, High Street South Corporate Plaza Tower 1, 26th Street corner 9th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "High Street South Corporate Plaza Tower 1",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0118",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "10F",
+      "industry": "Legal services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Sy & Partners",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "24F, PSE Tower, 5th Avenue corner 28th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "PSE Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0119",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "24F",
+      "industry": "IT consulting",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Tech Advise Solutions",
+      "presenceClaim": "Advertised office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.techadvise.com.sg/"
+    },
+    {
+      "address": "Twenty-Four Seven McKinley, 24th Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Twenty-Four Seven McKinley",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0120",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "AI / data science",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Thinking Machines Data Science, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.ctc-n.org/networking-and-collaboration/collaboration/network-members/thinking-machines-data-science-inc"
+    },
+    {
+      "address": "One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0121",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Automotive media",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Tsikot.com",
+      "presenceClaim": "Listed business address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/tsikot"
+    },
+    {
+      "address": "10F, Bench Tower, Rizal Drive corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Bench Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0122",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "10F",
+      "industry": "Business process outsourcing",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Ubiquity Global Services Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.ubiquity.com/company/careers"
+    },
+    {
+      "address": "7F, Bonifacio Stopover Corporate Center, 31st Street corner 2nd Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Bonifacio Stopover Corporate Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0123",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": "7F",
+      "industry": "Consumer goods",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Unilever Philippines, Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.unilever.com.ph/contact/"
+    },
+    {
+      "address": "Unit 2708, Trade and Financial Tower, 7th Avenue corner 32nd Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Trade and Financial Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0124",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 2708",
+      "industry": "Renewable energy",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "UPC Philippines Management BV",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "Level 10-1, One Global Place, 5th Avenue corner 25th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "One Global Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0125",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "Level 10-1",
+      "industry": "Technology / consulting",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Valuehub",
+      "presenceClaim": "Shared / registered office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/valuehubofficial/"
+    },
+    {
+      "address": "Trade and Financial Tower, 32nd Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Trade and Financial Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0126",
+      "district": "BGC Core",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "Investment holding / technology",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Western Pacific International Holdings Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://westernpacificinc.com/"
+    },
+    {
+      "address": "23F, W Fifth Center, 7th Avenue corner 30th Street, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "W Fifth Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0127",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": "23F",
+      "industry": "Consulting / insurance",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Willis Towers Watson Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "North Penthouse, Marajo Tower, 26th Street corner 4th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Marajo Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0128",
+      "district": "BGC Core",
+      "evidenceStrength": "Review",
+      "floor": "North Penthouse",
+      "industry": "Fintech / payments",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Xendit Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://help.xendit.co/hc/en-us/articles/360038195131-Does-Xendit-apply-VAT"
+    },
+    {
+      "address": "30F (historical), Net Park / Seven/NEO, 5th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines",
+      "building": "Net Park / Seven/NEO",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0129",
+      "district": "BGC Core",
+      "evidenceStrength": "Medium",
+      "floor": "30F (historical)",
+      "industry": "SaaS / customer experience",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Zendesk Philippines",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/jobs/view/finance-intern-at-zendesk-4289612032"
+    },
+    {
+      "address": "Uptown Place Tower 2, 5 East 11th Drive, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Place Tower 2",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0130",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "IT consulting / BPO",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography",
+        "wrong_jurisdiction_url"
+      ],
+      "name": "Accenture Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.accenture.com/en/about/location?loc=Ireland"
+    },
+    {
+      "address": "19F, Uptown Tower 3, 11th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Tower 3",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0131",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "19F",
+      "industry": "IT consulting / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography",
+        "wrong_jurisdiction_url"
+      ],
+      "name": "Accenture Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.accenture.com/en/about/location?loc=Ireland"
+    },
+    {
+      "address": "24F, Uptown Place Tower 3, 11th Avenue corner 11th Drive, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Place Tower 3",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0132",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "24F",
+      "industry": "IT-BPM / outsourcing",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Acquire Intelligence / Acquire BPO",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://acquire.ai/ph/contact-us"
+    },
+    {
+      "address": "16F, Inoza Tower, 40th Street, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Inoza Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0133",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "16F",
+      "industry": "Pharmaceuticals",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "AstraZeneca Pharmaceuticals (Phils.), Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "5F, Uptown Mall Tower 1, 11th Drive corner 9th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Mall Tower 1",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0134",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "5F",
+      "industry": "Real estate services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Elite Empire Leasing and Management Inc.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/elite-empire-leasing-and-management-inc"
+    },
+    {
+      "address": "14F Unit 1401, MDI Corporate Center, 10th Avenue corner 39th Street, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "MDI Corporate Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0135",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "14F Unit 1401",
+      "industry": "Construction materials",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Formica Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.formica.com/en-ph/contact-us"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0136",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Technology",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Google",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "9F WeWork, Uptown Tower 3, 36th Street corner 11th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Tower 3",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0137",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "9F WeWork",
+      "industry": "Market research",
+      "issues": [
+        "presence_classification_review",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "InSites Consulting",
+      "presenceClaim": "Coworking / serviced-office address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/insites-consulting"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0138",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Financial services / BPO",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "JPMorgan Chase",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "Alliance Global Tower, 11th Avenue corner 36th Street, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Alliance Global Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0139",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Healthcare services / BPO",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Legato Health Technologies Philippines (legacy name)",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/legato-health-technologies-philippines"
+    },
+    {
+      "address": "9F–14F, Citi Plaza, 34th Street, W North, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Citi Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0140",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "9F–14F",
+      "industry": "Financial data / market infrastructure",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "London Stock Exchange Group (LSEG) — Manila",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.lseg.com/en/careers/where-we-work/manila-philippines"
+    },
+    {
+      "address": "30F, Alliance Global Tower, 36th Street corner 11th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Alliance Global Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0141",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "30F",
+      "industry": "Real estate developer",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Megaworld Corporation — corporate headquarters",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=127"
+    },
+    {
+      "address": "18F, Alliance Global Tower, 36th Street corner 11th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Alliance Global Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0142",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "18F",
+      "industry": "Real estate investment trust",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "MREIT, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=685"
+    },
+    {
+      "address": "9F, Uptown Place Tower 1, East 11th Drive, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Place Tower 1",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0143",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "9F",
+      "industry": "Insurance",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Pru Life UK",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "19F, Uptown Place, Uptown Bonifacio, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Place",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0144",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "19F",
+      "industry": "Outsourcing / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Satellite Office",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/satellite-office"
+    },
+    {
+      "address": "Unit 904, One Park Drive, 11th Drive corner 9th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "One Park Drive",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0145",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "Unit 904",
+      "industry": "Professional services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Servicio Pte Limited",
+      "presenceClaim": "Listed business address",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "4F Unit 50, The Uptown Palazzo, 9th Avenue corner 36th Street, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "The Uptown Palazzo",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0146",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "4F Unit 50",
+      "industry": "Signage / printing",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Signarama Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/signaramaph"
+    },
+    {
+      "address": "26F, Alliance Global Tower, 36th Street corner 11th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Alliance Global Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0147",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "26F",
+      "industry": "Hospitality / property",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Suntrust Resort Holdings, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1959051"
+    },
+    {
+      "address": "9F–10F, Uptown Tower 3, 36th Street corner 11th Avenue, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Uptown Tower 3",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0148",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": "9F–10F",
+      "industry": "Business services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "UCT (Asia) Co. Ltd.",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/uctasia"
+    },
+    {
+      "address": "Unit 2308, 23F, Capital House Tower 1, 9th Avenue corner 34th Street, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "Capital House Tower 1",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0149",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "High",
+      "floor": "Unit 2308, 23F",
+      "industry": "Electronics retail / holding",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Upson International Corp.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/companyInformation/form.do?cmpy_id=700"
+    },
+    {
+      "address": "V&A Law Center, 11th Avenue corner 39th Street, Uptown Bonifacio, BGC, Taguig City, Metro Manila, Philippines",
+      "building": "V&A Law Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0150",
+      "district": "Uptown Bonifacio",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Legal services",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Villaraza & Angangco Law",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "8F, Venice Corporate Center, 8 Turin Street, McKinley Town Center, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Venice Corporate Center",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0151",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": "8F",
+      "industry": "Pharmaceuticals / medical products",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Abbott Laboratories",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "15F–16F, Three World Square, Upper McKinley Hill, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Three World Square",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0152",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": "15F–16F",
+      "industry": "Outsourcing / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "AIC Philippines / Bill Gosling Outsourcing",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "15F, Two World Square, Upper McKinley Hill, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Two World Square",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0153",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": "15F",
+      "industry": "Outsourcing / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "AIC Philippines / Bill Gosling Outsourcing",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0154",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Electronics / imaging",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Canon Philippines, Inc.",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0155",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Information technology",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Datacom",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0156",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Food / consumer goods",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Del Monte Philippines, Inc.",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0157",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Financial technology / market data",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "FactSet",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "Science Hub, Campus Avenue corner Turin Street, McKinley Cyberpark, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Science Hub",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0158",
+      "district": "McKinley Hill",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "IT services / BPO",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "HCLTech — McKinley Cyberpark Science Hub",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.hcltech.com/geo-presence/philippines"
+    },
+    {
+      "address": "7F, One World Square, McKinley Hill, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "One World Square",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0159",
+      "district": "McKinley Hill",
+      "evidenceStrength": "High",
+      "floor": "7F",
+      "industry": "IT services / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "HCLTech — McKinley Hill One World Square",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.hcltech.com/geo-presence/philippines"
+    },
+    {
+      "address": "Unit C, 15F, Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0160",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": "Unit C, 15F",
+      "industry": "Consulting",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Investors in People Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "12F, Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0161",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": "12F",
+      "industry": "Real estate developer",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Megaworld at the Fort",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/megaworld-at-the-fort/"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0162",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Real estate developer",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Megaworld Corporation — Marketing / Business Development",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0163",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Trade association",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Philippine Chamber of Commerce and Industry (PCCI)",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0164",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Electronics / technology",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Samsung",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0165",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Information technology",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "SuperGuardian",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0166",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Contact center / BPO",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Teleperformance",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "Not independently confirmed, Not independently confirmed, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": null,
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0167",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Low",
+      "floor": null,
+      "industry": "Digital BPO / CX",
+      "issues": [
+        "unknown_building",
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "TELUS Digital",
+      "presenceClaim": "Confirmed district presence — exact office unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.colliers.com/en-ph/news/fort-bonifacio-sets-pace-philippine-office-real-estate"
+    },
+    {
+      "address": "8 Campus Place (A/B/C), McKinley Hill, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "8 Campus Place (A/B/C)",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0168",
+      "district": "McKinley Hill",
+      "evidenceStrength": "High",
+      "floor": null,
+      "industry": "Banking / business services",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Wells Fargo",
+      "presenceClaim": "Office campus — disclosed tenant",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.mreit.com.ph/assets/genericpage/files/frame-2/1.-MREIT-Inc.-SEC-Form-17-Q-Q1-2026-vF2-signed.pdf"
+    },
+    {
+      "address": "Commerce and Industry Plaza, 1030 Campus Avenue corner Park Avenue, McKinley Hill, Taguig City, Metro Manila, Philippines",
+      "building": "Commerce and Industry Plaza",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0169",
+      "district": "McKinley Hill",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Digital marketing",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "WideOut",
+      "presenceClaim": "Listed building tenant — suite unknown",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://savillsph.com/building/commerce-and-industry-plaza/"
+    },
+    {
+      "address": "GF, Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0170",
+      "district": "McKinley West",
+      "evidenceStrength": "Medium",
+      "floor": "GF",
+      "industry": "Contact center / AI",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "[24]7.ai Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/247aiph"
+    },
+    {
+      "address": "20F, Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0171",
+      "district": "McKinley West",
+      "evidenceStrength": "Medium",
+      "floor": "20F",
+      "industry": "Outsourcing / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "AGSI",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ibpap.org/members-list"
+    },
+    {
+      "address": "20F, Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0172",
+      "district": "McKinley West",
+      "evidenceStrength": "Medium",
+      "floor": "20F",
+      "industry": "Outsourcing / services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Cashel Global",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/cashelglobal"
+    },
+    {
+      "address": "19F, Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0173",
+      "district": "McKinley West",
+      "evidenceStrength": "Medium",
+      "floor": "19F",
+      "industry": "IT services",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Claymore Solutions",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/claymoresolutions"
+    },
+    {
+      "address": "19F, Offices F/G/H, Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0174",
+      "district": "McKinley West",
+      "evidenceStrength": "High",
+      "floor": "19F, Offices F/G/H",
+      "industry": "IT services / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "HCLTech — Robinsons Cyber Sigma",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://careers.hcltech.com/go/Philippines/9556355/"
+    },
+    {
+      "address": "20F, Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0175",
+      "district": "McKinley West",
+      "evidenceStrength": "Medium",
+      "floor": "20F",
+      "industry": "Office space / BPO",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "KMC Solutions",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/kmc-solutions-inc"
+    },
+    {
+      "address": "Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0176",
+      "district": "McKinley West",
+      "evidenceStrength": "Medium",
+      "floor": null,
+      "industry": "Biotechnology / shared services",
+      "issues": [
+        "unknown_floor",
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "QIAGEN",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://ph.linkedin.com/company/qiagen/"
+    },
+    {
+      "address": "11F Unit B, Robinsons Cyber Sigma, Lawton Avenue, McKinley West, Taguig City, Metro Manila, Philippines",
+      "building": "Robinsons Cyber Sigma",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0177",
+      "district": "McKinley West",
+      "evidenceStrength": "Medium",
+      "floor": "11F Unit B",
+      "industry": "HR software",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Sprout Solutions Philippines",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://britcham.org.ph/members-list/"
+    },
+    {
+      "address": "8F, GSC Corporate Tower, Triangle Drive, Fort Bonifacio / BGC fringe, Taguig City, Metro Manila, Philippines",
+      "building": "GSC Corporate Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0178",
+      "district": "BGC fringe",
+      "evidenceStrength": "Medium",
+      "floor": "8F",
+      "industry": "Healthcare distribution",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "Getz Advanced (Philippines)",
+      "presenceClaim": "Corporate / operating office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://www.linkedin.com/company/getz-advanced"
+    },
+    {
+      "address": "Unit 3K, North Wing, Fairways Tower, 5th Avenue corner McKinley Road, BGC fringe, Taguig City, Metro Manila, Philippines",
+      "building": "Fairways Tower",
+      "candidateId": "research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0179",
+      "district": "BGC fringe",
+      "evidenceStrength": "High",
+      "floor": "Unit 3K, North Wing",
+      "industry": "Media holdings",
+      "issues": [
+        "unknown_source_rights",
+        "unreviewed_identity",
+        "unverified_current_presence",
+        "unverified_geography"
+      ],
+      "name": "GMA Holdings, Inc.",
+      "presenceClaim": "Operating / headquarters office",
+      "researchDate": "2026-10-14",
+      "sourceUrl": "https://edge.pse.com.ph/downloadHtml.do?file_id=1947657"
+    }
+  ],
+  "mapPoints": 0,
+  "origin": "internal_research",
+  "publicationAuthorized": false,
+  "sourceSnapshotId": "sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054",
+  "version": "office-research-mobile-v1"
+}

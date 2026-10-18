@@ -1,0 +1,22 @@
+{
+  "added_row_values": 1,
+  "automatic_moves": 0,
+  "automatic_promotions": 0,
+  "current_snapshot_id": "sha256:d0652ad83b3b45875a2b1f35f70fc4f494faa38572fc2d076d81c6f2cbc14349",
+  "identity_change_suggestions": [
+    {
+      "action": "human_review_not_automatic_move_or_identity_link",
+      "possible_current_candidate_ids": [
+        "research:offices:sha256:d0652ad83b3b45875a2b1f35f70fc4f494faa38572fc2d076d81c6f2cbc14349:row-0001"
+      ],
+      "previous_candidate_id": "research:offices:sha256:858b712a786ddc88a7aa7063cf4e3231e9d2b1a73dd8ec0c91c61a15e8894c23:row-0001"
+    }
+  ],
+  "mode": "INTERNAL_OFFICE_REFRESH_REVIEW",
+  "previous_snapshot_id": "sha256:858b712a786ddc88a7aa7063cf4e3231e9d2b1a73dd8ec0c91c61a15e8894c23",
+  "publication_allowed": false,
+  "rejected_after": 0,
+  "rejected_before": 0,
+  "removed_row_values": 2,
+  "unchanged_row_values": 0
+}

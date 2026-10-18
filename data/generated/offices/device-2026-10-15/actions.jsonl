@@ -1,0 +1,8 @@
+{"action": "launch", "name": "capture", "x": null, "y": null, "text": null, "seconds": 0.619, "package": "com.omnibgc.officespreview"}
+{"action": "tap", "name": "capture", "x": 1112, "y": 2246, "text": null, "seconds": 0.239, "package": "com.omnibgc.officespreview"}
+{"action": "snapshot", "name": "02-flat-overview", "x": null, "y": null, "text": null, "seconds": 3.356, "package": "com.omnibgc.officespreview"}
+{"action": "tap", "name": "capture", "x": 1112, "y": 2246, "text": null, "seconds": 0.218, "package": "com.omnibgc.officespreview"}
+{"action": "tap", "name": "capture", "x": 1098, "y": 372, "text": null, "seconds": 0.151, "package": "com.omnibgc.officespreview"}
+{"action": "snapshot", "name": "03-more-offices-entry", "x": null, "y": null, "text": null, "seconds": 3.567, "package": "com.omnibgc.officespreview"}
+{"action": "tap", "name": "capture", "x": 169, "y": 1949, "text": null, "seconds": 0.21, "package": "com.omnibgc.officespreview"}
+{"action": "snapshot", "name": "04-offices-approved-empty", "x": null, "y": null, "text": null, "seconds": 3.256, "package": "com.omnibgc.officespreview"}

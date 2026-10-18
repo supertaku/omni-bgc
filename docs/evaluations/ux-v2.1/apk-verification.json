@@ -1,0 +1,13 @@
+{
+  "path": "C:\\Users\\joshu\\Documents\\Omni-BGC\\apps\\mobile\\artifacts\\Omni-BGC-UX-V2.1-0.3.1-arm64.apk",
+  "bytes": 42735493,
+  "sha256": "e261a8f12ec1762ab6aa04c560bfc93ff83b1b8ad94b14a158f4c67b50bff97d",
+  "mapResourcesVerified": 10,
+  "offlineFontWeightsVerified": 3,
+  "offlineIconFontVerified": true,
+  "abi": "arm64-v8a",
+  "archiveIntegrity": "PASS",
+  "nativeLaunch": "NOT_RUN: final style-only build awaits USB reconnection",
+  "signerCertificateSha256": "fac61745dc0903786fb9ede62a962b399f7348f0bb6f899b8332667591033b9c",
+  "signatureSchemeV2Verified": true
+}

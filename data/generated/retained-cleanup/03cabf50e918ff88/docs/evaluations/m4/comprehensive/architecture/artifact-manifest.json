@@ -1,0 +1,70 @@
+{
+  "format_version": 1,
+  "files": [
+    {
+      "path": "packages/database/canonical/documents.py",
+      "sha256": "4e3d231186d99c317d3e70dcab752a792bce6c78c58af967ab07d142019bb848",
+      "size_bytes": 3680
+    },
+    {
+      "path": "packages/database/canonical/migrate.py",
+      "sha256": "c2ce90aa025082462fd3eafb9e7aeaa8fdcfc058d629af66eb25fb928200f506",
+      "size_bytes": 6461
+    },
+    {
+      "path": "packages/database/canonical/migration-manifest.json",
+      "sha256": "c64d99088b26c5f8958a205da09dddb13a6f9746d9f33478cb789a7249340eda",
+      "size_bytes": 567
+    },
+    {
+      "path": "packages/database/canonical/migrations/001_governance.sql",
+      "sha256": "4796312e55d7c6afc55c6bdedd3bef33c1f8414caed998820a03c9492c096a22",
+      "size_bytes": 11835
+    },
+    {
+      "path": "packages/database/canonical/migrations/002_domains.sql",
+      "sha256": "b78126a88ec78f70f892a810052b1a0b6e0c777c471c38ec3d3931f4b79053ea",
+      "size_bytes": 21505
+    },
+    {
+      "path": "packages/database/canonical/migrations/003_publication.sql",
+      "sha256": "e2ebae26660b7b8073529aea5379e9c0c989c271a181ae10d0153abadfa905a2",
+      "size_bytes": 11876
+    },
+    {
+      "path": "packages/database/canonical/migrations/004_bindings.sql",
+      "sha256": "af72cf16514894c70f2cfe95cd640a78597bbdc19e554d1c55597efab71b8df9",
+      "size_bytes": 12510
+    },
+    {
+      "path": "packages/database/canonical/README.md",
+      "sha256": "02b50dae633b3080bf37e8a7fde22e89d11579d344d74cb23cd7ad9a615ae055",
+      "size_bytes": 3993
+    },
+    {
+      "path": "packages/database/canonical/requirements-syntax.txt",
+      "sha256": "03c20178c86a790fe4d7380c91eafd7693dd9ef93cdc23aac590e8c5130d4f67",
+      "size_bytes": 82
+    },
+    {
+      "path": "packages/database/canonical/runtime-tests.sql",
+      "sha256": "3cf52f898d9ab7c2f0572536ff23eeec2edd0d54ab1536672c9c46322f4395a8",
+      "size_bytes": 12403
+    },
+    {
+      "path": "tests/data-quality/canonical/test_canonical.py",
+      "sha256": "389bb80bf8a63cb9a4d1099b10145f46f3dc078c9c30273901cb632cd462eafd",
+      "size_bytes": 9407
+    },
+    {
+      "path": "docs/architecture/M4_CANONICAL_DATABASE.md",
+      "sha256": "aefb51dc3c85115b80d8b52362ff59328d9039172693808c270bd34dc7098551",
+      "size_bytes": 12342
+    },
+    {
+      "path": "docs/evaluations/m4/comprehensive/architecture/data-dictionary.json",
+      "sha256": "b997d9dd779819adffe0b150586848ea95c31d01c3a1af9aad3f4103b21d4126",
+      "size_bytes": 121455
+    }
+  ]
+}

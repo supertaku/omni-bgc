@@ -1,0 +1,97 @@
+{
+  "format_version": "office-review-v1",
+  "mode": "RESEARCH_REVIEW_LEDGER",
+  "identities": [],
+  "history": [
+    {
+      "subject": "sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054",
+      "action": "import_snapshot",
+      "reviewer": "Codex implementing agent",
+      "reason": "User-authorized local seed import; no fact or rights approval",
+      "recorded_at": "2026-10-15T02:22:38Z",
+      "payload": {
+        "candidate_count": 179,
+        "canonical_approvals": 0
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "event_hash": "3dd8c76a74df8f1706e66b364f7ffb1ed5c4724993119138b861403304d0477e"
+    },
+    {
+      "subject": "Seven/NEO",
+      "action": "discovery_observation",
+      "reviewer": "Codex implementing agent",
+      "reason": "Property address differs from tenant street labels; complete tenant list and geometry unreviewed.",
+      "recorded_at": "2026-10-15T02:22:38Z",
+      "payload": {
+        "observed_at": "2026-10-15T02:22:38Z",
+        "source_urls": [
+          "https://www.neooffice.ph/portfolio/seven-neo/"
+        ],
+        "status": "partial",
+        "sweep": "building_first"
+      },
+      "previous_hash": "3dd8c76a74df8f1706e66b364f7ffb1ed5c4724993119138b861403304d0477e",
+      "event_hash": "8cd9de58444f5e1173b568ea59b0908ed1ca508744aa9aa0004f7a0a0f04b70a"
+    },
+    {
+      "subject": "software and cloud",
+      "action": "discovery_observation",
+      "reviewer": "Codex implementing agent",
+      "reason": "Bounded primary software/cloud probes; not an independent complete industry inventory.",
+      "recorded_at": "2026-10-15T02:22:38Z",
+      "payload": {
+        "observed_at": "2026-10-15T02:22:38Z",
+        "source_urls": [
+          "https://www.infor.com/en-sg/about/contact",
+          "https://www.sap.com/denmark/about/company/office-locations/philippines.html",
+          "https://aws.amazon.com/legal/marketingentities/"
+        ],
+        "status": "partial",
+        "sweep": "industry_first"
+      },
+      "previous_hash": "8cd9de58444f5e1173b568ea59b0908ed1ca508744aa9aa0004f7a0a0f04b70a",
+      "event_hash": "0a240e0a1611995972261bda0794292e55eef017d064141bb8653fa68db85dec"
+    },
+    {
+      "subject": "seed primary pages",
+      "action": "discovery_observation",
+      "reviewer": "Codex implementing agent",
+      "reason": "Reviewed search-visible contact pointers; raw retention, offline rights and presence classification pending.",
+      "recorded_at": "2026-10-15T02:22:38Z",
+      "payload": {
+        "observed_at": "2026-10-15T02:22:38Z",
+        "source_urls": [
+          "https://digiplus.com.ph/contact-us/",
+          "https://www.hcltech.com/geo-presence/philippines",
+          "https://accessibility.pg.com/en-PH/"
+        ],
+        "status": "partial",
+        "sweep": "evidence_first"
+      },
+      "previous_hash": "0a240e0a1611995972261bda0794292e55eef017d064141bb8653fa68db85dec",
+      "event_hash": "6c7600697584c9934dff50309cf81fd419e2c18c65dfe72b4c29842161fabe3a"
+    },
+    {
+      "subject": "Thinking Machines",
+      "action": "discovery_observation",
+      "reviewer": "Codex implementing agent",
+      "reason": "Company contact lacks exact building; association address is not current occupancy proof.",
+      "recorded_at": "2026-10-15T02:22:38Z",
+      "payload": {
+        "observed_at": "2026-10-15T02:22:38Z",
+        "source_urls": [
+          "https://thinkingmachin.es/contact/",
+          "https://www.ctc-n.org/networking-and-collaboration/collaboration/network-members/thinking-machines-data-science-inc"
+        ],
+        "status": "needs_review",
+        "sweep": "gaps_and_conflicts"
+      },
+      "previous_hash": "6c7600697584c9934dff50309cf81fd419e2c18c65dfe72b4c29842161fabe3a",
+      "event_hash": "df11c72edd3ed0af07bd067929825b1ab37dba834e47b26a41119248b7233f4d"
+    }
+  ],
+  "candidate_count": 179,
+  "canonical_approvals": 0,
+  "automatic_promotions": 0,
+  "audit_tip_sha256": "df11c72edd3ed0af07bd067929825b1ab37dba834e47b26a41119248b7233f4d"
+}

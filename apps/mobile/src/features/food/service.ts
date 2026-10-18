@@ -221,7 +221,8 @@ export function createFoodResearchService(input: unknown) {
     items.map((entry) => [entry.item.id, parsePhpCentavos(entry.item.amount)!]),
   );
   const menuTexts = new Map(
-    items.map(({ restaurant: r, item: i }) => [i.id, restaurantText(r) + ' ' + itemText(i)]),
+    // A restaurant name is not evidence that every item is that dish.
+    items.map(({ item: i }) => [i.id, itemText(i)]),
   );
   const establishmentTexts = new Map(
     restaurants.map((r) => [r.id, restaurantText(r) + ' ' + r.items.map(itemText).join(' ')]),

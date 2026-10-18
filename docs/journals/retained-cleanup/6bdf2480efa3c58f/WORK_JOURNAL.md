@@ -1,0 +1,108 @@
+# Offline AI work journal — 2026-10-11 Asia/Manila
+
+Parent plus three specialists audited the existing local checkout and read-only Haki reference under the user's new AI authorization. All74 existing staged UX paths were preserved. No commit, branch switch, push, public PR, source publication or device-data mutation. Added exact requested plan and explicit historical-pre-AI reconciliation. Material architecture decision DEC-052.
+
+Tools inspected: Node22.20.0, npm11.18.0, TypeScript6.0.3, bundled Android Studio JDK21.0.5; Python3.13 executable; installed Expo57.0.27/RN0.86.3/sqlite57.0.4 and RN catalog Kotlin2.1.20/SDK36/NDK27.1.12297006. Runtime/retrieval records cite official docs and exact local API evidence. Candidate versions/model metadata are research-only, not installed or independently computed artifact hashes. No model weights were downloaded, gated license accepted, cloud API installed or heavyweight production dependencies added.
+
+WHY: reuse proven ownership/cancellation/hash/provenance ideas without copying incompatible Haki native modules. HOW: exclusive-path runtime/retrieval/evaluation owners, consolidated research, installed-source checks, short architecture ADR, deterministic synthetic tests and read-only USB preflight. Parent inspected all handoffs and reran touched contracts. Rejected runtime choice without phone measurements, naive early-settled inference lease, configuration-check-as-smoke-test, source approval inheritance, immediately adding vectors to an empty approved corpus and model-generated unrestricted factual prose.
+
+Implemented bounded retrieval: NFKC/token limits, six lexical vocabulary pairs, at most three store searches, approved item/relationship/price/tag evidence and copied-result removal of unsupported fields. No mobile store/domain/schema/data edits. Existing SQL owns expiry; full FTS ranking/candidate limits/general natural-language intent remain future work. Independently identified fallback stale-item acceptance through120-question baseline and corrected the one status guard; explicit synthetic/demo behavior and UX remain.
+
+Validation completed:11 mobile retrieval custom assertions,20 Python retrieval/export tests,13 startup tests,22 mobile pure contracts,21 Assistant tests,19 UI/navigation tests,13 evaluation-infrastructure tests and3 synthetic preflight tests; strict mobile TypeScript PASS. Source/fixture hash and full replay reports remain in this directory. Synthetic baseline28/120 structural passes,1 raw collection-policy violation after the stale fix;120 manual judgments pending. No factual district accuracy, local-model quality, injection robustness or native timing claimed.
+
+Failures/limits: sandboxed ADB could not access/start its daemon; approved read-only execution succeeded and found0 devices. The final script preflight records the same absent-device blocker without serials. One specialist initially ran a test from the wrong cwd (MODULE_NOT_FOUND), then reran successfully; no assertion failure hidden. Public metadata initially had a guessed nonexistent model path; corrected maintainer paths are recorded. Latest LiteRT Kotlin transitive versions differ from configured Kotlin; no compiler failure is invented. Haki model installation/capability labels and semantic names are not accepted as measured proof. iOS/physical screenshots/native AI builds/APK measurements NOT_RUN.
+
+Parent ACCEPTS bounded desktop audit/architecture/retrieval/evaluation artifacts only. Physical runtime gate remains BLOCKED until the user connects/authorizes the Android phone. The user's phone connection question remains pending. Next: exact isolated native candidate builds, verified lawful model artifacts, paired physical streaming/cancel/reload tests, explicit parent runtime selection, then provider/model manager/tool/controller/UI phases in authorized order.
+
+
+## 2026-10-15–16 — Complete host-first software layer
+
+Authority: owner's explicit M0–M9-first instruction and preserved October 15 specification; current date rolled to October 16 Asia/Manila. Started clean c90bcd42 on main, created codex/offline-ai-layer, preserved identifiers/accepted map/directory/data. No ADB/USB/model weights/device operation/merge/publication. DEC-056 supersedes mandatory early physical gate. Three bounded specialists owned native/provider, model manager, and retrieval/tools/grounding; parent owned governance/actions/history/UI and all acceptance. Independent review reports are linked in HOST_IMPLEMENTATION_HANDOFF.md.
+
+WHY/HOW: actual Expo57/RN0.86 typed LiteRT0.18 integration needs Kotlin2.3.20/minSdk26 and supported R8 9.1.31 for reflect2.4 metadata. Rejected copying Haki's reflective/older stack, broad AGP migration, metadata suppression, cloud/multiple runtimes, configuration-only smoke, timeout-as-idle, unsafe whole-state saves and vector RAG absent a lawful corpus. Haki9ab6e2a was read-only. Model public revision/hash/license verified without downloading weights. Private source restoration/hashes/research rights are recorded in REBASELINE_2026-10-16.md; no factual approvals/coordinates were invented.
+
+Implemented actual local module/provider/lease/stream/cancel/thermal/teardown; verified download/import/pointers/rollback/smoke; current-source approved/research-separated retrieval; validated finite tools/map adapter; user-only expiring confirmation with CAS/source revalidation/atomic favorites and visit operations; deterministic grounding/source cards; separate bounded AI historyv2; mounted Assistant UI and fallback. Corrected review findings: completion-before-idle, source/research negation, JSON observation truncation, false completion prose, late preview/confirm/success/error callbacks, clear/startup restoration, stale card references, initial office cache rights, incomplete visit operations, picker background cancellation and history-close skipping engine release. Failures and controlled-test scope are retained, not converted to device evidence.
+
+Validation before final APK: 33/33 quality groups pass (zero lint errors/two inherited MapCanvas warnings); full AI131/131; actual host SQLite transaction/history tests; 120 original query inputs in 240 controlled orchestrator turns, semantic/model accuracy NOT_EVALUATED; native Kotlin4tests pass. Original deterministic fallback structural score remains28/120 with1raw collection-policy flag and no model/UI safety claim. Intermediate full R1/R2 Android builds compile, but stale sources/old metadata compiler prevent their final acceptance. R3 final frozen source+offlineR8 APK verification is ongoing; exact final receipt/verdict will be appended to M9_NATIVE_BUILD.md and HOST_IMPLEMENTATION_HANDOFF.md.
+
+Tools: Node22.20.0/npm11.18.0/Python3.13.7/TypeScript6.0.3/JDK21.0.5 plus Java17 toolchain, Gradle9.3.1/AGP8.12.0/SDK36/NDK27.1.12297006; Python Ruff0.17.0 and existing ignored GIS tooling. Exact commands/exits, checksummed private evidence and source receipts are linked in milestone reports. Physical layout/TalkBack/inference/cancellation/memory/thermal/airplane-mode/language quality are NOT_RUN pending M10. No phone connection was requested as an early software blocker.
+
+
+### Final M9 protocol review correction
+
+Independent reviewer found actual LiteRT manual-tool continuation lost the structured assistant ToolCall and Content.ToolResponse envelope. R3 is therefore intermediate even if its build succeeds. Root/native owners repaired the public generation metadata, allowlist-validated native codec, named JSON responses and atomic transcript bundles. Only decoded, allowed, dispatched calls enter history; rendered-reference observations use user context. Independent tests initially failed2/2, then4/4 passed including over-budget multiresponse rejection and history trimming without orphaned responses. TypeScript initially caught a readonly-array push; repaired with an explicit mutable dispatched-call accumulator and rerun PASS. Full AI suite135/135 passes before final R4 build; final quality/native/APK evidence remains pending below. No actual model continuation or device inference claim is made.
+
+
+### Final parent host acceptance — 2026-10-16
+
+Parent explicitly ACCEPTS M0–M9 / HOST_IMPLEMENTED after actual source review, independent reruns, complete offline R4 ARM64 R8 release assembly (8m 31s, 705 tasks), integrated seven native tests and the separate final independent artifact review. Final current-tooling quality 33/33 groups exit0; AI 135/135; receipt regressions 8/8. Exact commands/hashes/native versions/limitations are in HOST_IMPLEMENTATION_HANDOFF.md and M9_NATIVE_BUILD.md. APK 62,063,914 bytes, SHA256 1f5fa8bd0b2cd0b3ec7af5002977f6d5dfdc21a463e3d05c2341e0d88dd9be7e, package com.omnibgc.aipreview. Final quality results SHA b8b85d5df44a05c365d1b9151a35b73cba900679252522701f28b33a6bd7f164.
+
+Parent's initial independent archive-size audit failed on a real receipt defect: Metro staging normalization produced 655 bytes while the original frozen receipt retained 662 bytes; its staged/archive SHA was already correct. Original APK/ZIP/receipts/workflow are preserved. Parent authorized a metadata-only erratum and future builder fix, without recompiling identical application contents. The new audit permits exactly that size correction, checks every one of 370 archive/staged hashes and actual sizes, the exact 305-file current application inventory, original evidence/dependencies/nativeXML, and binds original/new workflow identities separately. Required receipt-erratum.json SHA256 f0de8e76ea76b57398877f0b8621ced05dc2fc56029e6ecd4c74bfc7d8e6d87a. Future builder now records/checks staged size and SHA; a platform-dependent test fixture was corrected to explicit LF bytes; 8/8 regressions PASS. Original failed parent audit script remains .g/ai-layer/parent-final-audit.py; corrected final independent parent proof is parent-final-acceptance-audit.json SHA256 e9ae43d4b82dcc08320891afd9d9832cf00ad35e4585b79d929adfdc304c51ac.
+
+Independent final reviewer additionally checked 83 embedded authored TS/TSX sources, 24 map resources, 19 ARM64 libraries, freshsignature/manifest/permissions, seven native XML cases and immutable receipts. Final independent audit SHA256 f01716533f0e323545d1fe5c7c855619910032b8a3cff14b4324dc5761b07c80 recommends ACCEPT_HOST with explicit erratum. Optional Jinja render did not execute (missing jinja2); static template inspection and actual SDK message codec tests are distinct evidence. Two exploratory checker mistakes (ambiguoussource suffix and newline normalization) were corrected; no APK mismatch was found. Host metaspace/dependency deprecation warnings remain visible; no OOM or Kotlin metadata failure occurred.
+
+Overall remains NOT_RELEASE_READY: no model weights downloaded, real local inference/native-idle/device performance/language quality/physical UX/airplane-mode evidence. Licensed-document RAG and real factual coverage remaindata-dependent, original fallback 28/120 structural result / one flag retained. Complete M10_DEVICE_RUNBOOK.md is ready for an available phone and owner USB/ADB authorization. No physical phone activity, original installation change, main merge, push or dataset publication occurred. Changes remain local/uncommitted on codex/offline-ai-layer.
+# October 16, 2026 — C0/C1 native source recovery
+
+- Owner requested execution of the completion/POCO plan and pasted engineering
+  instructions; reuse M0–M9 and preserve all R4/private evidence. Starting clean
+  main `3fad67c`; recovery branch `codex/offline-ai-native-recovery`.
+- WHY: eight authored Android files built locally but were excluded from Git by
+  the unanchored app `android/` rule. HOW: parent and independent reviewer verified
+  every module byte against immutable R4 stage/ZIP/receipts, anchored generated
+  project ignores, staged only authored files, added index/autolinking guard and
+  negative/fresh-clone regressions. Rejected force-adding generated outputs or
+  re-authoring an already authentic module. DEC-057 records the material finding.
+- Initial R4 audit rejected two LF→CRLF script conversions after checkout; restored
+  exact Git LF bytes, strict audit then PASS; narrow attributes preserve them.
+- npm/clone sandbox failures retained; authorized cached npm restore and local
+  clone tests passed. Full quality 33/34 initially; sole new test-fixture cleanup
+  failure repaired, affected Python group rerun 15/15 PASS. Existing 135 AI tests
+  passed; semantic Gemma quality remains NOT_EVALUATED. See C0/C1 reports for
+  exact evidence paths and current tool pins. Parent accepts source recovery only.
+- C2 fresh committed-source builds pending. No device/model/ADB operation,
+  production identity change, dataset approval, merge, push or publication.
+## October 16, 2026 — C2 accepted; D0 authorization blocked
+
+- Committed reviewed C1 source as `00f2446692eaebde15087d51e1e078c559ab5fe9`;
+  no push/merge. A zero-byte stale Git index lock blocked the first commit attempt;
+  verified no Git process was running, recorded its metadata privately and removed
+  only that exact lock. Source and earlier artifacts were preserved.
+- Built new `.g/ai-host-c2` release: 8m17s / 705 tasks / native 7 tests PASS.
+  Fresh clone `.g/c2` at the same commit passed native index checks before restoring
+  only 30 named authorized generated files and cached pinned dependencies. Its own
+  `.g/ai-host-clean` release: 7m / 705 tasks / native 7 tests PASS. Both static APK
+  verifiers and independent full source/binary/signature/permission audits PASS.
+- Parent ACCEPTS C2 REPRODUCIBLE_HOST_BUILD. Selected clean APK 62,063,914 bytes,
+  SHA256 `7e224f32d87eb2920097c14afa64467fec93ef260895953e89c6b62508f45679`.
+  Independent comparison found only build-ID section differences in five native
+  libraries; executable code/DEX/JS/assets match. Source ZIP newline/historical-doc
+  differences and retained warnings are documented in C2_REPRODUCIBLE_BUILD.md.
+- Automatic approval review rejected the proposed read-only USB/ADB probe: repo
+  instructions require explicit owner authorization in trusted chat messages.
+  No command executed, device accessed, install, model download or settings change.
+  D0 BLOCKED_OWNER_AUTHORIZATION; D1–D6 NOT_RUN. Request owner authorization after
+  finishing the concrete APK/host handoff. Overall NOT_RELEASE_READY.
+## October 16, 2026 — Owner-authorized D0 and D1 clipping investigation
+
+- Owner explicitly replied "Authorize USB/ADB testing and preview installation".
+  Authorized retry found exactly one expected POCO, Android16/API36/ARM64;
+  sanitized device/install evidence is in `.g/ai-m10/d0/`. Installed verified C2
+  APK only; existing Offices preview metadata unchanged. Original airplane1 /
+  Wi-Fi0 / mobile-data0 preserved. No other package, settings or model touched.
+- D1 native screenshots and XML prove offline historical map/Flat/pan, Assistant,
+  26 research menu matches/caveats, empty approved offices/saved list, walking
+  refusal and restored local historical messages. Initial PSS321044KiB/RSS454488KiB
+  is app/map baseline only. A test-helper Back press returned to Map after Send
+  had already dismissed the keyboard; corrected capture/navigation, no app fix.
+- Independent screenshot review reproduced visually missing final words in two
+  user messages, including after restart; XML retains full strings. D1 remains
+  CHANGES_REQUESTED before model activation. Candidate removes only inner padded
+  bubble View and applies existing bubble styles to Text so wrapping/padding share
+  one measured node. Appearance/labels/typography/contracts unchanged; root-cause
+  hypothesis must be verified physically in a new APK. Existing 38 UI/hook tests
+  pass; no host-only structural test is presented as an Android layout proof.
+- Exact model revision metadata freshly fetched from public Hub API: expected
+  2588147712 bytes / SHA18193810…9a63c / Apache2.0 match preserved pin. No weights
+  downloaded or imported. Asked explicit host-download/USB-import consent so the
+  phone can retain existing offline settings. See D1_CLIPPED_USER_MESSAGES.md.

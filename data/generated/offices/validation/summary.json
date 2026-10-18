@@ -1,0 +1,176 @@
+{
+  "all_passed": true,
+  "app_device_qa": "NOT_RUN; late gate and USB user permission required",
+  "approved_records": 0,
+  "browser_visual_qa": "unverified: localhost timeout; file URL policy rejection",
+  "client_date": "2026-10-14",
+  "exported_records": 0,
+  "node_version": "v22.20.0",
+  "python_version": "3.13.7",
+  "results": [
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/offices"
+      ],
+      "exit_code": 0,
+      "log_sha256": "28476d7b844904195ca588873f0a49f43484651f76688775ba82b8310853120a",
+      "name": "office-python"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/data-quality/offices/review_filters.test.cjs"
+      ],
+      "exit_code": 0,
+      "log_sha256": "967ed7c66c7a1a2ade0160d6de2ac6995c53c4ab27d2041539ab0acb30893257",
+      "name": "office-filters"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\.g\\r1\\python-tools\\bin\\ruff.exe",
+        "check",
+        "--isolated",
+        "--select",
+        "F401,F821,F822,F823",
+        "pipelines/etl/offices",
+        "pipelines/etl/review-dashboard/dashboard.py",
+        "pipelines/etl/review-dashboard/offices_view.py",
+        "tests/data-quality/offices"
+      ],
+      "exit_code": 0,
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "name": "office-lint"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "compileall",
+        "-q",
+        "pipelines/etl/offices",
+        "pipelines/etl/review-dashboard",
+        "tests/data-quality/offices"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "office-syntax"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "pipelines/etl/offices/verify_snapshot.py",
+        "--snapshot",
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\generated\\offices\\snapshots\\60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054\\e82c2068a160ed3e513c87ef9bdd0c933cbabd6a7f204dff32f2b2bbcbc90c9d",
+        "--seed-v2"
+      ],
+      "exit_code": 0,
+      "log_sha256": "39387f79e0b1972a8887378a8087a0cbf25be99f4566c0676d19009cebc996b9",
+      "name": "office-direct-seed"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "pipelines/etl/review-dashboard/dashboard.py",
+        "--offices",
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\generated\\offices\\snapshots\\60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054\\e82c2068a160ed3e513c87ef9bdd0c933cbabd6a7f204dff32f2b2bbcbc90c9d\\import-report.json",
+        "--output",
+        "data/generated/offices/review"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "office-dashboard"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/m1"
+      ],
+      "exit_code": 0,
+      "log_sha256": "8e445e370c745ac53b289329db49ceac045f3091f825398f6eed17393a4adbfc",
+      "name": "m1-contracts"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/m4"
+      ],
+      "exit_code": 0,
+      "log_sha256": "ee002bcc1ce4c8cc545439f4554cc36f85c04daa232d0bf0bea445c6052f6629",
+      "name": "m4-intake"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/research"
+      ],
+      "exit_code": 0,
+      "log_sha256": "6ab6e4a32d4a0ef172ed0821b33edfd219b02691be0e2e8eba40dbf030ec637e",
+      "name": "research"
+    },
+    {
+      "command": [
+        "C:\\Users\\joshu\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "tests/data-quality/mobile"
+      ],
+      "exit_code": 0,
+      "log_sha256": "055f671f10de39e8d1a03672eaf29e05e9f9039ea4d1687f3d509c7b769b7f84",
+      "name": "mobile-data"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        ".github/workflows/quality.yml",
+        "pipelines/etl/review-dashboard/dashboard.py"
+      ],
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "diff-check"
+    },
+    {
+      "command": [
+        "git",
+        "check-ignore",
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\generated\\offices\\snapshots\\60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054\\e82c2068a160ed3e513c87ef9bdd0c933cbabd6a7f204dff32f2b2bbcbc90c9d\\input\\directory.csv",
+        "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\generated\\offices\\snapshots\\60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054\\e82c2068a160ed3e513c87ef9bdd0c933cbabd6a7f204dff32f2b2bbcbc90c9d\\input\\directory.xlsx",
+        "data/generated/offices/review/review.html"
+      ],
+      "exit_code": 0,
+      "log_sha256": "970b4798eb1b01bd0959b0509a619bf42079cf9710dc5c6c05f2dd6aa590384f",
+      "name": "ignored-inputs"
+    }
+  ],
+  "ruff_version": "ruff 0.17.0",
+  "snapshot": "C:\\Users\\joshu\\Documents\\Omni-BGC\\data\\generated\\offices\\snapshots\\60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054\\e82c2068a160ed3e513c87ef9bdd0c933cbabd6a7f204dff32f2b2bbcbc90c9d",
+  "sqlite_version": "3.50.4",
+  "timezone": "Asia/Manila"
+}

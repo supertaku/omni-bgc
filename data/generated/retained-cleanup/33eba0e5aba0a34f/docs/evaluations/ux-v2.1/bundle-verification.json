@@ -1,0 +1,54 @@
+{
+  "apk": "C:\\Users\\joshu\\Documents\\Omni-BGC\\apps\\mobile\\artifacts\\Omni-BGC-UX-V2.1-0.3.1-arm64.apk",
+  "apkSha256": "e261a8f12ec1762ab6aa04c560bfc93ff83b1b8ad94b14a158f4c67b50bff97d",
+  "bytes": 42735493,
+  "checks": [
+    "SQLite contains RTree and FTS5 compile/module strings (static binary evidence)",
+    "All 10 offline map resources match inventory"
+  ],
+  "mapManifestSha256": "ab623c6776a08d80ee7b4e9befe472a4d9261aa5c5a70ebf11f30b27c2ae6235",
+  "matchedSources": [
+    {
+      "path": "apps/mobile/App.tsx",
+      "sha256": "14472f58154457d80facc744746b7edc0dabffc3eb812268f71e2bfe3d8ca13e"
+    },
+    {
+      "path": "apps/mobile/src/ui/ExplorerPager.tsx",
+      "sha256": "e75f1220305a1cad89dfddf5af9b96532a06893f03f5d75c95f3c22b3aacc2ff"
+    },
+    {
+      "path": "apps/mobile/src/ui/useShakeNavigation.ts",
+      "sha256": "a8b949e60fac7f99ce1ea5db47a170329e1ad062671fafab1109e7487d149683"
+    },
+    {
+      "path": "apps/mobile/src/ui/shake-detector.ts",
+      "sha256": "fa06e76997d84246df8c0f94c0c7a3ed388d81b3a336ce6f26dc427af8ee0bae"
+    },
+    {
+      "path": "apps/mobile/src/ui/components.tsx",
+      "sha256": "034e5078e75af6d047a1aeb57f4ca7605174513222cd8b0c119f6efddcd346cb"
+    },
+    {
+      "path": "apps/mobile/src/features/explore/PlaceDetails.tsx",
+      "sha256": "cf6058c639a7905a7f43011b92f3850f831bf24bb9d87c4ccbc3f964d43d81c7"
+    },
+    {
+      "path": "apps/mobile/src/features/explore/MapChrome.tsx",
+      "sha256": "1259765bd7b507da1288a7d8cc8d64bab490d47f49c0b72e2c561ff5a7a3e2d4"
+    },
+    {
+      "path": "apps/mobile/src/features/assistant/AssistantScreen.tsx",
+      "sha256": "e3db6e0cd02c29e15d9fee7344e3e9eaaa636f57ef72ae8338741a4eeb93d7ca"
+    },
+    {
+      "path": "apps/mobile/src/map/MapCanvas.tsx",
+      "sha256": "9489cab31e2e14105d21f5249d3224d44cede0cc06425b276e9e0983d1f8512d"
+    },
+    {
+      "path": "apps/mobile/src/data/localHealth.ts",
+      "sha256": "83d4b4721fced5e3cf833bbe99180649dc31883e0b124fa5600c382bd6ec824f"
+    }
+  ],
+  "passed": true,
+  "interpretation": "Current source, native library and resource proof; physical interaction is recorded separately."
+}

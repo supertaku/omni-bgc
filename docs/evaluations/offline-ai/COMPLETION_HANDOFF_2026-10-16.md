@@ -140,3 +140,14 @@ SHA101448c9da0c49856d5b052a71d2b7a3a6bb24d854d758c27a174a0375c3804e
 changes only five reviewed non-prose cases from U3; historical synthetic adapter
 structural limitations remain separate from actual model quality. A private v3
 key is under independent review and still needs final APK/source/model binding.
+
+October18 post-freeze update: U4 host build and independent artifact audit PASS.
+Exact source `0e00e87d9ffafeaa90e991beff15973f40edccff`; APK SHA256
+`4389a54f479e07b2a2faa4130967b01d7a8f0885be24b5e546e10f1cab89d52e`,
+62,161,214 bytes, seven native JVM tests. The authorized same-package update is
+installed and hash-verified; protected packages and connectivity are unchanged.
+Initial map and restored chat were captured, but USB disconnected before fresh
+query/link/Models checks. U4 physical acceptance is pending reconnection. Private
+v3 key semantics review now PASS; actual model setup, native evaluation and
+performance acceptance remain pending. This supersedes only the earlier pending
+build/install/key-review status, without changing the frozen APK source receipt.

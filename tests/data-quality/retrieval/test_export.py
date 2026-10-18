@@ -7,6 +7,7 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import unittest
+from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[3]
 spec=importlib.util.spec_from_file_location('content_builder',ROOT/'packages/database/build_content.py')
 b=importlib.util.module_from_spec(spec);spec.loader.exec_module(b)
@@ -80,5 +81,33 @@ class ExportTests(unittest.TestCase):
         proposal={'place_entrances':[{'place_id':self.place_id,'entrance_id':self.place_id,'access_fact_id':'missing'}]}
         with self.assertRaises(ValueError):self.build('failed',proposal=proposal)
         self.assertFalse((self.base/'failed').exists())
+
+    def test_duplicate_retained_bundle_keeps_ids_manifest_and_retrieval_identical(self):
+        one=self.build('one')
+        two=b.build_content(self.db,self.base/'duplicate',NOW,[self.bundle_path,self.bundle_path],synthetic_test_only=True)
+        self.assertEqual(one,two)
+        self.assertEqual((self.base/'one/main.sqlite').read_bytes(),(self.base/'duplicate/main.sqlite').read_bytes())
+        reader_module=b.module('quality_mobile_reader','packages/database/retrieval.py')
+        with closing(reader_module.MobileReader(self.base/'duplicate/main.sqlite',NOW)) as reader:
+            self.assertEqual(reader.get_place_details(self.place_id)['name'],'TEST branch')
+            dishes=reader.find_menu_items(query='salmon',max_price=250,currency='PHP')
+            self.assertEqual([dish['id'] for dish in dishes],[self.report['ids']['dish']])
+            self.assertEqual(reader.find_menu_items(query='salmon',max_price=249,currency='PHP'),[])
+        with closing(sqlite3.connect(self.base/'duplicate/main.sqlite')) as exported:
+            self.assertEqual(exported.execute('SELECT longitude,latitude FROM point').fetchall(),[(121.05,14.55)])
+            self.assertEqual(exported.execute('PRAGMA foreign_key_check').fetchall(),[])
+
+    def test_interrupted_export_preserves_previous_pack_and_can_retry(self):
+        self.build('known-good')
+        previous={p.name:p.read_bytes() for p in (self.base/'known-good').iterdir()}
+        before=list(self.db.iterdump())
+        with patch.object(Path,'rename',side_effect=OSError('TEST interrupted atomic activation')):
+            with self.assertRaisesRegex(OSError,'interrupted'):self.build('interrupted')
+        self.assertFalse((self.base/'interrupted').exists())
+        self.assertEqual(list(self.base.glob('.pending-*')),[])
+        self.assertEqual(previous,{p.name:p.read_bytes() for p in (self.base/'known-good').iterdir()})
+        self.assertEqual(before,list(self.db.iterdump()))
+        retried=self.build('interrupted')
+        self.assertEqual(retried['counts']['exported_entities'],4)
 
 if __name__=='__main__':unittest.main(verbosity=2)

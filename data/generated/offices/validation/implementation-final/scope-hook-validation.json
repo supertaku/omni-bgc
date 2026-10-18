@@ -1,0 +1,42 @@
+[
+  {
+    "name": "rendered-scope-final",
+    "command": [
+      "node",
+      "--test",
+      "tests/data-quality/offices/rendered-scope.test.cjs",
+      "tests/data-quality/offices/ui.test.cjs",
+      "tests/ui/app-refinement.test.cjs",
+      "tests/ui/mobile-interactions.test.cjs",
+      "tests/map/expansion/mobile-scope.test.cjs",
+      "tests/map/expansion/resource-loader.test.cjs",
+      "tests/map/expansion/bundled-install.test.cjs"
+    ],
+    "exit_code": 0,
+    "log_sha256": "e8ce67bb93334a2957f6c51c85dc7b457adc0297efa7ff89e59839fa81cb1355"
+  },
+  {
+    "name": "scope-format",
+    "command": [
+      "node",
+      "apps/mobile/node_modules/prettier/bin/prettier.cjs",
+      "--check",
+      "apps/mobile/src/map/MapCanvas.tsx",
+      "apps/mobile/src/app/Application.tsx"
+    ],
+    "exit_code": 0,
+    "log_sha256": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20"
+  },
+  {
+    "name": "migrations-unchanged",
+    "command": [
+      "git",
+      "diff",
+      "--exit-code",
+      "--",
+      "packages/database/migrations"
+    ],
+    "exit_code": 0,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]
