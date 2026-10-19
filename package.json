@@ -9,7 +9,7 @@
     "prebuild": "expo prebuild --platform android",
     "typecheck": "tsc --noEmit",
     "lint": "eslint App.tsx index.ts src modules/omni-local-ai/index.ts",
-    "format": "prettier --write App.tsx index.ts src modules/omni-local-ai/index.ts plugins config app.json metro.config.js package.json tsconfig.json eslint.config.mjs"
+    "format": "prettier --write App.tsx index.ts src modules/omni-local-ai/index.ts plugins app.json metro.config.js package.json tsconfig.json eslint.config.mjs"
   },
   "dependencies": {
     "@expo/vector-icons": "15.0.2",

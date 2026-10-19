@@ -3,3 +3,5 @@ android/
 ios/
 assets/
 .expo/
+config/map/
+src/map/*.json
