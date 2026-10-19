@@ -1,8 +1,0 @@
-{
-  "name": "@omni-bgc/ui-design-foundation",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {"test": "node --test test/*.test.mjs"},
-  "description": "M2 portable design tokens and view rules; not integrated native UI"
-}

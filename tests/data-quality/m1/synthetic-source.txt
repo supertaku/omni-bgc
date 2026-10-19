@@ -1,1 +1,0 @@
-Synthetic M1 contract fixture. No actual BGC place, menu, route or source permission.

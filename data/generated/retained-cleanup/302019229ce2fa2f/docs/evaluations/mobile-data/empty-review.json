@@ -1,9 +1,0 @@
-{
-  "mode": "LOCAL_READ_ONLY_REVIEW",
-  "automatic_promotion": false,
-  "publishing": false,
-  "sources": [],
-  "queue": [],
-  "facts": [],
-  "instructions": "Resolve and promote manually with the exact immutable intake, retained evidence and authorized reviewer via M4 intake CLI. A resolved queue does not choose conflicting values or grant source rights."
-}

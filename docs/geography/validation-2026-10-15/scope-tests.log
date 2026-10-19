@@ -1,9 +1,0 @@
-C:\Users\joshu\Documents\Omni-BGC\pipelines\gis\expansion\scope.py:53: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
-  return transform(INVERSE.transform, transform(FORWARD.transform, geometry).buffer(metres, quad_segs=16))
-C:\Users\joshu\Documents\Omni-BGC\tests\data-quality\gex\test_scope.py:64: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
-  delta = transform(FORWARD.transform,buffered).bounds[0] - transform(FORWARD.transform,service).bounds[0]
-.............
-----------------------------------------------------------------------
-Ran 13 tests in 0.032s
-
-OK

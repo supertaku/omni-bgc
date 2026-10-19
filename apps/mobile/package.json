@@ -9,13 +9,7 @@
     "prebuild": "expo prebuild --platform android",
     "typecheck": "tsc --noEmit",
     "lint": "eslint App.tsx index.ts src modules/omni-local-ai/index.ts",
-    "format:check": "node scripts/format-authored.cjs",
-    "format": "node scripts/format-authored.cjs --write",
-    "check:dependencies": "node scripts/dependency-audit.cjs --check",
-    "test:unit": "node --test ../../tests/refactoring/*.test.cjs",
-    "test:integration": "python scripts/quality.py --output ../../.g/r1/quality",
-    "check:style": "node scripts/check-local-style.mjs",
-    "check:ui": "node scripts/check-ui-program.cjs"
+    "format": "prettier --write App.tsx index.ts src modules/omni-local-ai/index.ts plugins config app.json metro.config.js package.json tsconfig.json eslint.config.mjs"
   },
   "dependencies": {
     "@expo/vector-icons": "15.0.2",

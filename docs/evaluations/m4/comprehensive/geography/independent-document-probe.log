@@ -1,9 +1,0 @@
-test_changed_source_text_changes_citation (__main__.NestedDocumentProbe.test_changed_source_text_changes_citation) ... ok
-test_overlapping_siblings_denied (__main__.NestedDocumentProbe.test_overlapping_siblings_denied) ... ok
-test_parent_intro_child_and_outro_preserved_once (__main__.NestedDocumentProbe.test_parent_intro_child_and_outro_preserved_once) ... ok
-test_unicode_offsets_are_codepoints (__main__.NestedDocumentProbe.test_unicode_offsets_are_codepoints) ... ok
-
-----------------------------------------------------------------------
-Ran 4 tests in 0.001s
-
-OK

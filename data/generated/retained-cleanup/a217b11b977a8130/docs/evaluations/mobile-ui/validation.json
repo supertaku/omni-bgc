@@ -1,8 +1,0 @@
-{
-  "command": "tsc --noEmit",
-  "exitCode": 0,
-  "nodeVersion": "v24.19.0",
-  "itineraryTests": 4,
-  "itineraryTestResult": "PASS",
-  "nativeDevice": "NOT_RUN by UI lane"
-}

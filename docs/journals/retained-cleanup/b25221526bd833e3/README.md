@@ -1,5 +1,0 @@
-# Coordinate and length contract
-
-Exchange positions are WGS84/EPSG:4326 longitude, latitude in decimal degrees. SQLite checks numeric ranges; range validation alone cannot detect swapped Manila axes, misplaced geometry or establish field accuracy. Ingest must carry actual source CRS separately, transform using recorded CRS/method/tool versions and inspect service-boundary containment in M3. M0 metre-based processed geometry is quarantined from direct WGS84 import. Geometry facts store GeoJSON with explicit CRS contract; no geometry is acquired by M1.
-
-Route edges carry nonnegative length_m plus length_method, length_crs, length_implementation and geometry_fact_id. Projected measurements require a suitable documented metre CRS; geodesic measurements require a named implementation. EPSG:4326 is prohibited as projected metric CRS. Do not treat a building point as an entrance, snap across barriers, or infer connectivity from intersecting buffers. M3/M9 own geometry/topology and field checks; M1 schema validation cannot prove route safety.

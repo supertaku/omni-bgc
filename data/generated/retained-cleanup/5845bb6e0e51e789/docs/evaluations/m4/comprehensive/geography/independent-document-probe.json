@@ -1,9 +1,0 @@
-{
-  "tests_run": 4,
-  "failures": 0,
-  "errors": 0,
-  "passed": true,
-  "canonical_SQL_runtime": "NOT_RUN",
-  "fixture": "SYNTHETIC_ONLY",
-  "documents_py_sha256": "4e3d231186d99c317d3e70dcab752a792bce6c78c58af967ab07d142019bb848"
-}
