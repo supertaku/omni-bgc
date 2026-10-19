@@ -7,7 +7,6 @@ import { createFoodResearchAnswer } from '../food/assistant';
 import { foodResearch } from '../food/directory';
 import { createAssistantRuntime, type AssistantRuntime } from '../../ai/assistantRuntime';
 import type { ModelStatus } from '../../ai/modelManager';
-import { modelSetupDiagnostic } from '../../ai/modelSetupDiagnostics';
 
 const research = createFoodResearchAnswer(foodResearch);
 let messageSerial = 0;
@@ -375,7 +374,6 @@ export function useAssistantConversation(
         );
       }
     } catch (error) {
-      modelSetupDiagnostic('operation_failed', error);
       if (live.current && epoch.current === operationEpoch) {
         // An import can fail after release while the checked active file remains.
         // Recover its availability, but never claim the released engine is ready.
