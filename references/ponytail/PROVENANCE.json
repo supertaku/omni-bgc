@@ -1,0 +1,26 @@
+{
+  "repository": "https://github.com/DietrichGebert/ponytail",
+  "commit": "09c434ab73ca43761c5d8b0c5d341926c2fba710",
+  "version": "5.3.2",
+  "reviewedOn": "2026-10-19",
+  "license": "MIT",
+  "scope": "Omni-BGC repository only; instruction references; no plugin or hooks installed",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "f1af4301bd3b85026965f9f1cfa101b9bfd73a75c6b92f7a2a72bab5768abd36"
+    },
+    {
+      "path": "skills/ponytail/SKILL.md",
+      "sha256": "f18008471528f0adde90a560d053f85935eed5cee26c447b7177ad24472bcf32"
+    },
+    {
+      "path": "skills/ponytail-review/SKILL.md",
+      "sha256": "affa0eedca467b58699fafbea28f6f85352aa3e7f23785964bf42f029a291504"
+    },
+    {
+      "path": "skills/ponytail-audit/SKILL.md",
+      "sha256": "3ab632ce4695de214dafe4db13d6f939e1c4be328bd0754ea751dc28b70be554"
+    }
+  ]
+}
