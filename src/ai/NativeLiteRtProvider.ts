@@ -62,7 +62,7 @@ export class NativeLiteRtProvider implements LocalAIProvider {
     private readonly resources: ModelResourceCoordinator = modelResourceCoordinator,
     private readonly cancelTimeoutMs = 5000,
     private readonly generationTimeoutMs = 120000,
-    private readonly initializationTimeoutMs = 30000,
+    private readonly initializationTimeoutMs = 180000,
   ) {
     this.state = bridge ? 'MODEL_MISSING' : 'UNAVAILABLE';
   }
@@ -98,25 +98,50 @@ export class NativeLiteRtProvider implements LocalAIProvider {
       throw new ProviderError('MODEL_HASH_MISMATCH');
     this.lease = this.resources.acquire(model.absolutePath);
     this.state = 'LOADING';
+    let initialization: Promise<unknown> | undefined;
+    let settled = false;
     try {
       const capabilities = await this.bridge.getCapabilities();
       if (!capabilities.android || !capabilities.backends.includes(backend))
         throw new ProviderError('RUNTIME_UNSUPPORTED');
       if (capabilities.thermalBlocked) throw new ProviderError('THERMAL_BLOCK');
-      await deadline(
-        this.bridge.initialize({
+      initialization = this.bridge
+        .initialize({
           verifiedAbsoluteModelPath: model.absolutePath,
           expectedSha256: model.sha256,
           expectedBytes: model.bytes,
           backend,
           contextTokens: model.contextTokens ?? 2048,
-        }),
-        this.initializationTimeoutMs,
-      );
+        })
+        .finally(() => {
+          settled = true;
+        });
+      await deadline(initialization, this.initializationTimeoutMs);
       this.model = model;
       this.backend = backend;
       this.state = 'READY';
     } catch (error) {
+      if (initialization && !settled) {
+        // A JS deadline cannot interrupt JNI initialization. Retain the lease until it settles.
+        this.poisoned = true;
+        this.state = 'FAILED';
+        void initialization
+          .catch(() => undefined)
+          .then(async () => {
+            try {
+              if (!(await deadline(this.bridge!.awaitNativeIdle(), this.cancelTimeoutMs)).idle)
+                return;
+              await deadline(this.bridge!.release(), this.cancelTimeoutMs);
+              this.lease?.release();
+              this.lease = undefined;
+              this.poisoned = false;
+              this.state = 'MODEL_MISSING';
+            } catch {
+              /* Keep unsafe native allocations fenced until process restart. */
+            }
+          });
+        throw this.asError(error);
+      }
       // An initialization error can leave native allocations: release only after positive idle proof.
       try {
         if (!(await deadline(this.bridge.awaitNativeIdle(), this.cancelTimeoutMs)).idle)

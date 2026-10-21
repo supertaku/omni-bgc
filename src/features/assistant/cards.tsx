@@ -1,10 +1,11 @@
 import { Pressable, Text, View } from 'react-native';
 import type { Citation, Place } from '../../contracts';
-import type { AssistantActions, AssistantPayload } from './contracts';
+import type { AssistantActions, AssistantPayload, PlaceDisplaySnapshot } from './contracts';
 import { assistantStyles as s } from './styles';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { WALKING_DIRECTIONS_DEFERRED, VISIT_PLANNING_DEFERRED } from './directory';
 import { formatFoodPrice } from '../food/service';
+import { CitationList } from '../../ui/components';
 
 /** Only the name is interactive; opening still goes through the conversation's fresh-ID guard. */
 function ResultName({
@@ -34,40 +35,41 @@ function ResultName({
   );
 }
 
-const supportedFact = (place: Place | undefined, citation?: Citation) =>
+const supportedFact = (sample: boolean, citation?: Citation) =>
   citation?.status === 'approved' ||
-  (!!place &&
-    isDemoPlace(place) &&
+  (sample &&
     citation?.verificationMethod === 'synthetic-preview' &&
     citation.sourceId === 'OMNI-UX-V2-FICTIONAL-PREVIEW');
 
 /** Kept as the existing entry point; result presentation is now an ordinary text row. */
 export function PlaceCard({
   place,
+  display,
   onOpenPlace,
   index = 0,
 }: {
-  place: Place;
+  place?: Place;
+  display?: PlaceDisplaySnapshot;
   onOpenPlace: AssistantActions['onOpenPlace'];
   distanceM?: number;
   index?: number;
 }) {
+  const name = display?.name ?? place?.name ?? 'Place unavailable';
+  const category = display?.category ?? place?.category ?? '';
+  const building = display ? display.building : place?.building;
+  const floor = display ? display.floor : place?.floor;
+  const sample = display?.fictionalSample ?? (!!place && isDemoPlace(place));
+  const stale = (display?.status ?? place?.status) === 'stale';
   return (
     <View style={s.resultRow}>
-      <ResultName name={place.name} index={index} place={place} onOpenPlace={onOpenPlace} />
+      <ResultName name={name} index={index} place={place} onOpenPlace={onOpenPlace} />
       <Text style={s.resultMeta}>
-        {[
-          place.category.replace(/[_-]/g, ' '),
-          place.building,
-          place.floor ? `Floor ${place.floor}` : null,
-        ]
+        {[category.replace(/[_-]/g, ' '), building, floor ? `Floor ${floor}` : null]
           .filter(Boolean)
           .join(' · ')}
       </Text>
-      {isDemoPlace(place) ? <Text style={s.resultMeta}>Fictional example</Text> : null}
-      {place.status === 'stale' ? (
-        <Text style={s.resultMeta}>These details may have changed.</Text>
-      ) : null}
+      {sample ? <Text style={s.resultMeta}>Fictional example</Text> : null}
+      {stale ? <Text style={s.resultMeta}>These details may have changed.</Text> : null}
     </View>
   );
 }
@@ -75,13 +77,16 @@ export function PlaceCard({
 export function MessageContent({
   payload,
   places,
+  displayPlaces = [],
   actions,
 }: {
   payload: AssistantPayload;
   places: Place[];
+  displayPlaces?: PlaceDisplaySnapshot[];
   actions: AssistantActions;
 }) {
   const resolve = (id: string) => places.find((place) => place.id === id);
+  const resolveDisplay = (id: string) => displayPlaces.find((place) => place.id === id);
   switch (payload.kind) {
     case 'user':
       return (
@@ -93,17 +98,16 @@ export function MessageContent({
       );
     case 'text':
       return (
-        <View style={s.assistantBubble}>
-          <Text accessibilityLabel={`Assistant: ${payload.text}`} style={s.body}>
-            {payload.text}
-            {payload.partial ? '…' : ''}
-          </Text>
-        </View>
+        <Text accessibilityLabel={`Assistant: ${payload.text}`} style={s.body}>
+          {payload.text}
+          {payload.partial ? '…' : ''}
+        </Text>
       );
     case 'places': {
       const matches = payload.placeIds.flatMap((id) => {
         const place = resolve(id);
-        return place ? [place] : [];
+        const display = resolveDisplay(id);
+        return place || display ? [{ place, display }] : [];
       });
       return (
         <View style={s.collection}>
@@ -114,10 +118,11 @@ export function MessageContent({
                 : `Here are ${matches.length} places to check out.`
               : 'Those places aren’t available anymore. Try another search.'}
           </Text>
-          {matches.map((place, index) => (
+          {matches.map(({ place, display }, index) => (
             <PlaceCard
-              key={place.id}
+              key={place?.id ?? display?.id}
               place={place}
+              display={display}
               index={index}
               onOpenPlace={actions.onOpenPlace}
             />
@@ -130,8 +135,9 @@ export function MessageContent({
     }
     case 'place': {
       const place = resolve(payload.placeId);
-      return place ? (
-        <PlaceCard place={place} onOpenPlace={actions.onOpenPlace} />
+      const display = resolveDisplay(payload.placeId);
+      return place || display ? (
+        <PlaceCard place={place} display={display} onOpenPlace={actions.onOpenPlace} />
       ) : (
         <Text style={s.body}>That place isn’t available anymore. Try its name again.</Text>
       );
@@ -167,6 +173,8 @@ export function MessageContent({
           <Text style={s.body}>Here’s what I found on the menus.</Text>
           {payload.items.map(({ placeId, item }, index) => {
             const place = resolve(placeId);
+            const display = resolveDisplay(placeId);
+            const sample = display?.fictionalSample ?? (!!place && isDemoPlace(place));
             return (
               <View key={`${placeId}:${item.id}`} style={s.resultRow}>
                 <ResultName
@@ -175,19 +183,19 @@ export function MessageContent({
                   place={place}
                   onOpenPlace={actions.onOpenPlace}
                 />
-                {place ? <Text style={s.resultMeta}>{place.name}</Text> : null}
+                {display || place ? (
+                  <Text style={s.resultMeta}>{display?.name ?? place?.name}</Text>
+                ) : null}
                 <Text style={s.body}>
-                  {supportedFact(place, item.priceCitation) && (item.price || item.priceValue)
+                  {supportedFact(sample, item.priceCitation) && (item.price || item.priceValue)
                     ? (item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`)
                     : 'Price not recorded'}
                 </Text>
-                {place && isDemoPlace(place) ? (
-                  <Text style={s.resultMeta}>Fictional example menu</Text>
-                ) : null}
+                {sample ? <Text style={s.resultMeta}>Fictional example menu</Text> : null}
                 {item.citation.status === 'stale' ? (
                   <Text style={s.resultMeta}>Price and availability may have changed.</Text>
                 ) : null}
-                {supportedFact(place, item.tagCitation) && item.tags?.length ? (
+                {supportedFact(sample, item.tagCitation) && item.tags?.length ? (
                   <Text style={s.resultMeta}>{item.tags.join(' · ')}</Text>
                 ) : null}
                 {item.tagCitation?.status === 'approved' && item.allergens?.length ? (
@@ -264,23 +272,21 @@ export function MessageContent({
     case 'itinerary':
       return <Text style={s.body}>{VISIT_PLANNING_DEFERRED}</Text>;
     case 'evidence':
-      // Citations remain in the payload and source guards, without a chat disclosure UI.
-      return null;
+      return <CitationList citations={payload.citations} />;
     case 'status':
       return (
-        <View style={[s.inlineNotice, payload.severity === 'error' && s.errorNotice]}>
-          <Text accessibilityLiveRegion="polite" style={s.body}>
-            {payload.text}
-          </Text>
-        </View>
+        <Text
+          accessibilityLiveRegion="polite"
+          style={[s.body, payload.severity === 'error' && s.errorText]}
+        >
+          {payload.text}
+        </Text>
       );
     case 'capability':
       return (
-        <View style={s.inlineNotice}>
-          <Text accessibilityLiveRegion="polite" style={s.body}>
-            {payload.text}
-          </Text>
-        </View>
+        <Text accessibilityLiveRegion="polite" style={s.body}>
+          {payload.text}
+        </Text>
       );
   }
 }

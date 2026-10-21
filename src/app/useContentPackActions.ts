@@ -1,5 +1,5 @@
 import { useState, type RefObject } from 'react';
-import { Alert, type AlertButton } from 'react-native';
+import type { AppDialogAction } from '../ui/AppDialog';
 import { installPack, rollbackPack } from '../updates';
 import type { PackKind, PackManifest } from '../updates/contracts';
 
@@ -12,20 +12,32 @@ export function useContentPackActions(
   const [installing, setInstalling] = useState(false),
     [confirming, setConfirming] = useState(false);
   const [packChecking, setPackChecking] = useState(false);
-  const confirm = (title: string, body: string, buttons: AlertButton[]) => {
+  const [dialog, setDialog] = useState<{
+    title: string;
+    description: string;
+    actions: AppDialogAction[];
+  } | null>(null);
+  const dismissDialog = () => {
+    setConfirming(false);
+    setDialog(null);
+  };
+  const confirm = (
+    title: string,
+    body: string,
+    buttons: { text: string; style?: 'cancel'; onPress?: () => void }[],
+  ) => {
     setConfirming(true);
-    Alert.alert(
+    setDialog({
       title,
-      body,
-      buttons.map((button) => ({
-        ...button,
+      description: body,
+      actions: buttons.map((button) => ({
+        label: button.text,
         onPress: () => {
-          setConfirming(false);
+          dismissDialog();
           button.onPress?.();
         },
       })),
-      { cancelable: true, onDismiss: () => setConfirming(false) },
-    );
+    });
   };
   const download = (manifest: PackManifest) => {
     if (installing) return;
@@ -89,5 +101,14 @@ export function useContentPackActions(
       ],
     );
 
-  return { installing, confirming, packChecking, setPackChecking, download, rollback };
+  return {
+    installing,
+    confirming,
+    packChecking,
+    setPackChecking,
+    download,
+    rollback,
+    dialog,
+    dismissDialog,
+  };
 }

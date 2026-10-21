@@ -45,11 +45,22 @@ export type AssistantPayload =
   | { kind: 'evidence'; title: string; citations: Citation[] }
   | { kind: 'status'; text: string; severity: 'info' | 'error' }
   | { kind: 'capability'; state: CapabilityState; text: string };
+export type PlaceDisplaySnapshot = {
+  id: string;
+  name: string;
+  category: string;
+  building?: string;
+  floor?: string;
+  status: Place['status'];
+  fictionalSample: boolean;
+};
 export type ConversationMessage = {
   id: string;
   payload: AssistantPayload;
   /** Historical, non-executable references; always resolve current sources before use. */
   canonicalPlaceIds?: string[];
+  /** Whitelisted presentation-only place fields, with no authority to run tools. */
+  displayPlaces?: PlaceDisplaySnapshot[];
   /** Bounded, freshly resolved display records; never persisted or replayed as authority. */
   sourcePlaces?: Place[];
 };

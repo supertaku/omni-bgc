@@ -21,14 +21,14 @@ export function Icon({name,size=22,color='#10243A'}:{name:IconName;size?:number;
   return <Ionicons name={glyphs[name]} size={size} color={color} accessible={false} allowFontScaling={false} />;
 }
 
-// Reuses project-authored compass-pin artwork; crop the review canvas for headers.
+// Shared original architectural mark for the launcher, splash and assistant.
 export function BrandMark({size=36,wordmark=false}:{size?:number;wordmark?:boolean}) {
   return <View style={styles.brand} accessible={false}>
     <View style={{width:size,height:size,overflow:'hidden'}}>
       <Image source={require('../../assets/brand/icon.png')} resizeMode="stretch"
-        style={{position:'absolute',width:size*1.86,height:size*1.86,left:-size*.43,top:-size*.385}} />
+        style={{width:size,height:size,borderRadius:size*.22}} />
     </View>
-    {wordmark?<Text style={styles.wordmark}>Omni-BGC</Text>:null}
+    {wordmark?<Text style={styles.wordmark}>The Fort</Text>:null}
   </View>;
 }
 export function categoryIcon(category:string):IconName {

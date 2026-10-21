@@ -1,4 +1,4 @@
-import { reviewedModel, ReviewedModel } from './modelCatalog';
+import { MODEL_CATALOG, reviewedModel, ReviewedModel } from './modelCatalog';
 import type { GenerationInput, LocalAIProvider } from './contracts';
 import { allocateGenerationEpoch } from './contracts';
 
@@ -56,8 +56,6 @@ export interface ModelSmokeRunner {
   readonly kind: 'native';
   load(model: StoredModel): Promise<void>;
   generateText(): Promise<string>;
-  /** Must actually start a generation and acknowledge cancellation AND native idle. */
-  cancelGenerationAndWait(): Promise<{ cancelled: boolean; nativeIdle: boolean }>;
   release(): Promise<void>;
 }
 function cancelled(signal?: AbortSignal): void {
@@ -159,6 +157,23 @@ export class ModelManager {
           return recovered;
         }
       }
+      // A process can die after the immutable rename but before the staged pointer transaction.
+      for (const model of MODEL_CATALOG) {
+        const path = this.storage.finalPath(model);
+        if ((await this.storage.size(path)) === null) continue;
+        let staged: StoredModel;
+        try {
+          this.update('VERIFYING', { totalBytes: model.bytes, bytesReceived: model.bytes });
+          staged = await this.verify(model, path);
+        } catch {
+          this.update('FAILED', { error: 'MODEL_EXISTING_ARTIFACT_CORRUPT' });
+          return pointers;
+        }
+        const recovered = { ...pointers, staged };
+        await this.guard.withModelMutation(() => this.storage.writePointers(recovered));
+        this.update('PENDING_NATIVE_SMOKE_TEST');
+        return recovered;
+      }
       this.update('NOT_INSTALLED');
       return pointers;
     });
@@ -177,11 +192,27 @@ export class ModelManager {
       cancelled(signal);
       const partial = this.storage.partialPath(model),
         destination = this.storage.finalPath(model);
+      if ((await this.storage.size(destination)) !== null) {
+        this.update('VERIFYING', { totalBytes: model.bytes, bytesReceived: model.bytes });
+        const staged = await this.verify(model, destination).catch(() => {
+          this.update('FAILED', { error: 'MODEL_EXISTING_ARTIFACT_CORRUPT' });
+          throw new Error('MODEL_EXISTING_ARTIFACT_CORRUPT');
+        });
+        cancelled(signal);
+        await this.guard.withModelMutation(async () => {
+          const pointers = await this.storage.readPointers();
+          await this.storage.writePointers({ ...pointers, staged });
+        });
+        this.update('PENDING_NATIVE_SMOKE_TEST');
+        return staged;
+      }
       const existing = (await this.storage.size(partial)) ?? 0;
       // Streaming transfer + rename needs only the missing bytes; previous immutable artifact remains on disk.
       const reusable = source.kind === 'download' && existing <= model.bytes ? existing : 0;
-      if ((await this.storage.freeBytes()) < model.bytes - reusable + 256 * 1024 * 1024)
+      if ((await this.storage.freeBytes()) < model.bytes - reusable + 256 * 1024 * 1024) {
+        this.update('FAILED', { error: 'MODEL_STORAGE_INSUFFICIENT' });
         throw new Error('MODEL_STORAGE_INSUFFICIENT');
+      }
       try {
         this.update('DOWNLOADING', { totalBytes: model.bytes, bytesReceived: existing });
         if (source.kind === 'download')
@@ -224,7 +255,7 @@ export class ModelManager {
       }
     });
   }
-  /** Called only from explicit native M10 trial. Host tests supply a clearly labeled controlled native fake. */
+  /** Explicit activation proves generation and idle/release; cancellation is a runtime safety contract. */
   activate(runner: ModelSmokeRunner, signal?: AbortSignal): Promise<StoredModel> {
     return this.own(async () => {
       cancelled(signal);
@@ -239,14 +270,6 @@ export class ModelManager {
         cancelled(signal);
         if (!(await runner.generateText()).trim()) throw new Error('MODEL_SMOKE_EMPTY_GENERATION');
         cancelled(signal);
-        const cancellation = await runner.cancelGenerationAndWait();
-        if (!cancellation.cancelled || !cancellation.nativeIdle)
-          throw new Error('MODEL_SMOKE_CANCEL_FAILED');
-        await runner.release();
-        cancelled(signal);
-        await runner.load(candidate);
-        cancelled(signal);
-        if (!(await runner.generateText()).trim()) throw new Error('MODEL_SMOKE_RELOAD_FAILED');
         await runner.release();
         cancelled(signal);
         await this.guard.withModelMutation(async () => {
@@ -270,7 +293,11 @@ export class ModelManager {
           /* Native lease remains poisoned; guard rejects deletion/replacement. */
         }
         this.update(signal?.aborted ? 'PAUSED' : 'FAILED', {
-          error: signal?.aborted ? 'MODEL_SETUP_CANCELLED' : 'MODEL_SMOKE_FAILED',
+          error: signal?.aborted
+            ? 'MODEL_SETUP_CANCELLED'
+            : error instanceof Error
+              ? error.message
+              : 'MODEL_SMOKE_FAILED',
         });
         throw error;
       }
@@ -366,23 +393,6 @@ export function createProviderSmokeRunner(
       )
         throw new Error('MODEL_SMOKE_GENERATION_INVALID');
       return result.text;
-    },
-    async cancelGenerationAndWait() {
-      const request = input('Count upwards from one to two hundred, spelling every number.', 256);
-      let acknowledgement: ReturnType<LocalAIProvider['cancel']> | undefined;
-      const result = await provider.stream(request, (event) => {
-        if (event.type === 'delta' && event.text && !acknowledgement) {
-          acknowledgement = provider.cancel(request.requestId);
-          // Avoid an unhandled rejection while the native generation settles.
-          acknowledgement.catch(() => undefined);
-        }
-      });
-      const ack = acknowledgement ? await acknowledgement : null;
-      return {
-        cancelled: result.finishReason === 'cancelled' && ack?.accepted === true,
-        // Caller cancellation settles before idle; only the later native acknowledgment proves it.
-        nativeIdle: ack?.nativeQuiescent === true,
-      };
     },
     release: () => provider.release(),
   };

@@ -12,6 +12,7 @@ import {
   Camera,
   type CameraRef,
   GeoJSONSource,
+  Images,
   Layer,
   Map,
   type MapRef,
@@ -22,12 +23,26 @@ import { loadActiveMapStyle } from '../updates/style';
 import { loadBundledStyle } from './bundled-style';
 import { coverageAt, pilotScope, type MapScope } from './scope';
 import { createMapResourceLoader, defaultScopeView } from './resource-loader';
+import context from './context.json';
 import {
   categorySprite,
   coordinateBounds,
   renderMapStyle,
   placeFeatureCollection,
 } from './presentation';
+
+const facadeImages = {
+  'fort-facade-glass-blue': require('../../assets/map-facades/glass-blue.png'),
+  'fort-facade-glass-teal': require('../../assets/map-facades/glass-teal.png'),
+  'fort-facade-residential-warm': require('../../assets/map-facades/residential-warm.png'),
+  'fort-facade-residential-cool': require('../../assets/map-facades/residential-cool.png'),
+  'fort-facade-mixed-sand': require('../../assets/map-facades/mixed-sand.png'),
+  'fort-facade-retail-bronze': require('../../assets/map-facades/retail-bronze.png'),
+  'fort-facade-masonry-light': require('../../assets/map-facades/masonry-light.png'),
+  'fort-facade-hotel-slate': require('../../assets/map-facades/hotel-slate.png'),
+  'fort-facade-neutral-slate': require('../../assets/map-facades/neutral-slate.png'),
+  'fort-facade-neutral-sand': require('../../assets/map-facades/neutral-sand.png'),
+};
 
 export type MapCanvasProps = {
   origin?: Origin | null;
@@ -286,6 +301,124 @@ export function MapCanvas({
           minZoom={14}
           maxZoom={20}
         />
+        <Images images={facadeImages} />
+        {activeScope.id === 'omni-bgc:service-area:bgc-commercial-v2' && (
+          <GeoJSONSource id="surrounding-context" data={context as GeoJSON.FeatureCollection}>
+            <Layer
+              id="context-green"
+              type="fill"
+              filter={['==', ['get', 'kind'], 'green']}
+              paint={{ 'fill-color': '#A8C69A', 'fill-opacity': 0.85 }}
+            />
+            <Layer
+              id="context-water"
+              type="fill"
+              filter={['==', ['get', 'kind'], 'water']}
+              paint={{ 'fill-color': '#83C6CB' }}
+            />
+            <Layer
+              id="context-road-casing"
+              type="line"
+              filter={['==', ['get', 'kind'], 'road']}
+              layout={{ 'line-cap': 'round', 'line-join': 'round' }}
+              paint={{
+                'line-color': '#B9B8AF',
+                'line-width': [
+                  'case',
+                  [
+                    'in',
+                    ['get', 'highway'],
+                    ['literal', ['footway', 'path', 'steps', 'cycleway', 'pedestrian']],
+                  ],
+                  ['interpolate', ['linear'], ['zoom'], 14, 1.5, 18, 5],
+                  ['interpolate', ['linear'], ['zoom'], 14, 2, 18, 9],
+                ],
+              }}
+            />
+            <Layer
+              id="context-roads"
+              type="line"
+              filter={[
+                'all',
+                ['==', ['get', 'kind'], 'road'],
+                [
+                  '!',
+                  [
+                    'in',
+                    ['get', 'highway'],
+                    ['literal', ['footway', 'path', 'steps', 'cycleway', 'pedestrian']],
+                  ],
+                ],
+              ]}
+              layout={{ 'line-cap': 'round', 'line-join': 'round' }}
+              paint={{
+                'line-color': '#687279',
+                'line-width': ['interpolate', ['linear'], ['zoom'], 14, 1.5, 18, 7],
+              }}
+            />
+            <Layer
+              id="context-paths"
+              type="line"
+              filter={[
+                'all',
+                ['==', ['get', 'kind'], 'road'],
+                [
+                  'in',
+                  ['get', 'highway'],
+                  ['literal', ['footway', 'path', 'steps', 'cycleway', 'pedestrian']],
+                ],
+              ]}
+              layout={{ 'line-cap': 'round', 'line-join': 'round' }}
+              paint={{
+                'line-color': '#E1D8C6',
+                'line-width': ['interpolate', ['linear'], ['zoom'], 14, 1, 18, 4],
+              }}
+            />
+            <Layer
+              id="context-buildings"
+              type="fill"
+              filter={['==', ['get', 'kind'], 'building']}
+              paint={{ 'fill-color': '#BAC2C3', 'fill-outline-color': '#919D9F' }}
+            />
+            <Layer
+              id="context-road-labels"
+              type="symbol"
+              minzoom={17}
+              filter={['all', ['==', ['get', 'kind'], 'road'], ['has', 'name']]}
+              layout={{
+                'symbol-placement': 'line',
+                'text-field': ['get', 'name'],
+                'text-font': ['Noto Sans Regular'],
+                'text-size': 11,
+                'text-padding': 16,
+              }}
+              paint={{
+                'text-color': '#30414A',
+                'text-halo-color': '#F3F0E7',
+                'text-halo-width': 1.5,
+              }}
+            />
+            <Layer
+              id="st-lukes-label"
+              type="symbol"
+              minzoom={15}
+              filter={['==', ['get', 'kind'], 'landmark']}
+              layout={{
+                'text-field': ['get', 'name'],
+                'text-font': ['Noto Sans Regular'],
+                'text-size': ['interpolate', ['linear'], ['zoom'], 15, 11, 18, 14],
+                'text-max-width': 12,
+                'text-padding': 10,
+                'text-allow-overlap': false,
+              }}
+              paint={{
+                'text-color': '#17486A',
+                'text-halo-color': '#FFFFFF',
+                'text-halo-width': 2,
+              }}
+            />
+          </GeoJSONSource>
+        )}
         {!quiet && (
           <GeoJSONSource
             id="visible-places"
@@ -299,12 +432,27 @@ export function MapCanvas({
             }}
           >
             <Layer
+              id="important-place-pins"
+              type="symbol"
+              minzoom={15}
+              filter={['==', ['get', 'important'], true]}
+              layout={{
+                'icon-image': ['get', 'marker'],
+                'icon-size': ['interpolate', ['linear'], ['zoom'], 15, 0.36, 19, 0.58],
+                'icon-anchor': 'bottom',
+                'icon-allow-overlap': false,
+                'icon-ignore-placement': false,
+                'icon-padding': 8,
+              }}
+            />
+            <Layer
               id="place-pins"
               type="symbol"
               minzoom={17}
+              filter={['!=', ['get', 'important'], true]}
               layout={{
                 'icon-image': ['get', 'marker'],
-                'icon-size': ['interpolate', ['linear'], ['zoom'], 16, 0.4, 19, 0.55],
+                'icon-size': ['interpolate', ['linear'], ['zoom'], 17, 0.4, 19, 0.58],
                 'icon-anchor': 'bottom',
                 'icon-allow-overlap': false,
               }}
@@ -565,7 +713,7 @@ export function MapCanvas({
               : coverage === 'context'
                 ? 'Limited context · outside detailed coverage'
                 : coverage === 'outside'
-                  ? 'Outside this map area'
+                  ? 'Outside detailed coverage'
                   : 'High Street map restored · expanded resources unavailable'}
           </Text>
         </View>

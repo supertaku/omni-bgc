@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { Body, palette } from '../../ui/components';
+import { Body, Icon, palette } from '../../ui/components';
 import type { FoodEvidence, FoodHours, FoodMenuItem } from './contracts';
 import { formatFoodPrice } from './service';
 import { foodResearch } from './directory';
@@ -80,6 +80,23 @@ export function FoodMenuRow({ item }: { item: FoodMenuItem; evidence: FoodEviden
     <View
       style={{ paddingVertical: 10, gap: 4, borderBottomWidth: 1, borderColor: palette.divider }}
     >
+      <View
+        style={{
+          minHeight: 68,
+          padding: 12,
+          borderRadius: 12,
+          backgroundColor: palette.soft,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 8,
+        }}
+      >
+        <Icon name="image" size={20} color={palette.muted} />
+        <Text style={{ fontFamily: 'OmniBody', fontSize: 13, color: palette.muted }}>
+          Menu image unavailable
+        </Text>
+      </View>
       <Text style={{ fontFamily: 'OmniBodySemiBold', color: palette.ink, fontSize: 16 }}>
         {item.name}
       </Text>

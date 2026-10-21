@@ -23,6 +23,8 @@ export type ToolExecutionContext = {
   userPriceBounds?: PhpPriceBounds;
   /** Ordinary recorded-menu fallback, not an explicit research-only request. */
   ordinaryMenuResearch?: boolean;
+  /** Exact branch scope already checked by the host's direct menu request. */
+  ordinaryMenuBranchId?: string;
   /** Request-local provenance for ordinary research details; explicit research is separate. */
   resolvedResearchRestaurantIds?: Set<string>;
   resolvedPlaceIds: Set<string>;
@@ -114,6 +116,7 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
         if (context.ordinaryMenuResearch) {
           const approved = await retrieval.findMenuItems({
             query: effective.query ?? effective.category,
+            branchId: context.ordinaryMenuBranchId,
             minPricePhp: effective.minPhp,
             maxPricePhp: effective.maxPhp,
           });

@@ -9,8 +9,8 @@ import {
   View,
 } from 'react-native';
 import type { Place } from '../../contracts';
-import { Icon, palette } from '../../ui/components';
-import type { AssistantActions } from './contracts';
+import { BrandMark, Icon, palette } from '../../ui/components';
+import type { AssistantActions, AssistantPayload, PlaceDisplaySnapshot } from './contracts';
 import { MessageContent } from './cards';
 import { useAssistantConversation } from './useAssistantConversation';
 import { assistantStyles as s } from './styles';
@@ -63,6 +63,28 @@ export function AssistantScreen({
       void openPlace(place);
     },
   };
+  const renderMessage = (
+    payload: AssistantPayload,
+    sourcePlaces = places,
+    key?: string,
+    displayPlaces: PlaceDisplaySnapshot[] = [],
+  ) => {
+    const content = (
+      <MessageContent
+        payload={payload}
+        places={sourcePlaces}
+        displayPlaces={displayPlaces}
+        actions={actions}
+      />
+    );
+    if (payload.kind === 'user') return <View key={key}>{content}</View>;
+    return (
+      <View key={key} style={s.assistantMessage}>
+        <BrandMark size={28} />
+        <View style={s.assistantBubble}>{content}</View>
+      </View>
+    );
+  };
   const send = () => {
     sendQuery(draft);
   };
@@ -102,7 +124,9 @@ export function AssistantScreen({
           >
             <Icon name="back" size={20} />
           </Pressable>
-          <View style={s.headerText} />
+          <Text accessibilityRole="header" style={[s.title, s.headerText]}>
+            The Fort
+          </Text>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Open models"
@@ -128,32 +152,24 @@ export function AssistantScreen({
             }
           }}
         >
-          {!messages.length ? (
-            <MessageContent
-              payload={{ kind: 'text', text: 'Hey! What would you like to find in BGC?' }}
-              places={places}
-              actions={actions}
-            />
-          ) : null}
-          {!messages.length && !places.length ? (
-            <MessageContent
-              payload={{
+          {!messages.length
+            ? renderMessage({ kind: 'text', text: 'Hey! What would you like to find in BGC?' })
+            : null}
+          {!messages.length && !places.length
+            ? renderMessage({
                 kind: 'capability',
                 state: 'retrieval-unavailable',
                 text: 'No local directory is installed yet. You can still explore the map.',
-              }}
-              places={places}
-              actions={actions}
-            />
-          ) : null}
-          {messages.map((message) => (
-            <MessageContent
-              key={message.id}
-              payload={message.payload}
-              places={message.sourcePlaces?.length ? message.sourcePlaces : places}
-              actions={actions}
-            />
-          ))}
+              })
+            : null}
+          {messages.map((message) =>
+            renderMessage(
+              message.payload,
+              message.sourcePlaces?.length ? message.sourcePlaces : places,
+              message.id,
+              message.displayPlaces,
+            ),
+          )}
           {messages.some((entry) => entry.payload.kind === 'itinerary-preview') ? (
             <Pressable
               accessibilityRole="button"

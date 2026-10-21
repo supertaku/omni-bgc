@@ -4,7 +4,7 @@ const { withProjectBuildGradle, withSettingsGradle, withGradleProperties, withAn
 const KOTLIN_VERSION = '2.3.20';
 module.exports = config => {
   if (process.env.OMNI_AI_PREVIEW === '1') {
-    config = { ...config, name: 'Omni-BGC AI Preview', scheme: 'omni-bgc-ai-preview', android: { ...config.android, package: 'com.omnibgc.aipreview' } };
+    config = { ...config, name: 'The Fort AI Preview', scheme: 'omni-bgc-ai-preview', android: { ...config.android, package: 'com.omnibgc.aipreview' } };
   }
   config = withProjectBuildGradle(config, cfg => {
     const expression = /classpath\(['"]org\.jetbrains\.kotlin:kotlin-gradle-plugin(?::[^'"]+)?['"]\)/g;

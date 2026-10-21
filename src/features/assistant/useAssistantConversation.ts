@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import type { Place } from '../../contracts';
 import type { ConversationMessage, AssistantPayload } from './contracts';
+import { isDemoPlace } from '../explore/demoDirectory';
 import { answerDirectoryQuery } from './directory';
 import { createFoodResearchAnswer } from '../food/assistant';
 import { foodResearch } from '../food/directory';
@@ -39,6 +40,7 @@ export function useAssistantConversation(
   const ready = useRef(false);
   const initializationSettled = useRef(false);
   const clearRequested = useRef(false);
+  const pendingHistory = useRef<ConversationMessage[]>([]);
   const resolved = useRef<string[]>([]);
   const timeline = useRef<ConversationMessage[]>([]);
   timeline.current = messages;
@@ -51,12 +53,29 @@ export function useAssistantConversation(
             ? [payload.placeId]
             : payload.kind === 'menus'
               ? payload.items.map((row) => row.placeId)
-              : payload.kind === 'itinerary-preview'
-                ? payload.preview.stops.map((stop) => stop.placeId)
-                : [];
+              : payload.kind === 'food-menus'
+                ? payload.items.map((row) => row.placeId)
+                : payload.kind === 'food-hours'
+                  ? [payload.placeId]
+                  : payload.kind === 'itinerary-preview'
+                    ? payload.preview.stops.map((stop) => stop.placeId)
+                    : [];
       const snapshots = sourcePlaces.filter((place) => ids.includes(place.id));
       return {
         ...message(payload),
+        ...(snapshots.length
+          ? {
+              displayPlaces: snapshots.map((place) => ({
+                id: place.id,
+                name: place.name,
+                category: place.category,
+                ...(place.building ? { building: place.building } : {}),
+                ...(place.floor ? { floor: place.floor } : {}),
+                status: place.status,
+                fictionalSample: isDemoPlace(place),
+              })),
+            }
+          : {}),
         ...(snapshots.length
           ? {
               sourcePlaces: snapshots,
@@ -72,8 +91,14 @@ export function useAssistantConversation(
     return added;
   };
   const persist = async (records: ConversationMessage[]) => {
+    if (!records.length) return;
+    const activeRuntime = runtime.current;
+    if (!activeRuntime) {
+      pendingHistory.current = [...pendingHistory.current, ...records].slice(-200);
+      return;
+    }
     try {
-      await runtime.current?.history.append(records);
+      await activeRuntime.history.append(records);
     } catch {
       if (live.current)
         append([
@@ -102,6 +127,11 @@ export function useAssistantConversation(
           if (clearRequested.current) {
             await created.history.clear();
             clearRequested.current = false;
+          }
+          if (pendingHistory.current.length) {
+            const queued = pendingHistory.current;
+            pendingHistory.current = [];
+            await created.history.append(queued);
           }
           const restored = await created.history.load();
           if (
@@ -147,16 +177,18 @@ export function useAssistantConversation(
             await created.close();
             return;
           }
-          unsubscribe = created.getManager()?.subscribe((value) => {
-            if (active && live.current) setSetupStatus(value);
-          });
         } catch {
           if (active && live.current) {
             ready.current = false;
             setStatus('Local AI unavailable · directory fallback ready');
           }
         } finally {
-          if (active) initializationSettled.current = true;
+          if (active) {
+            initializationSettled.current = true;
+            unsubscribe = created.getManager()?.subscribe((value) => {
+              if (active && live.current) setSetupStatus(value);
+            });
+          }
         }
       })
       .catch(() => {
@@ -169,6 +201,9 @@ export function useAssistantConversation(
         runtime.current?.agent.cancel();
         busyRef.current = false;
         if (live.current) {
+          setMessages((before) =>
+            before.filter((entry) => !(entry.payload.kind === 'text' && entry.payload.partial)),
+          );
           setBusy(false);
           setStatus('Paused · local directory ready');
         }
@@ -192,6 +227,9 @@ export function useAssistantConversation(
     request.current?.abort();
     runtime.current?.agent.cancel();
     busyRef.current = false;
+    setMessages((before) =>
+      before.filter((entry) => !(entry.payload.kind === 'text' && entry.payload.partial)),
+    );
     setBusy(false);
     setCancelled(true);
     append([
@@ -213,15 +251,16 @@ export function useAssistantConversation(
     request.current = abort;
     if (query === draft) setDraft('');
     const user = append([{ kind: 'user', text }]);
+    const userPersisted = persist(user);
     const partialId = message({ kind: 'text', text: '' }).id;
     void (async () => {
       let output: AssistantPayload[];
       let sourcePlaces: Place[] = [];
       try {
         const service = runtime.current;
-        if (ready.current && service) {
-          setStatus('Generating locally · Stop available');
-          const turn = await service.agent.run(text, {
+        if (service) {
+          setStatus('Checking local request · Stop available');
+          const turn = await service.answer(text, current.current.places, {
             signal: abort.signal,
             resolvedPlaceIds: resolved.current,
             recentMessages: timeline.current
@@ -264,8 +303,12 @@ export function useAssistantConversation(
             },
           });
           if (!live.current || epoch.current !== turnEpoch || abort.signal.aborted) return;
-          if (turn.status === 'canceled') return;
+          if (turn.status === 'canceled') {
+            setMessages((before) => before.filter((entry) => entry.id !== partialId));
+            return;
+          }
           output = turn.payloads;
+          ready.current = service.provider.state === 'READY';
           sourcePlaces = turn.places ?? [];
           const displayed = output.flatMap((payload) =>
             payload.kind === 'places'
@@ -287,11 +330,11 @@ export function useAssistantConversation(
               ...new Set(displayed.filter((id) => sourcePlaces.some((place) => place.id === id))),
             ].slice(0, 12);
           if (turn.status === 'failed') {
-            ready.current = false;
             setStatus('Local AI unavailable · directory fallback ready');
           }
         } else {
           output = answerDirectoryQuery(text, current.current.places, undefined, research);
+          sourcePlaces = current.current.places;
         }
       } catch {
         if (!live.current || epoch.current !== turnEpoch || abort.signal.aborted) return;
@@ -307,7 +350,8 @@ export function useAssistantConversation(
       if (!live.current || epoch.current !== turnEpoch || abort.signal.aborted) return;
       setMessages((before) => before.filter((entry) => entry.id !== partialId));
       const added = append(output, sourcePlaces);
-      await persist([...user, ...added]);
+      await userPersisted;
+      await persist(added);
       if (live.current && epoch.current === turnEpoch)
         setStatus(
           ready.current ? 'Local AI · CPU · offline' : 'Local directory · AI not connected',
@@ -330,6 +374,7 @@ export function useAssistantConversation(
     cancel();
     runtime.current?.itineraryPreview.clear();
     resolved.current = [];
+    pendingHistory.current = [];
     clearRequested.current = true;
     try {
       await runtime.current?.history.clear();
@@ -384,7 +429,14 @@ export function useAssistantConversation(
             .catch(() => undefined);
         if (!live.current || epoch.current !== operationEpoch) return;
         ready.current = service.provider.state === 'READY';
-        setSetupStatus(service.getManager()?.getStatus() ?? null);
+        const recoveredStatus = service.getManager()?.getStatus();
+        const code =
+          error && typeof error === 'object' && 'code' in error
+            ? String(error.code)
+            : error instanceof Error
+              ? error.message
+              : 'MODEL_SETUP_FAILED';
+        setSetupStatus(recoveredStatus ? { ...recoveredStatus, error: code } : null);
         setStatus('Model setup unavailable · directory fallback ready');
       }
     } finally {

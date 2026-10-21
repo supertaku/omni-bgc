@@ -27,6 +27,7 @@ import { useOfflineFonts } from '../ui/fonts';
 import { useAppInitialization } from './useAppInitialization';
 import { useExplorerNavigation, type Panel } from './useExplorerNavigation';
 import { useContentPackActions } from './useContentPackActions';
+import { AppDialog } from '../ui/AppDialog';
 import { renderExplorePanel } from '../features/explore/ExplorePanels';
 export function Application() {
   const [fontsLoaded, fontError] = useOfflineFonts();
@@ -44,8 +45,16 @@ export function Application() {
   const downloadController = useRef<AbortController | null>(null);
   const { places, ready, packStatus, startup, setPackStatus, refreshRecords } =
     useAppInitialization(downloadController, setError);
-  const { installing, confirming, packChecking, setPackChecking, download, rollback } =
-    useContentPackActions(downloadController, refreshRecords, setMessage, setError);
+  const {
+    installing,
+    confirming,
+    packChecking,
+    setPackChecking,
+    download,
+    rollback,
+    dialog,
+    dismissDialog,
+  } = useContentPackActions(downloadController, refreshRecords, setMessage, setError);
   const {
     tab,
     panel,
@@ -166,7 +175,7 @@ export function Application() {
       <SafeAreaView style={styles.loading}>
         <StatusBar barStyle="dark-content" backgroundColor={palette.canvas} />
         <Text accessibilityRole="header" style={styles.loadingTitle}>
-          Omni-BGC
+          The Fort
         </Text>
         <Text style={styles.loadingText}>Opening your BGC map…</Text>
       </SafeAreaView>
@@ -306,6 +315,7 @@ export function Application() {
           />
         </View>
       </KeyboardAvoidingView>
+      {dialog ? <AppDialog visible {...dialog} onDismiss={dismissDialog} /> : null}
     </SafeAreaView>
   );
 }

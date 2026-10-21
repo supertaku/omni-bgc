@@ -1,11 +1,20 @@
 import { useState, type ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { Citation, Place, SavedState } from '../../contracts';
-import { Body, CategoryArtwork, Icon, Notice, palette, type IconName } from '../../ui/components';
+import { AppDialog } from '../../ui/AppDialog';
+import {
+  Action,
+  Body,
+  CategoryArtwork,
+  Icon,
+  Notice,
+  palette,
+  type IconName,
+} from '../../ui/components';
 import { demoDetails, isDemoPlace } from './demoDirectory';
 import { foodResearch } from '../food/directory';
 import { OfficeDetailsView, OfficeTenantList } from '../offices/OfficeDetails';
-import { FoodHoursView, ResearchMenu } from '../food/ResearchDetails';
+import { FoodHoursView, FoodSourceDisclosure, ResearchMenu } from '../food/ResearchDetails';
 
 function DetailSection({
   title,
@@ -71,6 +80,7 @@ export function PlaceDetails({
   saved?: SavedState;
   onSave?: (place: Place) => void;
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   if (place.category === 'office')
     return (
       <OfficeDetailsView
@@ -84,6 +94,7 @@ export function PlaceDetails({
   const demo = demoDetails(place),
     sample = isDemoPlace(place);
   const research = foodResearch.getFoodEstablishmentDetails(place.id);
+  const restaurantLike = /restaurant|food|caf[eé]|coffee|dining/i.test(place.category);
   const supported = (citation: Citation | undefined) =>
     citation?.status === 'approved' ||
     !!(
@@ -133,35 +144,21 @@ export function PlaceDetails({
             <FoodHoursView hours={research.hours} />
           </DetailSection>
           <DetailSection title="Menu" icon="menu" summary={String(research.menuItemCount)}>
-            <ResearchMenu key={research.id} restaurantId={research.id} />
+            <Body muted>Internal research · rights review pending.</Body>
+            <Action label="Menu" icon="menu" onPress={() => setMenuOpen(true)} />
           </DetailSection>
         </>
       ) : null}
       {menus.length ? (
         <DetailSection title="Menu or products" icon="menu" summary={String(menus.length)}>
-          {menus.map((item) => (
-            <View key={item.id} style={styles.menuItem}>
-              <Text style={styles.itemName}>{item.name}</Text>
-              {supported(item.priceCitation) && (item.price || item.priceValue) ? (
-                <Body>
-                  {item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`}
-                </Body>
-              ) : (
-                <Body muted>Price not recorded</Body>
-              )}
-              {supported(item.tagCitation) && item.tags?.length ? (
-                <Body muted>{item.tags.join(' · ')} · confirm dietary needs with the venue</Body>
-              ) : null}
-              {item.tagCitation?.status === 'approved' && item.allergens?.length ? (
-                <Body muted>
-                  Reported allergens: {item.allergens.join(', ')}. Confirm with the venue.
-                </Body>
-              ) : null}
-              {item.citation.status === 'stale' ? (
-                <Body muted>Price and availability may have changed.</Body>
-              ) : null}
-            </View>
-          ))}
+          <Body muted>Source and availability may vary by venue and date.</Body>
+          <Action label="Menu" icon="menu" onPress={() => setMenuOpen(true)} />
+        </DetailSection>
+      ) : null}
+      {!research && !menus.length && restaurantLike ? (
+        <DetailSection title="Menu" icon="menu" summary="0">
+          <Body muted>Menu information is not yet available.</Body>
+          <Action label="Menu" icon="menu" onPress={() => setMenuOpen(true)} />
         </DetailSection>
       ) : null}
       {demo?.services.length ? (
@@ -170,6 +167,56 @@ export function PlaceDetails({
             <Body key={service}>{service}</Body>
           ))}
         </DetailSection>
+      ) : null}
+      {research || menus.length || restaurantLike ? (
+        <AppDialog
+          visible={menuOpen}
+          title={`${place.name} menu`}
+          description={
+            research
+              ? 'Internal research · rights review pending. Some menu items may be missing. Prices and branch availability may differ; check with the restaurant.'
+              : 'Menu records and prices may change. Confirm details and dietary needs with the venue.'
+          }
+          actions={[{ label: 'Close', onPress: () => setMenuOpen(false) }]}
+          onDismiss={() => setMenuOpen(false)}
+        >
+          {research ? (
+            <>
+              <FoodSourceDisclosure evidence={foodResearch.getFoodResearchEvidence(research.id)} />
+              <ResearchMenu key={research.id} restaurantId={research.id} />
+            </>
+          ) : menus.length ? (
+            menus.map((item) => (
+              <View key={item.id} style={styles.menuItem}>
+                <View style={styles.imagePlaceholder}>
+                  <Icon name="image" size={20} color={palette.muted} />
+                  <Text style={styles.imagePlaceholderText}>Menu image unavailable</Text>
+                </View>
+                <Text style={styles.itemName}>{item.name}</Text>
+                {supported(item.priceCitation) && (item.price || item.priceValue) ? (
+                  <Body>
+                    {item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`}
+                  </Body>
+                ) : (
+                  <Body muted>Price not recorded</Body>
+                )}
+                {supported(item.tagCitation) && item.tags?.length ? (
+                  <Body muted>{item.tags.join(' · ')} · confirm dietary needs with the venue</Body>
+                ) : null}
+                {item.tagCitation?.status === 'approved' && item.allergens?.length ? (
+                  <Body muted>
+                    Reported allergens: {item.allergens.join(', ')}. Confirm with the venue.
+                  </Body>
+                ) : null}
+                {item.citation.status === 'stale' ? (
+                  <Body muted>Price and availability may have changed.</Body>
+                ) : null}
+              </View>
+            ))
+          ) : (
+            <Body>Menu information is not yet available.</Body>
+          )}
+        </AppDialog>
       ) : null}
     </View>
   );
@@ -191,6 +238,17 @@ const styles = StyleSheet.create({
   metadata: { flex: 1, minWidth: 0 },
   metadataText: { fontFamily: 'OmniBody', fontSize: 13, lineHeight: 19, color: palette.muted },
   menuItem: { paddingVertical: 8, gap: 3, borderBottomWidth: 1, borderColor: palette.divider },
+  imagePlaceholder: {
+    minHeight: 68,
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: palette.soft,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
+  },
+  imagePlaceholderText: { fontFamily: 'OmniBody', fontSize: 13, color: palette.muted },
   itemName: { fontFamily: 'OmniBodySemiBold', fontSize: 16, lineHeight: 23, color: palette.ink },
   citation: { gap: 3, paddingVertical: 6 },
 });

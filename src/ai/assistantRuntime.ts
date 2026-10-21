@@ -9,6 +9,11 @@ import { ConversationStore } from './conversationStore';
 import { createExpoModelManager } from './modelStorage';
 import { createProviderSmokeRunner, type ModelManager } from './modelManager';
 import { GEMMA_4_E2B } from './modelCatalog';
+import { runHybridTurn } from './hybridAssistant';
+import type { AgentRunOptions } from './AgentOrchestrator';
+import { answerDirectoryQuery } from '../features/assistant/directory';
+import { createFoodResearchAnswer } from '../features/food/assistant';
+import { foodResearch } from '../features/food/directory';
 
 export async function createAssistantRuntime(focus: (place: Place) => boolean) {
   const provider = new NativeLiteRtProvider();
@@ -24,6 +29,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     cancelPending: () => itineraryPreview.cancelPending(),
   });
   const agent = new AgentOrchestrator(provider, executor);
+  const research = createFoodResearchAnswer(foodResearch);
   const history = new ConversationStore();
   let manager: ModelManager | null = null;
   let initialization: Promise<boolean> | null = null;
@@ -129,6 +135,19 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     provider,
     itineraryPreview,
     agent,
+    answer: (query: string, places: readonly Place[], options?: AgentRunOptions) =>
+      runHybridTurn(
+        query,
+        places,
+        {
+          agent,
+          executor,
+          canInfer: () => provider.state === 'READY',
+          answerDirectory: (q, records) =>
+            answerDirectoryQuery(q, [...records], undefined, research),
+        },
+        options,
+      ),
     history,
     initialize,
     setup: (signal: AbortSignal) => own(setup, signal),

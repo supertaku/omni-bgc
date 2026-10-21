@@ -1,0 +1,59 @@
+{
+  "author": "Omni-BGC project",
+  "license": "MIT",
+  "source": "scripts/generate-map-facades.py",
+  "generatorSha256": "883cf27f8e4c3b23338f9836a3f12a0ac6703ab7642f1d6160a8fd74af6e696f",
+  "use": "Illustrative map facade textures only; no physical facade claim",
+  "images": [
+    {
+      "path": "glass-blue.png",
+      "bytes": 541,
+      "sha256": "35b7c2934270ee4a7f27c5d2066a6ecec49aeb194d227c4594e0d214344c71e6"
+    },
+    {
+      "path": "glass-teal.png",
+      "bytes": 551,
+      "sha256": "849e2c76995a721586549f1c98a873218152bfbdf733e470f19e17fc2a7fa393"
+    },
+    {
+      "path": "residential-warm.png",
+      "bytes": 487,
+      "sha256": "6c8b7477fa54db4d511488de016409efe8f37e6d460ed36df37a96e22b6dd411"
+    },
+    {
+      "path": "residential-cool.png",
+      "bytes": 486,
+      "sha256": "536095d227748bc4bb10c45426227ae87697211437caf7d28c2d8f265c66ac88"
+    },
+    {
+      "path": "mixed-sand.png",
+      "bytes": 494,
+      "sha256": "d6a1237aae241deacee469d252478b4b38b0f4328ec828e2b0f2ba040acb96d5"
+    },
+    {
+      "path": "retail-bronze.png",
+      "bytes": 487,
+      "sha256": "d91c7176d00f4ec74e1c5cc38b3958aeb578a37ce222516301b65a30a039e592"
+    },
+    {
+      "path": "masonry-light.png",
+      "bytes": 521,
+      "sha256": "996cca040c265ae5e272b897956c1973483c178c3a07cfb711f93a2fca12a9c1"
+    },
+    {
+      "path": "hotel-slate.png",
+      "bytes": 492,
+      "sha256": "07d30afda8614119149f66940e35bdd44ff339a8e79636cafcb4483af1d24540"
+    },
+    {
+      "path": "neutral-slate.png",
+      "bytes": 491,
+      "sha256": "6de22be830bed115390a4fbb29e17d2c09dcd3bc598664681bee6f8142622c6a"
+    },
+    {
+      "path": "neutral-sand.png",
+      "bytes": 489,
+      "sha256": "02645e8b8787f27639861e1709b86bb6f40253d492ec4759222b751a1c88c0b3"
+    }
+  ]
+}

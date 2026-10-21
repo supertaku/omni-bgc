@@ -1,10 +1,15 @@
-import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { useState } from 'react';
+import type { ComponentProps } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, Text, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import type { ModelStatus } from '../../ai/modelManager';
-import { Icon, palette } from '../../ui/components';
+import { AppDialog, type AppDialogAction } from '../../ui/AppDialog';
+import { BrandMark, Icon, palette } from '../../ui/components';
 import { assistantStyles as s } from './styles';
 import { modelStyles as m } from './modelStyles';
 
 type ModelOperation = 'download' | 'activate' | 'remove';
+type Confirmation = 'download' | 'activate' | 'remove' | 'clear' | null;
 type ModelScreenProps = {
   busy: boolean;
   status: ModelStatus | null;
@@ -25,6 +30,67 @@ const stateCopy: Record<ModelStatus['state'], string> = {
   FAILED: 'Setup needs another try',
   PAUSED: 'Setup paused',
 };
+const knownErrors: Record<string, string> = {
+  OOM: 'The phone could not allocate enough memory. Close other apps, then try Use again. The verified download is retained.',
+  THERMAL_BLOCK: 'Your phone is too warm for local AI. Let it cool before trying Use again.',
+  SESSION_POISONED:
+    'The native engine has not safely released its resources. Wait for setup to finish, or reopen the app before retrying.',
+  CANCEL_TIMEOUT:
+    'Model startup or stopping took too long. Keep the app open while native resources settle, then retry Use. Reopen the app if it remains unavailable.',
+  RUNTIME_UNSUPPORTED:
+    'This model requires the standalone ARM64 Android app and a supported native runtime.',
+  CONTEXT_OVERFLOW:
+    'The model could not fit this request. Try a shorter question or clear the conversation.',
+  MODEL_EXISTING_ARTIFACT_CORRUPT:
+    'The saved model failed verification. Remove it, then download the reviewed file again.',
+  MODEL_STORAGE_INSUFFICIENT:
+    'There is not enough free storage to install the model. Free at least 2.9 GB, then try again.',
+  MODEL_HASH_MISMATCH:
+    'The downloaded model did not match the reviewed file and was rejected. Try downloading it again.',
+  MODEL_SETUP_CANCELLED: 'Model setup was stopped. You can resume it when you are ready.',
+  MODEL_STAGED_MISSING:
+    'The staged model is unavailable. Download the reviewed model to try again.',
+  MODEL_SETUP_CONSENT_REQUIRED: 'Model setup needs your confirmation before it can continue.',
+  MODEL_SMOKE_FAILED:
+    'The model did not complete its native startup check. The verified download is still available; try Use again.',
+};
+function modelError(status: ModelStatus | null, operationStatus: string) {
+  const error = status?.error;
+  if (error)
+    return knownErrors[error] ?? `Model setup failed: ${error.replace(/_/g, ' ').toLowerCase()}.`;
+  if (operationStatus.startsWith('Model setup unavailable'))
+    return 'The model could not be started. Your local directory is still available; check free storage and try Use again.';
+  return null;
+}
+
+function IconAction({
+  label,
+  name,
+  disabled,
+  onPress,
+}: {
+  label: string;
+  name: ComponentProps<typeof Ionicons>['name'];
+  disabled?: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ disabled }}
+      disabled={disabled}
+      onPress={onPress}
+      style={({ pressed }) => [
+        m.iconAction,
+        disabled && m.actionDisabled,
+        pressed && !disabled && m.actionPressed,
+      ]}
+    >
+      <Ionicons name={name} size={22} color={disabled ? palette.muted : palette.blue} />
+    </Pressable>
+  );
+}
 
 /** Model setup has its own page; the conversation owner remains mounted behind it. */
 export function ModelScreen({
@@ -37,18 +103,66 @@ export function ModelScreen({
   onStop,
   onClear,
 }: ModelScreenProps) {
+  const [confirmation, setConfirmation] = useState<Confirmation>(null);
+  const installed = status && status.state !== 'NOT_INSTALLED';
+  const stagedForRetry = status?.state === 'FAILED' && status.error === 'MODEL_SMOKE_FAILED';
+  const downloaded =
+    status?.state === 'STAGED' ||
+    status?.state === 'PENDING_NATIVE_SMOKE_TEST' ||
+    status?.state === 'ACTIVE' ||
+    stagedForRetry;
   const canActivate =
     !busy &&
-    (status?.state === 'PENDING_NATIVE_SMOKE_TEST' || (status?.state === 'ACTIVE' && !modelReady));
-  const installed = status && status.state !== 'NOT_INSTALLED';
+    (status?.state === 'PENDING_NATIVE_SMOKE_TEST' ||
+      status?.state === 'STAGED' ||
+      stagedForRetry ||
+      (status?.state === 'ACTIVE' && !modelReady));
   const progress = status?.totalBytes
     ? Math.max(0, Math.min(100, Math.floor((status.bytesReceived / status.totalBytes) * 100)))
     : null;
-  const failed =
-    status?.state === 'FAILED' || operationStatus.startsWith('Model setup unavailable');
+  const error = modelError(status, operationStatus);
   const run = (operation: ModelOperation) => {
+    setConfirmation(null);
     void onOperation(operation);
   };
+  const actions: AppDialogAction[] = [
+    { label: 'Cancel', onPress: () => setConfirmation(null) },
+    ...(confirmation === 'download'
+      ? [{ label: 'Download', onPress: () => run('download') }]
+      : confirmation === 'activate'
+        ? [{ label: 'Use model', onPress: () => run('activate') }]
+        : confirmation === 'remove'
+          ? [{ label: 'Remove', destructive: true, onPress: () => run('remove') }]
+          : confirmation === 'clear'
+            ? [
+                {
+                  label: 'Clear conversation',
+                  destructive: true,
+                  onPress: () => {
+                    setConfirmation(null);
+                    void onClear();
+                  },
+                },
+              ]
+            : []),
+  ];
+  const dialogTitle =
+    confirmation === 'download'
+      ? 'Download model?'
+      : confirmation === 'activate'
+        ? 'Use this model?'
+        : confirmation === 'remove'
+          ? 'Remove model?'
+          : 'Clear conversation?';
+  const dialogDescription =
+    confirmation === 'download'
+      ? 'This downloads the reviewed 2.59 GB Gemma model to this phone. Internet and free storage are needed. The file is verified before use. Apache 2.0 license and attribution apply when sharing it.'
+      : confirmation === 'activate'
+        ? 'This may take a moment. Keep the app open while your model gets ready.'
+        : confirmation === 'remove'
+          ? 'This frees its storage. Your conversation history and map stay here.'
+          : 'This clears your messages and temporary itinerary preview. Your model and map stay here.';
+
   return (
     <View style={s.screen}>
       <View style={m.page}>
@@ -69,16 +183,37 @@ export function ModelScreen({
           <View style={m.modelCard}>
             <View style={m.modelHeading}>
               <View style={m.modelIcon}>
-                <Icon name="assistant" color={palette.blue} size={28} />
+                <BrandMark size={42} />
               </View>
               <View style={m.modelName}>
-                <Text
-                  accessibilityRole="header"
-                  style={m.title}
-                >
+                <Text accessibilityRole="header" style={m.title}>
                   Gemma 4 E2B
                 </Text>
                 <Text style={s.caption}>2.59 GB · Apache 2.0</Text>
+              </View>
+              <View style={m.actionRow}>
+                {!downloaded ? (
+                  <IconAction
+                    label="Download reviewed local model"
+                    name="cloud-download-outline"
+                    disabled={busy || !status}
+                    onPress={() => setConfirmation('download')}
+                  />
+                ) : null}
+                {canActivate ? (
+                  <IconAction
+                    label="Use this model"
+                    name="checkmark-circle-outline"
+                    onPress={() => setConfirmation('activate')}
+                  />
+                ) : null}
+                {busy ? (
+                  <IconAction
+                    label="Stop model setup"
+                    name="stop-circle-outline"
+                    onPress={onStop}
+                  />
+                ) : null}
               </View>
             </View>
             <Text style={s.body}>
@@ -95,86 +230,27 @@ export function ModelScreen({
                 {status?.state === 'DOWNLOADING' && progress !== null ? ` ${progress}%` : ''}
               </Text>
             </View>
-            {failed ? (
+            {error ? (
               <Text accessibilityLiveRegion="polite" style={m.error}>
-                We couldn't finish setup. Please try downloading again.
+                {error}
               </Text>
             ) : null}
-            {status?.state === 'PENDING_NATIVE_SMOKE_TEST' ? (
-              <Text style={s.caption}>Tap Use to finish setting up your model.</Text>
+            {status?.state === 'PENDING_NATIVE_SMOKE_TEST' || status?.state === 'STAGED' ? (
+              <Text style={s.caption}>Tap the checkmark to finish setting up your model.</Text>
             ) : null}
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Use this model"
-              accessibilityState={{ disabled: !canActivate }}
-              disabled={!canActivate}
-              style={[m.primaryButton, !canActivate && m.disabled]}
-              onPress={() =>
-                Alert.alert(
-                  'Use this model?',
-                  'This may take a moment. Keep the app open while your model gets ready.',
-                  [
-                    { text: 'Cancel', style: 'cancel' },
-                    { text: 'Use model', onPress: () => run('activate') },
-                  ],
-                )
-              }
-            >
-              <Text style={m.primaryText}>
-                {status?.state === 'ACTIVE' && modelReady ? 'In use' : 'Use this model'}
-              </Text>
-            </Pressable>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Download reviewed local model"
-              accessibilityState={{ disabled: busy }}
-              disabled={busy}
-              style={m.secondaryButton}
-              onPress={() =>
-                Alert.alert(
-                  'Download model?',
-                  'This downloads the reviewed 2.59 GB Gemma model to this phone. Internet and free storage are needed. The file is verified before use. Apache 2.0 license and attribution apply when sharing it.',
-                  [
-                    { text: 'Cancel', style: 'cancel' },
-                    { text: 'Download', onPress: () => run('download') },
-                  ],
-                )
-              }
-            >
-              <Text style={m.secondaryText}>Download model</Text>
-            </Pressable>
-            {busy ? (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Stop model setup"
-                onPress={onStop}
-                style={m.secondaryButton}
-              >
-                <Text style={m.secondaryText}>Stop</Text>
-              </Pressable>
+            {status?.state === 'ACTIVE' && modelReady ? (
+              <Text style={s.caption}>This model is in use on this device.</Text>
             ) : null}
           </View>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Remove local model"
-            accessibilityState={{ disabled: busy || !installed }}
-            disabled={busy || !installed}
-            style={[m.quietRow, (busy || !installed) && { opacity: 0.5 }]}
-            onPress={() =>
-              Alert.alert(
-                'Remove model?',
-                'This frees its storage. Your conversation history and map stay here.',
-                [
-                  { text: 'Cancel', style: 'cancel' },
-                  { text: 'Remove', style: 'destructive', onPress: () => run('remove') },
-                ],
-              )
-            }
-          >
-            <Text style={[m.destructiveText, (busy || !installed) && { color: palette.muted }]}>
-              Remove model
-            </Text>
-          </Pressable>
+          <View style={m.managementRow}>
+            <Text style={m.rowLabel}>Local model</Text>
+            <IconAction
+              label="Remove local model"
+              name="trash-outline"
+              disabled={busy || !installed}
+              onPress={() => setConfirmation('remove')}
+            />
+          </View>
           <View style={m.conversation}>
             <Text accessibilityRole="header" style={s.heading}>
               Conversation
@@ -182,31 +258,25 @@ export function ModelScreen({
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Delete all AI history"
-              accessibilityState={{ disabled: busy }}
               disabled={busy}
+              accessibilityState={{ disabled: busy }}
               style={m.quietRow}
-              onPress={() =>
-                Alert.alert(
-                  'Clear conversation?',
-                  'This clears your messages and temporary itinerary preview. Your model and map stay here.',
-                  [
-                    { text: 'Cancel', style: 'cancel' },
-                    {
-                      text: 'Clear conversation',
-                      style: 'destructive',
-                      onPress: () => {
-                        void onClear();
-                      },
-                    },
-                  ],
-                )
-              }
+              onPress={() => setConfirmation('clear')}
             >
               <Text style={m.secondaryText}>Clear conversation</Text>
             </Pressable>
           </View>
         </ScrollView>
       </View>
+      {confirmation ? (
+        <AppDialog
+          visible
+          title={dialogTitle}
+          description={dialogDescription}
+          actions={actions}
+          onDismiss={() => setConfirmation(null)}
+        />
+      ) : null}
     </View>
   );
 }

@@ -1,18 +1,66 @@
 {
   "expo": {
-    "name": "Omni-BGC",
+    "name": "The Fort",
     "slug": "omni-bgc-preview",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "scheme": "omni-bgc-preview",
     "orientation": "default",
     "icon": "./assets/brand/icon.png",
     "android": {
       "package": "com.omnibgc.preview",
       "allowBackup": false,
-      "blockedPermissions": ["android.permission.ACCESS_BACKGROUND_LOCATION", "android.permission.RECORD_AUDIO", "android.permission.SYSTEM_ALERT_WINDOW", "android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"],
-      "permissions": ["android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"]
+      "blockedPermissions": [
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "permissions": [
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
+      ],
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/brand/adaptive-foreground.png",
+        "monochromeImage": "./assets/brand/monochrome.png",
+        "backgroundColor": "#10243A"
+      }
     },
-    "ios": {"bundleIdentifier": "com.omnibgc.preview", "infoPlist": {"NSLocationWhenInUseUsageDescription": "Use your location on the map only when you request it. Explore without location permission."}},
-    "plugins": ["@maplibre/maplibre-react-native", ["expo-sqlite", {"enableFTS": true, "customBuildFlags": "-DSQLITE_ENABLE_RTREE=1", "withSQLiteVecExtension": false}], ["expo-location", {"locationWhenInUsePermission": "Use your location on request for the map. Explore without location permission.", "isAndroidBackgroundLocationEnabled": false, "isAndroidForegroundServiceEnabled": false}], "./plugins/withOfflinePilot.cjs", "./plugins/withLocalAi.cjs"]
+    "ios": {
+      "bundleIdentifier": "com.omnibgc.preview",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Use your location on the map only when you request it. Explore without location permission."
+      }
+    },
+    "plugins": [
+      "@maplibre/maplibre-react-native",
+      [
+        "expo-sqlite",
+        {
+          "enableFTS": true,
+          "customBuildFlags": "-DSQLITE_ENABLE_RTREE=1",
+          "withSQLiteVecExtension": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Use your location on request for the map. Explore without location permission.",
+          "isAndroidBackgroundLocationEnabled": false,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ],
+      "./plugins/withOfflinePilot.cjs",
+      "./plugins/withLocalAi.cjs",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/brand/icon.png",
+          "imageWidth": 160,
+          "backgroundColor": "#F7F6F0"
+        }
+      ]
+    ]
   }
 }
