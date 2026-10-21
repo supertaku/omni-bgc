@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import type { Place } from '../../contracts';
+import type { Origin, Place } from '../../contracts';
 import type { ConversationMessage, AssistantPayload } from './contracts';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { answerDirectoryQuery } from './directory';
@@ -21,6 +21,7 @@ export function useAssistantConversation(
   places: Place[],
   focus: (place: Place) => boolean,
   onOpenPlace?: (place: Place) => void,
+  origin?: Origin | null,
 ) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [draft, setDraft] = useState('');
@@ -29,8 +30,8 @@ export function useAssistantConversation(
   const [status, setStatus] = useState('Local directory · AI not connected');
   const [setupStatus, setSetupStatus] = useState<ModelStatus | null>(null);
   const pendingScroll = useRef(false);
-  const current = useRef({ places, focus, onOpenPlace });
-  current.current = { places, focus, onOpenPlace };
+  const current = useRef({ places, focus, onOpenPlace, origin });
+  current.current = { places, focus, onOpenPlace, origin };
   const live = useRef(true),
     busyRef = useRef(false),
     epoch = useRef(0);
@@ -116,6 +117,7 @@ export function useAssistantConversation(
     const visibilityEpoch = epoch;
     const initialEpoch = epoch.current;
     let unsubscribe: (() => void) | undefined;
+    let unsubscribeThermal: (() => void) | undefined;
     void createAssistantRuntime((place) => current.current.focus(place))
       .then(async (created) => {
         if (!active || !live.current) {
@@ -123,6 +125,12 @@ export function useAssistantConversation(
           return;
         }
         runtime.current = created;
+        const thermal = created.onThermalStatus((blocked) => {
+          const manager = created.getManager();
+          if (blocked) manager?.setRuntimeError('THERMAL_BLOCK');
+          else if (manager?.getStatus().runtimeError === 'THERMAL_BLOCK') manager.setRuntimeError();
+        });
+        unsubscribeThermal = () => thermal?.remove();
         try {
           if (clearRequested.current) {
             await created.history.clear();
@@ -195,6 +203,14 @@ export function useAssistantConversation(
         if (active && live.current) setStatus('Local AI unavailable · directory fallback ready');
       });
     const background = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        const created = runtime.current;
+        if (created) void created.refreshThermal().then((blocked) => {
+          const manager = created.getManager();
+          if (blocked) manager?.setRuntimeError('THERMAL_BLOCK');
+          else if (manager?.getStatus().runtimeError === 'THERMAL_BLOCK') manager.setRuntimeError();
+        }).catch(() => undefined);
+      }
       if (state !== 'active' && !pickerVisible.current) {
         epoch.current++;
         request.current?.abort();
@@ -215,6 +231,7 @@ export function useAssistantConversation(
       visibilityEpoch.current++;
       request.current?.abort();
       unsubscribe?.();
+      unsubscribeThermal?.();
       background.remove();
       const owned = runtime.current;
       runtime.current = null;
@@ -301,7 +318,7 @@ export function useAssistantConversation(
               });
               pendingScroll.current = true;
             },
-          });
+          }, current.current.origin);
           if (!live.current || epoch.current !== turnEpoch || abort.signal.aborted) return;
           if (turn.status === 'canceled') {
             setMessages((before) => before.filter((entry) => entry.id !== partialId));
@@ -436,7 +453,10 @@ export function useAssistantConversation(
             : error instanceof Error
               ? error.message
               : 'MODEL_SETUP_FAILED';
-        setSetupStatus(recoveredStatus ? { ...recoveredStatus, error: code } : null);
+        setSetupStatus(recoveredStatus ? {
+          ...recoveredStatus,
+          ...(operation === 'activate' ? { runtimeError: code } : { error: code }),
+        } : null);
         setStatus('Model setup unavailable · directory fallback ready');
       }
     } finally {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
 import { AppState } from 'react-native';
-import { nextOfficeExpiry, getOfficeDetails, operatingOffice } from '../features/offices/service';
+import { nextOfficeExpiry, getOfficeDetails, getOfficeLocationReference, operatingOffice } from '../features/offices/service';
 import type { Place, SavedState } from '../contracts';
 import {
   disposeStore,
@@ -42,6 +42,7 @@ export function useAppInitialization(
         current.filter(
           (place) =>
             place.category !== 'office' ||
+            !!getOfficeLocationReference(place.id) ||
             (!!getOfficeDetails(place.id) && operatingOffice(getOfficeDetails(place.id)!)),
         ),
       );

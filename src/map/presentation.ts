@@ -2,83 +2,44 @@ import type { Coordinate, Place } from '../contracts';
 import landmarks from './landmarks.json';
 
 const significantNames = new Set(landmarks.entries.map((entry) => entry.name));
-const facadeTextures = [
-  'facade-glass-office',
-  'fort-facade-glass-blue',
-  'facade-glass-office-alt',
-  'fort-facade-glass-teal',
-  'facade-midrise-office',
-  'fort-facade-glass-blue',
-  'facade-midrise-office-alt',
-  'fort-facade-glass-teal',
-  'facade-residential',
-  'fort-facade-residential-warm',
-  'facade-residential-alt',
-  'fort-facade-residential-cool',
-  'facade-mixed-use',
-  'fort-facade-mixed-sand',
-  'facade-mixed-use-alt',
-  'fort-facade-retail-bronze',
-  'facade-commercial',
-  'fort-facade-retail-bronze',
-  'facade-commercial-alt',
-  'fort-facade-mixed-sand',
-  'facade-lowrise-retail',
-  'fort-facade-retail-bronze',
-  'facade-lowrise-retail-alt',
-  'fort-facade-mixed-sand',
-  'facade-mall',
-  'fort-facade-mixed-sand',
-  'facade-mall-alt',
-  'fort-facade-retail-bronze',
-  'facade-civic',
-  'fort-facade-masonry-light',
-  'facade-civic-alt',
-  'fort-facade-masonry-light',
-  'facade-hotel',
-  'fort-facade-hotel-slate',
-  'facade-hotel-alt',
-  'fort-facade-hotel-slate',
-  'facade-unknown',
-  'fort-facade-neutral-slate',
-  'facade-unknown-alt',
-  'fort-facade-neutral-sand',
-];
-
 /** Presentation mode only; retain exact resource/source fields and layer order. */
 export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolean): string {
   const style = JSON.parse(activeStyle);
   let changed = false;
   for (const layer of style.layers ?? []) {
     if (!flat && !quiet && layer.type === 'fill-extrusion' && layer.id === 'buildings-2.5D') {
-      // Keep the full source-derived massing at overview zooms instead of
-      // flattening buildings between z15 and z16. Facades take over at z15.5.
-      layer.minzoom = Math.min(layer.minzoom ?? 14, 14);
-      layer.maxzoom = 15.5;
+      layer.minzoom = 14;
+      delete layer.maxzoom;
       layer.paint = {
         ...layer.paint,
         'fill-extrusion-height': ['get', 'visual_height'],
         'fill-extrusion-base': ['get', 'visual_base'],
+        'fill-extrusion-color': [
+          'match', ['get', 'visual_family'],
+          'office', '#B9C7C9', 'commercial', '#C9C4B8',
+          'residential', '#C8BFB2', 'mixed-use', '#C5C3B8',
+          'retail', '#CDBFAE', 'hotel', '#B8C1C8',
+          'civic', '#C6C8C2', '#BEC5C4',
+        ],
         'fill-extrusion-vertical-gradient': true,
       };
       changed = true;
     }
     if (!flat && !quiet && layer.id === 'buildings-facades') {
-      layer.minzoom = 15.5;
-      layer.paint = {
-        ...layer.paint,
-        'fill-extrusion-pattern': [
-          'match',
-          ['get', 'facade_pattern'],
-          ...facadeTextures,
-          'fort-facade-neutral-slate',
-        ],
-        'fill-extrusion-vertical-gradient': false,
-      };
+      layer.layout = { ...layer.layout, visibility: 'none' };
       changed = true;
     }
     if (!flat && !quiet && layer.id === 'building-roof-caps') {
-      layer.minzoom = 15.5;
+      layer.minzoom = 17;
+      layer.paint = {
+        ...layer.paint,
+        'fill-extrusion-opacity': ['interpolate', ['linear'], ['zoom'], 17, 0, 19, 1],
+      };
+      changed = true;
+    }
+    if (layer.id === 'road-labels') {
+      layer.minzoom = 18;
+      layer.layout = { ...layer.layout, 'text-size': 10, 'text-padding': 20 };
       changed = true;
     }
     if (layer.id === 'street-edge') {

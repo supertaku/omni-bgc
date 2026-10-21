@@ -7,6 +7,9 @@ import {
   lexicalAlternatives,
   lexicalSearchQueries,
   matchesLexicalText,
+  DIRECTORY_CATEGORIES,
+  directoryCategory,
+  normalizeDirectoryText,
 } from './lexical';
 import { parsePhpCentavos } from '../domain/money';
 import { checkedPhpBounds } from '../domain/priceBounds';
@@ -104,14 +107,26 @@ export function filterMenuItems(
   );
 }
 export async function findPlaces(filters: PlaceFilters = {}): Promise<Place[]> {
+  const category = directoryCategory(filters.category ?? filters.query ?? '');
+  if (category) {
+    const words = DIRECTORY_CATEGORIES[category] ?? [category];
+    return (await loadPlaces())
+      .filter((place) => place.status === 'approved' && words.some((word) => normalizeDirectoryText(place.category).includes(word)))
+      .sort((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+  }
   const queries = lexicalSearchQueries(filters.query ?? '');
   const found = new Map<string, Place>();
   for (const query of queries)
     for (const place of await searchPlaces(query, filters.category)) {
       if (place.status === 'approved') found.set(place.id, place);
     }
+  const query = normalizeDirectoryText(filters.query ?? '');
+  const rank = (place: Place) => {
+    const names = [place.name, ...place.aliases].map(normalizeDirectoryText);
+    return names.includes(query) ? 0 : names.some((name) => name.startsWith(query)) ? 1 : 2;
+  };
   return [...found.values()].sort(
-    (a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id),
+    (a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id),
   );
 }
 export async function getPlaceDetails(placeId: string): Promise<Place | null> {

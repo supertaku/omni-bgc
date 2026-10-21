@@ -1,5 +1,5 @@
 {
-  "source": "OpenStreetMap API 0.6 map extracts",
+  "source": "OpenStreetMap API 0.6 retained extracts",
   "sourceUrl": "https://api.openstreetmap.org/api/0.6/map",
   "retrievedAtUtc": "2026-10-20",
   "attribution": "\u00a9 OpenStreetMap contributors",
@@ -9,12 +9,6 @@
     14.53,
     121.07,
     14.575
-  ],
-  "coreExclusionBbox": [
-    121.0455,
-    14.543022250023732,
-    121.05909581890542,
-    14.5602372256744
   ],
   "navigationEligible": false,
   "placeFactsEligible": false,
@@ -98,18 +92,2304 @@
       "path": "osm-3-3.xml.gz",
       "bytes": 391762,
       "sha256": "2bbea3fd70a15138c33746a20f6e0a817b96b72b466d51c3cc418d008309c76b"
+    },
+    {
+      "path": "relation-1272827.xml.gz",
+      "bytes": 32339,
+      "sha256": "bfb47cac3e9dcf6504197140951bb5f98a858587b7243901af14cf52ece83c4a",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1272827/full",
+      "retrievedAtUtc": "2026-10-21T02:29:45.695888+00:00"
+    },
+    {
+      "path": "relation-1524549.xml.gz",
+      "bytes": 5160,
+      "sha256": "1ec16abdf3cc5b51450aa783d7ce937734293c6f7191434afb78221dd0cbb119",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1524549/full",
+      "retrievedAtUtc": "2026-10-21T02:29:48.774506+00:00"
+    },
+    {
+      "path": "relation-1723129.xml.gz",
+      "bytes": 10228,
+      "sha256": "79825c86e5c017b54858402ebe4a5541ab64afcf9f10f5aaeb740fd61690a7bb",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1723129/full",
+      "retrievedAtUtc": "2026-10-21T02:29:50.266659+00:00"
+    },
+    {
+      "path": "relation-1723155.xml.gz",
+      "bytes": 29683,
+      "sha256": "b255e63dfb494ede8f35293d8d3645b9096b132bfa1153605cc3fc455420fc23",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1723155/full",
+      "retrievedAtUtc": "2026-10-21T02:29:51.941798+00:00"
+    },
+    {
+      "path": "relation-2945939.xml.gz",
+      "bytes": 1658,
+      "sha256": "40a1c57b3f4808ce97710df3b82506f692a9f65b24382e459949a3f361c56764",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/2945939/full",
+      "retrievedAtUtc": "2026-10-21T02:29:57.236539+00:00"
+    },
+    {
+      "path": "relation-19839348.xml.gz",
+      "bytes": 760,
+      "sha256": "3f9db9a5d21ed41f41ca89e19d1210f591f639c3f725fe8437e112582ccf139e",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/19839348/full",
+      "retrievedAtUtc": "2026-10-21T02:30:02.083970+00:00"
     }
   ],
+  "sourceInventorySha256": "eb0502a6353daf4067997b4b96e9ebd1e2e26f1101c9253b8abc5c00f7f9b0c9",
+  "detailedArchiveSha256": "9203eb4852fa02e88362e7d3063669581cf7dad2668b4e19dc2914a7aff6478c",
+  "builderSha256": "3c4ffe3ea1ed191c615df42e8a0a9c4e01df800300c586b6594ac04916c7aa6e",
   "featureCounts": {
-    "building": 11432,
-    "road": 5748,
-    "green": 69,
-    "water": 16,
+    "building": 45197,
+    "road": 5750,
+    "green": 92,
+    "water": 24,
     "landmark": 1
   },
+  "tileCounts": {
+    "14": 9,
+    "15": 30,
+    "16": 80,
+    "17": 250,
+    "18": 906
+  },
+  "rejected": [
+    {
+      "sourceRef": "osm:relation:10316857",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:relation:13512336",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:relation:13512337",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:relation:13512338",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:24998709",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:25006407",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:25006899",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27442528",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27442546",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27442590",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27442879",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27442939",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27442969",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27442995",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27664814",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27664877",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27665200",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27665207",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27671928",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27671952",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27671996",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672006",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672132",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672158",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672169",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672215",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672230",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672236",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672242",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672267",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672285",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27672293",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27913048",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:27913052",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:30446142",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:30446143",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32080498",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487518",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487545",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487557",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487590",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487609",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487698",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487732",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487745",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487789",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32487901",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32488096",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32836349",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:32906928",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:35826309",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:35826310",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:35979062",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:37231704",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:37236977",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:37554026",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:37554027",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:37554033",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:38063485",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:38063498",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:38715205",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:51355541",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:51356297",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:66405486",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:66405543",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:69685415",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:69740688",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:71598335",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:72861479",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:72861481",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:74687615",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:80323775",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:101376493",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:104357783",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:104357788",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:107639818",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:109565806",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:112311962",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:117326413",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:117326415",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:131229047",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:145147827",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:145147831",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:145147832",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:147796322",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:147796323",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:174398019",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:178125949",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:178125950",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:178125951",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:178125963",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:182107193",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:182331875",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:183499092",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:183502281",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:183502282",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:183502283",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:183502284",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:183504080",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:188703205",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893554",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893556",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893558",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893563",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893564",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893616",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893622",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203893627",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203910666",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203931681",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203931682",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:203931685",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:205968610",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:205968611",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:205968612",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:205968614",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:205968623",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:221590005",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:222122974",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:222623658",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:239139909",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:242294490",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:242547362",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:263603984",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:264572184",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:264878259",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:264879067",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:264879068",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:276405993",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:276405995",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:276405997",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:279284678",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:280298495",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:285879073",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:286221277",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:287022445",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:287022452",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:287022475",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:287022481",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:287022488",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:287513834",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211296",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211298",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211303",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211305",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211310",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211311",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211314",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211317",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211319",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:302944456",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317139890",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317143972",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317144212",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317613131",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317613132",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317613133",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317613134",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:318485813",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:320632256",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:320848387",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:321608720",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:323731649",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:323731988",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:323731989",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:324237841",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:324237843",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:324237846",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:324237847",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:324237849",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:331614515",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340064067",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340064068",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340064069",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340064070",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340064071",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340064073",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340064074",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340227511",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340227516",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340227530",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340227550",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340227553",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231585",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231586",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231587",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231588",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231589",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231590",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231591",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231592",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231593",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231594",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231595",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231596",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231597",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231598",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231599",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231600",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231601",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231602",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231603",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231604",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231605",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231606",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231607",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231608",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231610",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231611",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231612",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231613",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231614",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231615",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231616",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231617",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231618",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231619",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231620",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231621",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231622",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231623",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231624",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231625",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231626",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231627",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231628",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231629",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231630",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231631",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231632",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231633",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231634",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231635",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231636",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231637",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231638",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231639",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231640",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231641",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231642",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231644",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231645",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231646",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231647",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231648",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231650",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231651",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231652",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231653",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231654",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231655",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231656",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231657",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231658",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231659",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231660",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231661",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231662",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231663",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231665",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231666",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231667",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231668",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231669",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231771",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231772",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231773",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231774",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231775",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231776",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231777",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231778",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231779",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340231871",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234274",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234275",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234276",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234282",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234287",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234290",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234295",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234298",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234299",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234308",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234309",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234311",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234312",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340234313",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341678403",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341678414",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341678427",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341678493",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341678512",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341681697",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341681728",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341681735",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:341681747",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:342101310",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:342101316",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:342101319",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:342101323",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:342101327",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:343244544",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:346117215",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:350023352",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:359969680",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:359973939",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:360099547",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:360977065",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:363498126",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:389202756",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:392020009",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:403177201",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:403221893",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:408450256",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:422129422",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:428836642",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:428836645",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:428836646",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:428856186",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:436207485",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:436345249",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:436375497",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:437081988",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:437702183",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:438704909",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:441365059",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443761696",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443899857",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443899858",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443899859",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443899860",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443899861",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443899862",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:444366845",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:444366846",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:445649084",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:445649091",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:445649095",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:445649101",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:451045107",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:452965288",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:452965289",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:459472743",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469658014",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469658015",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469845353",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469845354",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469845355",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469845356",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469845357",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469845358",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469846615",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469846616",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469846617",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469861982",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469861985",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469906738",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469906739",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469907691",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469908149",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:469908300",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:470203065",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:470203066",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:470203067",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:470203068",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:470203411",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:470203412",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:470203413",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:491893700",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:531901549",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:531903361",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:531973809",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:531995976",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:531995980",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345975",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345978",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345980",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345981",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345982",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345983",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345984",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533345985",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533348885",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533348886",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533348887",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533348889",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:533348890",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538341460",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538341461",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538341462",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538341463",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538341464",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538341465",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538341466",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538344760",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538344761",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538347432",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538347434",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538347436",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538347443",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538697012",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538697013",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538697021",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538697024",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538697025",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538697026",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538697027",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538698465",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538698472",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538698474",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538698476",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538701626",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538701627",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538701629",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538701630",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538701631",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538702984",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538702986",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538751520",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:538751521",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:541979893",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:541979894",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:541979895",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:580263352",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:580263353",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:580263354",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:582087451",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:582087452",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:582087453",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:582087454",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:582087455",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:582087456",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:603380324",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:613886957",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:613886958",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:613886959",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:613886960",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:713418274",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:713418275",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:746423902",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:760525447",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:763323140",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:763323141",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:781539874",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:781744843",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:781744845",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:781744852",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:781744857",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:781744858",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:783113262",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:783113264",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:783113265",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:783121680",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:783121691",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184133",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184136",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184137",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184139",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184140",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184141",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184142",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184143",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184144",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184161",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184166",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846184167",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846365703",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846365704",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846365706",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846365707",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846365708",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846365709",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846365710",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377964",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377965",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377966",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377967",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377973",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377975",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377976",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377977",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377978",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377981",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:846377982",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:880642851",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:902502668",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:917184697",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:917184698",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:917184699",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:919829861",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:928477280",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929418244",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929418245",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929418246",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929418247",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929418254",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929419549",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929419550",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:929419551",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:940894325",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:940894329",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:945677490",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:945677491",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:989298372",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1022486130",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1026303383",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1069827306",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1069903887",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1069903888",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1069903889",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584560",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584561",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584562",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584563",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584564",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584565",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584566",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584567",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584568",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584569",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584570",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584571",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584572",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584573",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584574",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584575",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584577",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584578",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584579",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584580",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1070584581",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1071370324",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1071370325",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1071370326",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1071370327",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1071370328",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1071370329",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1078392706",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1120242621",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1123265838",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1153949175",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1157056015",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1161281597",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1161281598",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1163653754",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1170881170",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1222053646",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1263142216",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1278358005",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1278985505",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1372816067",
+      "reason": "unclosed-way"
+    },
+    {
+      "sourceRef": "osm:way:1454569538",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1454569540",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1481757995",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1498398259",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1519691870",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:1531328138",
+      "reason": "covered-or-submetre-display-remnant"
+    }
+  ],
   "output": {
-    "path": "src/map/context.json",
-    "bytes": 4553118,
-    "sha256": "1a5a37953ed7e80068cb7487ddd3b0275ff61f9f97e914cde194809ae19e51cc"
+    "path": "assets/generated/context/features.geojson.gz",
+    "bytes": 4247183,
+    "sha256": "9445353bc3ce9a21fb0b2caafd7745ca940532415bc578340dcaf9b82291dbce"
   }
 }

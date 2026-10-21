@@ -51,13 +51,18 @@ const knownErrors: Record<string, string> = {
   MODEL_STAGED_MISSING:
     'The staged model is unavailable. Download the reviewed model to try again.',
   MODEL_SETUP_CONSENT_REQUIRED: 'Model setup needs your confirmation before it can continue.',
+  MODEL_DOWNLOAD_NETWORK_ERROR: 'The download lost its connection. Your partial file is saved; resume when you have a connection.',
+  MODEL_DOWNLOAD_PERMISSION_DENIED: 'Android blocked the download. Check the app’s network permission and try again.',
   MODEL_SMOKE_FAILED:
     'The model did not complete its native startup check. The verified download is still available; try Use again.',
 };
 function modelError(status: ModelStatus | null, operationStatus: string) {
-  const error = status?.error;
-  if (error)
-    return knownErrors[error] ?? `Model setup failed: ${error.replace(/_/g, ' ').toLowerCase()}.`;
+  const error = status?.runtimeError ?? status?.error;
+  if (error && /^MODEL_DOWNLOAD_HTTP_(?:408|429|5\d\d)$/.test(error))
+    return 'The model host is temporarily unavailable. Your partial file is saved; resume in a moment.';
+  if (error && /^MODEL_DOWNLOAD_HTTP_\d{3}$/.test(error))
+    return 'The reviewed model host rejected this download. Your saved model files remain available.';
+  if (error) return knownErrors[error] ?? `Model setup failed: ${error.replace(/_/g, ' ').toLowerCase()}.`;
   if (operationStatus.startsWith('Model setup unavailable'))
     return 'The model could not be started. Your local directory is still available; check free storage and try Use again.';
   return null;
@@ -104,19 +109,14 @@ export function ModelScreen({
   onClear,
 }: ModelScreenProps) {
   const [confirmation, setConfirmation] = useState<Confirmation>(null);
-  const installed = status && status.state !== 'NOT_INSTALLED';
-  const stagedForRetry = status?.state === 'FAILED' && status.error === 'MODEL_SMOKE_FAILED';
-  const downloaded =
-    status?.state === 'STAGED' ||
-    status?.state === 'PENDING_NATIVE_SMOKE_TEST' ||
-    status?.state === 'ACTIVE' ||
-    stagedForRetry;
+  const installed = status?.artifactState !== undefined && status.artifactState !== 'MISSING';
+  const downloaded = status?.artifactState === 'VERIFIED';
+  const canDownload = status?.artifactState === 'MISSING' || status?.artifactState === 'PARTIAL';
   const canActivate =
-    !busy &&
-    (status?.state === 'PENDING_NATIVE_SMOKE_TEST' ||
-      status?.state === 'STAGED' ||
-      stagedForRetry ||
-      (status?.state === 'ACTIVE' && !modelReady));
+    !busy && status?.runtimeError !== 'THERMAL_BLOCK' &&
+    (downloaded || status?.state === 'PENDING_NATIVE_SMOKE_TEST' || status?.state === 'STAGED') &&
+    !modelReady;
+  const resumingDownload = status?.artifactState === 'PARTIAL';
   const progress = status?.totalBytes
     ? Math.max(0, Math.min(100, Math.floor((status.bytesReceived / status.totalBytes) * 100)))
     : null;
@@ -128,7 +128,7 @@ export function ModelScreen({
   const actions: AppDialogAction[] = [
     { label: 'Cancel', onPress: () => setConfirmation(null) },
     ...(confirmation === 'download'
-      ? [{ label: 'Download', onPress: () => run('download') }]
+      ? [{ label: resumingDownload ? 'Resume download' : 'Download', onPress: () => run('download') }]
       : confirmation === 'activate'
         ? [{ label: 'Use model', onPress: () => run('activate') }]
         : confirmation === 'remove'
@@ -148,7 +148,7 @@ export function ModelScreen({
   ];
   const dialogTitle =
     confirmation === 'download'
-      ? 'Download model?'
+      ? resumingDownload ? 'Resume download?' : 'Download model?'
       : confirmation === 'activate'
         ? 'Use this model?'
         : confirmation === 'remove'
@@ -156,7 +156,9 @@ export function ModelScreen({
           : 'Clear conversation?';
   const dialogDescription =
     confirmation === 'download'
-      ? 'This downloads the reviewed 2.59 GB Gemma model to this phone. Internet and free storage are needed. The file is verified before use. Apache 2.0 license and attribution apply when sharing it.'
+      ? resumingDownload
+        ? 'This continues the saved Gemma download. Internet and free storage are needed. The complete file is verified before use.'
+        : 'This downloads the reviewed 2.59 GB Gemma model to this phone. Internet and free storage are needed. The file is verified before use. Apache 2.0 license and attribution apply when sharing it.'
       : confirmation === 'activate'
         ? 'This may take a moment. Keep the app open while your model gets ready.'
         : confirmation === 'remove'
@@ -192,9 +194,9 @@ export function ModelScreen({
                 <Text style={s.caption}>2.59 GB · Apache 2.0</Text>
               </View>
               <View style={m.actionRow}>
-                {!downloaded ? (
+                {canDownload ? (
                   <IconAction
-                    label="Download reviewed local model"
+                    label={status?.artifactState === 'PARTIAL' ? 'Resume download' : status?.state === 'FAILED' ? 'Retry download' : 'Download'}
                     name="cloud-download-outline"
                     disabled={busy || !status}
                     onPress={() => setConfirmation('download')}
@@ -202,14 +204,14 @@ export function ModelScreen({
                 ) : null}
                 {canActivate ? (
                   <IconAction
-                    label="Use this model"
+                    label={status?.runtimeError || status?.state === 'FAILED' ? 'Retry' : 'Use model'}
                     name="checkmark-circle-outline"
                     onPress={() => setConfirmation('activate')}
                   />
                 ) : null}
                 {busy ? (
                   <IconAction
-                    label="Stop model setup"
+                    label="Stop"
                     name="stop-circle-outline"
                     onPress={onStop}
                   />
@@ -222,12 +224,20 @@ export function ModelScreen({
             <View style={m.stateRow}>
               {busy ? <ActivityIndicator color={palette.blue} /> : null}
               <Text accessibilityLiveRegion="polite" style={m.stateText}>
-                {status?.state === 'ACTIVE' && !modelReady
-                  ? 'Ready to use'
+                {status?.runtimeError === 'THERMAL_BLOCK'
+                  ? `${downloaded ? 'Installed' : 'Local AI'} · cooling required`
+                  : status?.state === 'DOWNLOADING'
+                  ? 'Downloading…'
+                  : status?.artifactState === 'PARTIAL'
+                    ? 'Download paused'
+                    : status?.state === 'ACTIVE' && !modelReady
+                  ? (status.runtimeError ? 'Installed · couldn’t start' : 'Installed')
                   : status
                     ? stateCopy[status.state]
                     : 'Checking setup…'}
-                {status?.state === 'DOWNLOADING' && progress !== null ? ` ${progress}%` : ''}
+                {status?.runtimeError === 'THERMAL_BLOCK'
+                  ? `${downloaded ? 'Installed' : 'Local AI'} · cooling required`
+                  : status?.state === 'DOWNLOADING' && progress !== null ? ` ${progress}%` : ''}
               </Text>
             </View>
             {error ? (
@@ -235,8 +245,11 @@ export function ModelScreen({
                 {error}
               </Text>
             ) : null}
-            {status?.state === 'PENDING_NATIVE_SMOKE_TEST' || status?.state === 'STAGED' ? (
-              <Text style={s.caption}>Tap the checkmark to finish setting up your model.</Text>
+            {status?.artifactState === 'VERIFIED' && !modelReady && status.runtimeError !== 'THERMAL_BLOCK' ? (
+              <Text style={s.caption}>Tap Use model to start or retry local AI.</Text>
+            ) : null}
+            {status?.artifactState === 'PARTIAL' && status.state !== 'DOWNLOADING' ? (
+              <Text style={s.caption}>Your partial download is saved. Resume it when you are ready.</Text>
             ) : null}
             {status?.state === 'ACTIVE' && modelReady ? (
               <Text style={s.caption}>This model is in use on this device.</Text>
@@ -245,7 +258,7 @@ export function ModelScreen({
           <View style={m.managementRow}>
             <Text style={m.rowLabel}>Local model</Text>
             <IconAction
-              label="Remove local model"
+              label="Remove"
               name="trash-outline"
               disabled={busy || !installed}
               onPress={() => setConfirmation('remove')}

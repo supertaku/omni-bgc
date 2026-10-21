@@ -1,14 +1,17 @@
 import type { Place } from '../contracts';
 import { parseUserPhpPriceBounds, type PhpPriceBounds } from '../domain/priceBounds';
 import { stripFoodSourcePreference } from '../domain/foodSourcePolicy';
+import { directoryCategory, normalizeDirectoryText, oneEditAway } from '../data/lexical';
 
 export type DirectRequest =
   | { kind: 'message'; text: string }
+  | { kind: 'suggestion'; placeId: string; name: string }
   | {
       kind: 'places' | 'menus' | 'offices' | 'hours' | 'focus' | 'entrances';
       query: string;
       placeId?: string;
       bounds?: PhpPriceBounds;
+      priceSort?: 'asc' | 'desc';
     };
 const words = (text: string) =>
   text
@@ -17,16 +20,10 @@ const words = (text: string) =>
     .replace(/[^\p{L}\p{N}]+/gu, ' ')
     .trim()
     .replace(/\s+/g, ' ');
-const literal = (text: string) =>
-  words(text)
-    .replace(
-      /\b(please|can|could|you|i|want|find|search|browse|list|show|me|some|all|the|a|an|for|of|in|bgc|bonifacio|global|city|where|is|are|tell|give|recorded|listed|details|about)\b/g,
-      ' ',
-    )
-    .trim()
-    .replace(/\s+/g, ' ');
+const literal = (text: string) => normalizeDirectoryText(text);
+const fillers = /\b(please|can|could|you|i|want|find|search|browse|list|show|me|some|all|the|a|an|for|of|in|at|from|bgc|bonifacio|global|city|where|is|are|there|any|tell|give|recorded|listed|details|about|shops?|places?|nearby|nearest|closest|closer|near)\b/g;
 const taskWords =
-  /\b(menus?|dishes?|hours|schedule|offices?|companies|company|headquarters|tenants?|entrances?|access|map|on|focus|locate)\b/g;
+  /\b(menus?|dishes?|hours|schedule|offices?|companies|company|headquarters|tenants?|entrances?|access|map|on|focus|locate|sort|order|arrange|by|price|prices|lowest|low|highest|high)\b/g;
 
 /** Names from the UI are resolution hints only. Execution re-reads and validates every identity. */
 export function planDeterministicRequest(
@@ -76,20 +73,25 @@ export function planDeterministicRequest(
       text: 'I can filter recorded menu items by an exact PHP budget. I cannot certify the cheapest option across every venue or current price.',
     };
   const remaining = price.kind === 'valid' ? price.queryWithoutPrice : query;
+  const priceSort = /\b(?:high(?:est)? to low(?:est)?|high to low)\b/i.test(remaining)
+    ? 'desc'
+    : /\b(?:sort|order|arrange)\b.{0,24}\bprice\b|\b(?:low(?:est)? to high(?:est)?)\b/i.test(remaining)
+      ? 'asc'
+      : undefined;
   const sourceQuery = stripFoodSourcePreference(remaining);
-  if (
-    /\b(itinerary|visit|stops|trip|first|second|third|these|those|that|them|explain|compare|recommend|best|quiet|cozy|nearby|nearest|closer|except|without)\b/i.test(
-      sourceQuery,
-    )
-  )
+  if (/\b(itinerary|visit|stops|trip|first|second|third|these|those|that|them|explain|compare|recommend|best|quiet|cozy|except|without)\b/i.test(sourceQuery))
     return null;
-  const cleaned = literal(sourceQuery);
+  const raw = literal(sourceQuery);
+  const allNames = places.flatMap((place) => [place.name, ...place.aliases].map((name) => ({ place, name: literal(name) })))
+    .filter((entry) => entry.name && ` ${raw} `.includes(` ${entry.name} `))
+    .sort((a, b) => b.name.length - a.name.length);
+  const rawMatch = allNames[0];
+  if (rawMatch && allNames.some((entry) => entry.place.id !== rawMatch.place.id && entry.name.length === rawMatch.name.length)) return null;
+  const cleaned = raw.replace(fillers, ' ').trim().replace(/\s+/g, ' ');
   if (cleaned.length > 256) return null;
   const target = cleaned.replace(taskWords, ' ').trim().replace(/\s+/g, ' ');
-  const named = places
-    .flatMap((place) =>
-      [place.name, ...place.aliases].map((name) => ({ place, name: literal(name) })),
-    )
+  const named = rawMatch ? [rawMatch] : places
+    .flatMap((place) => [place.name, ...place.aliases].map((name) => ({ place, name: literal(name) })))
     .filter((entry) => entry.name && ` ${target} `.includes(` ${entry.name} `))
     .sort((a, b) => b.name.length - a.name.length);
   const match = named[0];
@@ -101,11 +103,18 @@ export function planDeterministicRequest(
   if (ambiguous) return null;
   const placeId = match?.place.id;
   const itemQuery = match ? target.replace(match.name, '').trim() : target;
+  if (/\b(map|focus|locate)\b/.test(text) && match && match.place.status !== 'approved')
+    return {
+      kind: 'message',
+      text: 'That is a sourced candidate reference. Open Offices in Explore to review its approximate building marker; it is not an approved office location or entrance.',
+    };
   if (/\b(map|focus|locate)\b/.test(text))
     return match && !itemQuery ? { kind: 'focus', query: match.name, placeId } : null;
   if (/\b(entrances?|access)\b/.test(text))
     return match && !itemQuery ? { kind: 'entrances', query: match.name, placeId } : null;
   if (/\b(hours|schedule)\b/.test(text)) return { kind: 'hours', query: target, placeId };
+  if (match?.place.category === 'office' && match.place.status !== 'approved')
+    return { kind: 'places', query: match.name, placeId };
   if (/\b(offices?|companies|company|headquarters|tenants?)\b/.test(text))
     return { kind: 'offices', query: target };
   if (
@@ -117,27 +126,20 @@ export function planDeterministicRequest(
       query: itemQuery,
       placeId,
       bounds: price.kind === 'valid' ? price.bounds : undefined,
+      priceSort,
     };
   if (match && !itemQuery) return { kind: 'places', query: match.name, placeId };
-  const categories: Record<string, string> = {
-    coffee: 'coffee',
-    cafe: 'cafe',
-    cafes: 'cafe',
-    café: 'café',
-    restaurants: 'restaurant',
-    restaurant: 'restaurant',
-    food: 'food',
-    parks: 'park',
-    park: 'park',
-    shops: 'shop',
-    shop: 'shop',
-    shopping: 'shop',
-    hotels: 'hotel',
-    hotel: 'hotel',
-    transit: 'transit',
-    facilities: 'facility',
-  };
-  if (categories[cleaned]) return { kind: 'places', query: categories[cleaned] };
+  const category = directoryCategory(cleaned);
+  if (category) return { kind: 'places', query: category };
+  const fuzzyTokens = target.split(' ').filter(Boolean);
+  if (fuzzyTokens.length && fuzzyTokens.every((token) => token.length >= 4)) {
+    const candidates = places.filter((place) => place.status === 'approved' &&
+      [place.name, ...place.aliases].some((name) => {
+        const nameTokens = literal(name).split(' ');
+        return fuzzyTokens.every((token) => nameTokens.some((word) => word === token || oneEditAway(word, token)));
+      }));
+    if (candidates.length === 1) return { kind: 'suggestion', placeId: candidates[0]!.id, name: candidates[0]!.name };
+  }
   if (
     /^(?:find|search|browse|list|where\s+is)\b/i.test(query.trim()) &&
     cleaned &&

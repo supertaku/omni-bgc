@@ -206,7 +206,7 @@ export function decodeToolProposal(raw: unknown, hostCallId: string): ToolPropos
     invalid('Ordered exact PHP bounds required');
   }
   if ('limit' in a)
-    integer(a.limit, 1, ['find_places', 'find_approved_offices'].includes(name) ? 12 : 20);
+    integer(a.limit, 1, name === 'find_places' ? 100 : name === 'find_approved_offices' ? 12 : 20);
   if ('offset' in a) integer(a.offset, 0, 1000);
   if ('requiredTags' in a) {
     if (!Array.isArray(a.requiredTags) || a.requiredTags.length > 8) invalid('Invalid tags');
@@ -252,7 +252,7 @@ const specs: Record<
 > = {
   find_places: {
     description: 'Current approved canonical places only. Empty means no verified matches.',
-    properties: { query: str, category: str, limit: { ...limit, maximum: 12 } },
+    properties: { query: str, category: str, limit: { ...limit, maximum: 100 } },
   },
   get_place_details: {
     description: 'Current approved exact canonical UUID, with sources.',

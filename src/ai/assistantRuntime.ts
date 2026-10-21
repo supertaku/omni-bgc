@@ -1,5 +1,5 @@
 import { File } from 'expo-file-system';
-import type { Place } from '../contracts';
+import type { Origin, Place } from '../contracts';
 import { NativeLiteRtProvider } from './NativeLiteRtProvider';
 import { createAppRetrieval } from './retrieval';
 import { createToolExecutor } from './toolExecutor';
@@ -10,6 +10,7 @@ import { createExpoModelManager } from './modelStorage';
 import { createProviderSmokeRunner, type ModelManager } from './modelManager';
 import { GEMMA_4_E2B } from './modelCatalog';
 import { runHybridTurn } from './hybridAssistant';
+import { confirmedOrigin } from './confirmedOrigin';
 import type { AgentRunOptions } from './AgentOrchestrator';
 import { answerDirectoryQuery } from '../features/assistant/directory';
 import { createFoodResearchAnswer } from '../features/food/assistant';
@@ -70,6 +71,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
       return true;
     }).catch((error: unknown) => {
       initialization = null;
+      manager?.setRuntimeError(error instanceof Error ? error.message : 'MODEL_STARTUP_FAILED');
       throw error;
     }));
   };
@@ -135,7 +137,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     provider,
     itineraryPreview,
     agent,
-    answer: (query: string, places: readonly Place[], options?: AgentRunOptions) =>
+    answer: (query: string, places: readonly Place[], options?: AgentRunOptions, origin?: Origin | null) =>
       runHybridTurn(
         query,
         places,
@@ -147,6 +149,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
             answerDirectoryQuery(q, [...records], undefined, research),
         },
         options,
+        confirmedOrigin(origin),
       ),
     history,
     initialize,
@@ -157,6 +160,8 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     removeModel: () => own(removeModel),
     resolvePlace: async (id: string) => (await retrieval.getPlaceDetails(id)).data,
     getManager: () => manager,
+    refreshThermal: () => provider.thermalBlocked(),
+    onThermalStatus: (listener: (blocked: boolean) => void) => provider.onThermalStatus(listener),
     close() {
       closingRequested = true;
       activeOperation?.abort();

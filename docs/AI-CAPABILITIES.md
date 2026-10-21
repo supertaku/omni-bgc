@@ -75,3 +75,18 @@ No application capability currently justifies a new lightweight ML component. FT
 The inspected source includes SQLite FTS5/RTree, exact PHP bounds, approved evidence checks, offline graph routing, optional local Gemma tool use and a threshold shake detector. It contains no enabled lightweight ML classifier/ranker. The matrix does not establish performance improvements or hardware acceptance; host code inspection does not validate behavior on a physical phone.
 
 Host evidence: `scripts/check-regressions.cjs` exercises zero-inference direct requests, exact PHP bounds, current-source map resolution, missing-source rejection, contextual/model-off behavior, one failed-turn fallback and abort/denial isolation. Native phone inference and latency remain owner acceptance work.
+
+
+## Refinement policy — 2026-10-21
+
+Conversational category requests, including “are there any coffee”, share lexical vocabulary with map search. Ordinary discovery may show sourced recorded candidates, kept distinct from approved records and fictional samples. Verified-only requests exclude them. Near/nearest requests use only a confirmed host origin for local straight-line ordering; no origin is sent to a remote service or used to promise walking navigation. Bounded typo suggestions never trigger focus automatically.
+
+Itemized numeric budget results and visible menu amounts exclude estimates, starting prices and items without branch/source evidence. Original research amounts remain in the source artifact. Restaurant hours exclude mall, delivery and ordering schedules from the primary operating-hours display. Sources remain available through disclosure.
+
+Artifact availability (missing, partial, present, verified), installation pointer state and live runtime readiness are independent. DNS, thermal and OOM failures do not remove verified files. Native severe thermal blocking, cancellation/idle acknowledgement and initialization ownership fences remain mandatory. Thermal recovery only enables explicit retry; it does not replay a prompt or initialize automatically. Model downloads use bounded foreground retries and preserve range-resumable partial bytes.
+
+### Model choice
+
+Deterministic operation remains the default. The existing pinned 2.59 GB Gemma 4 E2B stays optional; actual Omni-BGC RAM, latency, quality and thermal behavior remain unmeasured on the target 8 GB phone. No weights are bundled, replaced automatically, or downloaded at startup.
+
+The compared [Qwen3 0.6B INT4 no-think export](https://huggingface.co/litert-community/Qwen3-0.6B-int4/blob/256f33043931947c173d7f3cc1d84ee7a8538cc2/README.md) is 347,251,840 bytes, Apache 2.0, with a 1,280-token KV capacity. Its published memory result is for a different device/runtime. The export lacks the canonical tool template needed to validate the current native tool-agent path, so no extra language-only runtime was added. Smaller Gemma 3 exports also change acquisition/licensing and do not establish tool quality or universal NPU compatibility. Haki remains an architectural reference, not authority to change Omni-BGC runtime contracts.

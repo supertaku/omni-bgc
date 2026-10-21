@@ -25,9 +25,11 @@ export type ModelPointers = {
 };
 export type ModelStatus = {
   state: InstallationState;
+  artifactState: 'MISSING' | 'PARTIAL' | 'PRESENT' | 'VERIFIED';
   bytesReceived: number;
   totalBytes: number;
   error?: string;
+  runtimeError?: string;
 };
 export interface ModelStorage {
   /** Paths are private, immutable by checksum; implementations must reject symlinks/outside paths. */
@@ -68,7 +70,9 @@ function same(a: StoredModel | null, b: StoredModel | null): boolean {
 /** One owner serializes setup. Network access exists only in explicitly requested install('download'). */
 export class ModelManager {
   private tail: Promise<unknown> = Promise.resolve();
-  private status: ModelStatus = { state: 'NOT_INSTALLED', bytesReceived: 0, totalBytes: 0 };
+  private status: ModelStatus = {
+    state: 'NOT_INSTALLED', artifactState: 'MISSING', bytesReceived: 0, totalBytes: 0,
+  };
   private listeners = new Set<(status: ModelStatus) => void>();
   constructor(
     private storage: ModelStorage,
@@ -84,8 +88,19 @@ export class ModelManager {
   getStatus(): ModelStatus {
     return { ...this.status };
   }
+  setRuntimeError(error?: string): void {
+    const previous = this.status.runtimeError;
+    this.status = {
+      ...this.status,
+      runtimeError: error,
+      error: error ?? (this.status.error === previous ? undefined : this.status.error),
+    };
+    for (const listener of this.listeners) {
+      try { listener(this.getStatus()); } catch { /* UI cannot break storage. */ }
+    }
+  }
   private update(state: InstallationState, extra: Partial<ModelStatus> = {}): void {
-    this.status = { ...this.status, error: undefined, ...extra, state };
+    this.status = { ...this.status, error: undefined, runtimeError: undefined, ...extra, state };
     for (const listener of this.listeners) {
       try {
         listener(this.getStatus());
@@ -115,6 +130,12 @@ export class ModelManager {
       verified: true,
     };
   }
+  private async inspectArtifact(model: ReviewedModel): Promise<ModelStatus['artifactState']> {
+    const finalSize = await this.storage.size(this.storage.finalPath(model));
+    if (finalSize !== null) return 'PRESENT';
+    const partialSize = await this.storage.size(this.storage.partialPath(model));
+    return partialSize ? 'PARTIAL' : 'MISSING';
+  }
   private async verifyStored(stored: StoredModel): Promise<StoredModel> {
     const model = reviewedModel(stored.id);
     if (
@@ -132,7 +153,7 @@ export class ModelManager {
       if (pointers.active) {
         try {
           await this.verifyStored(pointers.active);
-          this.update('ACTIVE');
+          this.update('ACTIVE', { artifactState: 'VERIFIED' });
           return pointers;
         } catch {
           /* Previous pointer is the only lawful rollback candidate. */
@@ -142,39 +163,43 @@ export class ModelManager {
           : null;
         const recovered = { active: fallback, previous: null, staged: null };
         await this.guard.withModelMutation(() => this.storage.writePointers(recovered));
-        this.update(fallback ? 'ACTIVE' : 'FAILED', { error: 'MODEL_HASH_MISMATCH' });
+        this.update(fallback ? 'ACTIVE' : 'FAILED', {
+          artifactState: fallback ? 'VERIFIED' : await this.inspectArtifact(reviewedModel(pointers.active.id)),
+          error: 'MODEL_HASH_MISMATCH',
+        });
         return recovered;
       }
       if (pointers.staged) {
         try {
           await this.verifyStored(pointers.staged);
-          this.update('PENDING_NATIVE_SMOKE_TEST');
+          this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
           return pointers;
         } catch {
           const recovered = { ...pointers, staged: null };
           await this.guard.withModelMutation(() => this.storage.writePointers(recovered));
-          this.update('FAILED', { error: 'MODEL_HASH_MISMATCH' });
+          this.update('FAILED', { artifactState: await this.inspectArtifact(reviewedModel(pointers.staged.id)), error: 'MODEL_HASH_MISMATCH' });
           return recovered;
         }
       }
       // A process can die after the immutable rename but before the staged pointer transaction.
       for (const model of MODEL_CATALOG) {
         const path = this.storage.finalPath(model);
-        if ((await this.storage.size(path)) === null) continue;
+        const size = await this.storage.size(path);
+        if (size === null) continue;
         let staged: StoredModel;
         try {
-          this.update('VERIFYING', { totalBytes: model.bytes, bytesReceived: model.bytes });
+          this.update('VERIFYING', { artifactState: 'PRESENT', totalBytes: model.bytes, bytesReceived: model.bytes });
           staged = await this.verify(model, path);
         } catch {
-          this.update('FAILED', { error: 'MODEL_EXISTING_ARTIFACT_CORRUPT' });
+          this.update('FAILED', { artifactState: 'PRESENT', error: 'MODEL_EXISTING_ARTIFACT_CORRUPT' });
           return pointers;
         }
         const recovered = { ...pointers, staged };
         await this.guard.withModelMutation(() => this.storage.writePointers(recovered));
-        this.update('PENDING_NATIVE_SMOKE_TEST');
+        this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
         return recovered;
       }
-      this.update('NOT_INSTALLED');
+      this.update('NOT_INSTALLED', { artifactState: await this.inspectArtifact(reviewedModel(MODEL_CATALOG[0]!.id)) });
       return pointers;
     });
   }
@@ -193,7 +218,7 @@ export class ModelManager {
       const partial = this.storage.partialPath(model),
         destination = this.storage.finalPath(model);
       if ((await this.storage.size(destination)) !== null) {
-        this.update('VERIFYING', { totalBytes: model.bytes, bytesReceived: model.bytes });
+        this.update('VERIFYING', { artifactState: 'PRESENT', totalBytes: model.bytes, bytesReceived: model.bytes });
         const staged = await this.verify(model, destination).catch(() => {
           this.update('FAILED', { error: 'MODEL_EXISTING_ARTIFACT_CORRUPT' });
           throw new Error('MODEL_EXISTING_ARTIFACT_CORRUPT');
@@ -203,18 +228,23 @@ export class ModelManager {
           const pointers = await this.storage.readPointers();
           await this.storage.writePointers({ ...pointers, staged });
         });
-        this.update('PENDING_NATIVE_SMOKE_TEST');
+        this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
         return staged;
       }
       const existing = (await this.storage.size(partial)) ?? 0;
       // Streaming transfer + rename needs only the missing bytes; previous immutable artifact remains on disk.
       const reusable = source.kind === 'download' && existing <= model.bytes ? existing : 0;
       if ((await this.storage.freeBytes()) < model.bytes - reusable + 256 * 1024 * 1024) {
-        this.update('FAILED', { error: 'MODEL_STORAGE_INSUFFICIENT' });
+        this.update('FAILED', {
+          artifactState: existing ? 'PARTIAL' : 'MISSING',
+          bytesReceived: existing,
+          totalBytes: model.bytes,
+          error: 'MODEL_STORAGE_INSUFFICIENT',
+        });
         throw new Error('MODEL_STORAGE_INSUFFICIENT');
       }
       try {
-        this.update('DOWNLOADING', { totalBytes: model.bytes, bytesReceived: existing });
+        this.update('DOWNLOADING', { artifactState: existing ? 'PARTIAL' : 'MISSING', totalBytes: model.bytes, bytesReceived: existing });
         if (source.kind === 'download')
           await this.storage.download(
             model,
@@ -227,7 +257,7 @@ export class ModelManager {
           this.update('DOWNLOADING', { bytesReceived: model.bytes });
         }
         cancelled(signal);
-        this.update('VERIFYING');
+        this.update('VERIFYING', { artifactState: 'PRESENT' });
         await this.verify(model, partial);
         cancelled(signal);
         const installed = await this.guard.withModelMutation(async () => {
@@ -239,7 +269,7 @@ export class ModelManager {
           return verified;
         });
         this.update('STAGED');
-        this.update('PENDING_NATIVE_SMOKE_TEST');
+        this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
         return installed;
       } catch (error) {
         const code = signal?.aborted
@@ -250,7 +280,10 @@ export class ModelManager {
         // Keep transport partials for retry; a bad hash cannot be resumed as a valid completed download.
         if (code === 'MODEL_HASH_MISMATCH')
           await this.guard.withModelMutation(() => this.storage.remove(partial));
-        this.update(signal?.aborted ? 'PAUSED' : 'FAILED', { error: code });
+        this.update(signal?.aborted ? 'PAUSED' : 'FAILED', {
+          artifactState: code === 'MODEL_HASH_MISMATCH' ? 'MISSING' : await this.inspectArtifact(model),
+          error: code,
+        });
         throw error;
       }
     });
@@ -263,7 +296,7 @@ export class ModelManager {
       const before = await this.storage.readPointers();
       if (!before.staged) throw new Error('MODEL_STAGED_MISSING');
       const candidate = await this.verifyStored(before.staged);
-      this.update('PENDING_NATIVE_SMOKE_TEST');
+        this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
       try {
         cancelled(signal);
         await runner.load(candidate);
@@ -284,7 +317,7 @@ export class ModelManager {
             staged: null,
           });
         });
-        this.update('ACTIVE');
+        this.update('ACTIVE', { artifactState: 'VERIFIED' });
         return candidate;
       } catch (error) {
         try {
@@ -292,13 +325,14 @@ export class ModelManager {
         } catch {
           /* Native lease remains poisoned; guard rejects deletion/replacement. */
         }
-        this.update(signal?.aborted ? 'PAUSED' : 'FAILED', {
-          error: signal?.aborted
-            ? 'MODEL_SETUP_CANCELLED'
-            : error instanceof Error
-              ? error.message
-              : 'MODEL_SMOKE_FAILED',
-        });
+        const code = signal?.aborted
+          ? 'MODEL_SETUP_CANCELLED'
+          : error instanceof Error ? error.message : 'MODEL_SMOKE_FAILED';
+        if (signal?.aborted) this.update('PAUSED', { artifactState: 'VERIFIED', error: code });
+        else {
+          this.update(before.active ? 'ACTIVE' : 'PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
+          this.setRuntimeError(code);
+        }
         throw error;
       }
     });
@@ -314,7 +348,7 @@ export class ModelManager {
           previous: pointers.active,
           staged: null,
         });
-        this.update('ACTIVE');
+        this.update('ACTIVE', { artifactState: 'VERIFIED' });
         return previous;
       }),
     );
@@ -332,7 +366,7 @@ export class ModelManager {
         });
         await this.storage.remove(this.storage.partialPath(model));
         await this.storage.remove(this.storage.finalPath(model));
-        this.update('NOT_INSTALLED');
+        this.update('NOT_INSTALLED', { artifactState: 'MISSING' });
       }),
     );
   }
@@ -353,6 +387,7 @@ export class ModelManager {
         await this.storage.remove(this.storage.finalPath(model));
         this.update(
           next.active ? 'ACTIVE' : next.staged ? 'PENDING_NATIVE_SMOKE_TEST' : 'NOT_INSTALLED',
+          { artifactState: 'MISSING' },
         );
       }),
     );

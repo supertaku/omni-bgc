@@ -3,20 +3,18 @@ import type { AssistantPayload } from './contracts';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { parsePhpCentavos as centavos } from '../../domain/money';
 import { checkedPhpBounds, parseUserPhpPriceBounds } from '../../domain/priceBounds';
-import { stripFoodSourcePreference } from '../food/sourcePolicy';
+import { excludesFoodResearch, stripFoodSourcePreference } from '../food/sourcePolicy';
 import { answerOfficeQuery } from '../offices/assistant';
+import { getOfficeLocationReference } from '../offices/service';
+import { DIRECTORY_CATEGORIES, directoryCategory, normalizeDirectoryText } from '../../data/lexical';
 
-const normalize = (value: string) =>
-  value
-    .normalize('NFKC')
-    .toLocaleLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .trim();
+const normalize = normalizeDirectoryText;
 const fillers = new Set([
   'a',
   'an',
   'and',
   'any',
+  'there',
   'are',
   'at',
   'bgc',
@@ -50,21 +48,12 @@ const fillers = new Set([
   'browse',
   'get',
   'looking',
+  'shops',
+  'shop',
 ]);
-const categoryWords: Record<string, string[]> = {
-  coffee: ['coffee', 'cafe', 'café'],
-  food: ['food', 'restaurant', 'restaurants', 'dining', 'eat'],
-  shop: ['shop', 'shops', 'shopping', 'retail', 'mall'],
-  park: ['park', 'parks', 'garden'],
-  facility: ['facility', 'facilities', 'restroom', 'toilet', 'public'],
-  hotel: ['hotel', 'hotels', 'accommodation'],
-  transit: ['transit', 'bus', 'transport'],
-};
-const category = (word: string) =>
-  Object.entries(categoryWords).find(([, words]) => words.includes(word))?.[0];
 export function placeMatchesCategory(place: Place, requested: string): boolean {
   const value = normalize(place.category);
-  return (categoryWords[requested] ?? [requested]).some((word) => value.includes(normalize(word)));
+  return (DIRECTORY_CATEGORIES[requested] ?? [requested]).some((word) => value.includes(normalize(word)));
 }
 const searchable = (place: Place) =>
   normalize(
@@ -138,6 +127,21 @@ export function answerDirectoryQuery(
   if (priceRequest.kind === 'invalid') return missing(priceRequest.message);
   const priceBounds = priceRequest.kind === 'valid' ? priceRequest.bounds : undefined;
   const { min, max } = checkedPhpBounds(priceBounds?.minPhp, priceBounds?.maxPhp);
+  const candidateOffice = places.find((place) => {
+    const reference = getOfficeLocationReference(place.id);
+    return place.status === 'candidate' && reference !== null &&
+      [reference.name, reference.building, 'Thinking Machines'].some((name) => text.includes(normalize(name)));
+  });
+  if (candidateOffice) {
+    const reference = getOfficeLocationReference(candidateOffice.id)!;
+    if (excludesFoodResearch(query))
+      return missing('I couldn’t find a verified office match for that in the current reviewed office records.');
+    return [
+      { kind: 'places', title: 'Sourced candidate reference', placeIds: [candidateOffice.id], total: 1 },
+      { kind: 'text', text: `${reference.name}\n${reference.building}\n${reference.address}\n${reference.notice}` },
+      { kind: 'evidence', title: 'Candidate reference sources', citations: reference.citations },
+    ];
+  }
   const officeAnswer = answerOfficeQuery(query, places);
   if (officeAnswer) return officeAnswer;
   const isMenu =
@@ -178,19 +182,26 @@ export function answerDirectoryQuery(
     'allergens',
   ]);
   const terms = words.filter((word) => !ignored.has(word) && !(priceBounds && /^\d+$/.test(word)));
-  const requestedCategories = [
-    ...new Set(terms.map(category).filter((value): value is string => !!value)),
-  ];
-  const literals = terms.filter((word) => !category(word));
+  const requestedCategories = [...new Set(terms.map(directoryCategory).filter((value): value is string => !!value))];
+  const literals = terms.filter((word) => !directoryCategory(word));
+  const reviewedOnly = excludesFoodResearch(query);
   const canonicalPlaces = places.filter(
-    (place) => place.status === 'approved' || isDemoPlace(place),
+    (place) => place.status === 'approved' || (!reviewedOnly && isDemoPlace(place)),
+  );
+  // Local discovery can include bundled source candidates. They never enter
+  // menu matching, where approval and item-level evidence remain mandatory.
+  const directoryPlaces = places.filter(
+    (place) => !isDemoPlace(place) && (place.status === 'approved' || (place.status === 'candidate' && !reviewedOnly)),
   );
   const named = canonicalPlaces.filter((place) =>
     [place.name, ...place.aliases].some((name) => normalize(name) === terms.join(' ')),
   );
-  const matches = named.length
-    ? named
-    : canonicalPlaces.filter(
+  const namedDirectory = directoryPlaces.filter((place) =>
+    [place.name, ...place.aliases].some((name) => normalize(name) === terms.join(' ')),
+  );
+  const matches = namedDirectory.length
+    ? namedDirectory
+    : directoryPlaces.filter(
         (place) =>
           requestedCategories.every((value) => placeMatchesCategory(place, value)) &&
           literals.every((word) => searchable(place).includes(word)),
@@ -275,5 +286,8 @@ export function answerDirectoryQuery(
           : `Found ${matches.length} places in the local directory.`,
     },
     collection('Places to explore', matches),
+    ...(matches.some((place) => place.status !== 'approved')
+      ? [{ kind: 'text' as const, text: 'Some results are recorded directory candidates, not reviewed listings.' }]
+      : []),
   ];
 }

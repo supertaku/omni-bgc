@@ -1,10 +1,11 @@
+import { FoodHoursView, FoodSourceDisclosure } from '../food/ResearchDetails';
 import { Pressable, Text, View } from 'react-native';
 import type { Citation, Place } from '../../contracts';
 import type { AssistantActions, AssistantPayload, PlaceDisplaySnapshot } from './contracts';
 import { assistantStyles as s } from './styles';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { WALKING_DIRECTIONS_DEFERRED, VISIT_PLANNING_DEFERRED } from './directory';
-import { formatFoodPrice } from '../food/service';
+import { displayFoodPrice } from '../food/service';
 import { CitationList } from '../../ui/components';
 
 /** Only the name is interactive; opening still goes through the conversation's fresh-ID guard. */
@@ -146,7 +147,8 @@ export function MessageContent({
       return (
         <View style={s.collection}>
           <Text style={s.body}>Here are a few menu picks.</Text>
-          <Text style={s.caption}>Prices and branch availability may differ.</Text>
+          <Text style={s.caption}>Recorded menu · sources and details in the restaurant menu.</Text>
+          {payload.items.some(({ item }) => !displayFoodPrice(item)) ? <Text style={s.caption}>Item prices unavailable.</Text> : null}
           {payload.items.map(({ placeId, restaurantName, item }, index) => (
             <View key={`${placeId}:${item.id}`} style={s.resultRow}>
               <ResultName
@@ -156,7 +158,7 @@ export function MessageContent({
                 onOpenPlace={actions.onOpenPlace}
               />
               <Text style={s.body}>
-                {restaurantName} · {formatFoodPrice(item)}
+                {restaurantName}{displayFoodPrice(item) ? ` · ${displayFoodPrice(item)}` : ''}
               </Text>
             </View>
           ))}
@@ -221,28 +223,8 @@ export function MessageContent({
             place={resolve(payload.placeId)}
             onOpenPlace={actions.onOpenPlace}
           />
-          <Text style={s.body}>
-            {hours.text ?? 'I don’t have recorded hours for this restaurant yet.'}
-          </Text>
-          {hours.text ? (
-            <Text style={s.caption}>
-              {hours.kind === 'delivery'
-                ? 'These are delivery hours; dine-in hours may differ.'
-                : hours.kind === 'ordering'
-                  ? 'These are ordering hours; dine-in hours may differ.'
-                  : hours.kind === 'unknown'
-                    ? 'The schedule context isn’t confirmed.'
-                    : 'These are recorded restaurant hours.'}
-            </Text>
-          ) : null}
-          {hours.venueText ? (
-            <Text style={s.caption}>
-              Venue hours: {hours.venueText}. These don’t establish the restaurant’s hours.
-            </Text>
-          ) : null}
-          <Text style={s.caption}>
-            Check for holiday changes. These records can’t confirm what’s open right now.
-          </Text>
+          <FoodHoursView hours={hours} />
+          <FoodSourceDisclosure evidence={payload.evidence} />
         </View>
       );
     }

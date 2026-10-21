@@ -70,7 +70,7 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
         },
         {
           kind: 'text',
-          text: 'Recorded schedules do not confirm current opening status or holiday hours.',
+          text: 'Recorded schedules do not confirm current opening status.',
         },
       ];
     }
@@ -165,7 +165,7 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
       return [
         {
           kind: 'text',
-          text: 'Here’s what I found. Estimates are approximate, and starting prices can vary with the option you choose.',
+          text: 'Here are matching recorded menu items.',
         },
         {
           kind: 'food-menus',

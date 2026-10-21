@@ -1,155 +1,58 @@
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { Body, Icon, palette } from '../../ui/components';
+import { Body, palette } from '../../ui/components';
 import type { FoodEvidence, FoodHours, FoodMenuItem } from './contracts';
-import { formatFoodPrice } from './service';
+import { displayFoodPrice } from './service';
 import { foodResearch } from './directory';
+import { restaurantHoursLines } from './presentation';
 
 export function FoodSourceDisclosure({ evidence }: { evidence: FoodEvidence | null }) {
   const [open, setOpen] = useState(false);
-  return (
-    <View>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${open ? 'Hide' : 'Show'} research sources`}
-        accessibilityState={{ expanded: open }}
-        onPress={() => setOpen((v) => !v)}
-        style={{ minHeight: 48, justifyContent: 'center' }}
-      >
-        <Text style={{ color: palette.muted, fontFamily: 'OmniBody' }}>
-          Research sources {open ? '−' : '+'}
-        </Text>
-      </Pressable>
-      {open && evidence ? (
-        <View>
-          <Body muted>{evidence.status}</Body>
-          {evidence.priceEvidence ? (
-            <Body muted>Price evidence: {evidence.priceEvidence.replace(/-/g, ' ')}</Body>
-          ) : null}
-          <Body muted>Research date: {evidence.researchDate ?? 'Not recorded'}</Body>
-          {evidence.branch ? (
-            <Body muted>Menu reference: {evidence.branch} · branch availability may differ</Body>
-          ) : null}
-          {evidence.estimationBasis ? (
-            <Body muted>Estimate basis: {evidence.estimationBasis}</Body>
-          ) : null}
-          {evidence.urls.map((url) => (
-            <Text
-              selectable
-              key={url}
-              style={{ color: palette.muted, fontFamily: 'OmniBody', fontSize: 13 }}
-            >
-              {url}
-            </Text>
-          ))}
-          <Body muted>Rights review pending · internal research</Body>
-        </View>
-      ) : null}
-    </View>
-  );
+  return <View>
+    <Pressable accessibilityRole="button" accessibilityLabel={`${open ? 'Hide' : 'Show'} sources and details`}
+      accessibilityState={{ expanded: open }} onPress={() => setOpen(v => !v)}
+      style={{ minHeight: 48, justifyContent: 'center' }}>
+      <Text style={{ color: palette.muted, fontFamily: 'OmniBodySemiBold', fontSize: 14 }}>Sources & details {open ? '−' : '+'}</Text>
+    </Pressable>
+    {open && evidence ? <View style={{ gap: 4 }}>
+      <Body muted>{evidence.status}</Body>
+      <Body muted>Research date: {evidence.researchDate ?? 'Not recorded'}</Body>
+      {evidence.branch ? <Body muted>Menu reference: {evidence.branch}</Body> : null}
+      {evidence.priceEvidence ? <Body muted>Price evidence: {evidence.priceEvidence.replace(/-/g, ' ')}</Body> : null}
+      {evidence.estimationBasis ? <Body muted>Recorded estimate basis: {evidence.estimationBasis}</Body> : null}
+      {evidence.hours?.venueText ? <Body muted>Venue reference hours: {evidence.hours.venueText}. These do not establish restaurant hours.</Body> : null}
+      {evidence.hours?.text && evidence.hours.kind !== 'restaurant' ? <Body muted>{evidence.hours.kind} schedule: {evidence.hours.text}</Body> : null}
+      {evidence.urls.map(url => <Text selectable key={url} style={{ color: palette.muted, fontFamily: 'OmniBody', fontSize: 13 }}>{url}</Text>)}
+      <Body muted>Internal research · rights review pending. Recorded menus may be incomplete; branch availability and holiday schedules may change.</Body>
+    </View> : null}
+  </View>;
 }
-
 export function FoodHoursView({ hours }: { hours: FoodHours }) {
-  return (
-    <View style={{ gap: 6 }}>
-      <Body>{hours.text ?? 'Restaurant hours not recorded.'}</Body>
-      {hours.text ? (
-        <Body muted>
-          {hours.kind === 'delivery'
-            ? 'Delivery listing hours; dine-in hours may differ.'
-            : hours.kind === 'ordering'
-              ? 'Ordering hours; dine-in hours may differ.'
-              : hours.kind === 'unknown'
-                ? 'Schedule context is unconfirmed.'
-                : 'Recorded restaurant schedule.'}
-        </Body>
-      ) : null}
-      {hours.venueText ? (
-        <>
-          <Body muted>Venue reference hours: {hours.venueText}</Body>
-          <Body muted>Venue hours do not establish restaurant hours.</Body>
-        </>
-      ) : null}
-      <Body muted>Check with the restaurant for today's hours and holiday changes.</Body>
-    </View>
-  );
+  return <View style={{ gap: 4 }}>{restaurantHoursLines(hours).map(line => <Body key={line}>{line}</Body>)}</View>;
 }
-
 export function FoodMenuRow({ item }: { item: FoodMenuItem; evidence: FoodEvidence | null }) {
-  return (
-    <View
-      style={{ paddingVertical: 10, gap: 4, borderBottomWidth: 1, borderColor: palette.divider }}
-    >
-      <View
-        style={{
-          minHeight: 68,
-          padding: 12,
-          borderRadius: 12,
-          backgroundColor: palette.soft,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 8,
-        }}
-      >
-        <Icon name="image" size={20} color={palette.muted} />
-        <Text style={{ fontFamily: 'OmniBody', fontSize: 13, color: palette.muted }}>
-          Menu image unavailable
-        </Text>
-      </View>
-      <Text style={{ fontFamily: 'OmniBodySemiBold', color: palette.ink, fontSize: 16 }}>
-        {item.name}
-      </Text>
-      <Body>{formatFoodPrice(item)}</Body>
-      {item.description ? <Body>{item.description}</Body> : null}
-      <Body muted>
-        {[item.section, item.category, ...item.tags]
-          .filter(Boolean)
-          .filter((v, i, a) => a.indexOf(v) === i)
-          .join(' · ')}
-      </Body>
-      {item.branch ? (
-        <Body muted>Listed for {item.branch} · availability here may differ</Body>
-      ) : null}
+  const price = displayFoodPrice(item);
+  const tags = [...new Set([item.category, ...item.tags].filter(Boolean))].join(' · ');
+  return <View style={{ paddingVertical: 12, gap: 4, borderBottomWidth: 1, borderColor: palette.divider }}>
+    <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
+      <Text style={{ flex: 1, fontFamily: 'OmniBodySemiBold', color: palette.ink, fontSize: 16 }}>{item.name}</Text>
+      {price ? <Body>{price}</Body> : null}
     </View>
-  );
+    {item.description ? <Body>{item.description}</Body> : null}
+    {tags ? <Body muted>{tags}</Body> : null}
+  </View>;
 }
-
 export function ResearchMenu({ restaurantId }: { restaurantId: string }) {
   const [visible, setVisible] = useState(20);
-  const r = foodResearch.restaurants.find((r) => r.id === restaurantId);
+  const r = foodResearch.restaurants.find(row => row.id === restaurantId);
   if (!r) return null;
-  return (
-    <View>
-      {r.items.length ? (
-        <Body muted>
-          Some menu items may be missing. Prices and branch availability may differ.
-        </Body>
-      ) : null}
-      {!r.items.length ? (
-        <Body>Menu information is not yet available.</Body>
-      ) : (
-        r.items.slice(0, visible).map((item, index) => (
-          <View key={item.id}>
-            {index === 0 ||
-            (item.section ?? item.category) !==
-              (r.items[index - 1].section ?? r.items[index - 1].category) ? (
-              <Body>{item.section ?? item.category ?? 'Other recorded items'}</Body>
-            ) : null}
-            <FoodMenuRow item={item} evidence={foodResearch.getFoodResearchEvidence(item.id)} />
-          </View>
-        ))
-      )}
-      {visible < r.items.length ? (
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Show more recorded menu items"
-          onPress={() => setVisible((v) => v + 20)}
-          style={{ minHeight: 48, justifyContent: 'center' }}
-        >
-          <Body>Show more ({r.items.length - visible} remaining)</Body>
-        </Pressable>
-      ) : null}
-    </View>
-  );
+  return <View>
+    {r.items.some(item => displayFoodPrice(item) === null) ? <Body muted>Item prices unavailable{r.items.some(item => displayFoodPrice(item) !== null) ? ' for some items' : ''}.</Body> : null}
+    {!r.items.length ? <Body>Menu information is not yet available.</Body> : r.items.slice(0, visible).map((item, index) => <View key={item.id}>
+      {index === 0 || (item.section ?? item.category) !== (r.items[index - 1].section ?? r.items[index - 1].category)
+        ? <Text accessibilityRole="header" style={{ fontFamily: 'OmniBodySemiBold', color: palette.ink, fontSize: 16, marginTop: 12 }}>{item.section ?? item.category ?? 'Other recorded items'}</Text> : null}
+      <FoodMenuRow item={item} evidence={foodResearch.getFoodResearchEvidence(item.id)} />
+    </View>)}
+    {visible < r.items.length ? <Pressable accessibilityRole="button" accessibilityLabel="Show more recorded menu items" onPress={() => setVisible(v => v + 20)} style={{ minHeight: 48, justifyContent: 'center' }}><Body>Show more ({r.items.length - visible} remaining)</Body></Pressable> : null}
+  </View>;
 }

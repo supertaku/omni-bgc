@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AccessibilityInfo,
   AppState,
+  FlatList,
+  Modal,
   Platform,
   Pressable,
   StyleSheet,
@@ -12,37 +14,25 @@ import {
   Camera,
   type CameraRef,
   GeoJSONSource,
-  Images,
   Layer,
   Map,
   type MapRef,
+  type GeoJSONSourceRef,
+  VectorSource,
   ViewAnnotation,
 } from '@maplibre/maplibre-react-native';
 import type { Coordinate, Origin, Place, RouteResult, TransitRoute } from '../contracts';
 import { loadActiveMapStyle } from '../updates/style';
 import { loadBundledStyle } from './bundled-style';
+import { loadContextSource } from './context-source';
 import { coverageAt, pilotScope, type MapScope } from './scope';
 import { createMapResourceLoader, defaultScopeView } from './resource-loader';
-import context from './context.json';
 import {
   categorySprite,
   coordinateBounds,
   renderMapStyle,
   placeFeatureCollection,
 } from './presentation';
-
-const facadeImages = {
-  'fort-facade-glass-blue': require('../../assets/map-facades/glass-blue.png'),
-  'fort-facade-glass-teal': require('../../assets/map-facades/glass-teal.png'),
-  'fort-facade-residential-warm': require('../../assets/map-facades/residential-warm.png'),
-  'fort-facade-residential-cool': require('../../assets/map-facades/residential-cool.png'),
-  'fort-facade-mixed-sand': require('../../assets/map-facades/mixed-sand.png'),
-  'fort-facade-retail-bronze': require('../../assets/map-facades/retail-bronze.png'),
-  'fort-facade-masonry-light': require('../../assets/map-facades/masonry-light.png'),
-  'fort-facade-hotel-slate': require('../../assets/map-facades/hotel-slate.png'),
-  'fort-facade-neutral-slate': require('../../assets/map-facades/neutral-slate.png'),
-  'fort-facade-neutral-sand': require('../../assets/map-facades/neutral-sand.png'),
-};
 
 export type MapCanvasProps = {
   origin?: Origin | null;
@@ -84,6 +74,9 @@ export function MapCanvas({
 }: MapCanvasProps) {
   const camera = useRef<CameraRef>(null);
   const map = useRef<MapRef>(null);
+  const placeSource = useRef<GeoJSONSourceRef>(null);
+  const placeData = useRef<GeoJSON.FeatureCollection | null>(null);
+  const clusterRequest = useRef(0);
   const installedStyle = useRef('');
   const installedScope = useRef('');
   const pendingScopeView = useRef(false);
@@ -93,6 +86,7 @@ export function MapCanvas({
   const scopeCallback = useRef(onScopeReady);
   scopeCallback.current = onScopeReady;
   const center = useRef<Coordinate>(pilotScope.defaultView.center);
+  const zoom = useRef(pilotScope.defaultView.zoom);
   const [activeScope, setActiveScope] = useState<MapScope>(pilotScope);
   const [failure, setFailure] = useState(false);
   const [fullyRendered, setFullyRendered] = useState(false);
@@ -106,6 +100,11 @@ export function MapCanvas({
   const [styleReady, setStyleReady] = useState(false);
   const [resourcesReady, setResourcesReady] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [contextSource, setContextSource] = useState<string | null>(null);
+  const [clusterId, setClusterId] = useState<number | null>(null);
+  const [clusterCount, setClusterCount] = useState(0);
+  const [clusterPage, setClusterPage] = useState(0);
+  const [clusterPlaces, setClusterPlaces] = useState<Place[]>([]);
   const duration = reducedMotion ? 0 : 350;
   const quiet = !!route?.available || !!transit;
   const padding = useMemo(
@@ -141,6 +140,20 @@ export function MapCanvas({
     [activeStyle, flat, quiet],
   );
   const data = useMemo(() => placeFeatureCollection(places), [places]);
+  placeData.current = data;
+  const clusterPageSize = 20;
+  useEffect(() => {
+    clusterRequest.current += 1;
+    setClusterId(null);
+    setClusterPlaces([]);
+  }, [data]);
+  useEffect(() => {
+    let mounted = true;
+    void loadContextSource()
+      .then((uri) => { if (mounted) setContextSource(uri); })
+      .catch((error) => console.warn('OMNI_MAP surrounding context unavailable', String(error)));
+    return () => { mounted = false; };
+  }, []);
   useEffect(() => {
     scopeCallback.current?.(
       Platform.OS === 'android' && !failure && fullyRendered ? activeScope : null,
@@ -240,6 +253,57 @@ export function MapCanvas({
       });
     }
   }, [cameraResetKey, styleReady, activeScope]);
+  const showClusterPage = async (id: number, count: number, page: number) => {
+    const request = ++clusterRequest.current;
+    const requestData = data;
+    try {
+      const features = await placeSource.current?.getClusterLeaves(id, clusterPageSize, page * clusterPageSize);
+      if (request !== clusterRequest.current || placeData.current !== requestData) return;
+      const members = (features ?? [])
+        .map((feature) => places.find((place) => place.id === feature.properties?.id))
+        .filter((place): place is Place => !!place);
+      if (!members.length) return;
+      setClusterId(id);
+      setClusterCount(count);
+      setClusterPage(page);
+      setClusterPlaces(members);
+    } catch (error) {
+      if (request === clusterRequest.current && placeData.current === requestData) {
+        console.warn('OMNI_MAP place cluster could not be expanded', String(error));
+        setClusterId(null);
+      }
+    }
+  };
+  const onClusterPress = async (feature: GeoJSON.Feature) => {
+    const requestData = data;
+    const properties = feature.properties;
+    const id = properties?.cluster_id;
+    if (typeof id !== 'number') return;
+    const count = Number(properties?.point_count) || 0;
+    if (zoom.current >= 19.75) {
+      await showClusterPage(id, count, 0);
+      return;
+    }
+    const request = ++clusterRequest.current;
+    try {
+      const expandedZoom = await placeSource.current?.getClusterExpansionZoom(id);
+      if (request !== clusterRequest.current || placeData.current !== requestData) return;
+      camera.current?.easeTo({
+        center: feature.geometry.type === 'Point'
+          && Array.isArray(feature.geometry.coordinates)
+          && feature.geometry.coordinates.length >= 2
+          && Number.isFinite(feature.geometry.coordinates[0])
+          && Number.isFinite(feature.geometry.coordinates[1])
+          ? [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
+          : [center.current[0], center.current[1]],
+        zoom: Math.min(20, Math.max(zoom.current + 1, expandedZoom ?? zoom.current + 1)),
+        duration,
+      });
+    } catch (error) {
+      if (request === clusterRequest.current && placeData.current === requestData)
+        console.warn('OMNI_MAP place cluster could not expand', String(error));
+    }
+  };
   if (Platform.OS !== 'android')
     return (
       <View style={styles.unavailable}>
@@ -279,6 +343,7 @@ export function MapCanvas({
         onRegionDidChange={(event) => {
           const [x, y] = event.nativeEvent.center;
           center.current = [x, y];
+          zoom.current = event.nativeEvent.zoom;
           setCoverage(coverageAt(activeScope, [x, y]));
         }}
         onDidFinishLoadingStyle={() => setStyleReady(true)}
@@ -301,24 +366,26 @@ export function MapCanvas({
           minZoom={14}
           maxZoom={20}
         />
-        <Images images={facadeImages} />
-        {activeScope.id === 'omni-bgc:service-area:bgc-commercial-v2' && (
-          <GeoJSONSource id="surrounding-context" data={context as GeoJSON.FeatureCollection}>
+        {contextSource && activeScope.id === 'omni-bgc:service-area:bgc-commercial-v2' && (
+          <VectorSource id="surrounding-context" url={contextSource}>
             <Layer
               id="context-green"
               type="fill"
+              source-layer="geometry"
               filter={['==', ['get', 'kind'], 'green']}
               paint={{ 'fill-color': '#A8C69A', 'fill-opacity': 0.85 }}
             />
             <Layer
               id="context-water"
               type="fill"
+              source-layer="geometry"
               filter={['==', ['get', 'kind'], 'water']}
               paint={{ 'fill-color': '#83C6CB' }}
             />
             <Layer
               id="context-road-casing"
               type="line"
+              source-layer="geometry"
               filter={['==', ['get', 'kind'], 'road']}
               layout={{ 'line-cap': 'round', 'line-join': 'round' }}
               paint={{
@@ -338,6 +405,7 @@ export function MapCanvas({
             <Layer
               id="context-roads"
               type="line"
+              source-layer="geometry"
               filter={[
                 'all',
                 ['==', ['get', 'kind'], 'road'],
@@ -359,6 +427,7 @@ export function MapCanvas({
             <Layer
               id="context-paths"
               type="line"
+              source-layer="geometry"
               filter={[
                 'all',
                 ['==', ['get', 'kind'], 'road'],
@@ -377,20 +446,41 @@ export function MapCanvas({
             <Layer
               id="context-buildings"
               type="fill"
+              source-layer="geometry"
               filter={['==', ['get', 'kind'], 'building']}
               paint={{ 'fill-color': '#BAC2C3', 'fill-outline-color': '#919D9F' }}
             />
+            {!flat && !quiet && <Layer
+              id="context-building-massing"
+              type="fill-extrusion"
+              source-layer="geometry"
+              minzoom={14}
+              filter={['all', ['==', ['get', 'kind'], 'building'], ['>', ['get', 'visual_height'], 0]]}
+              paint={{
+                'fill-extrusion-base': ['get', 'visual_base'],
+                'fill-extrusion-height': ['get', 'visual_height'],
+                'fill-extrusion-color': [
+                  'match', ['get', 'visual_family'],
+                  'office', '#B9C7C9', 'commercial', '#C9C4B8',
+                  'residential', '#C8BFB2', 'mixed-use', '#C5C3B8',
+                  'retail', '#CDBFAE', 'hotel', '#B8C1C8',
+                  'civic', '#C6C8C2', '#BEC5C4',
+                ],
+                'fill-extrusion-vertical-gradient': true,
+              }}
+            />}
             <Layer
               id="context-road-labels"
               type="symbol"
-              minzoom={17}
+              source-layer="geometry"
+              minzoom={18}
               filter={['all', ['==', ['get', 'kind'], 'road'], ['has', 'name']]}
               layout={{
                 'symbol-placement': 'line',
                 'text-field': ['get', 'name'],
                 'text-font': ['Noto Sans Regular'],
-                'text-size': 11,
-                'text-padding': 16,
+                'text-size': 10,
+                'text-padding': 20,
               }}
               paint={{
                 'text-color': '#30414A',
@@ -401,7 +491,8 @@ export function MapCanvas({
             <Layer
               id="st-lukes-label"
               type="symbol"
-              minzoom={15}
+              source-layer="geometry"
+              minzoom={17}
               filter={['==', ['get', 'kind'], 'landmark']}
               layout={{
                 'text-field': ['get', 'name'],
@@ -417,58 +508,92 @@ export function MapCanvas({
                 'text-halo-width': 2,
               }}
             />
-          </GeoJSONSource>
+          </VectorSource>
         )}
         {!quiet && (
           <GeoJSONSource
+            ref={placeSource}
             id="visible-places"
             data={data}
+            maxzoom={21}
+            cluster
+            clusterRadius={44}
+            clusterMaxZoom={20}
             hitbox={{ top: 24, right: 24, bottom: 24, left: 24 }}
             onPress={(event) => {
               event.stopPropagation();
               const f = event.nativeEvent.features[0];
               if (!f) return;
+              if (f.properties?.cluster || typeof f.properties?.point_count === 'number') {
+                void onClusterPress(f);
+                return;
+              }
               if (typeof f.properties?.id === 'string') onPlacePress(f.properties.id);
             }}
           >
             <Layer
+              id="place-clusters"
+              type="circle"
+              filter={['has', 'point_count']}
+              paint={{
+                'circle-color': '#1756C0',
+                'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 2, 24, 50, 30],
+                'circle-stroke-color': '#FFFFFF',
+                'circle-stroke-width': 3,
+              }}
+            />
+            <Layer
+              id="place-cluster-count"
+              type="symbol"
+              filter={['has', 'point_count']}
+              layout={{
+                'text-field': ['get', 'point_count_abbreviated'],
+                'text-font': ['Noto Sans Regular'],
+                'text-size': 13,
+                'text-allow-overlap': true,
+              }}
+              paint={{ 'text-color': '#FFFFFF' }}
+            />
+            <Layer
               id="important-place-pins"
               type="symbol"
-              minzoom={15}
-              filter={['==', ['get', 'important'], true]}
+              minzoom={14}
+              filter={['all', ['!', ['has', 'point_count']], ['==', ['get', 'important'], true]]}
               layout={{
                 'icon-image': ['get', 'marker'],
-                'icon-size': ['interpolate', ['linear'], ['zoom'], 15, 0.36, 19, 0.58],
+                'icon-size': ['interpolate', ['linear'], ['zoom'], 14, 0.36, 20, 0.58],
                 'icon-anchor': 'bottom',
-                'icon-allow-overlap': false,
-                'icon-ignore-placement': false,
-                'icon-padding': 8,
+                'icon-padding': [24, 24, 24, 24],
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true,
               }}
             />
             <Layer
               id="place-pins"
               type="symbol"
-              minzoom={17}
-              filter={['!=', ['get', 'important'], true]}
+              minzoom={14}
+              filter={['all', ['!', ['has', 'point_count']], ['!=', ['get', 'important'], true]]}
               layout={{
                 'icon-image': ['get', 'marker'],
-                'icon-size': ['interpolate', ['linear'], ['zoom'], 17, 0.4, 19, 0.58],
+                'icon-size': ['interpolate', ['linear'], ['zoom'], 14, 0.36, 20, 0.58],
                 'icon-anchor': 'bottom',
-                'icon-allow-overlap': false,
+                'icon-padding': [24, 24, 24, 24],
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true,
               }}
             />
             <Layer
               id="place-names"
               type="symbol"
               minzoom={19}
-              filter={['!=', ['get', 'id'], selectedPlaceId ?? '']}
+              filter={['all', ['!', ['has', 'point_count']], ['!=', ['get', 'id'], selectedPlaceId ?? '']]}
               layout={{
                 'text-field': ['get', 'name'],
                 'text-font': ['Noto Sans Regular'],
                 'text-size': 11,
                 'text-offset': [0, 1.5],
                 'text-anchor': 'top',
-                'text-padding': 14,
+                'text-padding': 24,
               }}
               paint={{
                 'text-color': '#10243A',
@@ -687,6 +812,70 @@ export function MapCanvas({
           </GeoJSONSource>
         )}
       </Map>
+      <Modal
+        visible={clusterId !== null}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setClusterId(null)}
+      >
+        <View style={styles.clusterScrim}>
+          <View style={styles.clusterSheet}>
+            <Text accessibilityRole="header" style={styles.clusterTitle}>
+              {clusterCount} places at this location
+            </Text>
+            <FlatList
+              data={clusterPlaces}
+              keyExtractor={(place) => place.id}
+              renderItem={({ item }) => (
+                <Pressable
+                  onPress={() => {
+                    setClusterId(null);
+                    onPlacePress(item.id);
+                  }}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${item.name}, ${item.category}. Open details`}
+                  style={({ pressed }) => [styles.clusterRow, pressed && styles.clusterPressed]}
+                >
+                  <Text numberOfLines={1} style={styles.clusterName}>{item.name}</Text>
+                  <Text numberOfLines={1} style={styles.clusterCategory}>{item.category}</Text>
+                </Pressable>
+              )}
+            />
+            <View style={styles.clusterFooter}>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Previous places"
+                accessibilityState={{ disabled: clusterPage === 0 }}
+                disabled={clusterPage === 0}
+                onPress={() => clusterId !== null && void showClusterPage(clusterId, clusterCount, clusterPage - 1)}
+                style={styles.clusterPageButton}
+              >
+                <Text style={styles.clusterPageText}>Previous</Text>
+              </Pressable>
+              <Text accessibilityRole="text" style={styles.clusterPageText}>
+                {clusterPage + 1} / {Math.max(1, Math.ceil(clusterCount / clusterPageSize))}
+              </Text>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Next places"
+                accessibilityState={{ disabled: (clusterPage + 1) * clusterPageSize >= clusterCount }}
+                disabled={(clusterPage + 1) * clusterPageSize >= clusterCount}
+                onPress={() => clusterId !== null && void showClusterPage(clusterId, clusterCount, clusterPage + 1)}
+                style={styles.clusterPageButton}
+              >
+                <Text style={styles.clusterPageText}>Next</Text>
+              </Pressable>
+            </View>
+            <Pressable
+              onPress={() => setClusterId(null)}
+              accessibilityRole="button"
+              style={styles.clusterClose}
+            >
+              <Text style={styles.clusterPageText}>Close</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`Map data © OpenStreetMap contributors.${historicalPreview ? ' Historical map preview.' : ''}${restoredPilot ? ' High Street fallback restored.' : ''} Open source and licence information.`}
@@ -733,6 +922,17 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   map: { flex: 1 },
+  clusterScrim: { flex: 1, justifyContent: 'flex-end', backgroundColor: '#10243A66' },
+  clusterSheet: { maxHeight: '72%', backgroundColor: '#FFFFFF', borderTopLeftRadius: 22, borderTopRightRadius: 22, padding: 16, gap: 8 },
+  clusterTitle: { fontFamily: 'OmniBodySemiBold', fontSize: 18, color: '#10243A', paddingVertical: 8 },
+  clusterRow: { minHeight: 56, justifyContent: 'center', paddingHorizontal: 12, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#D4D9D7' },
+  clusterPressed: { backgroundColor: '#E8EFFB' },
+  clusterName: { fontFamily: 'OmniBodySemiBold', fontSize: 15, color: '#10243A' },
+  clusterCategory: { fontFamily: 'OmniBody', fontSize: 12, color: '#5E6D73' },
+  clusterFooter: { minHeight: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  clusterPageButton: { minWidth: 88, minHeight: 48, alignItems: 'center', justifyContent: 'center' },
+  clusterPageText: { fontFamily: 'OmniBodySemiBold', fontSize: 14, color: '#1756C0' },
+  clusterClose: { minHeight: 48, alignItems: 'center', justifyContent: 'center', borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: '#D4D9D7' },
   caption: {
     position: 'absolute',
     bottom: 84,

@@ -1,0 +1,127 @@
+{
+  "formatVersion": 1,
+  "sourceFiles": [
+    {
+      "path": "osm-0-0.xml.gz",
+      "bytes": 170492,
+      "sha256": "dd553702f87a683964215a62fb2485719b34a16de9e90e817d56866efd086f4f"
+    },
+    {
+      "path": "osm-0-1.xml.gz",
+      "bytes": 165907,
+      "sha256": "15e6a3847d6d799906e1dfd4518f3bf105201909f70b806f3f5a96c954f046e9"
+    },
+    {
+      "path": "osm-0-2.xml.gz",
+      "bytes": 346223,
+      "sha256": "ef15e750d7e4907ab086b83e22147a4ed98ab44830aa910d6590857ff0455dd4"
+    },
+    {
+      "path": "osm-0-3.xml.gz",
+      "bytes": 408198,
+      "sha256": "27e0adcb28bab886efcde31263a35f247c5e40395283d779b872a5853387e6a3"
+    },
+    {
+      "path": "osm-1-0.xml.gz",
+      "bytes": 197549,
+      "sha256": "758e30030c7dc1b7a2267d68cb0794c231d5453320c3eafb21cdea4fb0ea2110"
+    },
+    {
+      "path": "osm-1-1.xml.gz",
+      "bytes": 326590,
+      "sha256": "dd13e6972854c0e294233a3cfb9fc70b5eec8cfde98b82caf5b66c739af6fedb"
+    },
+    {
+      "path": "osm-1-2.xml.gz",
+      "bytes": 499051,
+      "sha256": "0e3d2bb0b5fc2d91ada46a589481f299e7b3da842f18a61a73ff5a3b24fb9181"
+    },
+    {
+      "path": "osm-1-3.xml.gz",
+      "bytes": 407562,
+      "sha256": "855e8b78fee240513eb3384684e870d571e3b0dfbff07b155eee6f55657d04fb"
+    },
+    {
+      "path": "osm-2-0.xml.gz",
+      "bytes": 543687,
+      "sha256": "f04e25169647acdad15d652b364aaae3b24410718a4d793361d83912597b31e8"
+    },
+    {
+      "path": "osm-2-1.xml.gz",
+      "bytes": 553729,
+      "sha256": "84a1e361fe06f2ec28480031c3bb7638ea6fd5f3776a0c686cb63f33eadce807"
+    },
+    {
+      "path": "osm-2-2.xml.gz",
+      "bytes": 509808,
+      "sha256": "1b5989737ba5d4fdcd67c692eec0ceb71f046ac3a22e6b61a6eb02a34ae80eb6"
+    },
+    {
+      "path": "osm-2-3.xml.gz",
+      "bytes": 389834,
+      "sha256": "0b17b84111eaee41051eb06c599c524e3e64d55c2785ddc9f4c945cc9f7a4f46"
+    },
+    {
+      "path": "osm-3-0.xml.gz",
+      "bytes": 478023,
+      "sha256": "182b43862688797eb50812b115211aaeb252293948c3a22b6af1361940647923"
+    },
+    {
+      "path": "osm-3-1.xml.gz",
+      "bytes": 587358,
+      "sha256": "51c4d237b117b19f2400663c7baf333d7335d8e98f8cd98ee819ea816b039ab1"
+    },
+    {
+      "path": "osm-3-2.xml.gz",
+      "bytes": 592267,
+      "sha256": "7b6d9df4c60f2565391b7cbf060654657ac2e97be2dc19f301a10e69ee2fead4"
+    },
+    {
+      "path": "osm-3-3.xml.gz",
+      "bytes": 391762,
+      "sha256": "2bbea3fd70a15138c33746a20f6e0a817b96b72b466d51c3cc418d008309c76b"
+    },
+    {
+      "path": "relation-1272827.xml.gz",
+      "bytes": 32339,
+      "sha256": "bfb47cac3e9dcf6504197140951bb5f98a858587b7243901af14cf52ece83c4a",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1272827/full",
+      "retrievedAtUtc": "2026-10-21T02:29:45.695888+00:00"
+    },
+    {
+      "path": "relation-1524549.xml.gz",
+      "bytes": 5160,
+      "sha256": "1ec16abdf3cc5b51450aa783d7ce937734293c6f7191434afb78221dd0cbb119",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1524549/full",
+      "retrievedAtUtc": "2026-10-21T02:29:48.774506+00:00"
+    },
+    {
+      "path": "relation-1723129.xml.gz",
+      "bytes": 10228,
+      "sha256": "79825c86e5c017b54858402ebe4a5541ab64afcf9f10f5aaeb740fd61690a7bb",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1723129/full",
+      "retrievedAtUtc": "2026-10-21T02:29:50.266659+00:00"
+    },
+    {
+      "path": "relation-1723155.xml.gz",
+      "bytes": 29683,
+      "sha256": "b255e63dfb494ede8f35293d8d3645b9096b132bfa1153605cc3fc455420fc23",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/1723155/full",
+      "retrievedAtUtc": "2026-10-21T02:29:51.941798+00:00"
+    },
+    {
+      "path": "relation-2945939.xml.gz",
+      "bytes": 1658,
+      "sha256": "40a1c57b3f4808ce97710df3b82506f692a9f65b24382e459949a3f361c56764",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/2945939/full",
+      "retrievedAtUtc": "2026-10-21T02:29:57.236539+00:00"
+    },
+    {
+      "path": "relation-19839348.xml.gz",
+      "bytes": 760,
+      "sha256": "3f9db9a5d21ed41f41ca89e19d1210f591f639c3f725fe8437e112582ccf139e",
+      "sourceUrl": "https://api.openstreetmap.org/api/0.6/relation/19839348/full",
+      "retrievedAtUtc": "2026-10-21T02:30:02.083970+00:00"
+    }
+  ]
+}

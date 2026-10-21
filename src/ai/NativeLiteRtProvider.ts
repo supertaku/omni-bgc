@@ -90,6 +90,12 @@ export class NativeLiteRtProvider implements LocalAIProvider {
         !this.poisoned && !this.active && this.state !== 'LOADING' && !this.releasing,
     };
   }
+  async thermalBlocked(): Promise<boolean> {
+    return (await this.bridge?.getCapabilities())?.thermalBlocked === true;
+  }
+  onThermalStatus(listener: (blocked: boolean) => void): { remove(): void } | undefined {
+    return this.bridge?.addListener('onThermalStatus', (event) => listener(event.blocked));
+  }
   async load(model: VerifiedModel, backend: Backend): Promise<void> {
     if (!this.bridge) throw new ProviderError('RUNTIME_UNSUPPORTED');
     if (this.poisoned || this.active || this.lease || this.state === 'LOADING' || this.releasing)

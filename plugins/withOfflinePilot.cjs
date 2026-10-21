@@ -58,5 +58,15 @@ module.exports = config => withDangerousMod(config, ['android', async cfg => {
       fs.copyFileSync(path.join(expanded,'manifest.json'),path.join(destination,'manifest.json'));
     }
   }
+  const contextRoot = path.join(cfg.modRequest.projectRoot, 'assets/generated/context');
+  const contextInventory = JSON.parse(fs.readFileSync(path.join(contextRoot, 'manifest.json'), 'utf8'));
+  if (contextInventory.formatVersion !== 1 || contextInventory.displayOnly !== true || contextInventory.navigationEligible !== false || contextInventory.files.length !== 1) throw new Error('Invalid display context inventory');
+  const contextFile = contextInventory.files[0];
+  if (contextFile.path !== 'context.pmtiles' || !/^[a-f0-9]{64}$/.test(contextFile.sha256)) throw new Error('Invalid context archive');
+  const contextBytes = fs.readFileSync(path.join(contextRoot, contextFile.path));
+  if (contextBytes.length !== contextFile.bytes || crypto.createHash('sha256').update(contextBytes).digest('hex') !== contextFile.sha256) throw new Error('Context archive checksum mismatch');
+  const contextTarget = path.join(cfg.modRequest.platformProjectRoot, 'app/src/main/assets/context');
+  fs.mkdirSync(contextTarget, { recursive: true });
+  fs.copyFileSync(path.join(contextRoot, contextFile.path), path.join(contextTarget, contextFile.path));
   return cfg;
 }]);

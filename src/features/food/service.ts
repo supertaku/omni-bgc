@@ -253,6 +253,7 @@ export function createFoodResearchService(input: unknown) {
       const price = prices.get(i.id)!;
       return (
         fieldsMatch(r, f) &&
+        ((min === null && max === null) || displayFoodPrice(i) !== null) &&
         indexedMatch(itemText(i), f.category) &&
         indexedMatch(menuTexts.get(i.id)!, f.query) &&
         (min === null || price >= min) &&
@@ -283,6 +284,7 @@ export function createFoodResearchService(input: unknown) {
         ((min === null && max === null) ||
           r.items.some(
             (i) =>
+              displayFoodPrice(i) !== null &&
               (min === null || prices.get(i.id)! >= min) &&
               (max === null || prices.get(i.id)! <= max),
           )),
@@ -335,11 +337,12 @@ export function createFoodResearchService(input: unknown) {
   };
 }
 
+/** Only itemized published amounts with branch and source evidence enter presentation/budgets. */
+export function displayFoodPrice(i: FoodMenuItem): string | null {
+  if (i.priceEvidence !== 'published-menu' || !i.branch?.trim() ||
+      !i.priceSourceUrl || !i.menuSourceUrl || parsePhpCentavos(i.amount) === null) return null;
+  return `₱${i.amount.replace(/\.00$/, '')}`;
+}
 export function formatFoodPrice(i: FoodMenuItem) {
-  const value = `₱${i.amount.replace(/\.00$/, '')}`;
-  return i.priceEvidence === 'estimated'
-    ? `≈ ${value} · Estimated`
-    : i.priceEvidence === 'published-starting'
-      ? `From ${value} · Published starting price`
-      : `${value} · Published price`;
+  return displayFoodPrice(i) ?? '';
 }

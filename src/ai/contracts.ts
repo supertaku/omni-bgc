@@ -137,6 +137,7 @@ export interface NativeEngineBridge {
   awaitNativeIdle(): Promise<{ idle: boolean }>;
   release(): Promise<void>;
   addListener(event: 'onGeneration', listener: (event: NativeEvent) => void): { remove(): void };
+  addListener(event: 'onThermalStatus', listener: (event: { blocked: boolean; status: number }) => void): { remove(): void };
   sha256File(path: string): Promise<string>;
   privateModelsDirectory(): Promise<string>;
 }

@@ -6,6 +6,7 @@ import {
   Action,
   Body,
   CategoryArtwork,
+  CitationList,
   Icon,
   Notice,
   palette,
@@ -13,6 +14,7 @@ import {
 } from '../../ui/components';
 import { demoDetails, isDemoPlace } from './demoDirectory';
 import { foodResearch } from '../food/directory';
+import { getOfficeLocationReference } from '../offices/service';
 import { OfficeDetailsView, OfficeTenantList } from '../offices/OfficeDetails';
 import { FoodHoursView, FoodSourceDisclosure, ResearchMenu } from '../food/ResearchDetails';
 
@@ -81,7 +83,8 @@ export function PlaceDetails({
   onSave?: (place: Place) => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  if (place.category === 'office')
+  const reference = getOfficeLocationReference(place.id);
+  if (place.category === 'office' && !reference)
     return (
       <OfficeDetailsView
         place={place}
@@ -110,29 +113,13 @@ export function PlaceDetails({
       {place.category === 'Building' ? (
         <OfficeTenantList buildingId={place.id} places={places} onChoose={onChoose} />
       ) : null}
-      <DetailSection title="Overview" icon="info">
-        <Body>{place.name}</Body>
-        <Body muted>
-          {[place.category, place.building, place.floor ? `Floor ${place.floor}` : null]
-            .filter(Boolean)
-            .join(' · ')}
-        </Body>
+      <View style={styles.overview}>
+        <Body muted>{[place.category === 'office' ? 'Company' : place.category, place.building,
+          place.floor ? `Floor ${place.floor}` : null].filter(Boolean).join(' · ')}</Body>
         {place.status === 'stale' ? <Body muted>Information may have changed.</Body> : null}
-        {research ? (
-          <>
-            <Body muted>{research.zone}</Body>
-            {research.locationOriginal && !research.floor ? (
-              <Body muted>Listed location: {research.locationOriginal}</Body>
-            ) : null}
-          </>
-        ) : null}
-        {demo ? (
-          <>
-            <Notice>{demo.notice}</Notice>
-            <Body muted>{demo.locationNotice}</Body>
-          </>
-        ) : null}
-      </DetailSection>
+        {reference ? <><Body>{reference.address}</Body><Body muted>{reference.notice}</Body><CitationList citations={reference.citations} /></> : null}
+        {demo ? <><Notice>{demo.notice}</Notice><Body muted>{demo.locationNotice}</Body></> : null}
+      </View>
       {demo?.hours ? (
         <DetailSection title="Operating hours" icon="clock">
           <Body>{demo.hours}</Body>
@@ -144,9 +131,9 @@ export function PlaceDetails({
             <FoodHoursView hours={research.hours} />
           </DetailSection>
           <DetailSection title="Menu" icon="menu" summary={String(research.menuItemCount)}>
-            <Body muted>Internal research · rights review pending.</Body>
             <Action label="Menu" icon="menu" onPress={() => setMenuOpen(true)} />
           </DetailSection>
+          <FoodSourceDisclosure evidence={foodResearch.getFoodResearchEvidence(research.id)} />
         </>
       ) : null}
       {menus.length ? (
@@ -174,7 +161,7 @@ export function PlaceDetails({
           title={`${place.name} menu`}
           description={
             research
-              ? 'Internal research · rights review pending. Some menu items may be missing. Prices and branch availability may differ; check with the restaurant.'
+              ? 'Recorded menu · internal preview'
               : 'Menu records and prices may change. Confirm details and dietary needs with the venue.'
           }
           actions={[{ label: 'Close', onPress: () => setMenuOpen(false) }]}
@@ -182,24 +169,18 @@ export function PlaceDetails({
         >
           {research ? (
             <>
-              <FoodSourceDisclosure evidence={foodResearch.getFoodResearchEvidence(research.id)} />
               <ResearchMenu key={research.id} restaurantId={research.id} />
+              <FoodSourceDisclosure evidence={foodResearch.getFoodResearchEvidence(research.id)} />
             </>
           ) : menus.length ? (
             menus.map((item) => (
               <View key={item.id} style={styles.menuItem}>
-                <View style={styles.imagePlaceholder}>
-                  <Icon name="image" size={20} color={palette.muted} />
-                  <Text style={styles.imagePlaceholderText}>Menu image unavailable</Text>
-                </View>
                 <Text style={styles.itemName}>{item.name}</Text>
                 {supported(item.priceCitation) && (item.price || item.priceValue) ? (
                   <Body>
                     {item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`}
                   </Body>
-                ) : (
-                  <Body muted>Price not recorded</Body>
-                )}
+) : null}
                 {supported(item.tagCitation) && item.tags?.length ? (
                   <Body muted>{item.tags.join(' · ')} · confirm dietary needs with the venue</Body>
                 ) : null}
@@ -222,7 +203,8 @@ export function PlaceDetails({
   );
 }
 const styles = StyleSheet.create({
-  details: { gap: 2 },
+  details: { gap: 8 },
+  overview: { paddingBottom: 8, gap: 4 },
   section: { borderTopWidth: 1, borderColor: palette.divider },
   disclosure: {
     minHeight: 48,
@@ -238,17 +220,6 @@ const styles = StyleSheet.create({
   metadata: { flex: 1, minWidth: 0 },
   metadataText: { fontFamily: 'OmniBody', fontSize: 13, lineHeight: 19, color: palette.muted },
   menuItem: { paddingVertical: 8, gap: 3, borderBottomWidth: 1, borderColor: palette.divider },
-  imagePlaceholder: {
-    minHeight: 68,
-    padding: 12,
-    borderRadius: 12,
-    backgroundColor: palette.soft,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    gap: 8,
-  },
-  imagePlaceholderText: { fontFamily: 'OmniBody', fontSize: 13, color: palette.muted },
   itemName: { fontFamily: 'OmniBodySemiBold', fontSize: 16, lineHeight: 23, color: palette.ink },
   citation: { gap: 3, paddingVertical: 6 },
 });

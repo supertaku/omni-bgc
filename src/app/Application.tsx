@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import * as Location from 'expo-location';
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -23,6 +24,7 @@ import { PlacePeek } from '../features/explore/PlaceDetails';
 import { ExplorerPager } from '../ui/ExplorerPager';
 import { matchesCategory, searchDirectory } from '../features/explore/directory';
 import { useOfflineFonts } from '../ui/fonts';
+import type { Coordinate, Origin } from '../contracts';
 
 import { useAppInitialization } from './useAppInitialization';
 import { useExplorerNavigation, type Panel } from './useExplorerNavigation';
@@ -38,6 +40,9 @@ export function Application() {
     [bodyHeight, setBodyHeight] = useState(0),
     [sheetHeight, setSheetHeight] = useState(0);
   const [modelsOpen, setModelsOpen] = useState(false);
+  const [origin, setOrigin] = useState<Origin | null>(null);
+  const [originCandidate, setOriginCandidate] = useState<Origin | null>(null);
+  const [choosingOrigin, setChoosingOrigin] = useState(false);
   const [mapStatus, setMapStatus] = useState<{ state: string; detail?: string }>({
     state: 'preparing',
   });
@@ -80,6 +85,9 @@ export function Application() {
   useEffect(() => {
     if (tab !== 'Assistant') setModelsOpen(false);
   }, [tab]);
+  useEffect(() => {
+    if (tab !== 'Map' && choosingOrigin) setChoosingOrigin(false);
+  }, [tab, choosingOrigin]);
   const open = (next: Panel) => {
     setError('');
     setMessage('');
@@ -115,6 +123,56 @@ export function Application() {
     };
   }, [panel, setPackChecking, setPackStatus]);
   const [officeScope, setOfficeScope] = useState<MapScope | null>(null);
+  const selectManualOrigin = (coordinate: Coordinate) => {
+    if (
+      !coordinate.every(Number.isFinite) ||
+      Math.abs(coordinate[0]) > 180 || Math.abs(coordinate[1]) > 90
+    ) {
+      setError('That map point could not be used. Choose another point.');
+      return;
+    }
+    setOriginCandidate({ coordinate, method: 'manual', confirmed: false });
+    setChoosingOrigin(false);
+    setMessage('');
+  };
+  const chooseOrigin = () => {
+    setOriginCandidate(null);
+    setChoosingOrigin(true);
+    setMessage('Tap the map where you want to start, then confirm that point.');
+    setPanel(null);
+    setSelected(null);
+    setModelsOpen(false);
+    setTabSafely('Map');
+  };
+  const useCurrentLocation = async (): Promise<string | null> => {
+    try {
+      const permission = await Location.requestForegroundPermissionsAsync();
+      if (!permission.granted)
+        return 'Location permission was denied. You can set an origin manually on the map.';
+      const current = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      const coordinate: Coordinate = [current.coords.longitude, current.coords.latitude];
+      if (
+        !coordinate.every(Number.isFinite) ||
+        Math.abs(coordinate[0]) > 180 || Math.abs(coordinate[1]) > 90
+      )
+        return 'A valid current location could not be read. You can set an origin manually on the map.';
+      setChoosingOrigin(false);
+      setOriginCandidate({
+        coordinate,
+        method: 'gps',
+        confirmed: false,
+        ...(typeof current.coords.accuracy === 'number' ? { accuracyM: current.coords.accuracy } : {}),
+        observedAt: new Date(current.timestamp).toISOString(),
+      });
+      return null;
+    } catch {
+      return 'Current location could not be read. Check location services or set an origin manually on the map.';
+    }
+  };
+  const cancelOriginCandidate = () => {
+    setOriginCandidate(null);
+    setChoosingOrigin(false);
+  };
   const visiblePlaces = useMemo(
     () =>
       officeMapPlaces(
@@ -207,6 +265,8 @@ export function Application() {
               <View style={styles.screen}>
                 <MapCanvas
                   flat={flat}
+                  origin={originCandidate ?? origin}
+                  draftOrigin={choosingOrigin || !!originCandidate}
                   cameraResetKey={cameraResetKey}
                   selectedPlaceId={selected?.id}
                   rightInset={panel && landscape ? Math.min(480, width * 0.66) + 24 : 0}
@@ -225,7 +285,11 @@ export function Application() {
                     )
                   }
                   onAttributionPress={() => open('pack')}
-                  onMapPress={() => {
+                  onMapPress={(coordinate) => {
+                    if (choosingOrigin) {
+                      selectManualOrigin(coordinate);
+                      return;
+                    }
                     if (panel === 'peek') {
                       setSelected(null);
                       setPanel(null);
@@ -233,7 +297,8 @@ export function Application() {
                   }}
                   onPlacePress={(id) => {
                     const place = places.find((p) => p.id === id);
-                    if (place) choose(place);
+                    if (choosingOrigin && place?.coordinate) selectManualOrigin(place.coordinate);
+                    else if (place) choose(place);
                   }}
                 />
                 {!panel ? (
@@ -287,6 +352,10 @@ export function Application() {
             assistant={
               <View style={styles.screen}>
                 <AssistantScreen
+                  origin={origin}
+                  onChooseOrigin={chooseOrigin}
+                  onUseLocation={useCurrentLocation}
+                  onClearOrigin={() => setOrigin(null)}
                   modelsOpen={modelsOpen}
                   onModelsChange={setModelsOpen}
                   onBackMap={() => setTabSafely('Map')}
@@ -316,6 +385,29 @@ export function Application() {
         </View>
       </KeyboardAvoidingView>
       {dialog ? <AppDialog visible {...dialog} onDismiss={dismissDialog} /> : null}
+      {originCandidate ? (
+        <AppDialog
+          visible
+          title="Use this origin?"
+          description={
+            originCandidate.method === 'gps'
+              ? `Use your current location as the starting point?${originCandidate.accuracyM !== undefined ? ` Reported accuracy: about ${Math.round(originCandidate.accuracyM)} m.` : ''} It stays on this device for this app session.`
+              : 'Use the map point you selected as your starting point? It stays on this device for this app session.'
+          }
+          actions={[
+            { label: 'Cancel', onPress: cancelOriginCandidate },
+            {
+              label: 'Use this origin',
+              onPress: () => {
+                setOrigin({ ...originCandidate, confirmed: true });
+                setOriginCandidate(null);
+                setChoosingOrigin(false);
+              },
+            },
+          ]}
+          onDismiss={cancelOriginCandidate}
+        />
+      ) : null}
     </SafeAreaView>
   );
 }

@@ -44,12 +44,30 @@ class OmniLocalAiModule : Module() {
   @Volatile private var destroying = false
   private val gson = Gson()
   private val traceSerial = AtomicInteger(0)
+  private var thermalPower: PowerManager? = null
+  private var thermalListener: PowerManager.OnThermalStatusChangedListener? = null
   @Volatile private var engineTrace = 0
   @Volatile private var generationTrace = 0
 
   override fun definition() = ModuleDefinition {
     Name("OmniLocalAi")
-    Events("onGeneration")
+    Events("onGeneration", "onThermalStatus")
+    OnCreate {
+      if (Build.VERSION.SDK_INT >= 29) {
+        val power = appContext.reactContext?.getSystemService(PowerManager::class.java)
+        if (power != null) {
+          val listener = PowerManager.OnThermalStatusChangedListener { status ->
+            sendEvent("onThermalStatus", mapOf(
+              "blocked" to (status >= PowerManager.THERMAL_STATUS_SEVERE),
+              "status" to status
+            ))
+          }
+          thermalPower = power
+          thermalListener = listener
+          power.addThermalStatusListener(listener)
+        }
+      }
+    }
     AsyncFunction("getCapabilities") {
       mapOf("android" to true, "abi" to Build.SUPPORTED_ABIS.toList(), "backends" to listOf("cpu", "gpu"), "thermalBlocked" to thermalBlocked())
     }
@@ -245,6 +263,9 @@ class OmniLocalAiModule : Module() {
     }
     OnDestroy {
       destroying = true
+      thermalListener?.let { listener -> thermalPower?.removeThermalStatusListener(listener) }
+      thermalListener = null
+      thermalPower = null
       // Never close an actively generating native context from JS teardown.
       control.execute { try { cancelCurrent() } catch (_: Throwable) { if (!ownership.idle()) ownership.poison() } }
       worker.execute { destroyWhenIdle() }

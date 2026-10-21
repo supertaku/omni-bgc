@@ -1,5 +1,52 @@
-import type { Place } from '../../contracts';
-import type { OfficeDetails, OfficeFilters } from './contracts';
+import type { Citation, Place } from '../../contracts';
+import type { OfficeDetails, OfficeFilters, OfficeLocationReference } from './contracts';
+
+export const THINKING_MACHINES_CANDIDATE_ID = 'research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0120';
+const thinkingMachinesReference: OfficeLocationReference = {
+  candidateId: THINKING_MACHINES_CANDIDATE_ID,
+  name: 'Thinking Machines Data Science, Inc.',
+  building: 'Twenty-four Seven McKinley',
+  address: '24th Street corner 7th Avenue, Bonifacio Global City, Taguig City, Metro Manila, Philippines',
+  category: 'office',
+  coordinate: [121.04793834926411, 14.5471164],
+  notice: 'Recorded building reference · current occupancy unverified.',
+  citations: [
+    {
+      sourceId: 'CTCN-member-profile-thinking-machines',
+      label: 'CTCN network member profile · linked candidate row 0120',
+      license: 'Candidate source; publication rights not established',
+      observedAt: '2026-10-21T00:00:00Z',
+      verifiedAt: null,
+      status: 'candidate',
+      factId: THINKING_MACHINES_CANDIDATE_ID,
+      snapshotId: THINKING_MACHINES_CANDIDATE_ID,
+      evidenceId: 'ctcn-member-profile-row-0120',
+      locator: 'https://www.ctc-n.org/networking-and-collaboration/collaboration/network-members/thinking-machines-data-science-inc',
+      verificationMethod: 'Source record reviewed; owner correction noted 2026-10-21, not independently verified; current occupancy not verified',
+    },
+    {
+      sourceId: 'OSM-way-222123034',
+      label: 'OpenStreetMap building footprint · way 222123034',
+      license: 'ODbL-1.0 · © OpenStreetMap contributors',
+      observedAt: '2026-10-20T00:00:00Z',
+      verifiedAt: null,
+      status: 'candidate',
+      factId: 'way/222123034',
+      snapshotId: 'osm-1-1.xml.gz',
+      rawSha256: 'dd13e6972854c0e294233a3cfb9fc70b5eec8cfde98b82caf5b66c739af6fedb',
+      evidenceId: 'osm-way-222123034',
+      locator: 'https://www.openstreetmap.org/way/222123034',
+      verificationMethod: 'Approximate point derived from source building polygon; not a surveyed point or entrance',
+    },
+  ] as Citation[],
+};
+
+/** Exact curated record only; internal office research remains gated separately. */
+export function getOfficeLocationReference(id: string): OfficeLocationReference | null {
+  return id === THINKING_MACHINES_CANDIDATE_ID
+    ? { ...thinkingMachinesReference, coordinate: [...thinkingMachinesReference.coordinate] as OfficeLocationReference['coordinate'], citations: [...thinkingMachinesReference.citations] }
+    : null;
+}
 
 export const officeText = (text: string) =>
   text

@@ -1,0 +1,20 @@
+{
+  "formatVersion": 1,
+  "displayOnly": true,
+  "navigationEligible": false,
+  "bbox": [
+    121.035,
+    14.53,
+    121.07,
+    14.575
+  ],
+  "minzoom": 14,
+  "maxzoom": 18,
+  "files": [
+    {
+      "path": "context.pmtiles",
+      "bytes": 8714956,
+      "sha256": "99285996481ae6b615906fbf8393baf7d38e602747f2ff088a49b1636b81c933"
+    }
+  ]
+}

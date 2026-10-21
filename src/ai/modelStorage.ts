@@ -13,9 +13,33 @@ import {
 import { modelResourceCoordinator } from './coordinator';
 
 const BUFFER_BYTES = 1024 * 1024;
+const RETRY_DELAYS_MS = [1000, 3000] as const;
 const abort = (signal?: AbortSignal) => {
   if (signal?.aborted) throw new Error('MODEL_SETUP_CANCELLED');
 };
+function retryAfterMs(value: string | null): number {
+  if (!value) return 0;
+  const seconds = Number(value);
+  const requested = Number.isFinite(seconds) && seconds >= 0
+    ? seconds * 1000
+    : Math.max(0, Date.parse(value) - Date.now());
+  return Math.min(requested, 10_000);
+}
+function abortableDelay(milliseconds: number, signal?: AbortSignal): Promise<void> {
+  abort(signal);
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(done, milliseconds);
+    function done() { signal?.removeEventListener('abort', stopped); resolve(); }
+    function stopped() { clearTimeout(timer); signal?.removeEventListener('abort', stopped); reject(new Error('MODEL_SETUP_CANCELLED')); }
+    signal?.addEventListener('abort', stopped, { once: true });
+  });
+}
+function retryableDownloadError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  return error.message === 'MODEL_DOWNLOAD_NETWORK_ERROR' ||
+    error.message === 'MODEL_DOWNLOAD_TRUNCATED' ||
+    /^MODEL_DOWNLOAD_HTTP_(408|429|5\d\d)$/.test(error.message);
+}
 export function validateModelImportUri(uri: string): void {
   if (
     typeof uri !== 'string' ||
@@ -154,6 +178,7 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
       }
     },
     download: async (model: ReviewedModel, destination, progress, signal) => {
+      const transfer = async () => {
       if (model.url !== reviewedModel(model.id).url || !allowedTransferUrl(model.url))
         throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
       const file = check(destination);
@@ -175,7 +200,15 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
       for (let redirects = 0; ; redirects++) {
         abort(signal);
         if (!allowedTransferUrl(url)) throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
-        response = await fetch(url, { signal, redirect: 'manual', headers });
+        try {
+          response = await fetch(url, { signal, redirect: 'manual', headers });
+        } catch (error) {
+          if (signal?.aborted) throw new Error('MODEL_SETUP_CANCELLED');
+          const message = error instanceof Error ? error.message : '';
+          if (/securityexception|permission|not permitted/i.test(message))
+            throw new Error('MODEL_DOWNLOAD_PERMISSION_DENIED');
+          throw new Error('MODEL_DOWNLOAD_NETWORK_ERROR', { cause: error });
+        }
         if (![301, 302, 303, 307, 308].includes(response.status)) break;
         const location = response.headers.get('location');
         await response.body?.cancel();
@@ -189,7 +222,15 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
         // Validate before the next request, so a hostile Location never reaches the network.
         if (!allowedTransferUrl(url)) throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
       }
-      if (!allowedTransferUrl(response.url) || ![200, 206].includes(response.status)) {
+      if (![200, 206].includes(response.status)) {
+        const delay = retryAfterMs(response.headers.get('retry-after'));
+        await response.body?.cancel().catch(() => undefined);
+        const error = new Error(`MODEL_DOWNLOAD_HTTP_${response.status}`);
+        if ([408, 429].includes(response.status) || response.status >= 500)
+          (error as Error & { retryAfterMs?: number }).retryAfterMs = delay;
+        throw error;
+      }
+      if (!allowedTransferUrl(response.url)) {
         await response.body?.cancel();
         throw new Error('MODEL_DOWNLOAD_RESPONSE_INVALID');
       }
@@ -218,7 +259,16 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
       try {
         while (true) {
           abort(signal);
-          const result = await reader.read();
+          let result: ReadableStreamReadResult<Uint8Array>;
+          try {
+            result = await reader.read();
+          } catch (error) {
+            if (signal?.aborted) throw new Error('MODEL_SETUP_CANCELLED');
+            const message = error instanceof Error ? error.message : '';
+            if (/securityexception|permission|not permitted/i.test(message))
+              throw new Error('MODEL_DOWNLOAD_PERMISSION_DENIED');
+            throw new Error('MODEL_DOWNLOAD_NETWORK_ERROR', { cause: error });
+          }
           if (result.done) break;
           if (received + result.value.length > model.bytes)
             throw new Error('MODEL_DOWNLOAD_SIZE_MISMATCH');
@@ -233,6 +283,18 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
         handle.close();
         await reader.cancel().catch(() => undefined);
         reader.releaseLock();
+      }
+      };
+      for (let attempt = 0; ; attempt++) {
+        try {
+          await transfer();
+          return;
+        } catch (error) {
+          if (signal?.aborted) throw new Error('MODEL_SETUP_CANCELLED');
+          if (!retryableDownloadError(error) || attempt >= RETRY_DELAYS_MS.length) throw error;
+          const retryAfter = (error as Error & { retryAfterMs?: number }).retryAfterMs ?? 0;
+          await abortableDelay(Math.max(RETRY_DELAYS_MS[attempt]!, retryAfter), signal);
+        }
       }
     },
     finalize: async (partial, destination) => {

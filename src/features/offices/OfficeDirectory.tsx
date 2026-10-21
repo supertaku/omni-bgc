@@ -8,6 +8,8 @@ import {
   officeDirectoryStatus,
   officeDistrictLabel,
   searchOffices,
+  getOfficeLocationReference,
+  officeText,
 } from './service';
 import { internalOfficeResearchEnabled, officeResearch } from './research';
 import type { OfficeDetails } from './contracts';
@@ -150,9 +152,9 @@ export function OfficeDirectory({
               ) : null}
             </View>
           ))
-        : approved.items.map((office) => {
-            const place =
-              places.find((entry) => entry.id === office.placeId) ?? officePlace(office);
+      : <>
+          {approved.items.map((office) => {
+            const place = places.find((entry) => entry.id === office.placeId) ?? officePlace(office);
             return (
               <View key={office.placeId}>
                 <PlaceRow place={place} onPress={() => onChoose(place)} />
@@ -163,6 +165,21 @@ export function OfficeDirectory({
               </View>
             );
           })}
+          {places.filter((place) => {
+            const reference = getOfficeLocationReference(place.id);
+            const needle = officeText(query);
+            const corpus = reference ? officeText([reference.name, reference.building, reference.address].join(' ')) : '';
+            return !!reference && (!needle || needle.split(' ').every((token) => corpus.includes(token)));
+          }).map((place) => {
+            const reference = getOfficeLocationReference(place.id)!;
+            return (
+              <View key={place.id}>
+                <PlaceRow place={place} onPress={() => onChoose(place)} />
+                <Body muted>{reference.notice}</Body>
+              </View>
+            );
+          })}
+        </>}
       {!total && query ? (
         <Notice>No matching offices. Try a company alias, building or district.</Notice>
       ) : null}

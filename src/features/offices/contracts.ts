@@ -46,6 +46,17 @@ export type OfficeCandidate = {
   sourceUrl: string | null;
   issues: string[];
 };
+/** One curated candidate reference for display; it is never an approved OfficeDetails row. */
+export type OfficeLocationReference = {
+  candidateId: string;
+  name: string;
+  building: string;
+  address: string;
+  category: 'office';
+  coordinate: import('../../contracts').Coordinate;
+  notice: string;
+  citations: Citation[];
+};
 export type OfficeFilters = {
   query?: string;
   district?: string;

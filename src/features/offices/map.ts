@@ -1,6 +1,6 @@
 import type { Coordinate, Place } from '../../contracts';
 import { coverageAt, pilotScope, type MapScope } from '../../map/scope';
-import { getOfficeDetails, operatingOffice, searchOffices } from './service';
+import { getOfficeDetails, getOfficeLocationReference, operatingOffice, searchOffices } from './service';
 
 let activeScope: MapScope | null = null;
 export function setOfficeMapScope(scope: MapScope | null) {
@@ -17,6 +17,8 @@ export function officeMapCoverage(
 }
 export function officeFocus(place: Place | null): Coordinate | null {
   if (!place) return null;
+  const reference = getOfficeLocationReference(place.id);
+  if (reference) return activeScope && coverageAt(activeScope, reference.coordinate) === 'service' ? reference.coordinate : null;
   return place.category !== 'office'
     ? place.coordinate
     : officeMapCoverage(place.id) === 'mapped'
@@ -49,6 +51,10 @@ export function officeMapPlaces(input: Place[], scope: MapScope | null = activeS
       menus: [],
     });
   }
+  const reference = getOfficeLocationReference('research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0120');
+  const requestedReference = input.find((place) => place.id === reference?.candidateId && place.status === 'candidate');
+  if (reference && requestedReference && scope && coverageAt(scope, reference.coordinate) === 'service' && !result.some((place) => place.id === reference.candidateId))
+    result.push({ ...requestedReference, coordinate: reference.coordinate });
   return result;
 }
 export function officeTenants(buildingId: string) {
