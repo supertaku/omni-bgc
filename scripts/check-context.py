@@ -8,6 +8,9 @@ root=scope['ROOT']; dest=scope['DEST']
 receipt=json.loads((dest/'provenance.json').read_text())
 assert receipt['builderSha256']==scope['digest'](Path(__file__).with_name('build-map-context.py'))
 assert receipt['detailedArchiveSha256']==scope['digest'](root/'assets/generated/gex/gex.pmtiles')
+assert receipt['coverageBuilderSha256']==scope['digest'](root/'scripts/build-map-coverage.py')
+assert receipt['coverageSha256']==scope['COVERAGE']['sha256']
+render=shape(scope['COVERAGE']['renderGeometry'])
 records=json.loads(gzip.decompress((dest/'features.geojson.gz').read_bytes()))
 assert len({row['sourceRef'] for row in records})==len(records)
 counts={kind:0 for kind in receipt['featureCounts']}
@@ -16,6 +19,9 @@ for row in records:
  p=row['properties']; k=p['kind']; counts[k]+=1
  original=shape(row['sourceGeometry']); derived=shape(row['derivedGeometry'])
  assert original.is_valid and derived.is_valid, row['sourceRef']
+ # Clipping happens in Web Mercator; inverse-projected segment chords differ slightly.
+ projected=scope['transform'](scope['forward'],derived)
+ assert projected.difference(scope['EXTENT'].buffer(0.0001)).is_empty, row['sourceRef']
  assert p.get('navigation_eligible',False) is False
  if k=='building':
   assert p['visual_height']>p['visual_base']>=0
@@ -25,7 +31,7 @@ for row in records:
   assert derived.difference(original.buffer(1e-10)).area<1e-10, row['sourceRef']
  if row['sourceRef'].startswith('osm:relation:'): relations+=1
 assert counts==receipt['featureCounts']
-assert counts['building']>40000 and counts['landmark']==1
+assert counts['building']>100 and counts['landmark']==1
 assert len(quadrants)==4 and relations>0
 assert scope['heights']({})==(6,0,'illustrative-6m')
 assert scope['heights']({'building:levels':'3'})==(9,0,'osm-levels-estimate-3m')

@@ -4,6 +4,16 @@ import { palette } from '../../ui/components';
 export const modelStyles = StyleSheet.create({
   page: { flex: 1, width: '100%', maxWidth: 760, alignSelf: 'center' },
   content: { padding: 16, paddingBottom: 32, gap: 8 },
+  catalog: { gap: 8, marginBottom: 8 },
+  catalogChoice: {
+    minHeight: 64,
+    gap: 3,
+    padding: 12,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: palette.divider,
+  },
+  catalogSelected: { backgroundColor: palette.selected, borderColor: palette.blue },
   modelCard: {
     padding: 18,
     gap: 14,

@@ -8,12 +8,17 @@ const typescript = require('typescript');
 const root = path.resolve(__dirname, '..');
 const provenance = require('../assets/generated/context/provenance.json');
 const contextManifest = require('../assets/generated/context/manifest.json');
+const coverage = require('../assets/generated/context/coverage.json');
 const sha = (file) => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 
 assert.equal(contextManifest.formatVersion, 1);
 assert.equal(contextManifest.displayOnly, true);
 assert.equal(contextManifest.navigationEligible, false);
-assert.deepEqual(contextManifest.bbox, [121.035, 14.53, 121.07, 14.575]);
+assert.deepEqual(contextManifest.bbox, coverage.bounds.flat());
+assert.equal(contextManifest.coverageSha256, coverage.sha256);
+assert.equal(provenance.coverageSha256, coverage.sha256);
+assert.equal(coverage.buffer.metres, 100);
+assert.equal(coverage.buffer.crs, 'EPSG:32651');
 assert.equal(contextManifest.minzoom, 14);
 assert.equal(contextManifest.maxzoom, 18);
 assert.deepEqual(provenance.bbox, contextManifest.bbox);
@@ -110,9 +115,9 @@ assert.equal(byId(rendered, 'buildings-2.5D').maxzoom, undefined);
 assert.equal(byId(rendered, 'buildings-2.5D').paint['fill-extrusion-height'][1], 'visual_height');
 assert.equal(byId(rendered, 'buildings-2.5D').paint['fill-extrusion-base'][1], 'visual_base');
 assert.equal(byId(rendered, 'buildings-2.5D').paint['fill-extrusion-color'][0], 'match');
-assert.equal(byId(rendered, 'buildings-facades').layout.visibility, 'none');
-assert.equal(byId(rendered, 'building-roof-caps').minzoom, 17);
-assert.equal(byId(rendered, 'building-roof-caps').paint['fill-extrusion-opacity'][0], 'interpolate');
+assert.equal(byId(rendered, 'buildings-facades').minzoom, 18);
+assert.equal(byId(rendered, 'building-roof-caps').minzoom, 14);
+assert.equal(byId(rendered, 'building-roof-caps').paint['fill-extrusion-opacity'], 1);
 assert.equal(byId(rendered, 'source-crosswalks').minzoom, 17);
 assert.deepEqual(
   byId(rendered, 'source-crosswalks').filter,

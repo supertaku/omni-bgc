@@ -110,6 +110,13 @@ export function PlaceDetails({
   );
   return (
     <View style={styles.details}>
+      <View style={styles.identityCard}>
+        <CategoryArtwork category={place.category} size={56} />
+        <View style={styles.metadata}>
+          <Text style={styles.placeName}>{place.name}</Text>
+          <Text style={styles.metadataText}>{sample ? 'Fictional sample' : place.status === 'candidate' ? 'Recorded candidate' : place.status === 'stale' ? 'Record needs review' : 'Reviewed record'}</Text>
+        </View>
+      </View>
       {place.category === 'Building' ? (
         <OfficeTenantList buildingId={place.id} places={places} onChoose={onChoose} />
       ) : null}
@@ -125,6 +132,7 @@ export function PlaceDetails({
           <Body>{demo.hours}</Body>
         </DetailSection>
       ) : null}
+      {!demo?.hours && !research && restaurantLike ? <DetailSection title="Operating hours" icon="clock"><Body muted>Hours not available.</Body></DetailSection> : null}
       {research ? (
         <>
           <DetailSection title="Operating hours" icon="clock">
@@ -138,7 +146,6 @@ export function PlaceDetails({
       ) : null}
       {menus.length ? (
         <DetailSection title="Menu or products" icon="menu" summary={String(menus.length)}>
-          <Body muted>Source and availability may vary by venue and date.</Body>
           <Action label="Menu" icon="menu" onPress={() => setMenuOpen(true)} />
         </DetailSection>
       ) : null}
@@ -155,6 +162,7 @@ export function PlaceDetails({
           ))}
         </DetailSection>
       ) : null}
+      {!research && !reference ? <CitationList citations={place.citations} /> : null}
       {research || menus.length || restaurantLike ? (
         <AppDialog
           visible={menuOpen}
@@ -162,7 +170,7 @@ export function PlaceDetails({
           description={
             research
               ? 'Recorded menu · internal preview'
-              : 'Menu records and prices may change. Confirm details and dietary needs with the venue.'
+              : sample ? 'Fictional example menu' : 'Recorded menu'
           }
           actions={[{ label: 'Close', onPress: () => setMenuOpen(false) }]}
           onDismiss={() => setMenuOpen(false)}
@@ -204,6 +212,8 @@ export function PlaceDetails({
 }
 const styles = StyleSheet.create({
   details: { gap: 8 },
+  identityCard: { flexDirection: 'row', gap: 12, alignItems: 'center', padding: 14, borderRadius: 18, backgroundColor: '#ECF1E7', marginBottom: 4 },
+  placeName: { fontFamily: 'OmniHeading', fontSize: 20, lineHeight: 27, color: palette.ink },
   overview: { paddingBottom: 8, gap: 4 },
   section: { borderTopWidth: 1, borderColor: palette.divider },
   disclosure: {

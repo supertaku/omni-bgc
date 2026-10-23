@@ -8,6 +8,7 @@ import { createFoodResearchAnswer } from '../food/assistant';
 import { foodResearch } from '../food/directory';
 import { createAssistantRuntime, type AssistantRuntime } from '../../ai/assistantRuntime';
 import type { ModelStatus } from '../../ai/modelManager';
+import { resultPlaceIds, resolveMapResultRecords } from './mapResults';
 
 const research = createFoodResearchAnswer(foodResearch);
 let messageSerial = 0;
@@ -22,6 +23,7 @@ export function useAssistantConversation(
   focus: (place: Place) => boolean,
   onOpenPlace?: (place: Place) => void,
   origin?: Origin | null,
+  onMapResults?: (places: Place[], show: boolean) => boolean,
 ) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [draft, setDraft] = useState('');
@@ -30,8 +32,8 @@ export function useAssistantConversation(
   const [status, setStatus] = useState('Local directory · AI not connected');
   const [setupStatus, setSetupStatus] = useState<ModelStatus | null>(null);
   const pendingScroll = useRef(false);
-  const current = useRef({ places, focus, onOpenPlace, origin });
-  current.current = { places, focus, onOpenPlace, origin };
+  const current = useRef({ places, focus, onOpenPlace, origin, onMapResults });
+  current.current = { places, focus, onOpenPlace, origin, onMapResults };
   const live = useRef(true),
     busyRef = useRef(false),
     epoch = useRef(0);
@@ -45,6 +47,16 @@ export function useAssistantConversation(
   const resolved = useRef<string[]>([]);
   const timeline = useRef<ConversationMessage[]>([]);
   timeline.current = messages;
+  const showMapResults = async (ids: readonly string[], notify = true) => {
+    const openingEpoch = epoch.current;
+    const fresh = await resolveMapResultRecords(ids, current.current.places,
+      async (id) => runtime.current?.resolvePlace(id));
+    if (!live.current || epoch.current !== openingEpoch) return false;
+    const shown = current.current.onMapResults?.(fresh, true) ?? false;
+    if (!shown && notify) append([{ kind: 'status', severity: 'info',
+      text: 'These results have no current eligible map location. You can still read their recorded details here.' }]);
+    return shown;
+  };
   const append = (payloads: AssistantPayload[], sourcePlaces: Place[] = []) => {
     const added = payloads.map((payload) => {
       const ids =
@@ -275,7 +287,12 @@ export function useAssistantConversation(
       let sourcePlaces: Place[] = [];
       try {
         const service = runtime.current;
-        if (service) {
+        if (/^(?:please )?(?:show|put)(?: me)? (?:these|those|the|my)? ?results on (?:the )?map[.!?]*$/i.test(text)) {
+          const shown = await showMapResults(resolved.current, false);
+          output = [{ kind: 'text', text: shown
+            ? 'Showing the matching mapped records.'
+            : 'No current results have an eligible map location. Search for a place first.' }];
+        } else if (service) {
           setStatus('Checking local request · Stop available');
           const turn = await service.answer(text, current.current.places, {
             signal: abort.signal,
@@ -327,25 +344,6 @@ export function useAssistantConversation(
           output = turn.payloads;
           ready.current = service.provider.state === 'READY';
           sourcePlaces = turn.places ?? [];
-          const displayed = output.flatMap((payload) =>
-            payload.kind === 'places'
-              ? payload.placeIds
-              : payload.kind === 'place'
-                ? [payload.placeId]
-                : payload.kind === 'menus'
-                  ? payload.items.map((row) => row.placeId)
-                  : payload.kind === 'itinerary-preview'
-                    ? payload.preview.stops.map((stop) => stop.placeId)
-                    : [],
-          );
-          if (
-            output.some((payload) =>
-              ['places', 'place', 'menus', 'itinerary-preview'].includes(payload.kind),
-            )
-          )
-            resolved.current = [
-              ...new Set(displayed.filter((id) => sourcePlaces.some((place) => place.id === id))),
-            ].slice(0, 12);
           if (turn.status === 'failed') {
             setStatus('Local AI unavailable · directory fallback ready');
           }
@@ -365,6 +363,11 @@ export function useAssistantConversation(
         ];
       }
       if (!live.current || epoch.current !== turnEpoch || abort.signal.aborted) return;
+      const displayed = resultPlaceIds(output);
+      if (output.some((payload) => ['places', 'place', 'menus', 'food-menus', 'food-hours', 'itinerary-preview'].includes(payload.kind))) {
+        resolved.current = displayed.filter((id) => sourcePlaces.some((place) => place.id === id));
+        current.current.onMapResults?.(sourcePlaces.filter((place) => resolved.current.includes(place.id)), false);
+      }
       setMessages((before) => before.filter((entry) => entry.id !== partialId));
       const added = append(output, sourcePlaces);
       await userPersisted;
@@ -391,6 +394,7 @@ export function useAssistantConversation(
     cancel();
     runtime.current?.itineraryPreview.clear();
     resolved.current = [];
+    current.current.onMapResults?.([], false);
     pendingHistory.current = [];
     clearRequested.current = true;
     try {
@@ -406,7 +410,7 @@ export function useAssistantConversation(
       ]);
     }
   };
-  const modelOperation = async (operation: 'download' | 'import' | 'activate' | 'remove') => {
+  const modelOperation = async (operation: 'download' | 'import' | 'activate' | 'remove' | 'select', modelId?: string) => {
     const service = runtime.current;
     if (!service || busyRef.current) return;
     if (!initializationSettled.current) {
@@ -419,15 +423,17 @@ export function useAssistantConversation(
     const abort = new AbortController();
     request.current = abort;
     try {
-      ready.current = false;
-      if (operation === 'download') await service.setup(abort.signal);
+      if (operation !== 'select') ready.current = false;
+      if (operation === 'select') {
+        if (modelId) await service.selectModel(modelId);
+      } else if (operation === 'download') await service.setup(abort.signal, modelId);
       else if (operation === 'import')
         await service.importModel(abort.signal, (visible) => {
           pickerVisible.current = visible;
-        });
+        }, modelId);
       else if (operation === 'activate') {
-        await service.activate(abort.signal);
-      } else await service.removeModel();
+        await service.activate(abort.signal, modelId);
+      } else await service.removeModel(modelId);
       if (live.current && epoch.current === operationEpoch) {
         ready.current = service.provider.state === 'READY';
         setSetupStatus(service.getManager()?.getStatus() ?? null);
@@ -444,6 +450,7 @@ export function useAssistantConversation(
             .getManager()
             ?.recover()
             .catch(() => undefined);
+        if (modelId) await service.getManager()?.inspect(modelId).catch(() => undefined);
         if (!live.current || epoch.current !== operationEpoch) return;
         ready.current = service.provider.state === 'READY';
         const recoveredStatus = service.getManager()?.getStatus();
@@ -500,5 +507,6 @@ export function useAssistantConversation(
     modelReady: ready.current,
     modelOperation,
     openPlace,
+    showMapResults,
   };
 }

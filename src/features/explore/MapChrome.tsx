@@ -4,9 +4,10 @@ import { palette } from '../../ui/components';
 const categoryIcons: Record<string, IconName> = { All: 'map', Food: 'food', Coffee: 'coffee', Shops: 'shop' };
 const categoryColors: Record<string, string> = { All: palette.blue, Food: '#BD531C', Coffee: '#79502F', Shops: palette.blue };
 
-export function MapChrome({category,onCategory,onSearch,onFilters,onFlat,flat,onMore}: {
+export function MapChrome({category,onCategory,onSearch,onFilters,onFlat,flat,onMore,onLocate,onReset,locating=false}: {
   category:string;onCategory:(value:string)=>void;onSearch:()=>void;onFilters:()=>void;
   onFlat:()=>void;flat:boolean;onMore:()=>void;
+  onLocate:()=>void;onReset:()=>void;locating?:boolean;
 }) {
   return <>
     <View style={styles.top} pointerEvents="box-none">
@@ -26,6 +27,8 @@ export function MapChrome({category,onCategory,onSearch,onFilters,onFlat,flat,on
       </Pressable>
     </View>
     <View style={styles.tools}>
+      <Pressable onPress={onReset} accessibilityRole="button" accessibilityLabel="Reset BGC map view" style={styles.tool}><Icon name="compass" size={21}/></Pressable>
+      {flat ? <Pressable onPress={onLocate} disabled={locating} accessibilityRole="button" accessibilityLabel={locating?'Finding location':'Map position and location'} accessibilityState={{disabled:locating}} style={styles.tool}><Icon name="locate" size={21}/></Pressable> : null}
       <Pressable onPress={onFlat} accessibilityRole="button" accessibilityLabel={flat?'Show 2.5D map':'Show flat map'} accessibilityState={{selected:flat}} style={styles.tool}><Icon name="layers" size={21}/><Text style={styles.toolText}>{flat?'2.5D':'Flat'}</Text></Pressable>
     </View>
   </>;

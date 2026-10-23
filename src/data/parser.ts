@@ -42,7 +42,7 @@ export function parsePlaces(input: FactRow[], links:EntranceLink[]=[]): Place[] 
     const parent=e.parent ? entities.get(e.parent) : undefined;
     const building=parent?.kind==='building' && e.facts.get('building')?.value===e.parent ? parent.facts.get('name')?.value : undefined;
     const place: Place={id,name,category:typeof e.facts.get('category')?.value === 'string' ? e.facts.get('category')!.value as string : 'unknown',coordinate:coordinate(e.facts.get('coordinate')?.value),aliases:[...e.facts.entries()].filter(([k,v])=>k.startsWith('alias:') && typeof v.value==='string').map(([,v])=>v.value as string),entrances:[],citations:[...e.facts.values()].map(f=>f.citation),status:'approved',menus:[]};
-    if (typeof building==='string') place.building=building;
+    if (typeof building==='string') { place.building=building; place.buildingId=e.parent!; }
     const floor=e.facts.get('floor')?.value; if (typeof floor==='string') place.floor=floor;
     for(const link of links.filter(l=>l.place_id===id)){
       const access=input.find(f=>f.fact_id===link.access_fact_id&&f.entity_id===id&&f.property==='entrance_access'&&f.knowledge==='asserted');

@@ -1,123 +1,137 @@
+import type { ExpressionSpecification } from '@maplibre/maplibre-gl-style-spec';
 import type { Coordinate, Place } from '../contracts';
 import landmarks from './landmarks.json';
 
 const significantNames = new Set(landmarks.entries.map((entry) => entry.name));
-/** Presentation mode only; retain exact resource/source fields and layer order. */
+// Original game-map palette; source families choose styling, never geographic identity.
+export const illustratedRoofColor: ExpressionSpecification = [
+  'match',
+  ['get', 'visual_family'],
+  ['office', 'offices'],
+  '#397B78',
+  ['commercial', 'retail', 'mall', 'supermarket'],
+  '#C18A48',
+  ['residential', 'apartments', 'mixed-use'],
+  '#527345',
+  'hotel',
+  '#984C51',
+  ['school', 'university', 'college', 'institutional'],
+  '#426F50',
+  ['hospital', 'healthcare'],
+  '#759BA0',
+  ['transportation', 'train_station', 'station'],
+  '#947A56',
+  ['parking', 'garages'],
+  '#727A82',
+  ['civic', 'public', 'government'],
+  '#927251',
+  '#4C796B',
+];
+
+/** Independent presentation revisions share exact geographic resources and layer order. */
 export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolean): string {
   const style = JSON.parse(activeStyle);
-  let changed = false;
-  for (const layer of style.layers ?? []) {
-    if (!flat && !quiet && layer.type === 'fill-extrusion' && layer.id === 'buildings-2.5D') {
+  if (style.version !== 8 || !Array.isArray(style.layers) || !style.sources)
+    throw new Error('Unsupported offline map style');
+  style.metadata = {
+    ...style.metadata,
+    omniPresentation: flat ? 'flat-v1' : 'illustrated-v1',
+    omniQuiet: quiet,
+  };
+  for (const layer of style.layers) {
+    layer.paint = { ...layer.paint };
+    if (layer.type === 'fill-extrusion') {
+      // Constant opacity avoids native-version differences in animated extrusion opacity.
+      layer.paint['fill-extrusion-opacity'] = 1;
+      if (flat || quiet) layer.layout = { ...layer.layout, visibility: 'none' };
+    }
+    if (layer.id === 'canvas') layer.paint['background-color'] = flat ? '#D8DAB5' : '#EAE1C8';
+    if (layer.id === 'gardens') layer.paint['fill-color'] = flat ? '#82AC57' : '#91B567';
+    if (layer.id === 'garden-texture') {
+      layer.minzoom = 15;
+      layer.paint['fill-opacity'] = flat ? 0.55 : 0.4;
+    }
+    if (layer.id === 'plazas') {
+      layer.paint['fill-color'] = '#E3CB96';
+      layer.paint['fill-outline-color'] = '#B49E76';
+    }
+    if (layer.id === 'building-footprints') {
+      layer.paint['fill-color'] = illustratedRoofColor;
+      layer.paint['fill-outline-color'] = '#304E45';
+    }
+    if (layer.id === 'building-edges') {
+      layer.minzoom = 15;
+      layer.paint['line-color'] = '#304E45';
+      layer.paint['line-width'] = [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        15,
+        0.5,
+        19,
+        flat ? 1.8 : 1.1,
+      ];
+    }
+    if (layer.id === 'buildings-2.5D') {
       layer.minzoom = 14;
       delete layer.maxzoom;
-      layer.paint = {
-        ...layer.paint,
-        'fill-extrusion-height': ['get', 'visual_height'],
-        'fill-extrusion-base': ['get', 'visual_base'],
-        'fill-extrusion-color': [
-          'match', ['get', 'visual_family'],
-          'office', '#B9C7C9', 'commercial', '#C9C4B8',
-          'residential', '#C8BFB2', 'mixed-use', '#C5C3B8',
-          'retail', '#CDBFAE', 'hotel', '#B8C1C8',
-          'civic', '#C6C8C2', '#BEC5C4',
-        ],
-        'fill-extrusion-vertical-gradient': true,
-      };
-      changed = true;
+      layer.paint['fill-extrusion-height'] = ['get', 'visual_height'];
+      layer.paint['fill-extrusion-base'] = ['get', 'visual_base'];
+      layer.paint['fill-extrusion-color'] = illustratedRoofColor;
+      layer.paint['fill-extrusion-vertical-gradient'] = true;
     }
-    if (!flat && !quiet && layer.id === 'buildings-facades') {
-      layer.layout = { ...layer.layout, visibility: 'none' };
-      changed = true;
+    if (layer.id === 'buildings-facades') layer.minzoom = 18;
+    if (layer.id === 'building-roof-caps') {
+      layer.minzoom = 14;
+      layer.paint['fill-extrusion-color'] = illustratedRoofColor;
     }
-    if (!flat && !quiet && layer.id === 'building-roof-caps') {
-      layer.minzoom = 17;
-      layer.paint = {
-        ...layer.paint,
-        'fill-extrusion-opacity': ['interpolate', ['linear'], ['zoom'], 17, 0, 19, 1],
-      };
-      changed = true;
-    }
-    if (layer.id === 'road-labels') {
-      layer.minzoom = 18;
-      layer.layout = { ...layer.layout, 'text-size': 10, 'text-padding': 20 };
-      changed = true;
-    }
-    if (layer.id === 'street-edge') {
-      layer.paint = { ...layer.paint, 'line-color': '#A9AAA3' };
-      changed = true;
-    }
-    if (layer.id === 'street') {
-      layer.paint = {
-        ...layer.paint,
-        'line-color': [
-          'match',
-          ['get', 'highway'],
-          'primary',
-          '#505E68',
-          'secondary',
-          '#596671',
-          'tertiary',
-          '#63717A',
-          'residential',
-          '#6B7880',
-          'service',
-          '#879198',
-          '#66737C',
-        ],
-      };
-      changed = true;
-    }
+    if (layer.id === 'street-edge') layer.paint['line-color'] = '#C5BEA6';
+    if (layer.id === 'street') layer.paint['line-color'] = flat ? '#666D68' : '#626E70';
     if (layer.id === 'path-edge') {
       layer.minzoom = 14.5;
-      changed = true;
+      layer.paint['line-color'] = '#AEAA90';
     }
     if (layer.id === 'walkways') {
       layer.minzoom = 14.5;
-      layer.paint = {
-        ...layer.paint,
-        'line-color': [
-          'match',
-          ['get', 'surface'],
-          'asphalt',
-          '#92999A',
-          'concrete',
-          '#E5E1D8',
-          'paving_stones',
-          '#DCCFBB',
-          'tiles',
-          '#DCCFBB',
-          '#E3DAC9',
-        ],
-      };
-      changed = true;
+      layer.paint['line-color'] = [
+        'match',
+        ['get', 'surface'],
+        'asphalt',
+        '#929A90',
+        'concrete',
+        '#E3DEC7',
+        ['paving_stones', 'tiles'],
+        '#DCCC9C',
+        '#E4D3A5',
+      ];
     }
     if (layer.id === 'source-crosswalks') {
       layer.minzoom = 17;
-      layer.paint = {
-        ...layer.paint,
-        'line-color': '#FFFFFF',
-        'line-width': ['interpolate', ['linear'], ['zoom'], 17, 4, 20, 12],
-        'line-dasharray': [0.8, 0.9],
-      };
-      changed = true;
+      layer.paint['line-width'] = ['interpolate', ['linear'], ['zoom'], 17, 4, 20, 12];
+    }
+    if (layer.id === 'source-trees') {
+      layer.minzoom = 16;
+      layer.layout = { ...layer.layout, 'icon-pitch-alignment': 'map' };
+    }
+    if (layer.id === 'road-labels') {
+      layer.minzoom = 17;
+      layer.layout = { ...layer.layout, 'text-size': 10, 'text-padding': 20 };
+      layer.paint['text-color'] = '#30473C';
+      layer.paint['text-halo-color'] = '#F2EDD9';
     }
     if (
-      ((flat || quiet) && layer.type === 'fill-extrusion') ||
-      (quiet &&
-        [
-          'source-trees',
-          'garden-texture',
-          'plaza-paving',
-          'source-pavement-pattern',
-          'source-crosswalks',
-          'illustrative-pedestrians',
-        ].includes(layer.id))
-    ) {
+      quiet &&
+      [
+        'source-trees',
+        'garden-texture',
+        'plaza-paving',
+        'source-pavement-pattern',
+        'illustrative-pedestrians',
+      ].includes(layer.id)
+    )
       layer.layout = { ...layer.layout, visibility: 'none' };
-      changed = true;
-    }
   }
-  return changed ? JSON.stringify(style) : activeStyle;
+  return JSON.stringify(style);
 }
 
 export function placeFeatureCollection(places: Place[]): GeoJSON.FeatureCollection {

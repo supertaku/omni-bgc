@@ -120,7 +120,7 @@ export async function runHybridTurn(
     Math.abs(origin.coordinate[0]) <= 180 && Math.abs(origin.coordinate[1]) <= 90;
   const proximityOrigin = confirmedOrigin ? origin : null;
   if (proximity && !proximityOrigin)
-    return reply([text('Confirm a starting location first, then I can sort matching places by straight-line distance. I do not provide walking directions.')]);
+    return reply([text('Choose a position with the flat map’s location control to sort matching places by straight-line distance. Walking directions are unavailable.')]);
 
   const controller = new AbortController();
   const abort = () => controller.abort();

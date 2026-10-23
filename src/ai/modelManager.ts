@@ -24,6 +24,7 @@ export type ModelPointers = {
   staged: StoredModel | null;
 };
 export type ModelStatus = {
+  modelId?: string;
   state: InstallationState;
   artifactState: 'MISSING' | 'PARTIAL' | 'PRESENT' | 'VERIFIED';
   bytesReceived: number;
@@ -71,7 +72,10 @@ function same(a: StoredModel | null, b: StoredModel | null): boolean {
 export class ModelManager {
   private tail: Promise<unknown> = Promise.resolve();
   private status: ModelStatus = {
-    state: 'NOT_INSTALLED', artifactState: 'MISSING', bytesReceived: 0, totalBytes: 0,
+    state: 'NOT_INSTALLED',
+    artifactState: 'MISSING',
+    bytesReceived: 0,
+    totalBytes: 0,
   };
   private listeners = new Set<(status: ModelStatus) => void>();
   constructor(
@@ -96,7 +100,11 @@ export class ModelManager {
       error: error ?? (this.status.error === previous ? undefined : this.status.error),
     };
     for (const listener of this.listeners) {
-      try { listener(this.getStatus()); } catch { /* UI cannot break storage. */ }
+      try {
+        listener(this.getStatus());
+      } catch {
+        /* UI cannot break storage. */
+      }
     }
   }
   private update(state: InstallationState, extra: Partial<ModelStatus> = {}): void {
@@ -146,6 +154,32 @@ export class ModelManager {
       throw new Error('MODEL_POINTER_INVALID');
     return this.verify(model, stored.absolutePath);
   }
+  /** Inspect a user-selected catalog entry without changing installed pointers or deleting files. */
+  inspect(id: string): Promise<void> {
+    return this.own(async () => {
+      const model = reviewedModel(id);
+      const pointers = await this.storage.readPointers();
+      const artifactState = await this.inspectArtifact(model);
+      const referenced = [pointers.active, pointers.staged, pointers.previous].find(
+        (entry) => entry?.id === id,
+      );
+      this.update(
+        pointers.active?.id === id
+          ? 'ACTIVE'
+          : referenced
+            ? 'PENDING_NATIVE_SMOKE_TEST'
+            : 'NOT_INSTALLED',
+        {
+          modelId: id,
+          artifactState: referenced ? 'VERIFIED' : artifactState,
+          totalBytes: model.bytes,
+          bytesReceived:
+            (await this.storage.size(this.storage.partialPath(model))) ??
+            (artifactState === 'PRESENT' ? model.bytes : 0),
+        },
+      );
+    });
+  }
   /** Revalidates disk after every process start; corrupt active falls back only to verified previous. */
   recover(): Promise<ModelPointers> {
     return this.own(async () => {
@@ -153,7 +187,7 @@ export class ModelManager {
       if (pointers.active) {
         try {
           await this.verifyStored(pointers.active);
-          this.update('ACTIVE', { artifactState: 'VERIFIED' });
+          this.update('ACTIVE', { modelId: pointers.active.id, artifactState: 'VERIFIED' });
           return pointers;
         } catch {
           /* Previous pointer is the only lawful rollback candidate. */
@@ -164,7 +198,10 @@ export class ModelManager {
         const recovered = { active: fallback, previous: null, staged: null };
         await this.guard.withModelMutation(() => this.storage.writePointers(recovered));
         this.update(fallback ? 'ACTIVE' : 'FAILED', {
-          artifactState: fallback ? 'VERIFIED' : await this.inspectArtifact(reviewedModel(pointers.active.id)),
+          modelId: fallback?.id ?? pointers.active.id,
+          artifactState: fallback
+            ? 'VERIFIED'
+            : await this.inspectArtifact(reviewedModel(pointers.active.id)),
           error: 'MODEL_HASH_MISMATCH',
         });
         return recovered;
@@ -172,12 +209,18 @@ export class ModelManager {
       if (pointers.staged) {
         try {
           await this.verifyStored(pointers.staged);
-          this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
+          this.update('PENDING_NATIVE_SMOKE_TEST', {
+            modelId: pointers.staged.id,
+            artifactState: 'VERIFIED',
+          });
           return pointers;
         } catch {
           const recovered = { ...pointers, staged: null };
           await this.guard.withModelMutation(() => this.storage.writePointers(recovered));
-          this.update('FAILED', { artifactState: await this.inspectArtifact(reviewedModel(pointers.staged.id)), error: 'MODEL_HASH_MISMATCH' });
+          this.update('FAILED', {
+            artifactState: await this.inspectArtifact(reviewedModel(pointers.staged.id)),
+            error: 'MODEL_HASH_MISMATCH',
+          });
           return recovered;
         }
       }
@@ -188,18 +231,28 @@ export class ModelManager {
         if (size === null) continue;
         let staged: StoredModel;
         try {
-          this.update('VERIFYING', { artifactState: 'PRESENT', totalBytes: model.bytes, bytesReceived: model.bytes });
+          this.update('VERIFYING', {
+            artifactState: 'PRESENT',
+            totalBytes: model.bytes,
+            bytesReceived: model.bytes,
+          });
           staged = await this.verify(model, path);
         } catch {
-          this.update('FAILED', { artifactState: 'PRESENT', error: 'MODEL_EXISTING_ARTIFACT_CORRUPT' });
+          this.update('FAILED', {
+            artifactState: 'PRESENT',
+            error: 'MODEL_EXISTING_ARTIFACT_CORRUPT',
+          });
           return pointers;
         }
         const recovered = { ...pointers, staged };
         await this.guard.withModelMutation(() => this.storage.writePointers(recovered));
-        this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
+        this.update('PENDING_NATIVE_SMOKE_TEST', { modelId: model.id, artifactState: 'VERIFIED' });
         return recovered;
       }
-      this.update('NOT_INSTALLED', { artifactState: await this.inspectArtifact(reviewedModel(MODEL_CATALOG[0]!.id)) });
+      this.update('NOT_INSTALLED', {
+        modelId: MODEL_CATALOG[0]!.id,
+        artifactState: await this.inspectArtifact(reviewedModel(MODEL_CATALOG[0]!.id)),
+      });
       return pointers;
     });
   }
@@ -207,18 +260,24 @@ export class ModelManager {
     id: string,
     source:
       | { kind: 'download'; userInitiated: true; licenseAcknowledged: true }
+      | { kind: 'existing'; userInitiated: true; licenseAcknowledged: true }
       | { kind: 'import'; sourceUri: string; userInitiated: true; licenseAcknowledged: true },
     signal?: AbortSignal,
   ): Promise<StoredModel> {
     return this.own(async () => {
       const model = reviewedModel(id);
+      this.status = { ...this.status, modelId: id };
       if (source.userInitiated !== true || source.licenseAcknowledged !== true)
         throw new Error('MODEL_SETUP_CONSENT_REQUIRED');
       cancelled(signal);
       const partial = this.storage.partialPath(model),
         destination = this.storage.finalPath(model);
       if ((await this.storage.size(destination)) !== null) {
-        this.update('VERIFYING', { artifactState: 'PRESENT', totalBytes: model.bytes, bytesReceived: model.bytes });
+        this.update('VERIFYING', {
+          artifactState: 'PRESENT',
+          totalBytes: model.bytes,
+          bytesReceived: model.bytes,
+        });
         const staged = await this.verify(model, destination).catch(() => {
           this.update('FAILED', { error: 'MODEL_EXISTING_ARTIFACT_CORRUPT' });
           throw new Error('MODEL_EXISTING_ARTIFACT_CORRUPT');
@@ -231,6 +290,7 @@ export class ModelManager {
         this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
         return staged;
       }
+      if (source.kind === 'existing') throw new Error('MODEL_STAGED_MISSING');
       const existing = (await this.storage.size(partial)) ?? 0;
       // Streaming transfer + rename needs only the missing bytes; previous immutable artifact remains on disk.
       const reusable = source.kind === 'download' && existing <= model.bytes ? existing : 0;
@@ -244,7 +304,11 @@ export class ModelManager {
         throw new Error('MODEL_STORAGE_INSUFFICIENT');
       }
       try {
-        this.update('DOWNLOADING', { artifactState: existing ? 'PARTIAL' : 'MISSING', totalBytes: model.bytes, bytesReceived: existing });
+        this.update('DOWNLOADING', {
+          artifactState: existing ? 'PARTIAL' : 'MISSING',
+          totalBytes: model.bytes,
+          bytesReceived: existing,
+        });
         if (source.kind === 'download')
           await this.storage.download(
             model,
@@ -281,7 +345,8 @@ export class ModelManager {
         if (code === 'MODEL_HASH_MISMATCH')
           await this.guard.withModelMutation(() => this.storage.remove(partial));
         this.update(signal?.aborted ? 'PAUSED' : 'FAILED', {
-          artifactState: code === 'MODEL_HASH_MISMATCH' ? 'MISSING' : await this.inspectArtifact(model),
+          artifactState:
+            code === 'MODEL_HASH_MISMATCH' ? 'MISSING' : await this.inspectArtifact(model),
           error: code,
         });
         throw error;
@@ -296,7 +361,8 @@ export class ModelManager {
       const before = await this.storage.readPointers();
       if (!before.staged) throw new Error('MODEL_STAGED_MISSING');
       const candidate = await this.verifyStored(before.staged);
-        this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
+      this.status = { ...this.status, modelId: candidate.id };
+      this.update('PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
       try {
         cancelled(signal);
         await runner.load(candidate);
@@ -327,10 +393,14 @@ export class ModelManager {
         }
         const code = signal?.aborted
           ? 'MODEL_SETUP_CANCELLED'
-          : error instanceof Error ? error.message : 'MODEL_SMOKE_FAILED';
+          : error instanceof Error
+            ? error.message
+            : 'MODEL_SMOKE_FAILED';
         if (signal?.aborted) this.update('PAUSED', { artifactState: 'VERIFIED', error: code });
         else {
-          this.update(before.active ? 'ACTIVE' : 'PENDING_NATIVE_SMOKE_TEST', { artifactState: 'VERIFIED' });
+          this.update('PENDING_NATIVE_SMOKE_TEST', {
+            artifactState: 'VERIFIED',
+          });
           this.setRuntimeError(code);
         }
         throw error;
@@ -348,7 +418,7 @@ export class ModelManager {
           previous: pointers.active,
           staged: null,
         });
-        this.update('ACTIVE', { artifactState: 'VERIFIED' });
+        this.update('ACTIVE', { modelId: previous.id, artifactState: 'VERIFIED' });
         return previous;
       }),
     );
@@ -387,7 +457,7 @@ export class ModelManager {
         await this.storage.remove(this.storage.finalPath(model));
         this.update(
           next.active ? 'ACTIVE' : next.staged ? 'PENDING_NATIVE_SMOKE_TEST' : 'NOT_INSTALLED',
-          { artifactState: 'MISSING' },
+          { modelId: id, artifactState: 'MISSING' },
         );
       }),
     );
@@ -427,6 +497,59 @@ export function createProviderSmokeRunner(
         result.toolProposals.length
       )
         throw new Error('MODEL_SMOKE_GENERATION_INVALID');
+      const probe = input(
+        'Call omni_model_smoke to retrieve a startup token. Do not guess the token.',
+        96,
+      );
+      const tools = [
+        {
+          name: 'omni_model_smoke',
+          description: 'Retrieve the startup token for this local runtime check.',
+          parameters: { type: 'object', properties: {}, required: [], additionalProperties: false },
+        },
+      ];
+      const call = await provider.generate({ ...probe, tools });
+      const proposal = call.toolProposals[0] as
+        { version?: unknown; name?: unknown; arguments?: unknown } | undefined;
+      if (
+        call.finishReason !== 'complete' ||
+        !call.nativeQuiescent ||
+        call.toolProposals.length !== 1 ||
+        proposal?.version !== 1 ||
+        proposal.name !== 'omni_model_smoke' ||
+        !proposal.arguments ||
+        Array.isArray(proposal.arguments) ||
+        typeof proposal.arguments !== 'object' ||
+        Object.keys(proposal.arguments).length
+      )
+        throw new Error('MODEL_SMOKE_TOOL_INVALID');
+      cancelled(signal);
+      const token = `READY_${allocateGenerationEpoch()}`;
+      const followup = input('', 32);
+      const response = await provider.generate({
+        ...followup,
+        tools,
+        messages: [
+          ...probe.messages,
+          {
+            role: 'assistant',
+            text: call.text,
+            toolCalls: [{ name: 'omni_model_smoke', arguments: {} }],
+          },
+          {
+            role: 'tool',
+            toolName: 'omni_model_smoke',
+            text: JSON.stringify({ token, instruction: 'Reply with this token only.' }),
+          },
+        ],
+      });
+      if (
+        response.finishReason !== 'complete' ||
+        !response.nativeQuiescent ||
+        response.toolProposals.length ||
+        !response.text.includes(token)
+      )
+        throw new Error('MODEL_SMOKE_TOOL_RESPONSE_INVALID');
       return result.text;
     },
     release: () => provider.release(),

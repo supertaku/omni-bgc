@@ -8,7 +8,7 @@ import { ItineraryPreviewOwner } from './itineraryPreview';
 import { ConversationStore } from './conversationStore';
 import { createExpoModelManager } from './modelStorage';
 import { createProviderSmokeRunner, type ModelManager } from './modelManager';
-import { GEMMA_4_E2B } from './modelCatalog';
+import { GEMMA_4_E2B, reviewedModel } from './modelCatalog';
 import { runHybridTurn } from './hybridAssistant';
 import { confirmedOrigin } from './confirmedOrigin';
 import type { AgentRunOptions } from './AgentOrchestrator';
@@ -38,6 +38,9 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
   let closingRequested = false;
   let lifecycle: Promise<unknown> = Promise.resolve();
   let activeOperation: AbortController | null = null;
+  let selectedModelId = GEMMA_4_E2B.id;
+  const loadModel = (model: Parameters<typeof provider.load>[0]) =>
+    provider.load({ ...model, contextTokens: reviewedModel(model.id).defaultContextTokens }, 'cpu');
   // Serialize runtime operations around the existing manager/provider owners;
   // teardown cancels setup and drains it before releasing native resources.
   const own = <T>(work: (signal: AbortSignal) => Promise<T>, signal?: AbortSignal): Promise<T> => {
@@ -66,8 +69,9 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
       if (!(await provider.getCapabilities()).nativeModulePresent) return false;
       manager ??= await createExpoModelManager();
       const pointers = await manager.recover();
+      selectedModelId = pointers.active?.id ?? pointers.staged?.id ?? selectedModelId;
       if (!pointers.active) return false;
-      await provider.load({ ...pointers.active, contextTokens: 4096 }, 'cpu');
+      await loadModel(pointers.active);
       return true;
     }).catch((error: unknown) => {
       initialization = null;
@@ -75,11 +79,12 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
       throw error;
     }));
   };
-  const setup = async (signal: AbortSignal) => {
+  const setup = async (signal: AbortSignal, id = selectedModelId) => {
+    selectedModelId = reviewedModel(id).id;
     await provider.release();
     manager ??= await createExpoModelManager();
     await manager.install(
-      GEMMA_4_E2B.id,
+      id,
       { kind: 'download', userInitiated: true, licenseAcknowledged: true },
       signal,
     );
@@ -87,6 +92,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
   const importModel = async (
     signal: AbortSignal,
     pickerVisibility?: (visible: boolean) => void,
+    id = selectedModelId,
   ) => {
     pickerVisibility?.(true);
     const picked = await (async () => {
@@ -102,7 +108,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     await provider.release();
     manager ??= await createExpoModelManager();
     await manager.install(
-      GEMMA_4_E2B.id,
+      reviewedModel(id).id,
       {
         kind: 'import',
         sourceUri: picked.result.uri,
@@ -112,32 +118,46 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
       signal,
     );
   };
-  const activate = async (signal: AbortSignal) => {
+  const activate = async (signal: AbortSignal, id = selectedModelId) => {
+    selectedModelId = reviewedModel(id).id;
     await provider.release();
     manager ??= await createExpoModelManager();
     // A retained ACTIVE pointer has already passed the native trial. Reverify it
     // before an explicit reload; newly staged candidates still require the trial.
-    if (manager.getStatus().state === 'ACTIVE') {
-      const recovered = await manager.recover();
+    const recovered = await manager.recover();
+    if (recovered.active?.id === id && recovered.staged?.id !== id) {
       if (signal.aborted) throw new Error('Model setup canceled');
       if (!recovered.active) throw new Error('MODEL_MISSING');
-      await provider.load({ ...recovered.active, contextTokens: 4096 }, 'cpu');
+      await loadModel(recovered.active);
       return;
+    }
+    // Only reuse an existing artifact here; activation must never start a network transfer.
+    if (recovered.staged?.id !== id) {
+      await manager.install(
+        id,
+        { kind: 'existing', userInitiated: true, licenseAcknowledged: true },
+        signal,
+      );
     }
     const model = await manager.activate(createProviderSmokeRunner(provider, signal), signal);
     if (signal.aborted) throw new Error('Model setup canceled');
-    await provider.load({ ...model, contextTokens: 4096 }, 'cpu');
+    await loadModel(model);
   };
-  const removeModel = async () => {
+  const removeModel = async (id = selectedModelId) => {
     await provider.release();
     manager ??= await createExpoModelManager();
-    await manager.removeInstalled(GEMMA_4_E2B.id, { userInitiated: true });
+    await manager.removeInstalled(reviewedModel(id).id, { userInitiated: true });
   };
   return {
     provider,
     itineraryPreview,
     agent,
-    answer: (query: string, places: readonly Place[], options?: AgentRunOptions, origin?: Origin | null) =>
+    answer: (
+      query: string,
+      places: readonly Place[],
+      options?: AgentRunOptions,
+      origin?: Origin | null,
+    ) =>
       runHybridTurn(
         query,
         places,
@@ -153,11 +173,23 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
       ),
     history,
     initialize,
-    setup: (signal: AbortSignal) => own(setup, signal),
-    importModel: (signal: AbortSignal, pickerVisibility?: (visible: boolean) => void) =>
-      own((ownedSignal) => importModel(ownedSignal, pickerVisibility), signal),
-    activate: (signal: AbortSignal) => own(activate, signal),
-    removeModel: () => own(removeModel),
+    selectModel: (id: string) =>
+      own(async () => {
+        selectedModelId = reviewedModel(id).id;
+        manager ??= await createExpoModelManager();
+        await manager.inspect(id);
+        if (await provider.thermalBlocked()) manager.setRuntimeError('THERMAL_BLOCK');
+      }),
+    setup: (signal: AbortSignal, id?: string) =>
+      own((ownedSignal) => setup(ownedSignal, id), signal),
+    importModel: (
+      signal: AbortSignal,
+      pickerVisibility?: (visible: boolean) => void,
+      id?: string,
+    ) => own((ownedSignal) => importModel(ownedSignal, pickerVisibility, id), signal),
+    activate: (signal: AbortSignal, id?: string) =>
+      own((ownedSignal) => activate(ownedSignal, id), signal),
+    removeModel: (id?: string) => own(() => removeModel(id)),
     resolvePlace: async (id: string) => (await retrieval.getPlaceDetails(id)).data,
     getManager: () => manager,
     refreshThermal: () => provider.thermalBlocked(),

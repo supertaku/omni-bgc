@@ -5,11 +5,12 @@
   "attribution": "\u00a9 OpenStreetMap contributors",
   "license": "ODbL-1.0",
   "bbox": [
-    121.035,
-    14.53,
-    121.07,
-    14.575
+    121.04457295374114,
+    14.54279633333322,
+    121.05932776091223,
+    14.560503439648421
   ],
+  "coverageSha256": "5c83ff0dfe43097009c409979348476bc04a4518f6316401bcedabe12aa29287",
   "navigationEligible": false,
   "placeFactsEligible": false,
   "sourceFiles": [
@@ -138,20 +139,28 @@
   ],
   "sourceInventorySha256": "eb0502a6353daf4067997b4b96e9ebd1e2e26f1101c9253b8abc5c00f7f9b0c9",
   "detailedArchiveSha256": "9203eb4852fa02e88362e7d3063669581cf7dad2668b4e19dc2914a7aff6478c",
-  "builderSha256": "3c4ffe3ea1ed191c615df42e8a0a9c4e01df800300c586b6594ac04916c7aa6e",
+  "builderSha256": "09199b2c95a55cbe90270c01a4969100c887a43d6cefbff5478260da288b229e",
+  "coverageBuilderSha256": "c0ee28161b136f498008ae7d8ef1dbbe0a674ea6dbe5954d676d54002a4470d8",
   "featureCounts": {
-    "building": 45197,
-    "road": 5750,
-    "green": 92,
-    "water": 24,
+    "building": 1639,
+    "road": 107,
+    "green": 20,
+    "water": 2,
     "landmark": 1
   },
+  "pedestrianAudit": {
+    "taggedCrossingNodes": 459,
+    "taggedEntranceNodes": 47,
+    "renderedContextSidewalkWays": 15,
+    "renderedContextCrossingWays": 13,
+    "status": "OSM observations only; no field review, connectivity, entrance access or navigation eligibility inferred"
+  },
   "tileCounts": {
-    "14": 9,
-    "15": 30,
-    "16": 80,
-    "17": 250,
-    "18": 906
+    "14": 2,
+    "15": 6,
+    "16": 12,
+    "17": 34,
+    "18": 82
   },
   "rejected": [
     {
@@ -647,14 +656,6 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
-      "sourceRef": "osm:way:263603984",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:264572184",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
       "sourceRef": "osm:way:264878259",
       "reason": "covered-or-submetre-display-remnant"
     },
@@ -679,19 +680,7 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
-      "sourceRef": "osm:way:279284678",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
       "sourceRef": "osm:way:280298495",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:285879073",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:286221277",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -715,10 +704,6 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
-      "sourceRef": "osm:way:287513834",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
       "sourceRef": "osm:way:291211296",
       "reason": "covered-or-submetre-display-remnant"
     },
@@ -728,6 +713,10 @@
     },
     {
       "sourceRef": "osm:way:291211303",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:291211304",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -771,6 +760,14 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
+      "sourceRef": "osm:way:317214123",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:317215090",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
       "sourceRef": "osm:way:317613131",
       "reason": "covered-or-submetre-display-remnant"
     },
@@ -795,7 +792,27 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
+      "sourceRef": "osm:way:320635857",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:320636104",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:320636115",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
       "sourceRef": "osm:way:320848387",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:321084222",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:321087617",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -839,6 +856,10 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
+      "sourceRef": "osm:way:339588501",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
       "sourceRef": "osm:way:340064067",
       "reason": "covered-or-submetre-display-remnant"
     },
@@ -879,11 +900,19 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
+      "sourceRef": "osm:way:340227535",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
       "sourceRef": "osm:way:340227550",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
       "sourceRef": "osm:way:340227553",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:340227561",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -1343,6 +1372,10 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
+      "sourceRef": "osm:way:341843398",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
       "sourceRef": "osm:way:342101310",
       "reason": "covered-or-submetre-display-remnant"
     },
@@ -1360,18 +1393,6 @@
     },
     {
       "sourceRef": "osm:way:342101327",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:343244544",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:346117215",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:350023352",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -1395,19 +1416,7 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
-      "sourceRef": "osm:way:389202756",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:392020009",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:403177201",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:403221893",
+      "sourceRef": "osm:way:401114159",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -1432,30 +1441,6 @@
     },
     {
       "sourceRef": "osm:way:428856186",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:436207485",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:436345249",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:436375497",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:437081988",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:437702183",
-      "reason": "covered-or-submetre-display-remnant"
-    },
-    {
-      "sourceRef": "osm:way:438704909",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -1491,11 +1476,23 @@
       "reason": "covered-or-submetre-display-remnant"
     },
     {
+      "sourceRef": "osm:way:443902895",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:443902959",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
       "sourceRef": "osm:way:444366845",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
       "sourceRef": "osm:way:444366846",
+      "reason": "covered-or-submetre-display-remnant"
+    },
+    {
+      "sourceRef": "osm:way:445001171",
       "reason": "covered-or-submetre-display-remnant"
     },
     {
@@ -2389,7 +2386,7 @@
   ],
   "output": {
     "path": "assets/generated/context/features.geojson.gz",
-    "bytes": 4247183,
-    "sha256": "9445353bc3ce9a21fb0b2caafd7745ca940532415bc578340dcaf9b82291dbce"
+    "bytes": 157328,
+    "sha256": "f3d4d7cb8c9aa905537f2945ed1fb5fd7bbc3a2de0af7fcf3597e9378c0ad5c3"
   }
 }

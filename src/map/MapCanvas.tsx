@@ -25,10 +25,12 @@ import type { Coordinate, Origin, Place, RouteResult, TransitRoute } from '../co
 import { loadActiveMapStyle } from '../updates/style';
 import { loadBundledStyle } from './bundled-style';
 import { loadContextSource } from './context-source';
-import { coverageAt, pilotScope, type MapScope } from './scope';
+import { coverageAt, pilotScope, bgcMapCoverage, type MapScope } from './scope';
+import { createStyleTransition } from './style-transition';
 import { createMapResourceLoader, defaultScopeView } from './resource-loader';
 import {
   categorySprite,
+  illustratedRoofColor,
   coordinateBounds,
   renderMapStyle,
   placeFeatureCollection,
@@ -45,6 +47,7 @@ export type MapCanvasProps = {
   draftOrigin?: boolean;
   focusCoordinate?: Coordinate | null;
   selectedPlaceId?: string | null;
+  highlightedPlaceIds?: readonly string[];
   cameraResetKey?: number;
   fitCoordinates?: readonly Coordinate[] | null;
   onStatusChange?: (status: 'preparing' | 'ready' | 'failed', detail?: string) => void;
@@ -64,6 +67,7 @@ export function MapCanvas({
   draftOrigin = false,
   focusCoordinate,
   selectedPlaceId,
+  highlightedPlaceIds,
   cameraResetKey = 0,
   fitCoordinates,
   onStatusChange,
@@ -77,10 +81,17 @@ export function MapCanvas({
   const placeSource = useRef<GeoJSONSourceRef>(null);
   const placeData = useRef<GeoJSON.FeatureCollection | null>(null);
   const clusterRequest = useRef(0);
+  const transition = useRef(createStyleTransition());
+  const lastGoodStyle = useRef('');
+  const rejectedStyle = useRef('');
+  const [appliedStyle, setAppliedStyle] = useState('');
+  const [appliedFlat, setAppliedFlat] = useState(flat);
+  const [appliedQuiet, setAppliedQuiet] = useState(false);
   const installedStyle = useRef('');
   const installedScope = useRef('');
   const pendingScopeView = useRef(false);
   const lastResetKey = useRef(0);
+  const lastFocusedOrigin = useRef<Origin | null>(null);
   const statusCallback = useRef(onStatusChange);
   statusCallback.current = onStatusChange;
   const scopeCallback = useRef(onScopeReady);
@@ -135,10 +146,33 @@ export function MapCanvas({
   );
   const restoredPilot = mapMetadata?.omniResourceRecovery === 'HIGH_STREET_FALLBACK';
   const historicalPreview = mapMetadata?.source_fact_status === 'CANDIDATE_HISTORICAL';
-  const renderedStyle = useMemo(
-    () => renderMapStyle(activeStyle, flat, quiet),
-    [activeStyle, flat, quiet],
-  );
+  const renderedStyle = useMemo(() => {
+    try {
+      return renderMapStyle(activeStyle, flat, quiet);
+    } catch (error) {
+      console.error('OMNI_MAP invalid presentation; retaining offline style', String(error));
+      return activeStyle;
+    }
+  }, [activeStyle, flat, quiet]);
+  useEffect(() => {
+    if (!resourcesReady || renderedStyle === rejectedStyle.current) return;
+    if (!transition.current.begin(renderedStyle)) return;
+    clusterRequest.current += 1;
+    setClusterId(null);
+    setClusterPlaces([]);
+    setStyleReady(false);
+    setFullyRendered(false);
+    setAppliedFlat(flat);
+    setAppliedQuiet(quiet);
+    setAppliedStyle(renderedStyle);
+    console.log('OMNI_MAP style transition requested', flat ? 'flat-v1' : 'illustrated-v1');
+  }, [renderedStyle, resourcesReady, fullyRendered, flat, quiet]);
+  const cameraReady =
+    styleReady &&
+    fullyRendered &&
+    (appliedStyle === renderedStyle || rejectedStyle.current === renderedStyle);
+  const cameraReadyRef = useRef(cameraReady);
+  cameraReadyRef.current = cameraReady;
   const data = useMemo(() => placeFeatureCollection(places), [places]);
   placeData.current = data;
   const clusterPageSize = 20;
@@ -146,13 +180,20 @@ export function MapCanvas({
     clusterRequest.current += 1;
     setClusterId(null);
     setClusterPlaces([]);
+    return () => {
+      clusterRequest.current += 1;
+    };
   }, [data]);
   useEffect(() => {
     let mounted = true;
     void loadContextSource()
-      .then((uri) => { if (mounted) setContextSource(uri); })
+      .then((uri) => {
+        if (mounted) setContextSource(uri);
+      })
       .catch((error) => console.warn('OMNI_MAP surrounding context unavailable', String(error)));
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
   useEffect(() => {
     scopeCallback.current?.(
@@ -171,7 +212,13 @@ export function MapCanvas({
             : 'Installing and loading offline map resources',
     );
   }, [failure, fullyRendered, restoredPilot, activeScope]);
-  useEffect(() => () => scopeCallback.current?.(null), []);
+  useEffect(
+    () => () => {
+      cameraReadyRef.current = false;
+      scopeCallback.current?.(null);
+    },
+    [],
+  );
   useEffect(() => {
     let mounted = true;
     void AccessibilityInfo.isReduceMotionEnabled().then((value) => {
@@ -220,9 +267,9 @@ export function MapCanvas({
     };
   }, []);
   useEffect(() => {
-    if (!styleReady) return;
+    if (!cameraReady) return;
     const scopeView = pendingScopeView.current
-      ? defaultScopeView(activeScope, flat || quiet)
+      ? defaultScopeView(activeScope, appliedFlat || appliedQuiet)
       : null;
     pendingScopeView.current = false;
     if (fittedBounds)
@@ -230,35 +277,53 @@ export function MapCanvas({
     else
       camera.current?.easeTo({
         ...(scopeView ?? {}),
-        center: focusCoordinate ? [...focusCoordinate] : [...center.current],
-        pitch: flat || quiet ? 0 : 38,
+        center: focusCoordinate ? [...focusCoordinate] : [...(scopeView?.center ?? center.current)],
+        pitch: appliedFlat || appliedQuiet ? 0 : 38,
         padding,
         duration,
       });
-  }, [flat, quiet, fittedBounds, focusCoordinate, padding, duration, styleReady, activeScope]);
+  }, [appliedFlat, appliedQuiet, fittedBounds, focusCoordinate, padding, duration, cameraReady, activeScope]);
   useEffect(() => {
-    if (origin?.confirmed && !fittedBounds && !focusCoordinate && styleReady)
+    if (
+      origin?.confirmed &&
+      lastFocusedOrigin.current !== origin &&
+      !fittedBounds &&
+      !focusCoordinate &&
+      cameraReady
+    ) {
+      lastFocusedOrigin.current = origin;
       camera.current?.easeTo({ center: [...origin.coordinate], padding, duration });
-  }, [origin, fittedBounds, focusCoordinate, styleReady]);
+    }
+  }, [origin, fittedBounds, focusCoordinate, cameraReady, padding, duration]);
   useEffect(() => {
-    if (cameraResetKey > lastResetKey.current && styleReady) {
+    if (cameraResetKey > lastResetKey.current && cameraReady) {
       lastResetKey.current = cameraResetKey;
       camera.current?.easeTo({
         center: [...activeScope.defaultView.center],
         zoom: activeScope.defaultView.zoom,
         bearing: 0,
-        pitch: flat || quiet ? 0 : 38,
+        pitch: appliedFlat || appliedQuiet ? 0 : 38,
         padding,
         duration,
       });
     }
-  }, [cameraResetKey, styleReady, activeScope]);
+  }, [cameraResetKey, cameraReady, activeScope, appliedFlat, appliedQuiet, padding, duration]);
   const showClusterPage = async (id: number, count: number, page: number) => {
+    if (!cameraReady) return;
     const request = ++clusterRequest.current;
     const requestData = data;
     try {
-      const features = await placeSource.current?.getClusterLeaves(id, clusterPageSize, page * clusterPageSize);
-      if (request !== clusterRequest.current || placeData.current !== requestData) return;
+      const features = await placeSource.current?.getClusterLeaves(
+        id,
+        clusterPageSize,
+        page * clusterPageSize,
+      );
+      if (
+        !cameraReadyRef.current ||
+        request !== clusterRequest.current ||
+        placeData.current !== requestData
+      )
+        return;
       const members = (features ?? [])
         .map((feature) => places.find((place) => place.id === feature.properties?.id))
         .filter((place): place is Place => !!place);
@@ -275,6 +340,7 @@ export function MapCanvas({
     }
   };
   const onClusterPress = async (feature: GeoJSON.Feature) => {
+    if (!cameraReady) return;
     const requestData = data;
     const properties = feature.properties;
     const id = properties?.cluster_id;
@@ -287,15 +353,21 @@ export function MapCanvas({
     const request = ++clusterRequest.current;
     try {
       const expandedZoom = await placeSource.current?.getClusterExpansionZoom(id);
-      if (request !== clusterRequest.current || placeData.current !== requestData) return;
+      if (
+        !cameraReadyRef.current ||
+        request !== clusterRequest.current ||
+        placeData.current !== requestData
+      )
+        return;
       camera.current?.easeTo({
-        center: feature.geometry.type === 'Point'
-          && Array.isArray(feature.geometry.coordinates)
-          && feature.geometry.coordinates.length >= 2
-          && Number.isFinite(feature.geometry.coordinates[0])
-          && Number.isFinite(feature.geometry.coordinates[1])
-          ? [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
-          : [center.current[0], center.current[1]],
+        center:
+          feature.geometry.type === 'Point' &&
+          Array.isArray(feature.geometry.coordinates) &&
+          feature.geometry.coordinates.length >= 2 &&
+          Number.isFinite(feature.geometry.coordinates[0]) &&
+          Number.isFinite(feature.geometry.coordinates[1])
+            ? [feature.geometry.coordinates[0], feature.geometry.coordinates[1]]
+            : [center.current[0], center.current[1]],
         zoom: Math.min(20, Math.max(zoom.current + 1, expandedZoom ?? zoom.current + 1)),
         duration,
       });
@@ -329,11 +401,11 @@ export function MapCanvas({
         ref={map}
         androidView="texture"
         style={styles.map}
-        mapStyle={renderedStyle}
+        mapStyle={appliedStyle || activeStyle}
         compass={false}
         logo={false}
         attribution={false}
-        touchPitch={!flat && !quiet}
+        touchPitch={!appliedFlat && !appliedQuiet}
         accessibilityLabel={
           selected
             ? `BGC map. Selected ${selected.name}. Pan and pinch to explore.`
@@ -346,14 +418,32 @@ export function MapCanvas({
           zoom.current = event.nativeEvent.zoom;
           setCoverage(coverageAt(activeScope, [x, y]));
         }}
-        onDidFinishLoadingStyle={() => setStyleReady(true)}
+        onDidFinishLoadingStyle={() => {
+          transition.current.loaded();
+          setStyleReady(true);
+          console.log('OMNI_MAP style loaded');
+        }}
         onDidFinishRenderingMapFully={() => {
+          if (!transition.current.rendered()) return;
+          lastGoodStyle.current = appliedStyle;
           setFullyRendered(true);
           setFailure(false);
           console.log('OMNI_MAP local map fully rendered');
         }}
         onDidFailLoadingMap={() => {
-          setFailure(true);
+          transition.current.failed();
+          rejectedStyle.current = appliedStyle;
+          setStyleReady(false);
+          setFullyRendered(false);
+          if (lastGoodStyle.current && lastGoodStyle.current !== appliedStyle) {
+            transition.current.begin(lastGoodStyle.current);
+            setAppliedStyle(lastGoodStyle.current);
+            setAppliedFlat(
+              JSON.parse(lastGoodStyle.current).metadata?.omniPresentation === 'flat-v1',
+            );
+            setAppliedQuiet(JSON.parse(lastGoodStyle.current).metadata?.omniQuiet === true);
+            console.warn('OMNI_MAP restoring last fully rendered style');
+          } else setFailure(true);
           console.error('OMNI_MAP local resources failed');
         }}
       >
@@ -363,6 +453,11 @@ export function MapCanvas({
             ...activeScope.defaultView,
             center: [...activeScope.defaultView.center],
           }}
+          maxBounds={
+            activeScope.id === 'omni-bgc:service-area:bgc-commercial-v2'
+              ? [...bgcMapCoverage.bounds[0], ...bgcMapCoverage.bounds[1]]
+              : undefined
+          }
           minZoom={14}
           maxZoom={20}
         />
@@ -448,27 +543,26 @@ export function MapCanvas({
               type="fill"
               source-layer="geometry"
               filter={['==', ['get', 'kind'], 'building']}
-              paint={{ 'fill-color': '#BAC2C3', 'fill-outline-color': '#919D9F' }}
+              paint={{ 'fill-color': illustratedRoofColor, 'fill-outline-color': '#304E45' }}
             />
-            {!flat && !quiet && <Layer
+            <Layer
               id="context-building-massing"
               type="fill-extrusion"
               source-layer="geometry"
               minzoom={14}
-              filter={['all', ['==', ['get', 'kind'], 'building'], ['>', ['get', 'visual_height'], 0]]}
+              filter={[
+                'all',
+                ['==', ['get', 'kind'], 'building'],
+                ['>', ['get', 'visual_height'], 0],
+              ]}
               paint={{
                 'fill-extrusion-base': ['get', 'visual_base'],
                 'fill-extrusion-height': ['get', 'visual_height'],
-                'fill-extrusion-color': [
-                  'match', ['get', 'visual_family'],
-                  'office', '#B9C7C9', 'commercial', '#C9C4B8',
-                  'residential', '#C8BFB2', 'mixed-use', '#C5C3B8',
-                  'retail', '#CDBFAE', 'hotel', '#B8C1C8',
-                  'civic', '#C6C8C2', '#BEC5C4',
-                ],
+                'fill-extrusion-color': illustratedRoofColor,
+                'fill-extrusion-opacity': appliedFlat || appliedQuiet ? 0 : 1,
                 'fill-extrusion-vertical-gradient': true,
               }}
-            />}
+            />
             <Layer
               id="context-road-labels"
               type="symbol"
@@ -517,6 +611,13 @@ export function MapCanvas({
             data={data}
             maxzoom={21}
             cluster
+            clusterProperties={{
+              food: ['+', ['case', ['==', ['get', 'marker'], 'marker-food'], 1, 0]],
+              cafe: ['+', ['case', ['==', ['get', 'marker'], 'marker-cafe'], 1, 0]],
+              park: ['+', ['case', ['==', ['get', 'marker'], 'marker-park'], 1, 0]],
+              shop: ['+', ['case', ['==', ['get', 'marker'], 'marker-shop'], 1, 0]],
+              health: ['+', ['case', ['==', ['get', 'marker'], 'marker-health'], 1, 0]],
+            }}
             clusterRadius={44}
             clusterMaxZoom={20}
             hitbox={{ top: 24, right: 24, bottom: 24, left: 24 }}
@@ -536,23 +637,34 @@ export function MapCanvas({
               type="circle"
               filter={['has', 'point_count']}
               paint={{
-                'circle-color': '#1756C0',
-                'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 2, 24, 50, 30],
+                'circle-color': '#F2E8CB',
+                'circle-radius': ['interpolate', ['linear'], ['get', 'point_count'], 2, 17, 50, 22],
                 'circle-stroke-color': '#FFFFFF',
                 'circle-stroke-width': 3,
               }}
             />
             <Layer
-              id="place-cluster-count"
+              id="place-cluster-category"
               type="symbol"
               filter={['has', 'point_count']}
               layout={{
-                'text-field': ['get', 'point_count_abbreviated'],
-                'text-font': ['Noto Sans Regular'],
-                'text-size': 13,
-                'text-allow-overlap': true,
+                'icon-image': [
+                  'case',
+                  ['==', ['get', 'health'], ['get', 'point_count']],
+                  'marker-health',
+                  ['==', ['get', 'park'], ['get', 'point_count']],
+                  'marker-park',
+                  ['==', ['get', 'food'], ['get', 'point_count']],
+                  'marker-food',
+                  ['==', ['get', 'cafe'], ['get', 'point_count']],
+                  'marker-cafe',
+                  ['==', ['get', 'shop'], ['get', 'point_count']],
+                  'marker-shop',
+                  'marker-more',
+                ],
+                'icon-size': 0.48,
+                'icon-allow-overlap': true,
               }}
-              paint={{ 'text-color': '#FFFFFF' }}
             />
             <Layer
               id="important-place-pins"
@@ -564,8 +676,8 @@ export function MapCanvas({
                 'icon-size': ['interpolate', ['linear'], ['zoom'], 14, 0.36, 20, 0.58],
                 'icon-anchor': 'bottom',
                 'icon-padding': [24, 24, 24, 24],
-                'icon-allow-overlap': true,
-                'icon-ignore-placement': true,
+                'icon-allow-overlap': false,
+                'icon-ignore-placement': false,
               }}
             />
             <Layer
@@ -578,15 +690,19 @@ export function MapCanvas({
                 'icon-size': ['interpolate', ['linear'], ['zoom'], 14, 0.36, 20, 0.58],
                 'icon-anchor': 'bottom',
                 'icon-padding': [24, 24, 24, 24],
-                'icon-allow-overlap': true,
-                'icon-ignore-placement': true,
+                'icon-allow-overlap': false,
+                'icon-ignore-placement': false,
               }}
             />
             <Layer
               id="place-names"
               type="symbol"
               minzoom={19}
-              filter={['all', ['!', ['has', 'point_count']], ['!=', ['get', 'id'], selectedPlaceId ?? '']]}
+              filter={[
+                'all',
+                ['!', ['has', 'point_count']],
+                ['!=', ['get', 'id'], selectedPlaceId ?? ''],
+              ]}
               layout={{
                 'text-field': ['get', 'name'],
                 'text-font': ['Noto Sans Regular'],
@@ -599,6 +715,29 @@ export function MapCanvas({
                 'text-color': '#10243A',
                 'text-halo-color': '#FFFFFF',
                 'text-halo-width': 1.5,
+              }}
+            />
+          </GeoJSONSource>
+        )}
+        {!!highlightedPlaceIds?.length && (
+          <GeoJSONSource
+            id="search-result-highlights"
+            data={{
+              ...data,
+              features: data.features.filter((feature) =>
+                highlightedPlaceIds.includes(String(feature.properties?.id)),
+              ),
+            }}
+          >
+            <Layer
+              id="search-result-rings"
+              type="circle"
+              paint={{
+                'circle-radius': 13,
+                'circle-color': '#EFC96A',
+                'circle-opacity': 0.35,
+                'circle-stroke-color': '#8A5A20',
+                'circle-stroke-width': 2,
               }}
             />
           </GeoJSONSource>
@@ -836,8 +975,12 @@ export function MapCanvas({
                   accessibilityLabel={`${item.name}, ${item.category}. Open details`}
                   style={({ pressed }) => [styles.clusterRow, pressed && styles.clusterPressed]}
                 >
-                  <Text numberOfLines={1} style={styles.clusterName}>{item.name}</Text>
-                  <Text numberOfLines={1} style={styles.clusterCategory}>{item.category}</Text>
+                  <Text numberOfLines={1} style={styles.clusterName}>
+                    {item.name}
+                  </Text>
+                  <Text numberOfLines={1} style={styles.clusterCategory}>
+                    {item.category}
+                  </Text>
                 </Pressable>
               )}
             />
@@ -847,7 +990,10 @@ export function MapCanvas({
                 accessibilityLabel="Previous places"
                 accessibilityState={{ disabled: clusterPage === 0 }}
                 disabled={clusterPage === 0}
-                onPress={() => clusterId !== null && void showClusterPage(clusterId, clusterCount, clusterPage - 1)}
+                onPress={() =>
+                  clusterId !== null &&
+                  void showClusterPage(clusterId, clusterCount, clusterPage - 1)
+                }
                 style={styles.clusterPageButton}
               >
                 <Text style={styles.clusterPageText}>Previous</Text>
@@ -858,9 +1004,14 @@ export function MapCanvas({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Next places"
-                accessibilityState={{ disabled: (clusterPage + 1) * clusterPageSize >= clusterCount }}
+                accessibilityState={{
+                  disabled: (clusterPage + 1) * clusterPageSize >= clusterCount,
+                }}
                 disabled={(clusterPage + 1) * clusterPageSize >= clusterCount}
-                onPress={() => clusterId !== null && void showClusterPage(clusterId, clusterCount, clusterPage + 1)}
+                onPress={() =>
+                  clusterId !== null &&
+                  void showClusterPage(clusterId, clusterCount, clusterPage + 1)
+                }
                 style={styles.clusterPageButton}
               >
                 <Text style={styles.clusterPageText}>Next</Text>
@@ -923,16 +1074,50 @@ const styles = StyleSheet.create({
   },
   map: { flex: 1 },
   clusterScrim: { flex: 1, justifyContent: 'flex-end', backgroundColor: '#10243A66' },
-  clusterSheet: { maxHeight: '72%', backgroundColor: '#FFFFFF', borderTopLeftRadius: 22, borderTopRightRadius: 22, padding: 16, gap: 8 },
-  clusterTitle: { fontFamily: 'OmniBodySemiBold', fontSize: 18, color: '#10243A', paddingVertical: 8 },
-  clusterRow: { minHeight: 56, justifyContent: 'center', paddingHorizontal: 12, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#D4D9D7' },
+  clusterSheet: {
+    maxHeight: '72%',
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 22,
+    borderTopRightRadius: 22,
+    padding: 16,
+    gap: 8,
+  },
+  clusterTitle: {
+    fontFamily: 'OmniBodySemiBold',
+    fontSize: 18,
+    color: '#10243A',
+    paddingVertical: 8,
+  },
+  clusterRow: {
+    minHeight: 56,
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#D4D9D7',
+  },
   clusterPressed: { backgroundColor: '#E8EFFB' },
   clusterName: { fontFamily: 'OmniBodySemiBold', fontSize: 15, color: '#10243A' },
   clusterCategory: { fontFamily: 'OmniBody', fontSize: 12, color: '#5E6D73' },
-  clusterFooter: { minHeight: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  clusterPageButton: { minWidth: 88, minHeight: 48, alignItems: 'center', justifyContent: 'center' },
+  clusterFooter: {
+    minHeight: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  clusterPageButton: {
+    minWidth: 88,
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   clusterPageText: { fontFamily: 'OmniBodySemiBold', fontSize: 14, color: '#1756C0' },
-  clusterClose: { minHeight: 48, alignItems: 'center', justifyContent: 'center', borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: '#D4D9D7' },
+  clusterClose: {
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#D4D9D7',
+  },
   caption: {
     position: 'absolute',
     bottom: 84,

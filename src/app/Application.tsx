@@ -24,7 +24,8 @@ import { PlacePeek } from '../features/explore/PlaceDetails';
 import { ExplorerPager } from '../ui/ExplorerPager';
 import { matchesCategory, searchDirectory } from '../features/explore/directory';
 import { useOfflineFonts } from '../ui/fonts';
-import type { Coordinate, Origin } from '../contracts';
+import type { Coordinate, Origin, Place } from '../contracts';
+import { isDemoPlace } from '../features/explore/demoDirectory';
 
 import { useAppInitialization } from './useAppInitialization';
 import { useExplorerNavigation, type Panel } from './useExplorerNavigation';
@@ -33,7 +34,13 @@ import { AppDialog } from '../ui/AppDialog';
 import { renderExplorePanel } from '../features/explore/ExplorePanels';
 export function Application() {
   const [fontsLoaded, fontError] = useOfflineFonts();
-  const [cameraResetKey] = useState(0);
+  const [cameraResetKey, setCameraResetKey] = useState(0);
+  const [locationControls, setLocationControls] = useState(false);
+  const [locating, setLocating] = useState(false);
+  const [locationFocus, setLocationFocus] = useState<Coordinate | null>(null);
+  const [highlightedPlaceIds, setHighlightedPlaceIds] = useState<string[]>([]);
+  const [mapResults, setMapResults] = useState<Place[]>([]);
+  const [fitCoordinates, setFitCoordinates] = useState<Coordinate[] | null>(null);
   const [message, setMessage] = useState(''),
     [error, setError] = useState('');
   const [flat, setFlat] = useState(false),
@@ -48,8 +55,13 @@ export function Application() {
   });
   const { width } = useWindowDimensions();
   const downloadController = useRef<AbortController | null>(null);
-  const { places, ready, packStatus, startup, setPackStatus, refreshRecords } =
+  const { places: basePlaces, ready, packStatus, startup, setPackStatus, refreshRecords } =
     useAppInitialization(downloadController, setError);
+  const places = useMemo(() => {
+    const merged = new Map(basePlaces.map((place) => [place.id, place]));
+    for (const place of mapResults) merged.set(place.id, place);
+    return [...merged.values()];
+  }, [basePlaces, mapResults]);
   const {
     installing,
     confirming,
@@ -85,6 +97,13 @@ export function Application() {
   useEffect(() => {
     if (tab !== 'Assistant') setModelsOpen(false);
   }, [tab]);
+  useEffect(() => {
+    // Pack refresh/rollback revokes all transient Assistant snapshots and highlights.
+    setMapResults([]);
+    setHighlightedPlaceIds([]);
+    setFitCoordinates(null);
+    setSelected((previous) => previous ? basePlaces.find((place) => place.id === previous.id) ?? null : null);
+  }, [basePlaces, setSelected]);
   useEffect(() => {
     if (tab !== 'Map' && choosingOrigin) setChoosingOrigin(false);
   }, [tab, choosingOrigin]);
@@ -144,11 +163,13 @@ export function Application() {
     setModelsOpen(false);
     setTabSafely('Map');
   };
-  const useCurrentLocation = async (): Promise<string | null> => {
+  const locateCurrentPosition = async (): Promise<string | null> => {
+    if (locating) return null;
+    setLocating(true);
     try {
       const permission = await Location.requestForegroundPermissionsAsync();
       if (!permission.granted)
-        return 'Location permission was denied. You can set an origin manually on the map.';
+        return 'Location permission was denied. You can choose a map point instead.';
       const current = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
       const coordinate: Coordinate = [current.coords.longitude, current.coords.latitude];
       if (
@@ -157,16 +178,22 @@ export function Application() {
       )
         return 'A valid current location could not be read. You can set an origin manually on the map.';
       setChoosingOrigin(false);
-      setOriginCandidate({
+      setOrigin({
         coordinate,
         method: 'gps',
-        confirmed: false,
-        ...(typeof current.coords.accuracy === 'number' ? { accuracyM: current.coords.accuracy } : {}),
+        confirmed: true,
+        ...(typeof current.coords.accuracy === 'number' && Number.isFinite(current.coords.accuracy) && current.coords.accuracy >= 0 ? { accuracyM: current.coords.accuracy } : {}),
         observedAt: new Date(current.timestamp).toISOString(),
       });
+      setOriginCandidate(null);
+      setLocationFocus(coordinate);
+      setFitCoordinates(null);
+      setMessage(`${officeScope && !coversCoordinate(officeScope.geometry, coordinate) ? 'Your location is outside the reviewed BGC area. ' : 'Location shown. '}${current.coords.accuracy !== null && current.coords.accuracy >= 0 ? `Reported accuracy: ${Math.round(current.coords.accuracy)} m. ` : ''}Kept on this device for this session.`);
       return null;
     } catch {
       return 'Current location could not be read. Check location services or set an origin manually on the map.';
+    } finally {
+      setLocating(false);
     }
   };
   const cancelOriginCandidate = () => {
@@ -176,11 +203,31 @@ export function Application() {
   const visiblePlaces = useMemo(
     () =>
       officeMapPlaces(
-        places.filter((p) => matchesCategory(p, category)),
+        places.filter((p) => matchesCategory(p, category) || highlightedPlaceIds.includes(p.id) || p.id === selected?.id),
         officeScope,
       ),
-    [places, category, officeScope],
+    [places, category, officeScope, highlightedPlaceIds, selected?.id],
   );
+  const showMapResults = (records: Place[], show: boolean) => {
+    if (show && (confirming || installing)) return false;
+    const unique = [...new Map(records.filter((place) => !isDemoPlace(place)).map((place) => [place.id, place])).values()];
+    setMapResults(unique);
+    const mapped = unique.filter((place) => {
+      const coordinate = officeFocus(place);
+      return coordinate && officeScope && coversCoordinate(officeScope.geometry, coordinate);
+    });
+    setHighlightedPlaceIds(mapped.map((place) => place.id));
+    if (show && mapped.length) {
+      setLocationFocus(null);
+      setFitCoordinates(mapped.flatMap((place) => officeFocus(place) ? [officeFocus(place)!] : []));
+      setCategory('All');
+      setPanel(null);
+      setSelected(null);
+      setTabSafely('Map');
+      setMessage(`${mapped.length} matching ${mapped.length === 1 ? 'place' : 'places'} on the map${unique.length > mapped.length ? ` · ${unique.length - mapped.length} without an eligible map location` : ''}.`);
+    }
+    return mapped.length > 0;
+  };
   const results = useMemo(
     () => searchDirectory(places, query, category),
     [places, query, category],
@@ -269,9 +316,11 @@ export function Application() {
                   draftOrigin={choosingOrigin || !!originCandidate}
                   cameraResetKey={cameraResetKey}
                   selectedPlaceId={selected?.id}
+                  highlightedPlaceIds={highlightedPlaceIds}
+                  fitCoordinates={fitCoordinates}
                   rightInset={panel && landscape ? Math.min(480, width * 0.66) + 24 : 0}
                   bottomInset={bottomInset}
-                  focusCoordinate={officeFocus(selected)}
+                  focusCoordinate={locationFocus ?? officeFocus(selected)}
                   onScopeReady={(scope) => {
                     setOfficeMapScope(scope);
                     setOfficeScope(scope);
@@ -298,7 +347,7 @@ export function Application() {
                   onPlacePress={(id) => {
                     const place = places.find((p) => p.id === id);
                     if (choosingOrigin && place?.coordinate) selectManualOrigin(place.coordinate);
-                    else if (place) choose(place);
+                    else if (place) { setLocationFocus(null); setFitCoordinates(null); choose(place); }
                   }}
                 />
                 {!panel ? (
@@ -316,6 +365,9 @@ export function Application() {
                     }}
                     flat={flat}
                     onFlat={() => setFlat((value) => !value)}
+                    onReset={() => { setLocationFocus(null); setFitCoordinates(null); setCameraResetKey((value) => value + 1); }}
+                    onLocate={() => setLocationControls(true)}
+                    locating={locating}
                   />
                 ) : null}
                 {!panel && (error || message) ? (
@@ -353,9 +405,7 @@ export function Application() {
               <View style={styles.screen}>
                 <AssistantScreen
                   origin={origin}
-                  onChooseOrigin={chooseOrigin}
-                  onUseLocation={useCurrentLocation}
-                  onClearOrigin={() => setOrigin(null)}
+                  onMapResults={showMapResults}
                   modelsOpen={modelsOpen}
                   onModelsChange={setModelsOpen}
                   onBackMap={() => setTabSafely('Map')}
@@ -371,10 +421,15 @@ export function Application() {
                     )
                       return false;
                     setTabSafely('Map');
+                    setLocationFocus(null);
+                    setFitCoordinates(null);
                     choose(place);
                     return true;
                   }}
                   onOpenPlace={(place) => {
+                    setLocationFocus(null);
+                    setFitCoordinates(null);
+                    setMapResults((previous) => [...previous.filter((entry) => entry.id !== place.id), place]);
                     setTabSafely('Map');
                     choose(place);
                   }}
@@ -385,10 +440,21 @@ export function Application() {
         </View>
       </KeyboardAvoidingView>
       {dialog ? <AppDialog visible {...dialog} onDismiss={dismissDialog} /> : null}
+      {locationControls ? (
+        <AppDialog visible title="Map position" description={origin
+          ? `Position set${origin.accuracyM !== undefined ? ` · reported accuracy ${Math.round(origin.accuracyM)} m` : ''}. Session only, on this device.`
+          : 'Show your foreground location or choose a map point. Location is optional and stays on this device.'}
+          actions={[
+            { label: 'Locate me', onPress: () => { setLocationControls(false); void locateCurrentPosition().then((failure) => { if (failure) setError(failure); }); } },
+            { label: 'Choose map point', onPress: () => { setLocationControls(false); chooseOrigin(); } },
+            ...(origin ? [{ label: 'Clear position', onPress: () => { setOrigin(null); setLocationFocus(null); setLocationControls(false); } }] : []),
+            { label: 'Close', onPress: () => setLocationControls(false) },
+          ]} onDismiss={() => setLocationControls(false)} />
+      ) : null}
       {originCandidate ? (
         <AppDialog
           visible
-          title="Use this origin?"
+          title="Use this map position?"
           description={
             originCandidate.method === 'gps'
               ? `Use your current location as the starting point?${originCandidate.accuracyM !== undefined ? ` Reported accuracy: about ${Math.round(originCandidate.accuracyM)} m.` : ''} It stays on this device for this app session.`
@@ -397,7 +463,7 @@ export function Application() {
           actions={[
             { label: 'Cancel', onPress: cancelOriginCandidate },
             {
-              label: 'Use this origin',
+              label: 'Use this position',
               onPress: () => {
                 setOrigin({ ...originCandidate, confirmed: true });
                 setOriginCandidate(null);

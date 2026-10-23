@@ -1,5 +1,6 @@
 import type { Coordinate } from '../contracts';
 import registry from './reviewed-scopes.json';
+import coverage from '../../assets/generated/context/coverage.json';
 
 export type ScopeGeometry =
   | {
@@ -19,6 +20,22 @@ export type MapScope = {
   bounds: [Coordinate, Coordinate];
   navigationEligible: false;
 };
+
+/** Display extent is independent of approved place facts and future walking graphs. */
+export type MapCoverage = {
+  id: string;
+  sourceScopeId: string;
+  sourceScopeManifestSha256: string;
+  sha256: string;
+  serviceGeometry: ScopeGeometry;
+  renderGeometry: ScopeGeometry;
+  bounds: [Coordinate, Coordinate];
+  buffer: { metres: number; crs: string; quadSegments: number };
+  navigationEligible: false;
+  placeFactsEligible: false;
+};
+
+export const bgcMapCoverage = coverage as unknown as MapCoverage;
 
 function position(value: unknown): value is Coordinate {
   return (

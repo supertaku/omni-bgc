@@ -1,5 +1,5 @@
 """Deterministic display-only OSM context. Install scripts/map-requirements.txt."""
-import sys, gzip, hashlib, json, math
+import sys, gzip, hashlib, json, math, runpy
 from pathlib import Path
 import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
@@ -16,11 +16,13 @@ def transform(fn, geom): return transform_geometry(geom, fn, interleaved=False)
 from shapely.strtree import STRtree
 SOURCE=ROOT/'assets/generated/context/source'
 DEST=SOURCE.parent
-BBOX=(121.035,14.530,121.070,14.575)
+coverage_builder=runpy.run_path(str(ROOT/'scripts/build-map-coverage.py'))
+COVERAGE=coverage_builder['build_coverage']()
+BBOX=tuple(COVERAGE['bounds'][0]+COVERAGE['bounds'][1])
 WORLD=20037508.342789244
 forward=Transformer.from_crs(4326,3857,always_xy=True).transform
 reverse=Transformer.from_crs(3857,4326,always_xy=True).transform
-EXTENT=transform(forward,box(*BBOX))
+EXTENT=transform(forward,shape(COVERAGE['renderGeometry']))
 HIGHWAYS=set('motorway trunk primary secondary tertiary unclassified residential living_street service pedestrian footway path steps cycleway track'.split())
 GREEN=set('park garden playground recreation_ground'.split())
 def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -51,11 +53,14 @@ def main():
  files=[SOURCE/row['path'] for row in inventory]
  if len(files)!=22 or any(p.name!=row['path'] or p.stat().st_size!=row['bytes'] or digest(p)!=row['sha256'] for p,row in zip(files,inventory)):
   raise SystemExit('Pinned OSM source inventory mismatch; review source changes before rebuilding')
- nodes={}; ways={}; relations={}
+ nodes={}; ways={}; relations={}; tagged_nodes={}
  for p in files:
   with gzip.open(p,'rb') as stream:
    for _,e in ET.iterparse(stream,events=('end',)):
-    if e.tag=='node': nodes[e.attrib['id']]=[float(e.attrib['lon']),float(e.attrib['lat'])]
+    if e.tag=='node':
+     nodes[e.attrib['id']]=[float(e.attrib['lon']),float(e.attrib['lat'])]
+     tags={t.attrib['k']:t.attrib['v'] for t in e.findall('tag')}
+     if tags: tagged_nodes[e.attrib['id']]=tags
     elif e.tag in ('way','relation'):
      row={'sourceFile':p.name,'version':e.attrib.get('version'),'tags':{t.attrib['k']:t.attrib['v'] for t in e.findall('tag')}}
      if e.tag=='way':
@@ -143,7 +148,9 @@ def main():
  with output.open('wb') as stream:
   writer=Writer(stream)
   for tid,z,x,y in sorted(tiles):
-   b=bounds(z,x,y); clip=box(*b); features=[]
+   b=bounds(z,x,y)
+   # Tile overflow prevents stroked polygon/road edges from exposing clip seams.
+   clip=box(*b).buffer((b[2]-b[0])*8/4096); features=[]
    for i in sorted(tree.query(clip,predicate='intersects')):
     g=geoms[i].intersection(clip)
     parts=list(g.geoms) if g.geom_type=='GeometryCollection' else [g]
@@ -156,9 +163,18 @@ def main():
   writer.finalize({'tile_compression':Compression.GZIP,'tile_type':TileType.MVT,'min_lon_e7':int(BBOX[0]*1e7),'min_lat_e7':int(BBOX[1]*1e7),'max_lon_e7':int(BBOX[2]*1e7),'max_lat_e7':int(BBOX[3]*1e7),'center_zoom':15,'center_lon_e7':1210525000,'center_lat_e7':145525000}, {'name':'Omni display-only context','attribution':'© OpenStreetMap contributors','vector_layers':[{'id':'geometry','fields':{}}]})
  audit=DEST/'features.geojson.gz'; audit.write_bytes(gzip.compress(json.dumps(records,separators=(',',':')).encode()))
  feature_counts={k:sum(p['kind']==k for p in properties) for k in ('building','road','green','water','landmark')}
- receipt={'source':'OpenStreetMap API 0.6 retained extracts','sourceUrl':'https://api.openstreetmap.org/api/0.6/map','retrievedAtUtc':'2026-10-20','attribution':'© OpenStreetMap contributors','license':'ODbL-1.0','bbox':BBOX,'navigationEligible':False,'placeFactsEligible':False,'sourceFiles':inventory,'sourceInventorySha256':digest(DEST/'source-inventory.json'),'detailedArchiveSha256':digest(archive),'builderSha256':digest(Path(__file__)),'featureCounts':feature_counts,'tileCounts':counts,'rejected':rejected,'output':{'path':'assets/generated/context/features.geojson.gz','bytes':audit.stat().st_size,'sha256':digest(audit)}}
+ source_coverage=shape(COVERAGE['renderGeometry'])
+ pedestrian_audit={
+  'taggedCrossingNodes':sum(t.get('highway')=='crossing' for oid,t in tagged_nodes.items() if source_coverage.covers(Point(nodes[oid]))),
+  'taggedEntranceNodes':sum(t.get('entrance') not in (None,'no') for oid,t in tagged_nodes.items() if source_coverage.covers(Point(nodes[oid]))),
+  'renderedContextSidewalkWays':sum(p.get('footway')=='sidewalk' for p in properties),
+  'renderedContextCrossingWays':sum(p.get('footway')=='crossing' for p in properties),
+  'status':'OSM observations only; no field review, connectivity, entrance access or navigation eligibility inferred',
+ }
+ (DEST/'coverage.json').write_text(json.dumps(COVERAGE,indent=2)+'\n',encoding='utf-8')
+ receipt={'source':'OpenStreetMap API 0.6 retained extracts','sourceUrl':'https://api.openstreetmap.org/api/0.6/map','retrievedAtUtc':'2026-10-20','attribution':'© OpenStreetMap contributors','license':'ODbL-1.0','bbox':BBOX,'coverageSha256':COVERAGE['sha256'],'navigationEligible':False,'placeFactsEligible':False,'sourceFiles':inventory,'sourceInventorySha256':digest(DEST/'source-inventory.json'),'detailedArchiveSha256':digest(archive),'builderSha256':digest(Path(__file__)),'coverageBuilderSha256':digest(ROOT/'scripts/build-map-coverage.py'),'featureCounts':feature_counts,'pedestrianAudit':pedestrian_audit,'tileCounts':counts,'rejected':rejected,'output':{'path':'assets/generated/context/features.geojson.gz','bytes':audit.stat().st_size,'sha256':digest(audit)}}
  (DEST/'provenance.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
- inventory={'formatVersion':1,'displayOnly':True,'navigationEligible':False,'bbox':BBOX,'minzoom':14,'maxzoom':18,'files':[{'path':'context.pmtiles','bytes':output.stat().st_size,'sha256':digest(output)}]}
+ inventory={'formatVersion':1,'displayOnly':True,'navigationEligible':False,'coverageSha256':COVERAGE['sha256'],'bbox':BBOX,'minzoom':14,'maxzoom':18,'files':[{'path':'context.pmtiles','bytes':output.stat().st_size,'sha256':digest(output)}]}
  (DEST/'manifest.json').write_text(json.dumps(inventory,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({'features':feature_counts,'tiles':counts,'archiveBytes':output.stat().st_size}))
 if __name__=='__main__': main()

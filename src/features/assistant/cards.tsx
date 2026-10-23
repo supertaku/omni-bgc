@@ -70,6 +70,7 @@ export function PlaceCard({
           .join(' · ')}
       </Text>
       {sample ? <Text style={s.resultMeta}>Fictional example</Text> : null}
+      {!sample && (display?.status ?? place?.status) === 'candidate' ? <Text style={s.resultMeta}>Recorded candidate</Text> : null}
       {stale ? <Text style={s.resultMeta}>These details may have changed.</Text> : null}
     </View>
   );

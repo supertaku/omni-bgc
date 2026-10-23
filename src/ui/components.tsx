@@ -6,7 +6,7 @@ export { BrandMark, CategoryArtwork, Icon, categoryIcon, type IconName } from '.
 
 export const palette = {
   ink:'#10243A', muted:'#48596B', canvas:'#F7F6F0', surface:'#FFFFFF',
-  blue:'#1756C0', selected:'#E8EFFB', border:'#6F7B87', divider:'#E3E5E5',
+  blue:'#28674F', selected:'#E6EFDC', border:'#6F7B87', divider:'#E3E5E5',
   soft:'#F0F2F2', park:'#A7D48E', warning:'#694500', warningBg:'#FFF1CF',
   danger:'#9A2525', dangerBg:'#FFF0EF', success:'#356B33',
 };

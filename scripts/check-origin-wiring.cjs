@@ -38,7 +38,10 @@ assert.equal(confirmedOrigin({ ...manual, coordinate: [181, 14.55] }), null, 'in
 const hook = fs.readFileSync(path.resolve(__dirname, '../src/features/assistant/useAssistantConversation.ts'), 'utf8');
 assert.match(hook, /\},\s*current\.current\.origin\);/, 'the origin current at send time reaches the runtime call');
 const screen = fs.readFileSync(path.resolve(__dirname, '../src/features/assistant/AssistantScreen.tsx'), 'utf8');
-assert.match(screen, /onUseLocation\?: \(\) => Promise<string \| null>/, 'location action reports permission and lookup errors to the user');
+assert.doesNotMatch(screen, /onUseLocation|onChooseOrigin|Set origin|Use my location/, 'Assistant has no positioning controls');
+const application = fs.readFileSync(path.resolve(__dirname, '../src/app/Application.tsx'), 'utf8');
+assert.match(application, /requestForegroundPermissionsAsync/, 'positioning remains foreground and explicit on the map');
+assert.match(application, /onLocate=\{\(\) => setLocationControls\(true\)\}/, 'map owns the position dialog');
 
 (async () => {
   const { runHybridTurn } = load('src/ai/hybridAssistant.ts');
@@ -56,7 +59,7 @@ assert.match(screen, /onUseLocation\?: \(\) => Promise<string \| null>/, 'locati
   let agentCalls = 0;
   const deps = { executor, canInfer: () => true, answerDirectory: () => [], agent: { run: async () => { agentCalls++; throw new Error('origin must not reach model prompts'); } } };
   const withoutOrigin = await runHybridTurn('nearest coffee', [near, far], deps);
-  assert.match(withoutOrigin.payloads[0].text, /Confirm a starting location/);
+  assert.match(withoutOrigin.payloads[0].text, /flat map’s location control/);
   assert.equal(agentCalls, 0, 'proximity never sends an origin or prompt to the model');
   const sorted = await runHybridTurn('nearest coffee', [near, far], deps, {}, manual);
   assert.deepEqual(sorted.payloads.find((entry) => entry.kind === 'places').placeIds, ['near', 'far']);

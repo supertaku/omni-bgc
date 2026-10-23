@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import {
   ActivityIndicator,
   Keyboard,
@@ -15,14 +15,13 @@ import { MessageContent } from './cards';
 import { useAssistantConversation } from './useAssistantConversation';
 import { assistantStyles as s } from './styles';
 import { ModelScreen } from './ModelScreen';
+import { resultPlaceIds } from './mapResults';
 export type AssistantScreenProps = AssistantActions & {
   places: Place[];
   onBackMap: () => void;
   onFocusMapPlace?: (place: Place) => boolean;
   origin?: Origin | null;
-  onChooseOrigin?: () => void;
-  onUseLocation?: () => Promise<string | null>;
-  onClearOrigin?: () => void;
+  onMapResults?: (places: Place[], show: boolean) => boolean;
   modelsOpen?: boolean;
   onModelsChange?: (open: boolean) => void;
 };
@@ -35,14 +34,11 @@ export function AssistantScreen({
   onBackMap,
   onFocusMapPlace,
   origin,
-  onChooseOrigin,
-  onUseLocation,
-  onClearOrigin,
+  onMapResults,
   modelsOpen = false,
   onModelsChange,
 }: AssistantScreenProps) {
   const timeline = useRef<ScrollView>(null);
-  const [originMessage, setOriginMessage] = useState('');
   const {
     messages,
     draft,
@@ -58,6 +54,7 @@ export function AssistantScreen({
     modelReady,
     modelOperation,
     openPlace,
+    showMapResults,
   } = useAssistantConversation(
     places,
     onFocusMapPlace ??
@@ -67,6 +64,7 @@ export function AssistantScreen({
       }),
     onOpenPlace,
     origin,
+    onMapResults,
   );
   const actions = {
     onOpenPlace: (place: Place) => {
@@ -91,7 +89,16 @@ export function AssistantScreen({
     return (
       <View key={key} style={s.assistantMessage}>
         <BrandMark size={28} />
-        <View style={s.assistantBubble}>{content}</View>
+        <View style={s.assistantBubble}>
+          {content}
+          {resultPlaceIds([payload]).length ? (
+            <Pressable accessibilityRole="button" accessibilityLabel="Show these results on the map"
+              style={controlButton} disabled={busy}
+              onPress={() => { void showMapResults(resultPlaceIds([payload])); }}>
+              <Icon name="map" size={18} /><Text style={s.mapButtonText}>Show on map</Text>
+            </Pressable>
+          ) : null}
+        </View>
       </View>
     );
   };
@@ -200,53 +207,6 @@ export function AssistantScreen({
           ) : null}
         </ScrollView>
         <View style={s.composerArea}>
-          {origin?.confirmed ? (
-            <View style={s.originIndicator}>
-              <Text accessibilityLiveRegion="polite" style={s.originLabel}>
-                Origin set · {origin.method === 'gps' ? 'Current location' : origin.method === 'manual' ? 'Map point' : 'Saved place'}
-              </Text>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Clear origin"
-                disabled={busy}
-                onPress={() => { setOriginMessage(''); onClearOrigin?.(); }}
-                style={s.originClear}
-              >
-                <Text style={s.originClearText}>Clear</Text>
-              </Pressable>
-            </View>
-          ) : null}
-          <View style={s.originActions}>
-            {onChooseOrigin ? (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Set origin on map"
-                disabled={busy}
-                onPress={() => { setOriginMessage(''); onChooseOrigin(); }}
-                style={s.originAction}
-              >
-                <Text style={s.originActionText}>Set origin</Text>
-              </Pressable>
-            ) : null}
-            {onUseLocation ? (
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel="Use my location"
-                disabled={busy}
-                onPress={async () => {
-                  setOriginMessage('');
-                  const error = await onUseLocation();
-                  if (error) setOriginMessage(error);
-                }}
-                style={s.originAction}
-              >
-                <Text style={s.originActionText}>Use my location</Text>
-              </Pressable>
-            ) : null}
-          </View>
-          {originMessage ? (
-            <Text accessibilityLiveRegion="polite" style={s.originError}>{originMessage}</Text>
-          ) : null}
           <View style={s.composer}>
             <TextInput
               accessibilityLabel="Message the local BGC directory"
