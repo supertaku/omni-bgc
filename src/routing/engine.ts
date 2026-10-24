@@ -1,13 +1,12 @@
 /** Pure offline routing. Reviewed geometry only; no storage, permissions or network. */
+import type { RouteEndpoint, RouteFailureCode, RouteAttachment, Origin, Entrance, RouteResult } from '../contracts';
+export type { Origin, Entrance, RouteResult } from '../contracts';
 export type Coordinate = readonly [number, number];
 export type Review = { status: 'approved' | 'candidate' | 'stale'; fieldVerifiedAt: string | null; validUntil: string; reviewer: string; evidenceId: string };
 export type Node = { id: string; coordinate: Coordinate; grade: string; barrier: 'none' | 'cleared' | 'unknown' | 'blocked'; review: Review };
 export type Edge = { id: string; from: string; to: string; coordinates: Coordinate[]; direction: 'both' | 'forward' | 'reverse'; access: 'allowed' | 'unknown' | 'restricted'; foot: 'allowed' | 'unknown' | 'restricted'; review: Review; gradeTransition: 'none' | 'verified_stairs' | 'verified_ramp' | 'verified_lift'; costFactor?: number; label?: string };
 export type Connector = { id: string; edgeId: string; edgeCoordinate: Coordinate; endpointCoordinate: Coordinate; coordinates: Coordinate[]; review: Review; access: 'allowed' | 'unknown' | 'restricted'; foot: 'allowed' | 'unknown' | 'restricted'; direction: 'both' | 'endpoint_to_edge' | 'edge_to_endpoint'; entranceId?: string };
-export type GraphPack = { schemaVersion: 1; version: string; status: 'approved' | 'candidate'; sourceSha256: string; review: Review; boundary: Coordinate[]; nodes: Node[]; edges: Edge[]; connectors: Connector[] };
-export type Origin = { coordinate: Coordinate; method: 'manual' | 'gps' | 'landmark'; confirmed: boolean; accuracyM?: number; observedAt?: string };
-export type Entrance = { id: string; label: string; coordinate: Coordinate | null; eligible: boolean; reason?: string; floor?: string };
-export type RouteResult = { available: false; reason: string } | { available: true; coordinates: Coordinate[]; lengthM: number; instructions: string[]; graphVersion: string };
+export type GraphPack = { schemaVersion: 1; version: string; scopeId?: string; status: 'approved' | 'candidate'; sourceSha256: string; review: Review; boundary: Coordinate[]; nodes: Node[]; edges: Edge[]; connectors: Connector[] };
 const RAD = Math.PI / 180;
 const R = 6371008.8;
 const ON_NETWORK_M = 0.25;
@@ -100,11 +99,11 @@ function sliceLine(coords: Coordinate[], from: Projection, to: Projection): Coor
   if (from.alongM > to.alongM) return sliceLine(coords, to, from).reverse();
   const result = [from.coordinate];
   for (let i = from.segment + 1; i <= to.segment; i++) result.push(coords[i]!);
-  if (!same(result[result.length - 1]!, to.coordinate)) result.push(to.coordinate);
+  if (distance(result[result.length - 1]!, to.coordinate) > 1e-9) result.push(to.coordinate);
   return result;
 }
-type Arc = { from: string; to: string; cost: number; geometry: Coordinate[]; label: string; edgeId: string };
-type Installed = { pack: GraphPack; nodes: Map<string, Node>; edges: Edge[]; connectors: Connector[] };
+type Arc = { from: string; to: string; cost: number; geometry: Coordinate[]; label: string; edgeId: string; attachment?: RouteAttachment };
+type Installed = { pack: GraphPack; nodes: Map<string, Node>; arcs: Arc[] };
 let installed: Installed | null = null;
 let lastInstallReason = 'No reviewed offline walking graph is installed.';
 export function clearGraph(): void { installed = null; lastInstallReason = 'No reviewed offline walking graph is installed.'; }
@@ -141,7 +140,7 @@ export function installGraph(input: unknown, now = Date.now()): { installed: boo
       connectorIds.add(c.id);
     }
     const edges = eligibleEdges(pack, nodes, now);
-    installed = { pack, nodes, edges, connectors: pack.connectors };
+    installed = { pack, nodes, arcs: pack.edges.flatMap(edge => edgeArcs(edge, edge.from, edge.to, edge.coordinates)) };
     lastInstallReason = edges.length ? '' : 'The offline graph has no current, field-verified walking edges.';
     return { installed: true, eligibleEdges: edges.length, reason: lastInstallReason || null };
   } catch (error) { lastInstallReason = error instanceof Error ? error.message : 'Invalid offline graph.'; return { installed: false, eligibleEdges: 0, reason: lastInstallReason }; }
@@ -159,12 +158,12 @@ export function assessOrigin(origin: Origin | null, now = Date.now()): { usable:
   return { usable: true, reason: null };
 }
 function connectorEligible(c: Connector, pack: GraphPack, now: number): boolean { return validReview(c.review, now) && c.access === 'allowed' && c.foot === 'allowed' && lineInside(c.coordinates, pack.boundary); }
-export function search(arcs: Arc[], positions: Map<string, Coordinate>, start: string, target: string, useHeuristic = true): { arcs: Arc[]; cost: number } | null {
+export function search(arcs: Arc[], positions: Map<string, Coordinate>, start: string, target: string, useHeuristic = true, estimate?: (id: string) => number): { arcs: Arc[]; cost: number } | null {
   const adjacency = new Map<string, Arc[]>();
-  for (const arc of arcs) adjacency.set(arc.from, [...(adjacency.get(arc.from) || []), arc]);
+  for (const arc of arcs) { const list = adjacency.get(arc.from) || []; list.push(arc); adjacency.set(arc.from, list); }
   for (const list of adjacency.values()) list.sort((a, b) => a.to.localeCompare(b.to) || a.edgeId.localeCompare(b.edgeId));
   const costs = new Map([[start, 0]]); const previous = new Map<string, Arc>();
-  const h = (id: string) => useHeuristic ? distance(positions.get(id)!, positions.get(target)!) : 0;
+  const h = (id: string) => useHeuristic ? (estimate ? estimate(id) : distance(positions.get(id)!, positions.get(target)!)) : 0;
   type QueueItem = { id: string; cost: number; priority: number };
   const queue: QueueItem[] = [];
   const compare = (a: QueueItem, b: QueueItem) => a.priority - b.priority || a.id.localeCompare(b.id) || a.cost - b.cost;
@@ -200,47 +199,115 @@ export function search(arcs: Arc[], positions: Map<string, Coordinate>, start: s
   }
   return null;
 }
-export async function route(origin: Origin, entrance: Entrance): Promise<RouteResult> {
-  const now = Date.now(); const originState = assessOrigin(origin, now);
-  if (!originState.usable) return { available: false, reason: originState.reason! };
-  if (entrance.eligible !== true || !entrance.coordinate || !validCoordinate(entrance.coordinate)) return { available: false, reason: entrance.reason || 'This entrance has no verified walking connection.' };
-  if (!installed) return { available: false, reason: lastInstallReason };
-  const { pack, nodes } = installed;
-  if (!validReview(pack.review, now)) return { available: false, reason: 'Offline walking graph review has expired.' };
-  if (!insideBoundary(entrance.coordinate, pack.boundary)) return { available: false, reason: 'Entrance is outside the supported area.' };
-  const edges = eligibleEdges(pack, nodes, now);
-  if (!edges.length) return { available: false, reason: 'No current field-verified walking edges are available.' };
-  const edgeMap = new Map(edges.map(e => [e.id, e]));
-  const target = pack.connectors.filter(c => c.entranceId === entrance.id && c.direction !== 'endpoint_to_edge' && same(c.endpointCoordinate, entrance.coordinate!) && edgeMap.has(c.edgeId) && connectorEligible(c, pack, now)).sort((a, b) => a.id.localeCompare(b.id))[0];
-  if (!target) return { available: false, reason: 'Entrance has no current approved graph connector.' };
-  const snaps = edges.map(edge => ({ edge, snap: projectOnLine(origin.coordinate, edge.coordinates) })).filter(s => s.snap.distanceM <= MAX_SNAP_M).sort((a, b) => a.snap.distanceM - b.snap.distanceM || a.edge.id.localeCompare(b.edge.id));
-  let chosen: { edge: Edge; snap: Projection; geometry: Coordinate[] } | null = null;
-  for (const { edge, snap } of snaps) {
-    if (snap.distanceM <= ON_NETWORK_M) { chosen = { edge, snap, geometry: [snap.coordinate] }; break; }
-    const connector = pack.connectors.find(c => !c.entranceId && c.edgeId === edge.id && c.direction !== 'edge_to_endpoint' && same(c.endpointCoordinate, origin.coordinate) && connectorEligible(c, pack, now));
-    if (connector) { const anchor = projectOnLine(connector.edgeCoordinate, edge.coordinates); if (distance(origin.coordinate, anchor.coordinate) <= MAX_SNAP_M) { chosen = { edge, snap: anchor, geometry: connector.coordinates }; break; } }
+function edgeArcs(edge: Edge, from: string, to: string, geometry: Coordinate[]): Arc[] {
+  const arc: Arc = { from, to, geometry, cost: lineLength(geometry) * (edge.costFactor ?? 1), label: edge.label || (edge.gradeTransition === 'verified_stairs' ? 'verified stairs' : 'approved walking path'), edgeId: edge.id };
+  return [...(edge.direction !== 'reverse' ? [arc] : []), ...(edge.direction !== 'forward' ? [{ ...arc, from: to, to: from, geometry: [...geometry].reverse() }] : [])];
+}
+type Attachment = { edge: Edge; snap: Projection; geometry: Coordinate[]; metadata: RouteAttachment; id: string };
+const failure = (code: RouteFailureCode, reason: string): RouteResult => ({ available: false, code, reason });
+function validateEndpoint(endpoint: RouteEndpoint, side: 'origin' | 'destination', now: number): RouteResult | null {
+  if (!endpoint || endpoint.confirmed !== true || !['manual', 'gps', 'landmark', 'place'].includes(endpoint.method) || (endpoint.method !== 'place' && !validCoordinate(endpoint.coordinate)) || (endpoint.coordinate !== null && !validCoordinate(endpoint.coordinate)) || (endpoint.entrances !== undefined && !Array.isArray(endpoint.entrances))) return failure(`invalid_${side}`, `Choose and confirm a valid ${side}.`);
+  if (endpoint.method === 'gps') {
+    if (!Number.isFinite(endpoint.accuracyM) || endpoint.accuracyM! < 0 || endpoint.accuracyM! > 20) return failure('gps_inaccurate', 'Location accuracy is insufficient; choose a manual point.');
+    const observed = Date.parse(endpoint.observedAt || '');
+    if (!Number.isFinite(observed) || now - observed > 60000 || observed > now + 5000) return failure('gps_stale', 'Location fix is stale or has an invalid time; choose a manual point.');
   }
-  if (!chosen) return { available: false, reason: 'No nearby verified origin connection; choose an origin on an approved path.' };
-  const targetEdge = edgeMap.get(target.edgeId)!; const targetSnap = projectOnLine(target.edgeCoordinate, targetEdge.coordinates);
-  const arcs: Arc[] = []; const positions = new Map([...nodes].map(([id, n]) => [id, n.coordinate]));
-  positions.set('@origin', chosen.snap.coordinate); positions.set('@entrance', targetSnap.coordinate);
-  const add = (from: string, to: string, geometry: Coordinate[], e: Edge) => arcs.push({ from, to, geometry, cost: lineLength(geometry) * (e.costFactor ?? 1), label: e.label || (e.gradeTransition === 'verified_stairs' ? 'verified stairs' : 'approved walking path'), edgeId: e.id });
-  for (const e of edges) { if (e.direction !== 'reverse') add(e.from, e.to, e.coordinates, e); if (e.direction !== 'forward') add(e.to, e.from, [...e.coordinates].reverse(), e); }
-  const endpoints = (e: Edge): [Projection, Projection] => [{ coordinate: e.coordinates[0]!, alongM: 0, distanceM: 0, segment: 0 }, { coordinate: e.coordinates[e.coordinates.length - 1]!, alongM: lineLength(e.coordinates), distanceM: 0, segment: e.coordinates.length - 2 }];
-  const [originFrom, originTo] = endpoints(chosen.edge); const [targetFrom, targetTo] = endpoints(targetEdge);
-  if (chosen.edge.direction !== 'reverse') add('@origin', chosen.edge.to, sliceLine(chosen.edge.coordinates, chosen.snap, originTo!), chosen.edge);
-  if (chosen.edge.direction !== 'forward') add('@origin', chosen.edge.from, sliceLine(chosen.edge.coordinates, chosen.snap, originFrom!), chosen.edge);
-  if (targetEdge.direction !== 'reverse') add(targetEdge.from, '@entrance', sliceLine(targetEdge.coordinates, targetFrom!, targetSnap), targetEdge);
-  if (targetEdge.direction !== 'forward') add(targetEdge.to, '@entrance', sliceLine(targetEdge.coordinates, targetTo!, targetSnap), targetEdge);
-  if (chosen.edge.id === targetEdge.id && ((chosen.snap.alongM <= targetSnap.alongM && chosen.edge.direction !== 'reverse') || (chosen.snap.alongM >= targetSnap.alongM && chosen.edge.direction !== 'forward'))) add('@origin', '@entrance', sliceLine(chosen.edge.coordinates, chosen.snap, targetSnap), chosen.edge);
-  const result = search(arcs, positions, '@origin', '@entrance');
-  if (!result) return { available: false, reason: 'No connected approved walking route is available.' };
+  if (endpoint.method !== 'place' && installed && !insideBoundary(endpoint.coordinate!, installed.pack.boundary)) return failure(`${side}_outside_coverage`, `The ${side} is outside the supported area.`);
+  if (endpoint.method === 'place' && installed) {
+    const entrances = (endpoint.entrances || []).filter(e => e && e.eligible === true && validCoordinate(e.coordinate));
+    if (entrances.length && entrances.every(e => !insideBoundary(e.coordinate!, installed!.pack.boundary))) return failure(`${side}_outside_coverage`, `The ${side} entrances are outside the supported area.`);
+  }
+  return null;
+}
+function attachments(endpoint: RouteEndpoint, side: 'origin' | 'destination', pack: GraphPack, edges: Edge[], now: number): Attachment[] {
+  const candidates: Attachment[] = [];
+  const append = (edge: Edge, snap: Projection, geometry: Coordinate[], connector?: Connector, entrance?: Entrance) => {
+    candidates.push({ edge, snap, geometry, id: `@${side}:${candidates.length}`, metadata: { edgeId: edge.id, coordinate: snap.coordinate, ...(connector ? { connectorId: connector.id } : {}), ...(entrance ? { entranceId: entrance.id } : {}) } });
+  };
+  const edgeMap = new Map(edges.map(edge => [edge.id, edge]));
+  if (endpoint.method !== 'place') {
+    for (const edge of edges) {
+      const snap = projectOnLine(endpoint.coordinate!, edge.coordinates);
+      if (snap.distanceM <= ON_NETWORK_M) append(edge, snap, [snap.coordinate]);
+    }
+  }
+  const entrances = (endpoint.entrances || []).filter(e => e && e.eligible === true && validCoordinate(e.coordinate) && insideBoundary(e.coordinate!, pack.boundary));
+  for (const connector of [...pack.connectors].sort((a, b) => a.id.localeCompare(b.id))) {
+    const edge = edgeMap.get(connector.edgeId);
+    if (!edge || !connectorEligible(connector, pack, now) || (side === 'origin' ? connector.direction === 'edge_to_endpoint' : connector.direction === 'endpoint_to_edge')) continue;
+    const entrance = endpoint.method === 'place' ? entrances.find(e => e.id === connector.entranceId && same(e.coordinate!, connector.endpointCoordinate)) : undefined;
+    if (endpoint.method === 'place' ? !entrance : Boolean(connector.entranceId) || !same(endpoint.coordinate!, connector.endpointCoordinate)) continue;
+    const snap = projectOnLine(connector.edgeCoordinate, edge.coordinates);
+    if (endpoint.method !== 'place' && distance(endpoint.coordinate!, snap.coordinate) > MAX_SNAP_M) continue;
+    append(edge, snap, connector.coordinates, connector, entrance);
+  }
+  return candidates;
+}
+function uncertainGps(endpoint: RouteEndpoint, candidates: Attachment[], pack: GraphPack, eligible: Set<string>): boolean {
+  if (endpoint.method !== 'gps') return false;
+  const radius = endpoint.accuracyM! + ON_NETWORK_M;
+  return candidates.some(candidate => pack.edges.some(other => {
+    if (other.id === candidate.edge.id || projectOnLine(endpoint.coordinate!, other.coordinates).distanceM > radius) return false;
+    // Coincident/parallel paths and different grades cannot be disambiguated by a fix.
+    return !eligible.has(other.id) || ![candidate.edge.from, candidate.edge.to].some(id => (id === other.from || id === other.to) && distance(endpoint.coordinate!, installed!.nodes.get(id)!.coordinate) <= radius);
+  }));
+}
+/** Earliest pending review boundary, including connectors and individual graph records. */
+export function nextGraphExpiry(now = Date.now()): number | null {
+  if (!installed) return null;
+  const { pack } = installed;
+  const expiry = Date.parse(pack.review.validUntil);
+  if (expiry <= now) return expiry;
+  return [...pack.nodes, ...pack.edges, ...pack.connectors].reduce((next, record) => { const time = Date.parse(record.review?.validUntil); return Number.isFinite(time) && time > now ? Math.min(next, time) : next; }, expiry);
+}
+export async function calculateWalkingRoute(origin: RouteEndpoint, destination: RouteEndpoint, profile: 'walking' = 'walking'): Promise<RouteResult> {
+  const now = Date.now();
+  if (profile !== 'walking') return failure('unsupported_profile', 'Only the reviewed walking profile is supported.');
+  for (const [endpoint, side] of [[origin, 'origin'], [destination, 'destination']] as const) { const invalid = validateEndpoint(endpoint, side, now); if (invalid) return invalid; }
+  if (!installed) return failure('missing_graph', lastInstallReason);
+  const { pack, nodes } = installed;
+  if (!validReview(pack.review, now)) return failure('review_expired', 'Offline walking graph review has expired.');
+  const edges = eligibleEdges(pack, nodes, now).sort((a, b) => a.id.localeCompare(b.id));
+  const eligible = new Set(edges.map(edge => edge.id));
+  const starts = attachments(origin, 'origin', pack, edges, now); const ends = attachments(destination, 'destination', pack, edges, now);
+  for (const [endpoint, candidates, side] of [[origin, starts, 'origin'], [destination, ends, 'destination']] as const) {
+    if (!candidates.length) return failure(`no_${side}_attachment`, `No current approved ${side} connection; choose a point on an approved path or an eligible entrance.`);
+    if (uncertainGps(endpoint, candidates, pack, eligible)) return failure('gps_inaccurate', 'Location uncertainty spans incompatible walking paths; confirm a manual point.');
+  }
+  const positions = new Map([...nodes].map(([id, node]) => [id, node.coordinate]));
+  const splits = new Map<string, Attachment[]>();
+  for (const candidate of [...starts, ...ends]) { const list = splits.get(candidate.edge.id) || []; list.push(candidate); splits.set(candidate.edge.id, list); positions.set(candidate.id, candidate.snap.coordinate); }
+  const arcs = installed.arcs.filter(arc => eligible.has(arc.edgeId) && !splits.has(arc.edgeId)).map(arc => ({ ...arc }));
+  for (const edge of edges) {
+    const candidates = splits.get(edge.id); if (!candidates) continue;
+    const length = lineLength(edge.coordinates);
+    const points = [{ id: edge.from, snap: { coordinate: edge.coordinates[0]!, distanceM: 0, alongM: 0, segment: 0 } }];
+    for (const candidate of candidates.sort((a, b) => a.snap.alongM - b.snap.alongM || a.id.localeCompare(b.id))) {
+      const previous = points[points.length - 1]!;
+      if (Math.abs(candidate.snap.alongM - previous.snap.alongM) < 1e-8) candidate.id = previous.id;
+      else { if (Math.abs(candidate.snap.alongM - length) < 1e-8) candidate.id = edge.to; points.push(candidate); }
+      if (!positions.has(candidate.id)) positions.set(candidate.id, candidate.snap.coordinate);
+    }
+    if (points[points.length - 1]!.id !== edge.to) points.push({ id: edge.to, snap: { coordinate: edge.coordinates[edge.coordinates.length - 1]!, distanceM: 0, alongM: length, segment: edge.coordinates.length - 2 } });
+    for (let i = 1; i < points.length; i++) arcs.push(...edgeArcs(edge, points[i - 1]!.id, points[i]!.id, sliceLine(edge.coordinates, points[i - 1]!.snap, points[i]!.snap)));
+  }
+  // Installation allows centimetre endpoint tolerances; retain the distance bound.
+  for (const arc of arcs) arc.cost = Math.max(arc.cost, distance(positions.get(arc.from)!, positions.get(arc.to)!));
+  for (const [candidates, side] of [[starts, 'origin'], [ends, 'destination']] as const) {
+    for (const candidate of candidates) arcs.push({ from: side === 'origin' ? '@origin' : candidate.id, to: side === 'origin' ? candidate.id : '@destination', geometry: side === 'origin' ? candidate.geometry : [...candidate.geometry].reverse(), cost: lineLength(candidate.geometry), edgeId: '', label: 'the verified walking connection', attachment: candidate.metadata });
+  }
+  // A place has several possible entrances, so its centroid cannot be an A* target.
+  const goals = ends.map(end => ({ coordinate: positions.get(end.id)!, cost: lineLength(end.geometry) }));
+  const estimate = (id: string) => id === '@origin' || id === '@destination' ? 0 : goals.reduce((best, goal) => Math.min(best, distance(positions.get(id)!, goal.coordinate) + goal.cost), Infinity);
+  const result = search(arcs, positions, '@origin', '@destination', true, estimate);
+  if (!result) return failure('disconnected', 'No connected approved walking route is available.');
   const coordinates: Coordinate[] = [];
-  for (const c of [...chosen.geometry, ...result.arcs.flatMap(arc => arc.geometry), ...[...target.coordinates].reverse()]) { if (!coordinates.length || !same(coordinates[coordinates.length - 1]!, c)) coordinates.push(c); }
-  const instructions = result.arcs.filter((arc, i) => !i || result.arcs[i - 1]!.edgeId !== arc.edgeId).map(arc => `Follow ${arc.label}.`);
-  if (chosen.geometry.length > 1) instructions.unshift('Follow the verified origin connection to the walking path.');
-  if (lineLength(target.coordinates) > 0.25) instructions.push('Follow the verified entrance connection.');
-  instructions.push(`Arrive at ${entrance.label}.`);
-  return { available: true, coordinates, lengthM: lineLength(coordinates), instructions, graphVersion: pack.version };
+  for (const point of result.arcs.flatMap(arc => arc.geometry)) if (!coordinates.length || !same(coordinates[coordinates.length - 1]!, point)) coordinates.push(point);
+  const instructions = result.arcs.filter((arc, i) => arc.geometry.length > 1 && (!i || result.arcs[i - 1]!.edgeId !== arc.edgeId)).map(arc => `Follow ${arc.label}.`);
+  instructions.push(`Arrive at ${destination.label || 'the destination'}.`);
+  return { available: true, coordinates, lengthM: lineLength(coordinates), instructions, graphVersion: pack.version, scopeId: pack.scopeId, originAttachment: result.arcs[0]!.attachment, destinationAttachment: result.arcs[result.arcs.length - 1]!.attachment };
+}
+export async function route(origin: Origin, entrance: Entrance): Promise<RouteResult> {
+  return calculateWalkingRoute(origin, { coordinate: entrance.coordinate, method: 'place', confirmed: true, label: entrance.label, entrances: [entrance] });
 }
 export function wheelchairRoutingAvailable(): false { return false; }

@@ -72,6 +72,12 @@ export class NativeLiteRtProvider implements LocalAIProvider {
       ? { sha256: this.model.sha256, bytes: this.model.bytes, backendRequested: this.backend }
       : null;
   }
+  getDiagnosticModelId(): string | undefined { return this.model?.id; }
+  async supportsBackend(backend: Backend): Promise<boolean> {
+    if (!this.bridge) return false;
+    const capabilities = await this.bridge.getCapabilities();
+    return capabilities.android && capabilities.backends.includes(backend);
+  }
   async getCapabilities(): Promise<ProviderCapabilities> {
     const native = this.bridge ? await this.bridge.getCapabilities() : undefined;
     return {

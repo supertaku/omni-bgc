@@ -28,6 +28,7 @@ import {
   revalidateToolResult,
   safeGeneralText,
 } from './answerComposer';
+import { aiElapsed, aiTick, aiTrace } from './diagnostics';
 
 export type AgentStatus =
   'completed' | 'partial' | 'unavailable' | 'denied' | 'canceled' | 'failed';
@@ -81,8 +82,11 @@ export class AgentOrchestrator {
 
   async run(userText: string, options: AgentRunOptions = {}): Promise<AgentTurn> {
     this.cancel();
-    const startedAt = Date.now();
+    const startedAt = aiTick();
     let phase = 'preparing', roundNumber = 0, promptBytes = 0;
+    let routingMs = 0, readinessMs = 0, revalidationMs = 0;
+    let backendRequested = 'unknown';
+    const promptMs: number[] = [], firstTokenMs: number[] = [], generationMs: number[] = [], toolMs: number[] = [];
     let protocolFailure: string | undefined;
     const epoch = ++this.epoch,
       requestId = `omni-${Date.now().toString(36)}-${(++nextId).toString(36)}`;
@@ -110,12 +114,11 @@ export class AgentOrchestrator {
       errorCode?: string,
     ): AgentTurn => {
       // Counts and protocol status only: never log user text, record IDs or location.
-      console.info('[OmniAgentTurn]', JSON.stringify({
-        status, errorCode, protocolFailure, phase, round: roundNumber, promptBytes,
-        elapsedMs: Date.now() - startedAt,
-        results: results.map(({ name, status }) => ({ name, status })),
-        outputCharacters: generatedText.length,
-      }));
+      aiTrace({ route: 'model', status, errorCode: errorCode ?? null,
+        protocolFailure: protocolFailure ?? null, phase, modelId: this.provider.getDiagnosticModelId?.() ?? 'unknown',
+        backendRequested, rounds: roundNumber, toolCalls: results.length, routingMs,
+        readinessMs, promptMs, firstTokenMs, generationMs, toolMs, revalidationMs,
+        totalMs: aiElapsed(startedAt), canceled: status === 'canceled' });
       return {
         requestId,
         epoch,
@@ -262,29 +265,34 @@ export class AgentOrchestrator {
       const freshSearch = /^(?:please\s+)?(?:find|search|look\s+for|recommend|suggest)\b/i.test(userText.trim());
       const usesReferences = !isGeneralConversation(userText) &&
         (priorReference || (!freshSearch && /\b(it|its)\b/i.test(userText)));
+      const referencePlaces = new Map<string, Place>();
       for (const [index, placeId] of (usesReferences ? options.resolvedPlaceIds ?? [] : []).slice(0, 12).entries()) {
         if (
           typeof placeId !== 'string' ||
-          !UUID.test(placeId) ||
-          context.resolvedPlaceIds.has(placeId)
+          !UUID.test(placeId)
         ) {
           invalidOrdinals.push(index + 1);
           continue;
         }
-        let current = await bounded(this.executor.retrieval.getPlaceDetails(placeId));
-        if (!current.data && previewEnabled)
-          current = await bounded(this.executor.retrieval.getPreviewPlaceDetails(placeId));
+        let current = referencePlaces.get(placeId);
+        if (!current) {
+          let latest = await bounded(this.executor.retrieval.getPlaceDetails(placeId));
+          if (!latest.data && previewEnabled)
+            latest = await bounded(this.executor.retrieval.getPreviewPlaceDetails(placeId));
+          current = latest.data ?? undefined;
+          if (current) referencePlaces.set(placeId, current);
+        }
         check();
-        if (!current.data || current.data.id !== canonicalPreviewId(placeId)) {
+        if (!current || current.id !== canonicalPreviewId(placeId)) {
           invalidOrdinals.push(index + 1);
           continue;
         }
         references.push({
           ordinal: index + 1,
-          placeId: current.data.id,
-          name: current.data.name.slice(0, 80),
+          placeId: current.id,
+          name: current.name.slice(0, 80),
         });
-        context.resolvedPlaceIds.add(current.data.id);
+        context.resolvedPlaceIds.add(current.id);
       }
       const ordinalWords = [
         'first',
@@ -319,7 +327,11 @@ export class AgentOrchestrator {
           ]);
         context.expectedActionPlaceIds = new Set(requested.map((reference) => reference.placeId));
       }
+      routingMs = aiElapsed(startedAt);
+      const readinessStarted = aiTick();
       const capabilities = await bounded(this.provider.getCapabilities());
+      readinessMs = aiElapsed(readinessStarted);
+      backendRequested = capabilities.backendRequested ?? 'unknown';
       const contextTokens = Math.min(4096, capabilities.supportedContextTokens);
       if (!Number.isInteger(contextTokens) || contextTokens < 512)
         throw new Error('Invalid provider context budget');
@@ -372,6 +384,7 @@ export class AgentOrchestrator {
       for (let round = 0; round < AGENT_LIMITS.rounds; round++) {
         roundNumber = round + 1;
         check();
+        const promptStarted = aiTick();
         generationRequestId = `${requestId}-r${round}`;
         const generationEpoch = allocateGenerationEpoch();
         let prose = '',
@@ -394,6 +407,8 @@ export class AgentOrchestrator {
             event.epoch !== generationEpoch
           )
             return;
+          if (event.type === 'delta' && event.text && firstTokenMs[round] === undefined)
+            firstTokenMs[round] = aiElapsed(generationStarted);
           if (event.type !== 'delta' || !isGeneralConversation(userText) || rejectedProse) return;
           prose += event.text;
           pendingSentence += event.text;
@@ -426,7 +441,9 @@ export class AgentOrchestrator {
           if (results.length) { limitReached = true; break; }
           throw new ProviderError('CONTEXT_OVERFLOW', 'Prompt/schema byte budget exceeded');
         }
+        promptMs.push(aiElapsed(promptStarted));
         phase = 'generating';
+        const generationStarted = aiTick();
         const generated = await bounded(
           this.provider.stream(
             {
@@ -443,6 +460,7 @@ export class AgentOrchestrator {
             onEvent,
           ),
         );
+        generationMs.push(aiElapsed(generationStarted));
         check();
         if (generated.requestId !== generationRequestId || generated.epoch !== generationEpoch)
           throw new Error('Stale provider result');
@@ -479,6 +497,7 @@ export class AgentOrchestrator {
           toolCalls: dispatchedCalls,
         };
         const bundle: Message[] = [assistantCall];
+        const toolsStarted = aiTick();
         for (const raw of generated.toolProposals) {
           check();
           if (++callCount > AGENT_LIMITS.calls) {
@@ -530,6 +549,7 @@ export class AgentOrchestrator {
             text: toolObservation(result, observationLimit),
           });
         }
+        toolMs.push(aiElapsed(toolsStarted));
         if (dispatchedCalls.length) toolBundles.push(bundle);
         if (limitReached) break;
         if (!generated.nativeQuiescent)
@@ -539,14 +559,21 @@ export class AgentOrchestrator {
       // Never render a stale receipt after source activation/expiry changed mid-turn.
       const current: ToolResult[] = [];
       phase = 'rendering';
+      const revalidationStarted = aiTick();
       for (const result of results) {
         current.push(await bounded(revalidateToolResult(result, this.executor.retrieval, signal)));
         check();
       }
       results.splice(0, results.length, ...current);
+      revalidationMs = aiElapsed(revalidationStarted);
+      const incompleteFollowUp = results.some((result) => result.status === 'ok') && (
+        (/\bmap\b/i.test(userText) && !results.some((result) => result.name === 'focus_map_place' && result.status === 'ok')) ||
+        (/\bdetails?\b/i.test(userText) && !results.some((result) =>
+          ['get_place_details', 'get_preview_place_details', 'get_office_details', 'get_food_research_details'].includes(result.name) && result.status === 'ok'))
+      );
       const status: AgentStatus = results.some((r) => r.status === 'denied')
         ? 'denied'
-        : limitReached
+        : limitReached || incompleteFollowUp
           ? 'partial'
           : results.length && results.every((r) => r.status === 'unavailable')
             ? 'unavailable'
@@ -658,11 +685,13 @@ export class AgentOrchestrator {
           text: "Some places aren't available from the approved records anymore. Try searching again for the latest results.",
         });
       }
-      if (limitReached)
+      if (limitReached || incompleteFollowUp)
         payloads.push({
           kind: 'status',
           severity: 'info',
-          text: "That's what I could check in this reply. Try a more specific question if you'd like.",
+          text: incompleteFollowUp
+            ? 'I found local records, but could not complete the requested details or map action. Select an exact result or try again.'
+            : "That's what I could check in this reply. Try a more specific question if you'd like.",
         });
       return base(status, payloads);
     } catch (error) {
@@ -689,6 +718,56 @@ export class AgentOrchestrator {
       }
       const code =
         error && typeof error === 'object' && 'code' in error ? String(error.code) : 'AGENT_FAILED';
+      if (results.length) {
+        try {
+          const validated: ToolResult[] = [];
+          for (const result of results) {
+            if (!['find_places', 'get_place_details', 'search_preview_directory', 'get_preview_place_details',
+              'find_menu_items', 'search_food_research', 'get_food_research_details',
+              'find_approved_offices', 'get_office_details', 'get_verified_entrances'].includes(result.name)) continue;
+            const latest = await revalidateToolResult(result, this.executor.retrieval);
+            if (latest.status === 'ok') validated.push(latest);
+          }
+          if (validated.length) {
+            const payloads = composeGroundedAnswer(validated, '', userText);
+            const ids = [...new Set(payloads.flatMap((payload) => payload.kind === 'places' ? payload.placeIds
+              : payload.kind === 'place' ? [payload.placeId]
+                : payload.kind === 'menus' || payload.kind === 'food-menus' ? payload.items.map((item) => item.placeId)
+                  : []))];
+            for (const id of ids.slice(0, 20)) {
+              let current = await this.executor.retrieval.getPlaceDetails(id);
+              if (!current.data && INTERNAL_PREVIEW_ENABLED && !excludesFoodResearch(userText))
+                current = await this.executor.retrieval.getPreviewPlaceDetails(id);
+              if (current.data?.id === id) renderPlaces.push(current.data);
+            }
+            const live = new Set(renderPlaces.map((place) => place.id));
+            const grounded = payloads.flatMap<AssistantPayload>((payload) => {
+              if (payload.kind === 'places') {
+                const placeIds = payload.placeIds.filter((id) => live.has(id));
+                return [{ ...payload, placeIds, total: placeIds.length }];
+              }
+              if (payload.kind === 'place') return live.has(payload.placeId) ? [payload] : [];
+              if (payload.kind === 'menus') {
+                const items = payload.items.filter((item) => live.has(item.placeId));
+                return [{ ...payload, items, total: items.length }];
+              }
+              if (payload.kind === 'food-menus') {
+                const items = payload.items.filter((item) => live.has(item.placeId));
+                return [{ ...payload, items, total: items.length }];
+              }
+              return [payload];
+            });
+            if (grounded.some((payload) => payload.kind === 'places' && payload.placeIds.length ||
+              payload.kind === 'place' || payload.kind === 'menus' && payload.items.length ||
+              payload.kind === 'food-menus' && payload.items.length || payload.kind === 'text')) {
+              results.splice(0, results.length, ...validated);
+              grounded.push({ kind: 'status', severity: 'info',
+                text: 'I found these local records, but the assistant could not finish the follow-up. Select a result or try again.' });
+              return base('partial', grounded, code);
+            }
+          }
+        } catch { /* A failed recheck must not promote an earlier result. */ }
+      }
       return base(
         code === 'TOOL_PROTOCOL_INVALID' ? 'denied' : 'failed',
         [

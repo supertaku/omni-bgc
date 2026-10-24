@@ -2,10 +2,11 @@
 
 The bundled preview contains 609 canonical place identities, including all retained directory and office research records, and menus for 335 restaurants and cafés. Every restaurant has at least eight items. The 3,518 menu items retain all 1,279 original items and add 2,239 internally generated items. Nine explicit same-branch crosswalks join related sources without deleting their identifiers.
 
-Location coverage is 161 unchanged recorded points plus 335 building/site anchors. The remaining 113 places open their details without moving the camera. An anchor represents a retained address relationship and a source polygon; it does not establish a pedestrian entrance or current office occupancy.
+Location coverage is 161 unchanged recorded place points plus 362 derived building/site anchors. Seven reviewed shared address labels and seven source-specific branch addresses account for 27 of those anchors. The remaining 86 places open their details without moving the camera. The classification describes the coordinate, while every preview business remains a candidate. An anchor represents a retained address relationship and a source polygon; it does not establish a pedestrian entrance or current office occupancy.
 
 - [Generated coverage](../assets/generated/preview/COVERAGE.md)
 - [Individual unresolved exceptions](../assets/generated/preview/exceptions.json)
+- [Machine-readable geographic quality and unresolved assessments](../assets/generated/preview/quality.json)
 - [Identity and building mappings](../config/preview/crosswalk.json)
 - [Research receipts and refreshed fields](../config/preview/research.json)
 - [Image prompts, roles, dimensions and checksums](../assets/generated/preview-media/manifest.json)
@@ -15,6 +16,8 @@ Location coverage is 161 unchanged recorded points plus 335 building/site anchor
 Run `node scripts/build-preview.cjs` from the repository root. The builder reads retained data, explicit mappings, pinned OSM source geometry and enrichment inputs. It performs no network requests and never rewrites the original datasets or installed SQLite packs. Identical inputs produce identical output; the report records the input fingerprint.
 
 Keep researched additions in `config/preview/research.json` and identity corrections in `config/preview/crosswalk.json`. The overlay records each field's classification, sources, source dates, basis and replacement key; individual menu items have their own evidence. Generated menu names and IDs are deterministic. Preserve existing IDs and evidence when replacing provisional entries with reviewed source data.
+
+Reviewed building associations pin the retained shared address label or a source-specific branch address to one named OSM polygon ID and a written basis. A changed address claim or polygon fails generation. Other anchors require a unique exact building name or existing explicit alias; proximity alone never creates a match. Each anchor records the polygon source file, digest and interior-point derivation. `quality.json` classifies every unresolved record as a missing building claim, missing matching polygon or ambiguous polygon name, and lists its candidate polygon IDs where applicable. Geographic evidence older than one calendar year relative to the pinned build observation date is flagged for review; zero stale flags do not verify current occupancy. Source rights remain pending for internal-preview candidates.
 
 `config/preview/settings.json` explicitly enables `internalPreviewContent`. Missing or non-true values disable preview behavior. Preview estimates can appear in display, sorting and budget filtering; strict source queries still exclude research, and approved retrieval, entrance, itinerary and persistence gates are unchanged.
 

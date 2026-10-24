@@ -2,6 +2,23 @@
 
 The highest numeric filename prefix is the latest delivery. Preserve older files. Filenames contain a six-digit sequence, app version, ABI, build variant, delivery time in UTC and source commit. Delivery time can differ from compilation time. Future deliveries increment the highest existing sequence and include a SHA-256 sidecar. APK binaries are local artifacts ignored by Git; this index and checksums are tracked source metadata.
 
+## 000014 — navigation with verified landscape correction
+
+File: [000014_omni-bgc_v0.5.0_arm64_release_20261024T195917Z_07866bf.apk](000014_omni-bgc_v0.5.0_arm64_release_20261024T195917Z_07866bf.apk) · [SHA-256 receipt](000014_omni-bgc_v0.5.0_arm64_release_20261024T195917Z_07866bf.apk.sha256) · [Verification receipt](000014_omni-bgc_v0.5.0_arm64_release_20261024T195917Z_07866bf.apk.verification.json)
+
+- Source `07866bf1e118a38eee28ff1937776fc87955d095` **dirty**: offline navigation contracts/engine/controller, map selection/pins/controls, place Directions, landscape layout correction, plus concurrent M14 AI/preview/release-tooling inputs. Candidate pedestrian/corner graphs are retained for review and are not installed or bundled as approved guidance. Detailed paths/digests are in the verification receipt.
+- Version 0.5.0/code 4; package `com.omnibgc.preview`; ARM64; minSdk 26/targetSdk 36. Size **71,943,438 bytes**; SHA-256 `7d3119ce5624bfb0131530dd31d75f9d9bb1089e7a5fa4d791be272d305636fe`; delivered UTC `20261024T195917Z`. Non-debuggable release with retained test signer `fac61745dc0903786fb9ede62a962b399f7348f0bb6f899b8332667591033b9c`. Existing deliveries preserved; not production-signing certification.
+- Expo-generated native project; authorized Gradle ARM64 release passed in 48s (702 tasks, 14 executed). TypeScript/ESLint and focused navigation/routing/map/origin checks passed. Exact final Hermes **4,969,396 bytes**, all 105 current app sources, 19 ARM64 libraries, both original map packs/all 24 resources, 648,241-byte context, 24 preview media files, package/permissions/signature and ZIP CRC verified. No weights bundled. Installed base.apk hash matches this delivery.
+- Owner-approved data-preserving update installed on POCO/Xiaomi 2311DRK48G/Android 16. Landscape endpoint/status/toolbar correction, manual flows, marker selection, offline map/search, enlarged text and retained Qwen1.7 readiness verified; original phone settings restored. Location remained denied and no GPS fix acquired. **No approved walking pack exists**, so real route geometry/instructions and street accuracy remain unaccepted. [Device report](../docs/navigation-device-validation.md) distinguishes observed phone checks from host-only routing fixtures and other limits.
+
+## 000013 — initial navigation interface, superseded by 000014
+
+File: [000013_omni-bgc_v0.5.0_arm64_release_20261024T195154Z_07866bf.apk](000013_omni-bgc_v0.5.0_arm64_release_20261024T195154Z_07866bf.apk) · [SHA-256 receipt](000013_omni-bgc_v0.5.0_arm64_release_20261024T195154Z_07866bf.apk.sha256) · [Verification receipt](000013_omni-bgc_v0.5.0_arm64_release_20261024T195154Z_07866bf.apk.verification.json)
+
+- Source `07866bf1e118a38eee28ff1937776fc87955d095` **dirty**, including initial navigation endpoint/engine/UI integration and concurrent M14 inputs. Version 0.5.0/code 4, package `com.omnibgc.preview`, ARM64, minSdk 26/targetSdk 36; retained test signer as above. Size **71,943,418 bytes**; SHA-256 `8d5f799e56bce0506164b93363f943b92967d04d4067fc9ad59d7a8cb41e62c9`; delivered UTC `20261024T195154Z`.
+- Authorized Expo/Gradle release passed in 4m 4s (702 tasks). Signing/package/permissions, exact generated Hermes **4,969,376 bytes**/105 app sources, 19 ARM64 libraries, original offline resources, preview media and ZIP CRC verified. Installed as an update without clearing data. Both endpoint orders, drag/confirm/cancel/Back, search Directions, permission-denied fallback, repeated style changes and foreground restoration passed.
+- Phone testing found landscape navigation obscured upper map tools and clipped status. Retained as an intermediate artifact; use **000014** for the verified correction. No approved walking graph or verified entrance connectors are present. Real guidance remains unavailable; no production/device route-accuracy claim.
+
 ## 000012 — final detail-card scrolling and restored-notice cleanup
 
 File: [000012_omni-bgc_v0.5.0_arm64_release_20261024T101025Z_02925c4.apk](000012_omni-bgc_v0.5.0_arm64_release_20261024T101025Z_02925c4.apk) · [SHA-256 receipt](000012_omni-bgc_v0.5.0_arm64_release_20261024T101025Z_02925c4.apk.sha256)

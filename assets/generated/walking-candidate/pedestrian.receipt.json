@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "status": "candidate",
+  "navigationEligible": false,
+  "scopeId": "omni-bgc:service-area:high-street-pilot-v1",
+  "boundary": [
+    [
+      121.0475,
+      14.54865
+    ],
+    [
+      121.05205,
+      14.54865
+    ],
+    [
+      121.05205,
+      14.5524
+    ],
+    [
+      121.0475,
+      14.5524
+    ],
+    [
+      121.0475,
+      14.54865
+    ]
+  ],
+  "boundarySha256": "617a4f2fa2e97005b051161e4ccdb5aafaa4361bdbd8a84f06902907dfed1ce1",
+  "sourceSnapshotId": "omni-bgc:osm-retained:2026-10-20-21",
+  "sourceSnapshotSha256": "a648739e37973de0fdd8954c949385cb66aafe940a7e9c85964e4d793301054d",
+  "sourceInventorySha256": "eb0502a6353daf4067997b4b96e9ebd1e2e26f1101c9253b8abc5c00f7f9b0c9",
+  "builderSha256": "439f8f446ed6e016c5c791874e75b453b6510aad746796712f33a9be831733dd",
+  "cornerFallbackEnabled": false,
+  "nodes": 481,
+  "edges": 530,
+  "components": 23,
+  "observedEntranceNodes": 2,
+  "verifiedEntrances": 0,
+  "observedCrossingNodes": 65,
+  "cornerAssumptions": 0,
+  "edgeClassifications": {
+    "source-pedestrian-way": 530
+  },
+  "rejectedCounts": {
+    "area-needs-surveyed-path-topology": 1,
+    "blocked-or-unknown-node-access-barrier": 143,
+    "not-pedestrian-way-or-fallback-disabled": 98,
+    "outside-pilot-no-invented-boundary-junction": 95,
+    "source-barrier-intersection": 10,
+    "unknown-or-ambiguous-grade": 4
+  },
+  "output": {
+    "path": "assets/generated/walking-candidate/pedestrian.graph.json.gz",
+    "encoding": "gzip-json",
+    "bytes": 56393,
+    "sha256": "09dbb73e85c73639d2ea05f0adeec459701063f4364e54ee88fbff80196d0f40",
+    "uncompressedSha256": "90b9982ae4c598228f60f25876a35b919bbddfe946060c88923cb4d9fd9361ad"
+  },
+  "releaseBlockers": [
+    "No independent field review, reviewer, evidence IDs or validity period.",
+    "No verified public destination entrances or surveyed entrance connectors.",
+    "Source grade defaults, crossing safety, barriers, opening/access conditions and current construction remain unverified.",
+    "Street centerlines are candidate scaffolds, not measured sidewalks; no diagonal or offset corner geometry is fabricated.",
+    "Boundary-crossing source segments are omitted, and disconnected components are retained."
+  ]
+}

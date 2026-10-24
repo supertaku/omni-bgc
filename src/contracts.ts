@@ -6,4 +6,17 @@ export type MenuItem = { id: string; name: string; price?: string; priceValue?: 
 export type Place = { id: string; name: string; category: string; coordinate: Coordinate | null; building?: string; buildingId?: string; floor?: string; cuisines?: string[]; aliases: string[]; entrances: Entrance[]; citations: Citation[]; status: 'approved' | 'candidate' | 'stale'; menus: MenuItem[]; description?: string; imageKey?: string; sourceIds?: string[]; locationKind?: 'recorded-point' | 'building-anchor' | 'unknown'; preview?: boolean };
 export type TransitRoute = { id: string; name: string; stops: { id: string; name: string; coordinate: Coordinate; citation: Citation; citations?: Citation[] }[]; shape: Coordinate[]; operatingTimes?: string; citation: Citation; citations?: Citation[] };
 export type SavedState = { placeIds: string[]; itinerary: { placeId: string; durationMinutes: number }[]; startTime: string | null };
-export type RouteResult = { available: false; reason: string } | { available: true; coordinates: Coordinate[]; lengthM: number; instructions: string[]; graphVersion: string };
+export type RouteEndpoint = {
+  coordinate: Coordinate | null;
+  method: Origin['method'] | 'place';
+  confirmed: boolean;
+  label?: string;
+  accuracyM?: number;
+  observedAt?: string;
+  placeId?: string;
+  entrances?: Entrance[];
+};
+export type RouteRequest = { origin: RouteEndpoint; destination: RouteEndpoint; profile: 'walking' };
+export type RouteFailureCode = 'missing_graph' | 'invalid_origin' | 'invalid_destination' | 'gps_inaccurate' | 'gps_stale' | 'origin_outside_coverage' | 'destination_outside_coverage' | 'no_origin_attachment' | 'no_destination_attachment' | 'disconnected' | 'review_expired' | 'pack_changed' | 'unsupported_profile';
+export type RouteAttachment = { edgeId: string; coordinate: Coordinate; connectorId?: string; entranceId?: string };
+export type RouteResult = { available: false; reason: string; code?: RouteFailureCode } | { available: true; coordinates: Coordinate[]; lengthM: number; instructions: string[]; graphVersion: string; scopeId?: string; originAttachment?: RouteAttachment; destinationAttachment?: RouteAttachment };

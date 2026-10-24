@@ -21,7 +21,7 @@ import {
   VectorSource,
   ViewAnnotation,
 } from '@maplibre/maplibre-react-native';
-import type { Coordinate, Origin, Place, RouteResult, TransitRoute } from '../contracts';
+import type { Coordinate, Origin, Place, RouteEndpoint, RouteResult, TransitRoute } from '../contracts';
 import { loadActiveMapStyle } from '../updates/style';
 import { loadBundledStyle } from './bundled-style';
 import { loadContextSource } from './context-source';
@@ -38,11 +38,15 @@ import {
 
 export type MapCanvasProps = {
   origin?: Origin | null;
+  destination?: RouteEndpoint | null;
+  selectionCandidate?: { coordinate: Coordinate; role: 'origin' | 'destination' } | null;
+  onCandidateMove?: (coordinate: Coordinate) => void;
   places: Place[];
   route?: RouteResult | null;
   transit?: TransitRoute | null;
   flat?: boolean;
   bottomInset?: number;
+  topInset?: number;
   rightInset?: number;
   draftOrigin?: boolean;
   focusCoordinate?: Coordinate | null;
@@ -58,11 +62,15 @@ export type MapCanvasProps = {
 };
 export function MapCanvas({
   origin,
+  destination,
+  selectionCandidate,
+  onCandidateMove,
   places,
   route,
   transit,
   flat = false,
   bottomInset = 0,
+  topInset = 126,
   rightInset = 0,
   draftOrigin = false,
   focusCoordinate,
@@ -120,14 +128,18 @@ export function MapCanvas({
   const quiet = !!route?.available || !!transit;
   const padding = useMemo(
     () => ({
-      top: 126,
+      top: Math.max(126, topInset),
       left: 24,
       right: Math.max(24, rightInset),
       bottom: Math.max(96, bottomInset),
     }),
-    [bottomInset, rightInset],
+    [bottomInset, topInset, rightInset],
   );
   const routeCoordinates = route?.available ? route.coordinates : null;
+  const routeFeature = useMemo<GeoJSON.Feature<GeoJSON.LineString> | null>(() => routeCoordinates && routeCoordinates.length > 1 ? ({
+    type: 'Feature', properties: {},
+    geometry: { type: 'LineString', coordinates: routeCoordinates.map(coordinate => [...coordinate]) },
+  }) : null, [routeCoordinates]);
   const fittedBounds = useMemo(
     () =>
       coordinateBounds(
@@ -811,6 +823,24 @@ export function MapCanvas({
             />
           </GeoJSONSource>
         )}
+        {selectionCandidate ? (
+          <ViewAnnotation
+            id="navigation-candidate"
+            lngLat={[...selectionCandidate.coordinate]}
+            draggable
+            onDragEnd={(event) => onCandidateMove?.(event.nativeEvent.lngLat)}
+          >
+            <View collapsable={false} accessible
+              accessibilityLabel={`Provisional ${selectionCandidate.role}. Drag or tap another point, then confirm.`}
+              style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: '#AF720D', borderWidth: 4, borderColor: '#FFFFFF' }} />
+          </ViewAnnotation>
+        ) : null}
+        {destination?.coordinate ? (
+          <GeoJSONSource id="navigation-destination" data={{ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [...destination.coordinate] } }}>
+            <Layer key="navigation-destination-pin" id="navigation-destination-pin" type="circle"
+              paint={{ 'circle-radius': 10, 'circle-color': '#BA3D32', 'circle-stroke-color': '#FFFFFF', 'circle-stroke-width': 3 }} />
+          </GeoJSONSource>
+        ) : null}
         {origin && draftOrigin ? (
           <ViewAnnotation
             id="draft-origin"
@@ -848,7 +878,7 @@ export function MapCanvas({
                 type="circle"
                 paint={{
                   'circle-radius': 8,
-                  'circle-color': origin.confirmed ? '#1756C0' : '#AF720D',
+                  'circle-color': origin.confirmed ? origin.method === 'gps' ? '#1756C0' : '#17765A' : '#AF720D',
                   'circle-stroke-color': '#FFFFFF',
                   'circle-stroke-width': 3,
                 }}
@@ -923,14 +953,10 @@ export function MapCanvas({
             />
           </GeoJSONSource>
         )}
-        {route?.available && route.coordinates.length > 1 && (
+        {routeFeature && (
           <GeoJSONSource
             id="active-route"
-            data={{
-              type: 'Feature',
-              properties: {},
-              geometry: { type: 'LineString', coordinates: route.coordinates.map((c) => [...c]) },
-            }}
+            data={routeFeature}
           >
             <Layer
               key="route-casing"

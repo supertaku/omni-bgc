@@ -21,6 +21,11 @@ export type PreviewDetails = {
     precision?: string;
     derivation?: string;
     entrance?: boolean;
+    sourceFile?: string;
+    sourceSha256?: string;
+    building?: string;
+    anchorName?: string;
+    relationship?: { kind: 'reviewed-building-association' | 'source-building-claim'; basis?: string; sourceId?: string };
   };
   fields: Record<string, PreviewFieldEvidence>;
   office?: {
@@ -62,6 +67,11 @@ function validOverlay(value: PreviewOverlay): boolean {
         p.entrances.length !== 0 || !Array.isArray(p.citations) ||
         p.citations.some(c => c.status !== 'candidate' || c.verifiedAt !== null) ||
         !value.details[p.id] || !value.details[p.id]!.description || !value.details[p.id]!.imageKey) return false;
+    const location = value.details[p.id]!.location;
+    if (!location || location.kind !== p.locationKind || !Array.isArray(location.sourceIds) ||
+        !location.sourceIds.length || (p.coordinate === null) !== (location.kind === 'unknown') ||
+        (location.kind === 'building-anchor' && (!/^[a-f0-9]{64}$/.test(location.sourceSha256 ?? '') ||
+          !location.sourceFile || location.entrance !== false || !value.details[p.id]!.fields.coordinate))) return false;
     ids.add(p.id);
   }
   return Object.entries(value.aliases).every(([source, target]) => source.length > 0 && ids.has(target) && value.aliases[target] === target);

@@ -1,4 +1,11 @@
 import type { AssistantPayload, PlaceDetailFocus } from './contracts';
+import type { Place } from '../../contracts';
+
+export function locationPrecisionLabel(place?: Pick<Place, 'coordinate' | 'locationKind'>): string | null {
+  if (!place) return null;
+  if (!place.coordinate) return 'Map location unavailable';
+  return place.locationKind === 'building-anchor' ? 'Approximate building location; not an entrance' : null;
+}
 
 export function placeDetailFocus(query: string): PlaceDetailFocus {
   if (/\b(floor|level|storey|story|palapag)\b/i.test(query)) return 'floor';

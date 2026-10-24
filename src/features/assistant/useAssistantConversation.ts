@@ -8,7 +8,7 @@ import { createFoodResearchAnswer } from '../food/assistant';
 import { foodResearch } from '../food/directory';
 import { createAssistantRuntime, type AssistantRuntime } from '../../ai/assistantRuntime';
 import type { ModelStatus } from '../../ai/modelManager';
-import { resultPlaceIds, resolveMapResultRecords } from './mapResults';
+import { renderedReferenceIds, resolveMapResultRecords } from './mapResults';
 import { resolveCurrentPlace } from '../explore/placeOpening';
 
 const research = createFoodResearchAnswer(foodResearch);
@@ -349,9 +349,9 @@ export function useAssistantConversation(
         ];
       }
       if (!live.current || epoch.current !== turnEpoch || abort.signal.aborted) return;
-      const displayed = resultPlaceIds(output);
+      const displayed = renderedReferenceIds(output);
       if (output.some((payload) => ['places', 'place', 'menus', 'food-menus', 'food-hours', 'itinerary-preview'].includes(payload.kind))) {
-        resolved.current = displayed.filter((id) => sourcePlaces.some((place) => place.id === id));
+        resolved.current = displayed;
         current.current.onMapResults?.(sourcePlaces.filter((place) => resolved.current.includes(place.id)), false);
       }
       setMessages((before) => before.filter((entry) => entry.id !== partialId));

@@ -1,16 +1,18 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { Icon, type IconName } from '../../ui/icons';
 import { palette } from '../../ui/components';
 const categoryIcons: Record<string, IconName> = { All: 'map', Food: 'food', Coffee: 'coffee', Shops: 'shop' };
 const categoryColors: Record<string, string> = { All: palette.blue, Food: '#BD531C', Coffee: '#79502F', Shops: palette.blue };
 
-export function MapChrome({category,onCategory,onSearch,onFilters,onFlat,flat,onMore,onLocate,onReset,locating=false}: {
+export function MapChrome({category,onCategory,onSearch,onFilters,onFlat,flat,onMore,onLocate,onReset,locating=false,onDirections,navigating=false}: {
   category:string;onCategory:(value:string)=>void;onSearch:()=>void;onFilters:()=>void;
   onFlat:()=>void;flat:boolean;onMore:()=>void;
   onLocate:()=>void;onReset:()=>void;locating?:boolean;
+  onDirections?:()=>void;navigating?:boolean;
 }) {
+  const { width, height } = useWindowDimensions();
   return <>
-    <View style={styles.top} pointerEvents="box-none">
+    {!navigating ? <View style={styles.top} pointerEvents="box-none">
       <View style={styles.search}>
         <Pressable onPress={onSearch} accessibilityRole="button" accessibilityLabel="Search places or dishes" style={({pressed})=>[styles.searchLaunch,pressed&&styles.pressed]}>
           <Icon name="search" size={20}/><Text style={styles.searchText}>Search places or dishes</Text>
@@ -25,10 +27,11 @@ export function MapChrome({category,onCategory,onSearch,onFilters,onFlat,flat,on
       <Pressable onPress={onMore} accessibilityRole="button" accessibilityLabel="More categories" style={({pressed})=>[styles.moreTarget,pressed&&styles.pressed]}>
         <View style={styles.chip}><Icon name="more" size={19}/><Text style={styles.chipText}>More</Text></View>
       </Pressable>
-    </View>
-    <View style={styles.tools}>
+    </View> : null}
+    <View style={[styles.tools, width > height && styles.landscapeTools]}>
       <Pressable onPress={onReset} accessibilityRole="button" accessibilityLabel="Reset BGC map view" style={styles.tool}><Icon name="compass" size={21}/></Pressable>
-      {flat ? <Pressable onPress={onLocate} disabled={locating} accessibilityRole="button" accessibilityLabel={locating?'Finding location':'Map position and location'} accessibilityState={{disabled:locating}} style={styles.tool}><Icon name="locate" size={21}/></Pressable> : null}
+      {onDirections ? <Pressable onPress={onDirections} accessibilityRole="button" accessibilityLabel="Directions" style={styles.tool}><Icon name="map" size={21}/><Text style={styles.toolText}>Route</Text></Pressable> : null}
+      <Pressable onPress={onLocate} disabled={locating} accessibilityRole="button" accessibilityLabel={locating?'Finding location':'Map position and location'} accessibilityState={{disabled:locating}} style={styles.tool}><Icon name="locate" size={21}/></Pressable>
       <Pressable onPress={onFlat} accessibilityRole="button" accessibilityLabel={flat?'Show 2.5D map':'Show flat map'} accessibilityState={{selected:flat}} style={styles.tool}><Icon name="layers" size={21}/><Text style={styles.toolText}>{flat?'2.5D':'Flat'}</Text></Pressable>
     </View>
   </>;
@@ -48,5 +51,6 @@ const styles=StyleSheet.create({
   searchLaunch:{flex:1,flexDirection:'row',alignItems:'center',gap:8,paddingHorizontal:14,paddingVertical:10,minHeight:48},searchText:{flex:1,fontFamily:'OmniBody',fontSize:14,lineHeight:20,color:palette.muted},searchFilter:{minWidth:48,minHeight:48,alignItems:'center',justifyContent:'center'},
   categories:{gap:6,paddingRight:86},chipTarget:{minHeight:48,justifyContent:'center'},moreTarget:{position:'absolute',right:0,top:50,minHeight:48,justifyContent:'center',backgroundColor:palette.canvas,borderRadius:18},chip:{minHeight:34,flexDirection:'row',alignItems:'center',gap:6,paddingHorizontal:11,paddingVertical:5,backgroundColor:palette.canvas,borderRadius:18,borderWidth:1,borderColor:'#D4D9D7'},chipSelected:{backgroundColor:palette.selected,borderColor:palette.blue},chipText:{fontFamily:'OmniBodySemiBold',fontSize:13,lineHeight:20,color:palette.ink},pressed:{opacity:0.75},
   tools:{position:'absolute',right:12,bottom:84,width:48,backgroundColor:palette.canvas,borderRadius:24,overflow:'hidden',shadowColor:palette.ink,shadowOpacity:0.10,shadowRadius:6,elevation:3},tool:{minWidth:48,minHeight:48,alignItems:'center',justifyContent:'center',paddingVertical:5},toolText:{fontSize:10,lineHeight:14,fontFamily:'OmniBodySemiBold',color:palette.ink},
+  landscapeTools:{flexDirection:'row',width:'auto'},
   chat:{position:'absolute',width:48,height:48,borderRadius:24,backgroundColor:palette.surface,alignItems:'center',justifyContent:'center',shadowColor:palette.ink,shadowOpacity:.14,shadowRadius:6,elevation:5},
 });

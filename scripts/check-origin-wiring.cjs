@@ -50,11 +50,14 @@ assert.match(application, /onLocate=\{\(\) => setLocationControls\(true\)\}/, 'm
   const byId = new Map([[near.id, near], [far.id, far]]);
   const retrieval = {
     findPlaces: async (filters) => ({ status: 'ok', authority: 'approved', data: [far, near], sourceRecordIds: ['far', 'near'], citations: [], appliedFilters: filters, warnings: [], sourceFingerprint: 'fixture' }),
+    searchPreviewDirectory: async (filters) => ({ status: 'empty', authority: 'candidate', data: [], sourceRecordIds: [], citations: [], appliedFilters: filters, warnings: [], sourceFingerprint: 'fixture' }),
     getPlaceDetails: async (id) => ({ data: byId.get(id) ?? null }),
   };
   const executor = {
     retrieval,
-    execute: async (raw, callId) => ({ callId, name: raw.name, status: 'ok', authority: 'approved', data: [far, near], sourceRecordIds: ['far', 'near'], citations: [], appliedFilters: raw.arguments, warnings: [], sourceFingerprint: 'fixture' }),
+    execute: async (raw, callId) => raw.name === 'search_preview_directory'
+      ? { callId, name: raw.name, ...await retrieval.searchPreviewDirectory(raw.arguments) }
+      : { callId, name: raw.name, status: 'ok', authority: 'approved', data: [far, near], sourceRecordIds: ['far', 'near'], citations: [], appliedFilters: raw.arguments, warnings: [], sourceFingerprint: 'fixture' },
   };
   let agentCalls = 0;
   const deps = { executor, canInfer: () => true, answerDirectory: () => [], agent: { run: async () => { agentCalls++; throw new Error('origin must not reach model prompts'); } } };

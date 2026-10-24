@@ -103,6 +103,7 @@ export interface CancelAcknowledgement {
 }
 export interface LocalAIProvider {
   readonly id: string;
+  getDiagnosticModelId?(): string | undefined;
   getCapabilities(): Promise<ProviderCapabilities>;
   load(model: VerifiedModel, backend: Backend): Promise<void>;
   generate(input: GenerationInput): Promise<GenerationResult>;

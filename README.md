@@ -194,7 +194,7 @@ The screen transition uses a sliding animation and respects the device's reduced
 
 ## Current Project Status
 
-The following status reflects the repository as of **October 19, 2026**.
+The following status reflects **M14 development, October 24, 2026**. The application is branded **The Fort**; Omni-BGC remains the repository/project name.
 
 | Component                     | Status                      | Notes                                                 |
 | ----------------------------- | --------------------------- | ----------------------------------------------------- |
@@ -206,7 +206,7 @@ The following status reflects the repository as of **October 19, 2026**.
 | Office directory              | Implemented                 | Approved projections and separate research candidates |
 | Directory search              | Implemented                 | Works without an installed AI model                   |
 | AI conversation interface     | Implemented                 | Includes local history                                |
-| Gemma 4 integration           | Implemented in code         | Real-device validation pending                        |
+| Qwen3 0.6B / 1.7B catalog     | Implemented                 | 1.7B has limited historical phone observations; full acceptance pending |
 | AI tool calling               | Implemented in code         | Needs full end-to-end evaluation                      |
 | Model download and setup      | Implemented in code         | Large-file and device testing pending                 |
 | Temporary itinerary preview   | Implemented                 | Does not save permanent itineraries                   |
@@ -214,7 +214,7 @@ The following status reflects the repository as of **October 19, 2026**.
 | Saved places and favorites UI | Not available               | Previous local records are retained                   |
 | Live business information     | Not supported               | No real-time hours, prices, or availability           |
 | iOS deployment                | Not validated               | Android is the current development target             |
-| Automated test suite and CI   | Not present in current tree | Needs to be restored                                  |
+| Focused regressions and CI    | Implemented in M14          | Host checks on PR/main; native build manually gated |
 
 An implemented feature is not automatically considered tested or ready for public release.
 
@@ -237,7 +237,7 @@ Omni-BGC uses the following technologies.
 | SQLite RTree          | Support geographic indexing                        |
 | Kotlin                | Connect the Android application to native AI       |
 | LiteRT-LM             | Run supported AI models on the device              |
-| Gemma 4 E2B           | Selected local language model                      |
+| Qwen3 0.6B / 1.7B      | Optional local language model catalog               |
 | Expo FileSystem       | Manage local resources and downloads               |
 | Expo Sensors          | Detect device movement                             |
 | Expo Location         | Provide optional location APIs and permissions     |
@@ -256,7 +256,13 @@ Omni-BGC uses the following technologies.
 
 These versions come from the current repository files.
 
-The application version in `app.json` is `0.3.1`. This is a development preview version, not a public release.
+The application identity comes from `app.json`. This is an internal development preview, not a public release.
+
+| Configuration | Value |
+| --- | --- |
+| Application version | 0.5.0 |
+| Android package | com.omnibgc.preview |
+| Android versionCode | 4 |
 
 ---
 
@@ -278,56 +284,24 @@ The Assistant screen accepts questions written in everyday language.
 
 It uses one of two approaches.
 
-**Without a local AI model:**
+**Explicit supported requests, with or without a model:**
 
-The application uses predefined search rules to find matching records.
+Deterministic handlers parse place/menu searches, exact PHP bounds and named details. Supported compound actions and current-result references use bounded host tools. The host revalidates source records and canonical identities before rendering or focusing the map. Ambiguous results require selection.
 
-This provides a basic Assistant experience without needing a language model.
+**Ambiguous interpretation with a ready local model:**
 
-**With a local AI model:**
+The optional model may propose allowlisted local tools. Application code validates arguments, source eligibility, exact arithmetic and state changes, then composes factual answers from current records. Free-form model text is not a source of business facts. Useful validated reads can survive an incomplete follow-up.
 
-The model helps understand the user's question and can request approved local tools.
-
-The application checks the tool request before running it.
-
-The model cannot directly change the database, run shell commands, or access arbitrary files.
+The model cannot directly change the database, run shell commands, access arbitrary files or introduce remote inference. Unsupported capabilities remain unavailable. Without a ready model, deterministic discovery remains usable.
 
 ### Basic Application Flow
 
 ```text
-User opens Omni-BGC
-        |
-        v
-Load local application data
-        |
-        v
-Display offline map
-        |
-        +----> Search for places
-        |           |
-        |           v
-        |      Show local results
-        |           |
-        |           v
-        |      Open place details
-        |
-        +----> Open Assistant
-                    |
-                    v
-              Ask a question
-                    |
-            +-------+-------+
-            |               |
-            v               v
-       AI available     AI unavailable
-            |               |
-            v               v
-       AI tool flow     Local search rules
-            |               |
-            +-------+-------+
-                    |
-                    v
-              Display results
+Question → capability/source checks → explicit supported intent?
+                                      ├─ yes → deterministic local tools
+                                      └─ no  → optional ready model proposes tools
+                                             or model-off fallback
+Both paths → validate arguments → retrieve → re-read sources → host answer
 ```
 
 The main idea is that the map, directory, and Assistant share local information.
@@ -594,27 +568,22 @@ Unlike a cloud chatbot, an on-device model runs using the phone's own hardware.
 
 This means the app does not need to send each AI question to a remote model server.
 
-### Selected Model: Gemma 4 E2B
+### Available Models: Qwen3
 
-The current model catalog uses:
+The selectable catalog contains two pinned LiteRT-LM artifacts. CPU is the default; the default context remains 2,048 tokens. Backend experiments require explicit diagnostic configuration and do not establish GPU performance.
 
-| Property                    | Details               |
-| --------------------------- | --------------------- |
-| Model                       | Gemma 4 E2B Instruct  |
-| Base model                  | Google Gemma 4        |
-| Model artifact source       | `litert-community`    |
-| Model format                | `.litertlm`           |
-| Runtime                     | LiteRT-LM             |
-| Model file size             | Approximately 2.59 GB |
-| Current application backend | CPU                   |
-| Supported model ABI         | `arm64-v8a`           |
-| Model language focus        | English-first         |
-| License                     | Apache 2.0            |
-| Device acceptance           | Pending               |
+| Model | Artifact bytes |
+| --- | ---: |
+| Qwen3 0.6B | 344671744 |
+| Qwen3 1.7B | 977184032 |
 
-The repository includes the model's download information and expected file checksum.
+Both are dynamic INT4 models with FP32 activations, published by `litert-community` from Qwen base models under Apache 2.0. Android support is `arm64-v8a`, using LiteRT-LM 0.18.0. Each artifact has its own pinned revision, size and SHA-256 in `src/ai/modelCatalog.ts`.
 
-**The model weights are not included in the repository or automatically downloaded when the application starts.**
+Catalog availability does not mean downloaded, activated or device-accepted. Files are separately acquired and checksum-verified; activation runs native checks. No model weights ship in the app or download at startup. Legacy Gemma identity is retained only to retire saved pointers safely; it is no longer selectable and its historical files are not silently deleted.
+
+[Historical owner-authorized tests](docs/device-validation-v050.md) observed Qwen3 1.7B activation, ordinary generated chat and selected local tool cases. Complex CPU cases took **39.910–78.172 seconds**; a coffee/details request returned search cards without its requested separate detail action. These are individual historical observations, not new M14 benchmarks, latency percentiles or universal quality acceptance. The owner's 0.6B download was removed at their request; 1.7B remained active at that historical handoff. Current device state is not inferred from repository metadata.
+
+M14 host fixtures check routing, identity and bounded execution. Physical-device speed, repeated cancellation, GPU behavior, memory, thermals and broad response quality still need a separately authorized validation stage. Conversation reuse remains disabled pending native safety validation.
 
 ### How to Set Up the Model
 
@@ -626,7 +595,7 @@ The repository includes the model's download information and expected file check
 6. When the model is ready for setup, select **Use this model**.
 7. The application runs its model activation checks before using the model.
 
-An internet connection and several gigabytes of free storage are needed for the initial download and setup.
+An internet connection is needed for an explicit initial download. Reserve space for the selected artifact plus verification/staging overhead; import and use of an existing verified file are also supported.
 
 Once installed and successfully activated, the model is intended to run without an internet connection.
 
@@ -636,42 +605,7 @@ The AI does not have unrestricted access to application data.
 
 Instead, it can request a small set of local tools.
 
-For example:
-
-```text
-User:
-"Find ramen under 300 pesos."
-
-       |
-       v
-
-Local AI understands the request
-
-       |
-       v
-
-AI requests a menu search
-
-       |
-       v
-
-Application checks the request
-
-       |
-       v
-
-Local records are searched
-
-       |
-       v
-
-Application checks the results
-
-       |
-       v
-
-Matching records are displayed
-```
+For example, “Find ramen under 300 pesos” uses deterministic exact-PHP menu filtering without an inference call. More ambiguous requests may use the local model to propose tools.
 
 The application, not the language model, decides whether a tool request is allowed.
 
@@ -685,6 +619,8 @@ The current tool system supports these operations:
 | --------------------------- | -------------------------------------- |
 | `find_places`               | Search approved place records          |
 | `get_place_details`         | Read a place's details                 |
+| `search_preview_directory` | Search the separately gated preview overlay |
+| `get_preview_place_details` | Read canonical preview details |
 | `get_verified_entrances`    | Read verified entrance records         |
 | `find_menu_items`           | Search approved menu items             |
 | `search_food_research`      | Search recorded restaurant research    |
@@ -755,23 +691,36 @@ They are not approved for public distribution or pedestrian navigation.
 
 ### Current Research Data
 
-The bundled research files include the following records as of October 19, 2026.
+The preview builder retains the original research inputs and explicit same-branch crosswalks. Current generated coverage:
 
-| Dataset                                | Recorded amount |
-| -------------------------------------- | --------------- |
-| Candidate map-directory places         | 161             |
-| Restaurant research listings           | 278             |
-| Recorded menu items                    | 1,279           |
-| Published-source price classifications | 356             |
-| Estimated price classifications        | 923             |
-| Office research candidates             | 179             |
-| Fictional demonstration places         | 6               |
+| Dataset | Recorded amount |
+| --- | ---: |
+| Canonical preview places | 609 |
+| Restaurants/cafés with menus | 335 |
+| Preview menu items | 3518 |
+| Original retained menu items | 1279 |
+| Internally generated menu items | 2239 |
+| Original directory points | 161 |
+| Original restaurant research listings | 278 |
+| Original office research candidates | 179 |
 
-These numbers describe records in the repository.
+The **2,239 internally generated items are not verified venue menus**. Preview descriptions, illustrative images and estimated amounts do not establish current availability, pricing, source rights or business approval. Strict source queries preserve their evidence gates. Fictional samples remain separate.
 
-**They do not represent the number of verified, currently operating, or publicly approved establishments.**
+See [preview coverage](assets/generated/preview/COVERAGE.md), [individual exceptions](assets/generated/preview/exceptions.json) and [rebuild/rights limits](docs/OFFLINE-PREVIEW.md).
 
-Research coverage can be incomplete, and several records still need source-rights, identity, or location review.
+### Geographic Precision
+
+Coordinate quality and business review are separate. A recorded place point retains its source evidence; a reviewed building association establishes a relationship; a derived building anchor is a representative polygon point, **not a verified establishment entrance**. Unresolved records remain searchable and readable without inventing coordinates or moving the map camera. Existing recorded coordinates and canonical IDs are preserved.
+
+The generated [coverage report](assets/generated/preview/COVERAGE.md) records the current counts, unresolved identities and evidence limitations. The visual map extent does not enlarge business approval or routing scope. [Map coverage](docs/map-coverage.md) describes pinned OSM sources, both unchanged original packs and additive display context.
+
+| Geographic measure | Count |
+| --- | ---: |
+| Recorded place points | 161 |
+| Derived building anchors | 362 |
+| Unresolved preview identities | 86 |
+
+M14 resolves 27 previously unlocated records through fourteen explicit building associations against retained polygons, including seven branch-specific source addresses. The 86 remaining identities include two ambiguous polygon matches, 11 without a building claim and 73 without matching retained geometry. The stable [machine-readable quality report](assets/generated/preview/quality.json) retains individual reasons, lineage, evidence-age policy and source-rights limits. No candidate becomes approved through this mapping.
 
 ### How Data Is Classified
 
@@ -905,11 +854,11 @@ Run commands from the repository root.
 
 **Note:** `npm run format` changes files. Review changes before committing.
 
-The current `package.json` does not provide an `npm test` script.
+M14 adds `npm run check:host` to execute existing focused regressions, plus a documentation consistency check (`node scripts/check-docs.cjs`). TypeScript and ESLint remain separate required gates. Python geometry checks use the pinned build-only dependencies in `scripts/map-requirements.txt`.
 
-The current tracked repository also does not contain the previous automated test suite or GitHub Actions workflow.
+[Host CI](.github/workflows/host-checks.yml) runs on pull requests and main-branch changes. [Android release verification](.github/workflows/android-release.yml) is manually triggered and requires a clean identifiable source revision. It uses standard Expo prebuild and Gradle, then verifies package/version/permissions, ARM64 native libraries, Hermes/source maps, resources, signer and SHA-256. Restricted APKs are not automatically published or uploaded.
 
-These should be restored before treating a build as ready for release.
+[Build controls and provenance](docs/M14-BUILD.md) explain the toolchain and reproducibility limits. Delivery APKs use increasing sequence numbers in `apks/`, with SHA-256 sidecars and [reviewable receipts](apks/INDEX.md). A release variant may use the preview debug/test signer; it does not imply production signing or device acceptance. Byte-identical reproducibility is claimed only when independently demonstrated.
 
 ### Recommended Development Checks
 
@@ -982,7 +931,7 @@ Some menu prices are estimates or come from research sources that may not reflec
 
 ### 5. AI Device Testing Is Incomplete
 
-The Gemma 4 integration has been implemented in the codebase, but full acceptance on the intended Android device is still pending.
+The Qwen3 catalog and native integration are implemented. Limited Qwen3 1.7B historical checks are documented above; full M14 acceptance on the intended Android device is pending.
 
 This includes:
 
@@ -1022,15 +971,15 @@ The following are suggested next priorities based on the current implementation.
 
 ### Priority 1 — Reliable Android Builds
 
-- Restore automated tests.
-- Restore continuous integration.
+- Maintain the focused host regressions and CI.
+- Exercise the controlled native build workflow after authorized pushes.
 - Keep build steps reproducible.
 - Verify the app from a clean checkout.
 - Check native dependency compatibility.
 
 ### Priority 2 — Complete Local AI Testing
 
-- Test Gemma 4 on a physical Android device.
+- Validate the M14 APK and Qwen3 models on a physical Android device in a separately authorized stage.
 - Measure response speed and memory usage.
 - Validate tool calls against expected results.
 - Test cancellation and model reloading.
@@ -1104,18 +1053,16 @@ The mobile application is built using:
 - [Expo](https://expo.dev/)
 - [React Native](https://reactnative.dev/)
 
-### Google Gemma and LiteRT-LM
+### Qwen and LiteRT-LM
 
-The optional local AI implementation uses Gemma 4 and LiteRT-LM.
+The optional current model catalog uses Qwen3 0.6B and 1.7B artifacts with LiteRT-LM.
 
-- [Gemma Documentation](https://ai.google.dev/gemma)
-- [LiteRT-LM Repository](https://github.com/google-ai-edge/LiteRT-LM)
-- [Gemma 4 E2B LiteRT-LM Artifact](https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm)
-- [Gemma 4 License](https://ai.google.dev/gemma/docs/gemma_4_license)
+- [Qwen3 0.6B artifact repository](https://huggingface.co/litert-community/Qwen3-0.6B)
+- [Qwen3 1.7B artifact repository](https://huggingface.co/litert-community/Qwen3-1.7B)
+- [Qwen3 Apache 2.0 license](https://huggingface.co/Qwen/Qwen3-1.7B/blob/main/LICENSE)
+- [LiteRT-LM source and documentation](https://github.com/google-ai-edge/LiteRT-LM)
 
-Gemma 4 is released under the Apache License 2.0.
-
-Any model redistribution must follow the applicable license and attribution requirements, as well as the project's separate release-approval process.
+Preserve applicable upstream licenses, attribution and notices. Model redistribution still requires the project's separate release review. Historical Gemma records document earlier implementation work and do not describe the current selectable catalog.
 
 ### Research Data
 

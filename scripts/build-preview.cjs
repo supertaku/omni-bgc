@@ -142,16 +142,31 @@ function buildPreview() {
   inputFiles['scripts/build-preview.cjs']=digest(fs.readFileSync(__filename));
   const buildings=loadBuildings(inputFiles), date=inputs.settings.observedAt;
   const aliases={}, byId=new Map(), details={}, itemEvidence={}, exceptions=[];
+  const reviewedBuildings=new Map(inputs.crosswalk.reviewedBuildingAssociations.map(row=>[row.label,row]));
+  if(reviewedBuildings.size!==inputs.crosswalk.reviewedBuildingAssociations.length) throw new Error('Duplicate reviewed building label');
+  const reviewedPlaces=new Map(inputs.crosswalk.reviewedPlaceBuildings.map(row=>[row.sourceId,row]));
+  if(reviewedPlaces.size!==inputs.crosswalk.reviewedPlaceBuildings.length) throw new Error('Duplicate reviewed place building');
+  for(const row of reviewedPlaces.values()) if(!inputs.food.restaurants.some(r=>r.id===row.sourceId && r.locationOriginal===row.sourceText)) throw new Error(`Reviewed place address evidence missing or changed: ${row.sourceId}`);
   const field=(id,key,classification,sourceIds,urls,basis,observedAt=date)=>({classification,sourceIds,urls,observedAt:classification==='generated'?null:observedAt,basis,replacementKey:`${id}:${key}`});
-  const locationFor=(label,sourceIds=[])=>{
-    if(!label) return null;
+  const buildingMatch=(label,sourceIds=[])=>{
+    const reviewed=reviewedPlaces.get(sourceIds[0])??reviewedBuildings.get(label);
+    if(reviewed) {
+      const matches=buildings.filter(b=>b.sourceId===reviewed.osmId && b.name===reviewed.osmName);
+      if(matches.length!==1 || !reviewed.basis) throw new Error(`Reviewed building evidence missing or changed: ${label}`);
+      return {matches,reviewed};
+    }
+    if(!label) return {matches:[],reason:'missing-building-claim'};
     const resolved=inputs.crosswalk.buildingAliases[label]??label;
     const exact=buildings.filter(b=>norm(b.name)===norm(resolved));
     const matches=exact.length?exact:buildings.filter(b=>b.aliases.some(n=>norm(n)===norm(resolved)));
-    const unique=[...new Map(matches.map(b=>[b.sourceId,b])).values()];
-    if(unique.length!==1) return null;
-    const b=unique[0];
-    return {kind:'building-anchor',coordinate:b.coordinate,sourceIds:[...sourceIds,b.sourceId],sourceFile:b.sourceFile,sourceSha256:b.sourceSha256,derivation:`Deterministic interior point of retained OSM ${b.geometryKind} polygon`,precision:b.geometryKind,entrance:false,building:label,anchorName:b.name};
+    return {matches:[...new Map(matches.map(b=>[b.sourceId,b])).values()],reason:matches.length?'ambiguous-building-polygon':'missing-building-polygon'};
+  };
+  const locationFor=(label,sourceIds=[])=>{
+    if(!label) return null;
+    const {matches,reviewed}=buildingMatch(label,sourceIds);
+    if(matches.length!==1) return null;
+    const b=matches[0];
+    return {kind:'building-anchor',coordinate:b.coordinate,sourceIds:[...sourceIds,b.sourceId],sourceFile:b.sourceFile,sourceSha256:b.sourceSha256,derivation:`Deterministic interior point of retained OSM ${b.geometryKind} polygon`,precision:b.geometryKind,entrance:false,building:label,anchorName:b.name,relationship:reviewed?{kind:'reviewed-building-association',basis:reviewed.basis,sourceId:b.sourceId}:{kind:'source-building-claim'}};
   };
   function addPlace(p, sourceIds, description, location, fields={}) {
     const existing=byId.get(p.id);
@@ -165,7 +180,10 @@ function buildPreview() {
     byId.set(p.id,entry); aliases[p.id]=p.id; sourceIds.forEach(id=>aliases[id]=p.id);
     const metadata=previousDetails;
     details[p.id]={description:entry.description,imageKey:entry.imageKey,sourceIds:entry.sourceIds,location:metadata?.location??location??{kind:p.coordinate?'recorded-point':'unknown',sourceIds,precision:p.coordinate?'recorded point':'unknown',entrance:false},fields:{...(metadata?.fields??{}),description:field(p.id,'description','generated',sourceIds,[],'Concise category-based internal-preview description; not an observed venue service claim'),imageKey:field(p.id,'imageKey','generated',sourceIds,[],'Shared illustrative category image; not a photograph of this establishment'),...fields}};
-    if(!coordinate) exceptions.push({kind:'unlocated',id:p.id,name:p.name,building:p.building??null,reason:'No unambiguous retained building geometry or recorded point; no coordinates invented'});
+    if(!coordinate) {
+      const assessment=buildingMatch(p.building,sourceIds);
+      exceptions.push({kind:'unlocated',id:p.id,name:p.name,building:p.building??null,assessment:assessment.matches.length>1?'ambiguous-building-polygon':assessment.reason,polygonSourceIds:assessment.matches.map(b=>b.sourceId),reason:'No unambiguous retained building geometry or recorded point; no coordinates invented'});
+    }
   }
   for(const p of inputs.directory) addPlace({...p,entrances:[],menus:[...p.menus]},[p.id],`${p.name} is listed in the local ${p.category.toLowerCase()} directory${p.building?` at ${p.building}`:''}.`,p.coordinate?{kind:'recorded-point',sourceIds:p.citations.map(c=>c.sourceId),coordinate:p.coordinate,derivation:'Unchanged coordinate from retained directory source',precision:'recorded point',entrance:false}:null);
   const crosswalk=new Map();
@@ -206,7 +224,7 @@ function buildPreview() {
     const id=crosswalk.get(r.id)??r.id, location=locationFor(r.building,[r.id]);
     const fields={};
     if(sourced) for(const key of ['description','floor','building','hours']) if(sourced[key]) fields[key]=field(id,key,'sourced',[researchSource.id],[researchSource.url],'Official source retrieved 2026-10-24; not an approval');
-    if(location) fields.coordinate=field(id,'coordinate','derived',location.sourceIds,r.locationSourceUrl?[r.locationSourceUrl]:[],'Retained restaurant-to-building claim plus retained OSM footprint; building-level only');
+    if(location) fields.coordinate=field(id,'coordinate','derived',location.sourceIds,r.locationSourceUrl?[r.locationSourceUrl]:[],'Retained restaurant-to-building claim plus retained OSM footprint; building-level only',r.researchDate??null);
     addPlace({id,name:r.name,category:r.type,coordinate:null,building:r.building??undefined,floor:floorLabel(r.floor),aliases:[r.name,r.externalId,...[r.zone,r.locationOriginal].filter(Boolean)],entrances:[],menus:[],citations:[],status:'candidate',imageKey:r.imageKey},[r.id,r.externalId],description,location,fields);
     for(const i of r.items) aliases[i.id]=id;
     food.push(r);
@@ -218,7 +236,7 @@ function buildPreview() {
     const description=`${raw.name} is a ${raw.industry??'business'} directory listing${raw.building?` with an address at ${raw.building}`:''}${raw.district?` in ${raw.district}`:''}.`;
     const citations=[{sourceId:raw.candidateId,label:'Retained office research source',license:'Rights review pending; internal preview only',observedAt:`${raw.researchDate??date}T00:00:00Z`,verifiedAt:null,status:'candidate',locator:raw.sourceUrl??undefined}];
     const fields={office:field(id,'office','sourced',[raw.candidateId],raw.sourceUrl?[raw.sourceUrl]:[],'Retained unverified office research; does not establish current occupancy',raw.researchDate??null)};
-    if(location) fields.coordinate=field(id,'coordinate','derived',location.sourceIds,raw.sourceUrl?[raw.sourceUrl]:[],'Retained office address claim plus retained OSM footprint; building-level only');
+    if(location) fields.coordinate=field(id,'coordinate','derived',location.sourceIds,raw.sourceUrl?[raw.sourceUrl]:[],'Retained office address claim plus retained OSM footprint; building-level only',raw.researchDate??null);
     addPlace({id,name:raw.name,category:'office',coordinate:null,building:raw.building??undefined,floor:raw.floor??undefined,aliases:[raw.name,...[raw.industry,raw.address,raw.district].filter(Boolean)],entrances:[],menus:[],citations,status:'candidate'},[raw.candidateId],description,location,fields);
     details[id].office={...raw,placeId:id};
     exceptions.push({kind:'office-evidence-gap',id,sourceId:raw.candidateId,name:raw.name,issues:raw.issues,sourceUrl:raw.sourceUrl,reason:'Source identity/current-presence/rights issues retained; anchor does not verify tenant occupancy'});
@@ -232,16 +250,21 @@ function buildPreview() {
   const places=[...byId.values()].sort((a,b)=>a.id.localeCompare(b.id));
   const itemCount=food.reduce((n,r)=>n+r.items.length,0);
   const coverage={sourceDirectoryPlaces:inputs.directory.length,sourceRestaurants:inputs.food.restaurants.length,directoryOnlyRestaurants:directoryOnlyRestaurants.length,restaurants:food.length,sourceOffices:inputs.offices.candidates.length,sourceMenuItems:inputs.food.restaurants.reduce((n,r)=>n+r.items.length,0),canonicalPlaces:places.length,explicitIdentityMerges:crosswalk.size,menuItems:itemCount,generatedMenuItems:itemCount-inputs.food.restaurants.reduce((n,r)=>n+r.items.length,0),restaurantsWithEightItems:food.filter(r=>r.items.length>=8).length,placesWithDescriptions:places.filter(p=>p.description).length,placesWithImages:places.filter(p=>p.imageKey).length,recordedPoints:places.filter(p=>p.locationKind==='recorded-point').length,buildingAnchors:places.filter(p=>p.locationKind==='building-anchor').length,unlocated:places.filter(p=>!p.coordinate).length,refreshedOfficialRestaurantSources:inputs.research.sources.filter(s=>s.status==='retrieved').length};
+  const unresolved=exceptions.filter(e=>e.kind==='unlocated').sort((a,b)=>a.id.localeCompare(b.id));
+  const asOf=Date.parse(`${date}T00:00:00Z`);
+  const staleCutoff=new Date(asOf); staleCutoff.setUTCFullYear(staleCutoff.getUTCFullYear()-1);
+  const staleGeographicEvidence=places.filter(p=>p.coordinate && details[p.id].fields.coordinate?.observedAt && Date.parse(details[p.id].fields.coordinate.observedAt)<staleCutoff.getTime()).map(p=>({id:p.id,name:p.name,observedAt:details[p.id].fields.coordinate.observedAt}));
+  const quality={asOf:date,stalePolicy:'Coordinate or building-claim evidence older than one calendar year; age is a review flag, not proof of inaccuracy',counts:{canonicalPlaces:places.length,recordedPlacePoints:coverage.recordedPoints,confirmedBuildingRelationships:coverage.buildingAnchors,reviewedBuildingAssociations:places.filter(p=>details[p.id].location?.relationship?.kind==='reviewed-building-association').length,derivedBuildingAnchors:coverage.buildingAnchors,unresolvedIdentities:unresolved.length,ambiguousBuildingMatches:unresolved.filter(e=>e.assessment==='ambiguous-building-polygon').length,missingCoordinateEvidence:unresolved.filter(e=>e.assessment==='missing-building-claim').length,missingBuildingPolygon:unresolved.filter(e=>e.assessment==='missing-building-polygon').length,staleGeographicEvidence:staleGeographicEvidence.length,undatedMappedEvidence:places.filter(p=>p.coordinate && !details[p.id].fields.coordinate?.observedAt).length,publicationRestricted:places.length,officeRightsUnknown:exceptions.filter(e=>e.kind==='office-evidence-gap' && e.issues?.includes('unknown_source_rights')).length},unresolved,staleGeographicEvidence,sourceRights:{publicationAuthorized:false,osm:'© OpenStreetMap contributors · ODbL-1.0',importedResearch:'Rights review pending for candidate records; see office-evidence-gap and source exceptions in exceptions.json'}};
   const fingerprint=digest(JSON.stringify({inputFiles,version:inputs.settings.version}));
-  return {inputs,overlay:{version:inputs.settings.version,fingerprint,inputs:inputFiles,places,aliases,details,itemEvidence,coverage,legal:{internalPreviewOnly:true,publicationAuthorized:false,osmAttribution:'© OpenStreetMap contributors · ODbL-1.0',sourceRights:'Source rights and approval metadata remain unchanged. Generated descriptions/menus/images are illustrative internal-preview content.'}},food:{version:'food-research-v1',restaurants:food},exceptions,buildings};
+  return {inputs,overlay:{version:inputs.settings.version,fingerprint,inputs:inputFiles,places,aliases,details,itemEvidence,coverage,legal:{internalPreviewOnly:true,publicationAuthorized:false,osmAttribution:'© OpenStreetMap contributors · ODbL-1.0',sourceRights:'Source rights and approval metadata remain unchanged. Generated descriptions/menus/images are illustrative internal-preview content.'}},food:{version:'food-research-v1',restaurants:food},exceptions,quality,buildings};
 }
 if(require.main===module) {
   const result=buildPreview();
   if(process.argv.includes('--anchors')) { console.log(result.buildings.map(b=>[b.sourceId,b.name])); process.exit(0); }
   const dest=path.join(ROOT,'assets/generated/preview'); fs.mkdirSync(dest,{recursive:true});
-  for(const [file,value] of [['overlay.json',result.overlay],['food.json',result.food],['exceptions.json',result.exceptions]]) fs.writeFileSync(path.join(dest,file),JSON.stringify(value)+'\n');
+  for(const [file,value] of [['overlay.json',result.overlay],['food.json',result.food],['exceptions.json',result.exceptions],['quality.json',result.quality]]) fs.writeFileSync(path.join(dest,file),JSON.stringify(value)+'\n');
   const c=result.overlay.coverage;
-  const report=`# Offline preview coverage\n\nGenerated deterministically from retained repository sources and explicit enrichment inputs.\n\n| Measure | Count |\n|---|---:|\n${Object.entries(c).map(([key,value])=>`| ${key} | ${value} |`).join('\n')}\n\n## Limits\n\n- Preview menus and estimates are generated where branch sources are missing; no approval status was upgraded.\n- Building anchors represent retained address claims, not surveyed points, entrances or verified occupancy.\n- Installed approved SQLite packs were not available for this source audit; runtime approved identities retain precedence.\n- Source rights remain pending where imported evidence says so; no publication authorization is granted.\n- Individual unresolved records and research-refresh gaps are in exceptions.json.\n- Fictional demo merchants remain outside this real-establishment overlay and remain unlocated.\n\nInput fingerprint: ${result.overlay.fingerprint}\n`;
+  const report=`# Offline preview coverage\n\nGenerated deterministically from retained repository sources and explicit enrichment inputs.\n\n| Measure | Count |\n|---|---:|\n${Object.entries(c).map(([key,value])=>`| ${key} | ${value} |`).join('\n')}\n\n## Geographic quality\n\n| Measure | Count |\n|---|---:|\n${Object.entries(result.quality.counts).map(([key,value])=>`| ${key} | ${value} |`).join('\n')}\n\nEvidence age uses the pinned ${result.quality.asOf} build observation date and a one-calendar-year review threshold; stale is a review flag. Each unresolved identity and its polygon-match reason is in quality.json.\n\n## Limits\n\n- Preview menus and estimates are generated where branch sources are missing; no approval status was upgraded.\n- Building anchors represent retained address claims, not surveyed points, entrances or verified occupancy.\n- Installed approved SQLite packs were not available for this source audit; runtime approved identities retain precedence.\n- Source rights remain pending where imported evidence says so; no publication authorization is granted.\n- Individual unresolved records and research-refresh gaps are in exceptions.json.\n- Fictional demo merchants remain outside this real-establishment overlay and remain unlocated.\n\nInput fingerprint: ${result.overlay.fingerprint}\n`;
   fs.writeFileSync(path.join(dest,'COVERAGE.md'),report);
   console.log(JSON.stringify(c));
 }

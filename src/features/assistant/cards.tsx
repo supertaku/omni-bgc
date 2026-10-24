@@ -10,7 +10,7 @@ import { CategoryArtwork, Icon } from '../../ui/components';
 import { highlightSegments } from './inlineHighlights';
 import { INTERNAL_PREVIEW_ENABLED, canonicalPreviewId, resolvePreviewPlace } from '../../preview/directory';
 import { previewImage, placeImageKey, foodImageKey } from '../../preview/media';
-import { isRetiredChatNotice } from './detailPresentation';
+import { isRetiredChatNotice, locationPrecisionLabel } from './detailPresentation';
 
 /** Menu rows still open through the conversation's fresh-ID guard. */
 function ResultName({
@@ -82,6 +82,7 @@ export function PlaceCard({
   const floor = display ? display.floor : place?.floor;
   const sample = display?.fictionalSample ?? (!!place && isDemoPlace(place));
   const status = display?.status ?? place?.status;
+  const locationLabel = sample ? null : locationPrecisionLabel(place);
   const content = (
     <>
       <View style={s.placeCardTop}>
@@ -110,6 +111,7 @@ export function PlaceCard({
         </View>
       ) : null}
       <View style={s.placePills}>
+        {locationLabel ? <Text style={s.resultStatus}>{locationLabel}</Text> : null}
         {sample ? <Text style={s.resultStatus}>Fictional example</Text> : null}
         {!INTERNAL_PREVIEW_ENABLED && !sample && status === 'candidate' ? (
           <Text style={s.resultStatus}>Recorded candidate</Text>
@@ -129,6 +131,7 @@ export function PlaceCard({
         category,
         building,
         floor ? `Floor ${floor}` : null,
+        locationLabel,
         sample
           ? 'Fictional example'
           : !INTERNAL_PREVIEW_ENABLED && status === 'candidate'
@@ -188,6 +191,7 @@ function PlaceDetailAnswer({ place, display, focus = 'overview', address, onOpen
     </View>
     {focus === 'floor' ? <DetailField label="FLOOR" value={record.floor || 'The floor is not recorded for this place.'} /> : null}
     {focus === 'location' || focus === 'overview' ? <DetailField label={address ? 'ADDRESS' : 'LOCATION'} value={address || [record.building, record.floor ? `Floor ${record.floor}` : null].filter(Boolean).join(' · ') || 'A street address or building is not recorded.'} /> : null}
+    {(focus === 'location' || focus === 'overview') && locationPrecisionLabel(place) ? <Text style={s.resultMeta}>{locationPrecisionLabel(place)}</Text> : null}
     {focus === 'category' ? <DetailField label="PLACE TYPE" value={record.category.replace(/[_-]/g, ' ')} /> : null}
     {focus === 'description' || focus === 'overview' ? <View style={s.detailDescription}>
       <Text style={s.detailLabel}>ABOUT</Text>

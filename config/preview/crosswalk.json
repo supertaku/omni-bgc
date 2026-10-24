@@ -113,5 +113,23 @@
     "Bonifacio Stopover Pavilion": "Bonifacio Stopover",
     "Uptown Ritz": "Uptown Ritz Residences",
     "One Uptown Residences": "One Uptown Residence"
-  }
+  },
+  "reviewedBuildingAssociations": [
+    {"label":"Trade and Financial Tower","osmId":"osm:way:74687615","osmName":"The Trade and Financial Tower","basis":"Retained address omits the leading article; the named OSM polygon is unique."},
+    {"label":"Ecoprime Building","osmId":"osm:way:763323140","osmName":"Ecoprime Tower","basis":"Retained Ecoprime address and uniquely named Ecoprime polygon identify the same building; tower/building wording differs."},
+    {"label":"Crossroads Building","osmId":"osm:way:101376485","osmName":"Crossroads","basis":"Retained address adds the generic Building suffix to the unique Crossroads polygon."},
+    {"label":"Milestone at 5th Avenue","osmId":"osm:way:940894325","osmName":"Milestone at Fifth Avenue","basis":"The retained address and unique polygon differ only in ordinal spelling."},
+    {"label":"DelRosarioLaw Centre","osmId":"osm:way:334446096","osmName":"Del Rosario Law Centre","basis":"The retained address joins the words in the unique named polygon."},
+    {"label":"PSE Tower","osmId":"osm:way:71598335","osmName":"Philippine Stock Exchange","basis":"PSE expands to Philippine Stock Exchange; the unique named polygon supports a building-level association, not occupancy or entrance."},
+    {"label":"C2 Building Bonifacio High Street Central","osmId":"osm:way:178125949","osmName":"C2","basis":"Retained C2 building address specifies Bonifacio High Street Central and the unique C2 polygon is within that complex."}
+  ],
+  "reviewedPlaceBuildings": [
+    {"sourceId":"e1279890-5da9-544e-9f6d-80450d6b3267","sourceText":"W City Center","osmId":"osm:way:531995980","osmName":"W City Center","basis":"The retained branch location names W City Center exactly; the polygon name is unique."},
+    {"sourceId":"3bec8a3a-9214-58c1-98a3-5ba8627304be","sourceText":"B7","osmId":"osm:way:27442879","osmName":"B:7","basis":"The retained Manam branch location names B7 on Bonifacio High Street; the unique B:7 polygon is in that complex."},
+    {"sourceId":"9a04b1ca-d29c-5054-936c-53665dc545f3","sourceText":"Fairways Towers, 5th Avenue","osmId":"osm:way:27442876","osmName":"Fairways Tower","basis":"The retained address names Fairways Towers on 5th Avenue; the unique named polygon differs only in singular/plural wording."},
+    {"sourceId":"d0f26a97-fb64-5469-8a34-6fa37544d424","sourceText":"8 Forbes Town Road","osmId":"osm:way:80323776","osmName":"Eight Forbes Town Road","basis":"The retained branch address and unique polygon differ only in number spelling."},
+    {"sourceId":"48250076-9266-594e-93d7-c489e463bcb7","sourceText":"Shangri-La The Fort GF","osmId":"osm:way:469845356","osmName":"Shangri-La at the Fort","basis":"The retained branch location identifies Shangri-La The Fort; the unique hotel polygon supports a building-level anchor only."},
+    {"sourceId":"ca7664b0-da85-57e2-94ee-57f824db589e","sourceText":"Six/NEO; exact current unit verify","osmId":"osm:way:66405543","osmName":"Six/NEO","basis":"The retained branch location explicitly names Six/NEO; the unique polygon supports a building-level anchor while current unit remains unverified."},
+    {"sourceId":"50ecaf2c-183d-5e74-b5d2-2e84b95c1ec7","sourceText":"Uptown Ritz; exact current unit verify","osmId":"osm:way:538347432","osmName":"Uptown Ritz Residences","basis":"The retained branch location names Uptown Ritz; the unique polygon supports a building-level anchor while current unit remains unverified."}
+  ]
 }

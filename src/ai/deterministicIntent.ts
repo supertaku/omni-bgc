@@ -6,12 +6,14 @@ import { directoryCategory, normalizeDirectoryText, oneEditAway } from '../data/
 export type DirectRequest =
   | { kind: 'message'; text: string }
   | { kind: 'suggestion'; placeId: string; name: string }
+  | { kind: 'ordinal-focus'; ordinal: number }
   | {
       kind: 'places' | 'menus' | 'offices' | 'hours' | 'focus' | 'entrances';
       query: string;
       placeId?: string;
       bounds?: PhpPriceBounds;
       priceSort?: 'asc' | 'desc';
+      followUp?: 'details' | 'map';
     };
 const words = (text: string) =>
   text
@@ -56,6 +58,9 @@ export function planDeterministicRequest(
       kind: 'message',
       text: 'I cannot check live opening status, weather, traffic, reviews or availability. Ask for a restaurant’s recorded hours instead.',
     };
+  const ordinal = /^(?:please\s+)?(?:show|open|focus|locate)\s+(?:the\s+)?(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth|tenth|eleventh|twelfth)\s+(?:result|place|one)\s+(?:on\s+the\s+map|on\s+map|in\s+the\s+map)$/.exec(text);
+  if (ordinal)
+    return { kind: 'ordinal-focus', ordinal: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth'].indexOf(ordinal[1]!) + 1 };
   if (
     /^(?:hi|hello|hey|thanks|thank you|salamat|help|what can you do|what are your capabilities|help me use (?:this app|the fort|omni bgc))$/.test(
       text,
@@ -78,7 +83,10 @@ export function planDeterministicRequest(
     : /\b(?:sort|order|arrange)\b.{0,24}\bprice\b|\b(?:low(?:est)? to high(?:est)?)\b/i.test(remaining)
       ? 'asc'
       : undefined;
-  const sourceQuery = stripFoodSourcePreference(remaining);
+  const compound = /\s+(?:and|then)\s+(?:(?:show|open|give)(?:\s+(?:me|us))?\s+(?:(?:their|its|the|those|these)\s+)?details?|(?:show|open|focus|locate)(?:\s+(?:it|them|the result))?\s+on\s+(?:the\s+)?map)\s*[.!?]*$/i.exec(remaining);
+  const followUp = compound ? /\bmap\b/i.test(compound[0]) ? 'map' : 'details' : undefined;
+  const sourceQuery = stripFoodSourcePreference(compound ? remaining.slice(0, compound.index) : remaining);
+  if (followUp && /\b(entrances?|access|hours|schedule)\b/i.test(sourceQuery)) return null;
   if (/\b(itinerary|visit|stops|trip|first|second|third|these|those|that|them|explain|compare|recommend|best|quiet|cozy|except|without)\b/i.test(sourceQuery))
     return null;
   if (/\b(?:and|then)\s+(?:show|open|find|look|give)\b/i.test(sourceQuery)) return null;
@@ -103,13 +111,13 @@ export function planDeterministicRequest(
     );
   if (ambiguous) return null;
   const placeId = match?.place.id;
-  const itemQuery = match ? target.replace(match.name, '').trim() : target;
-  if (/\b(map|focus|locate)\b/.test(text) && match && match.place.status !== 'approved')
+  const itemQuery = match ? raw.replace(match.name, ' ').replace(fillers, ' ').replace(taskWords, ' ').trim().replace(/\s+/g, ' ') : target;
+  if (!followUp && /\b(map|focus|locate)\b/.test(text) && match && match.place.status !== 'approved')
     return {
       kind: 'message',
       text: 'That is a sourced candidate reference. Open Offices in Explore to review its approximate building marker; it is not an approved office location or entrance.',
     };
-  if (/\b(map|focus|locate)\b/.test(text))
+  if (!followUp && /\b(map|focus|locate)\b/.test(text))
     return match && !itemQuery ? { kind: 'focus', query: match.name, placeId } : null;
   if (/\b(entrances?|access)\b/.test(text))
     return match && !itemQuery ? { kind: 'entrances', query: match.name, placeId } : null;
@@ -119,15 +127,18 @@ export function planDeterministicRequest(
   if (match && detailQualifier.test(itemQuery) &&
       /\b(what|which|where|floor|level|location|address|description|describe|details|about|category|type|cuisine)\b/.test(outsideName) &&
       !/\b(menu|menus|dish|dishes|prices?|budget)\b/.test(outsideName))
-    return { kind: 'places', query: match.name, placeId };
+    return { kind: 'places', query: match.name, placeId, followUp };
   if (match?.place.category === 'office' && match.place.status !== 'approved')
-    return { kind: 'places', query: match.name, placeId };
+    return { kind: 'places', query: match.name, placeId, followUp };
   if (/\b(offices?|companies|company|headquarters|tenants?)\b/.test(text))
-    return { kind: 'offices', query: target };
+    return { kind: 'offices', query: target, followUp };
+  if (match && !itemQuery && price.kind !== 'valid' && !/\b(menus?|dishes?|prices?|budget)\b/.test(text))
+    return { kind: 'places', query: match.name, placeId, followUp };
   if (
     price.kind === 'valid' ||
     /\b(menus?|dishes?|ramen|noodles|rice|desserts?|prices?|budget)\b/.test(text)
-  )
+  ) {
+    if (followUp) return null;
     return {
       kind: 'menus',
       query: itemQuery,
@@ -135,10 +146,11 @@ export function planDeterministicRequest(
       bounds: price.kind === 'valid' ? price.bounds : undefined,
       priceSort,
     };
+  }
   if (match && !itemQuery)
-    return { kind: 'places', query: match.name, placeId };
+    return { kind: 'places', query: match.name, placeId, followUp };
   const category = directoryCategory(cleaned);
-  if (category) return { kind: 'places', query: category };
+  if (category) return { kind: 'places', query: category, ...(followUp ? { followUp } : {}) };
   const fuzzyTokens = target.split(' ').filter(Boolean);
   if (fuzzyTokens.length && fuzzyTokens.every((token) => token.length >= 4)) {
     const candidates = places.filter((place) => place.status === 'approved' &&
@@ -153,7 +165,7 @@ export function planDeterministicRequest(
     cleaned &&
     cleaned.split(' ').length <= 6
   )
-    return { kind: 'places', query: cleaned };
+    return { kind: 'places', query: cleaned, ...(followUp ? { followUp } : {}) };
   return null;
 }
 

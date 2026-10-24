@@ -9,6 +9,7 @@ export function useExplorerNavigation(
   confirming: boolean,
   installing: boolean,
   interceptAssistantBack?: () => boolean,
+  interceptMapBack?: () => boolean,
 ) {
   const [tab, setTab] = useState<'Map' | 'Assistant'>('Map');
   const [panel, setPanel] = useState<Panel>(null);
@@ -62,10 +63,11 @@ export function useExplorerNavigation(
         dismiss();
         return true;
       }
+      if (interceptMapBack?.()) return true;
       return false;
     });
     return () => b.remove();
-  }, [keyboard, panel, tab, selected, returnPanel, confirming, installing, dismiss]);
+  }, [keyboard, panel, tab, selected, returnPanel, confirming, installing, dismiss, interceptMapBack]);
   const open = (next: Panel) => {
     Keyboard.dismiss();
     setPanel(next);

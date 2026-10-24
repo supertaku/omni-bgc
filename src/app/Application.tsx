@@ -33,6 +33,8 @@ import { AppDialog } from '../ui/AppDialog';
 import { renderExplorePanel } from '../features/explore/ExplorePanels';
 import { resolveCurrentPlace } from '../features/explore/placeOpening';
 import { getPlaceDetails } from '../data/retrieval';
+import { useWalkingNavigation } from '../features/navigation/useWalkingNavigation';
+import { NavigationControls } from '../features/navigation/NavigationControls';
 export function Application() {
   const [fontsLoaded, fontError] = useOfflineFonts();
   const [cameraResetKey, setCameraResetKey] = useState(0);
@@ -51,6 +53,8 @@ export function Application() {
   const [origin, setOrigin] = useState<Origin | null>(null);
   const [originCandidate, setOriginCandidate] = useState<Origin | null>(null);
   const [choosingOrigin, setChoosingOrigin] = useState(false);
+  const [navigationHeight, setNavigationHeight] = useState(0);
+  const locationEpoch = useRef(0);
   const [mapStatus, setMapStatus] = useState<{ state: string; detail?: string }>({
     state: 'preparing',
   });
@@ -73,6 +77,19 @@ export function Application() {
     dialog,
     dismissDialog,
   } = useContentPackActions(downloadController, refreshRecords, setMessage, setError);
+  const graphRevision = useMemo(() => ({ startup, packStatus, installing, basePlaces }), [startup, packStatus, installing, basePlaces]);
+  const navigation = useWalkingNavigation(origin, setOrigin, graphRevision);
+  const { cancelSelection, refreshDestination } = navigation;
+  const navigationControls = {
+    ...navigation,
+    beginSelection: (role: 'origin' | 'destination') => { locationEpoch.current++; navigation.beginSelection(role); },
+    cancelSelection: () => { locationEpoch.current++; navigation.cancelSelection(); },
+    clear: () => { locationEpoch.current++; navigation.clear(); setLocationFocus(null); },
+    exit: () => { locationEpoch.current++; navigation.exit(); },
+  };
+  // Explicit position requests must not replace an endpoint chosen while GPS was pending.
+  useEffect(() => { locationEpoch.current++; }, [origin, navigation.selection, navigation.active]);
+  useEffect(() => () => { locationEpoch.current++; }, []);
   const {
     tab,
     panel,
@@ -94,6 +111,12 @@ export function Application() {
     if (!modelsOpen) return false;
     setModelsOpen(false);
     return true;
+  }, () => {
+    if (navigation.selection) { navigationControls.cancelSelection(); return true; }
+    if (navigation.collapseInstructions()) return true;
+    if (navigation.active) { navigationControls.exit(); return true; }
+    if (choosingOrigin) { setChoosingOrigin(false); return true; }
+    return false;
   });
   useEffect(() => {
     if (tab !== 'Assistant') setModelsOpen(false);
@@ -108,6 +131,25 @@ export function Application() {
   useEffect(() => {
     if (tab !== 'Map' && choosingOrigin) setChoosingOrigin(false);
   }, [tab, choosingOrigin]);
+  useEffect(() => {
+    if (tab !== 'Map' && navigation.selection) cancelSelection();
+  }, [tab, navigation.selection, cancelSelection]);
+  const destinationPlaceId = navigation.destination?.placeId;
+  const currentDestination = useRef(navigation.destination);
+  currentDestination.current = navigation.destination;
+  useEffect(() => {
+    if (!destinationPlaceId) return;
+    let current = true;
+    if (currentDestination.current) refreshDestination({ ...currentDestination.current, entrances: [] });
+    // Rebind navigation to current records after refresh; a removed entrance revokes guidance.
+    void resolveCurrentPlace(destinationPlaceId, basePlaces, getPlaceDetails).then(place => {
+      if (!current) return;
+      refreshDestination({ coordinate: place?.coordinate ?? null, method: 'place', confirmed: true,
+        label: place?.name ?? 'Place no longer available', placeId: destinationPlaceId,
+        entrances: place && place.status !== 'stale' ? place.entrances : [] });
+    }).catch(() => { /* Revoked entrance list remains empty if records cannot be re-read. */ });
+    return () => { current = false; };
+  }, [basePlaces, destinationPlaceId, refreshDestination]);
   const open = (next: Panel) => {
     setError('');
     setMessage('');
@@ -169,6 +211,7 @@ export function Application() {
     return true;
   };
   const selectManualOrigin = (coordinate: Coordinate) => {
+    locationEpoch.current++;
     if (
       !coordinate.every(Number.isFinite) ||
       Math.abs(coordinate[0]) > 180 || Math.abs(coordinate[1]) > 90
@@ -181,8 +224,10 @@ export function Application() {
     setMessage('');
   };
   const chooseOrigin = () => {
+    locationEpoch.current++;
     setOriginCandidate(null);
-    setChoosingOrigin(true);
+    if (navigation.active) navigation.beginSelection('origin');
+    else setChoosingOrigin(true);
     setMessage('Tap the map where you want to start, then confirm that point.');
     setPanel(null);
     setSelected(null);
@@ -191,12 +236,15 @@ export function Application() {
   };
   const locateCurrentPosition = async (): Promise<string | null> => {
     if (locating) return null;
+    const request = ++locationEpoch.current;
     setLocating(true);
     try {
       const permission = await Location.requestForegroundPermissionsAsync();
+      if (request !== locationEpoch.current) return null;
       if (!permission.granted)
         return 'Location permission was denied. You can choose a map point instead.';
       const current = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      if (request !== locationEpoch.current) return null;
       const coordinate: Coordinate = [current.coords.longitude, current.coords.latitude];
       if (
         !coordinate.every(Number.isFinite) ||
@@ -204,6 +252,7 @@ export function Application() {
       )
         return 'A valid current location could not be read. You can set an origin manually on the map.';
       setChoosingOrigin(false);
+      navigation.cancelSelection();
       setOrigin({
         coordinate,
         method: 'gps',
@@ -217,6 +266,7 @@ export function Application() {
       setMessage(`${officeScope && !coversCoordinate(officeScope.geometry, coordinate) ? 'Your location is outside the reviewed BGC area. ' : 'Location shown. '}${current.coords.accuracy !== null && current.coords.accuracy >= 0 ? `Reported accuracy: ${Math.round(current.coords.accuracy)} m. ` : ''}Kept on this device for this session.`);
       return null;
     } catch {
+      if (request !== locationEpoch.current) return null;
       return 'Current location could not be read. Check location services or set an origin manually on the map.';
     } finally {
       setLocating(false);
@@ -225,6 +275,21 @@ export function Application() {
   const cancelOriginCandidate = () => {
     setOriginCandidate(null);
     setChoosingOrigin(false);
+  };
+  const directionsTo = (place: Place) => {
+    locationEpoch.current++;
+    setOriginCandidate(null);
+    setChoosingOrigin(false);
+    setPanel(null);
+    setLocationFocus(null);
+    setFitCoordinates(null);
+    navigation.setDestination({ coordinate: place.coordinate, method: 'place', confirmed: true,
+      label: place.name, placeId: place.id, entrances: place.entrances });
+  };
+  const startNavigation = () => {
+    setOriginCandidate(null);
+    setChoosingOrigin(false);
+    navigation.start();
   };
   const visiblePlaces = useMemo(
     () =>
@@ -296,6 +361,7 @@ export function Application() {
     setPanel,
     open,
     choose,
+    onDirections: directionsTo,
     setError,
     refreshRecords,
     download,
@@ -339,6 +405,10 @@ export function Application() {
                 <MapCanvas
                   flat={flat}
                   origin={originCandidate ?? origin}
+                  destination={navigation.destination}
+                  selectionCandidate={navigation.selection && navigation.candidate ? { coordinate: navigation.candidate, role: navigation.selection } : null}
+                  onCandidateMove={navigation.selectCandidate}
+                  route={navigation.active ? navigation.route : null}
                   draftOrigin={choosingOrigin || !!originCandidate}
                   cameraResetKey={cameraResetKey}
                   selectedPlaceId={selected?.id}
@@ -346,6 +416,7 @@ export function Application() {
                   fitCoordinates={fitCoordinates}
                   rightInset={panel && landscape ? Math.min(480, width * 0.66) + 24 : 0}
                   bottomInset={bottomInset}
+                  topInset={navigation.active && !panel ? navigationHeight + 24 : 126}
                   focusCoordinate={locationFocus ?? (officeScope && officeFocus(selected) && coverageAt(officeScope, officeFocus(selected)!) === 'service' ? officeFocus(selected) : null)}
                   onScopeReady={(scope) => {
                     setOfficeMapScope(scope);
@@ -361,6 +432,11 @@ export function Application() {
                   }
                   onAttributionPress={() => open('pack')}
                   onMapPress={(coordinate) => {
+                    if (navigation.selection) {
+                      locationEpoch.current++;
+                      navigation.selectCandidate(coordinate);
+                      return;
+                    }
                     if (choosingOrigin) {
                       selectManualOrigin(coordinate);
                       return;
@@ -372,7 +448,13 @@ export function Application() {
                   }}
                   onPlacePress={(id) => {
                     const place = places.find((p) => p.id === id);
-                    if (choosingOrigin && place?.coordinate) selectManualOrigin(place.coordinate);
+                    if (navigation.selection === 'destination' && place?.coordinate) {
+                      locationEpoch.current++;
+                      navigation.selectPlaceCandidate({ coordinate: place.coordinate, method: 'place', confirmed: false,
+                        label: place.name, placeId: place.id, entrances: place.status !== 'stale' ? place.entrances : [] });
+                    }
+                    else if (navigation.selection === 'origin' && place?.coordinate) { locationEpoch.current++; navigation.selectCandidate(place.coordinate); }
+                    else if (choosingOrigin && place?.coordinate) selectManualOrigin(place.coordinate);
                     else if (place) { setLocationFocus(null); setFitCoordinates(null); void choose(place); }
                   }}
                 />
@@ -394,7 +476,16 @@ export function Application() {
                     onReset={() => { setLocationFocus(null); setFitCoordinates(null); setCameraResetKey((value) => value + 1); }}
                     onLocate={() => setLocationControls(true)}
                     locating={locating}
+                    onDirections={startNavigation}
+                    navigating={navigation.active}
                   />
+                ) : null}
+                {navigation.active && !panel ? (
+                  <View style={[styles.navigation, { maxHeight: Math.max(120, bodyHeight * 0.48) }]}>
+                    <NavigationControls navigation={navigationControls} locating={locating}
+                      onLocate={() => { void locateCurrentPosition().then(failure => { if (failure) setError(failure); }); }}
+                      onSearch={() => open('search')} onHeightChange={setNavigationHeight} />
+                  </View>
                 ) : null}
                 {!panel && (error || message) ? (
                   <View style={styles.toast} accessibilityLiveRegion="polite">
@@ -455,7 +546,7 @@ export function Application() {
           actions={[
             { label: 'Locate me', onPress: () => { setLocationControls(false); void locateCurrentPosition().then((failure) => { if (failure) setError(failure); }); } },
             { label: 'Choose map point', onPress: () => { setLocationControls(false); chooseOrigin(); } },
-            ...(origin ? [{ label: 'Clear position', onPress: () => { setOrigin(null); setLocationFocus(null); setLocationControls(false); } }] : []),
+            ...(origin ? [{ label: 'Clear position', onPress: () => { locationEpoch.current++; setOrigin(null); setLocationFocus(null); setLocationControls(false); } }] : []),
             { label: 'Close', onPress: () => setLocationControls(false) },
           ]} onDismiss={() => setLocationControls(false)} />
       ) : null}
@@ -489,6 +580,7 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: palette.canvas },
   body: { flex: 1, position: 'relative' },
   screen: { flex: 1 },
+  navigation: { position: 'absolute', top: 10, left: 12, right: 12 },
   toast: {
     position: 'absolute',
     left: 12,

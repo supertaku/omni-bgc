@@ -33,6 +33,7 @@ type PanelProps = {
   setPanel: (value: Panel) => void;
   open: (value: Panel) => void;
   choose: (value: Place) => void;
+  onDirections: (value: Place) => void;
   setError: (value: string) => void;
   refreshRecords: () => Promise<void>;
   download: (value: PackManifest) => void;
@@ -60,6 +61,7 @@ export function renderExplorePanel({
   setPanel,
   open,
   choose,
+  onDirections,
   setError,
   refreshRecords,
   download,
@@ -157,6 +159,8 @@ export function renderExplorePanel({
     case 'peek':
       title = selected?.name ?? 'Place';
       content = selected ? (
+        <>
+        <Action icon="map" label="Directions" onPress={() => onDirections(selected)} />
         <PlaceDetails
           key={selected.id}
           place={selected}
@@ -166,6 +170,7 @@ export function renderExplorePanel({
               ? { places, onChoose: choose }
               : {})}
         />
+        </>
       ) : null;
       break;
     case 'sources':

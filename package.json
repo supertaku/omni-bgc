@@ -9,6 +9,8 @@
     "prebuild": "expo prebuild --platform android",
     "typecheck": "tsc --noEmit",
     "lint": "eslint App.tsx index.ts src modules/omni-local-ai/index.ts",
+    "check:host": "node scripts/check-docs.cjs --self-test && node scripts/check-docs.cjs && node scripts/check-location-labels.cjs && node scripts/check-m14-ai.cjs && node scripts/check-m14-backend.cjs && node scripts/check-agent-context.cjs && node scripts/check-regressions.cjs && node scripts/check-discovery.cjs && node scripts/check-food-presentation.cjs && node scripts/check-history.cjs && node scripts/check-model-lifecycle.cjs && node scripts/check-model-storage.cjs && node scripts/check-model-storage-retries.cjs && node scripts/check-preview.cjs && node scripts/check-preview-ai.cjs && node scripts/check-preview-presentation.cjs && node scripts/check-map.cjs && node scripts/check-map-results.cjs && node scripts/check-map-presentation.cjs && node scripts/check-map-transition.cjs && node scripts/check-map-layer-identity.cjs && node scripts/check-origin-wiring.cjs && node scripts/check-pager.cjs && node scripts/check-assistant-highlights.cjs",
+    "check:geo": "python scripts/check-map-coverage.py && python scripts/check-context.py && python scripts/check-release-tooling.py",
     "format": "prettier --write App.tsx index.ts src modules/omni-local-ai/index.ts plugins app.json metro.config.js package.json tsconfig.json eslint.config.mjs"
   },
   "dependencies": {

@@ -43,7 +43,30 @@ for (const p of places.values()) {
   assert.equal(a.overlay.aliases[p.id], p.id, 'canonical lookup idempotent');
   assert.equal(p.entrances.length, 0, 'preview anchors never gain entrance eligibility');
   if (p.coordinate) assert.ok(p.coordinate.every(Number.isFinite));
+  const location=a.overlay.details[p.id].location;
+  assert.equal(location.kind,p.locationKind,'every place exposes its coordinate quality');
+  if(p.locationKind==='building-anchor') {
+    assert.equal(a.overlay.details[p.id].fields.coordinate.classification,'derived');
+    const polygon=a.buildings.find(b=>b.sourceId===location.sourceIds.at(-1));
+    assert.ok(polygon && containsPoint(polygon.polygon,p.coordinate),'building anchor stays inside its named source polygon');
+    assert.equal(location.sourceSha256,polygon.sourceSha256);
+    assert.equal(location.entrance,false);
+  }
 }
+const q=a.quality;
+assert.equal(q.counts.canonicalPlaces,places.size);
+assert.equal(q.counts.recordedPlacePoints+q.counts.derivedBuildingAnchors+q.counts.unresolvedIdentities,places.size);
+assert.equal(q.counts.unresolvedIdentities,q.unresolved.length);
+assert.equal(q.counts.ambiguousBuildingMatches,q.unresolved.filter(x=>x.assessment==='ambiguous-building-polygon').length);
+assert.equal(q.counts.missingCoordinateEvidence,q.unresolved.filter(x=>x.assessment==='missing-building-claim').length);
+assert.equal(q.counts.reviewedBuildingAssociations,a.inputs.crosswalk.reviewedBuildingAssociations.reduce((n,row)=>n+a.overlay.places.filter(p=>a.overlay.details[p.id].location?.relationship?.sourceId===row.osmId).length,0)+a.inputs.crosswalk.reviewedPlaceBuildings.length);
+for(const row of a.inputs.crosswalk.reviewedPlaceBuildings) {
+  const place=places.get(a.overlay.aliases[row.sourceId]);
+  assert.equal(a.overlay.details[place.id].location.relationship.sourceId,row.osmId,'source-specific address relationship retained');
+}
+assert.equal(q.counts.publicationRestricted,places.size);
+assert.ok(q.unresolved.some(x=>x.name==='George and Onnie’s' && x.polygonSourceIds.length===2),'duplicate named polygons stay unresolved');
+assert.ok(q.unresolved.some(x=>x.building==='Robinsons Cyber Sigma'),'off-coverage name similarity does not create an anchor');
 for (const merge of a.inputs.crosswalk.merges) {
   assert.equal(a.overlay.aliases[merge.sourceId], merge.canonicalId);
   assert.ok(merge.basis && merge.sourceIds.length);

@@ -120,7 +120,7 @@ function load(relative, mocks = {}) {
   const { prefersDirectoryQuery } = load('src/ai/deterministicIntent.ts');
   assert.equal(prefersDirectoryQuery('restaurants under PHP 300', []), true);
   assert.equal(prefersDirectoryQuery('find coffee in BGC', []), true);
-  assert.equal(prefersDirectoryQuery('show the second one on the map', []), false);
+  assert.equal(prefersDirectoryQuery('show the second one on the map', []), true);
   assert.equal(prefersDirectoryQuery('compare these under PHP 300', []), false);
   const { decodeToolProposal, TOOL_NAMES } = load('src/ai/tools.ts');
   assert.equal(TOOL_NAMES.includes('confirm_saved_change'), false);
@@ -307,8 +307,9 @@ function load(relative, mocks = {}) {
   assert.equal(hybridCalls.length, beforeAbort, 'aborted request cannot execute retrieval tools');
   const { toolObservation } = load('src/ai/prompt.ts');
   const { planDeterministicRequest } = load('src/ai/deterministicIntent.ts');
-  for (const query of ['Find a coffee place and show its details', 'Look up offices and show their recorded details'])
-    assert.equal(planDeterministicRequest(query, [place]), null, 'compound lookup/action requests keep their intent for the model');
+  assert.equal(planDeterministicRequest('Find a coffee place and show its details', [place])?.followUp, 'details');
+  assert.equal(planDeterministicRequest('Look up offices and show their recorded details', [place]), null,
+    'unrecognized compound qualifiers retain the model path');
   let greetingCalls = 0;
   const greetingDeps = { ...hybridDeps, agent: { run: async () => {
     greetingCalls++; return { status: 'completed', payloads: [{ kind: 'text', text: 'Hello from the local model.' }], places: [] };

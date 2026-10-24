@@ -15,6 +15,8 @@ import type { AgentRunOptions } from './AgentOrchestrator';
 import { answerDirectoryQuery } from '../features/assistant/directory';
 import { createFoodResearchAnswer } from '../features/food/assistant';
 import { foodResearch } from '../features/food/directory';
+import { INTERNAL_PREVIEW_ENABLED } from '../preview/directory';
+import { ProviderError, type Backend } from './contracts';
 
 export async function createAssistantRuntime(focus: (place: Place) => boolean | Promise<boolean>) {
   const provider = new NativeLiteRtProvider();
@@ -39,8 +41,9 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean | 
   let lifecycle: Promise<unknown> = Promise.resolve();
   let activeOperation: AbortController | null = null;
   let selectedModelId = QWEN3_06B.id;
+  let diagnosticBackend: Backend = 'cpu';
   const loadModel = (model: Parameters<typeof provider.load>[0]) =>
-    provider.load({ ...model, contextTokens: reviewedModel(model.id).defaultContextTokens }, 'cpu');
+    provider.load({ ...model, contextTokens: reviewedModel(model.id).defaultContextTokens }, diagnosticBackend);
   // Serialize runtime operations around the existing manager/provider owners;
   // teardown cancels setup and drains it before releasing native resources.
   const own = <T>(work: (signal: AbortSignal) => Promise<T>, signal?: AbortSignal): Promise<T> => {
@@ -189,6 +192,31 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean | 
     activate: (signal: AbortSignal, id?: string) =>
       own((ownedSignal) => activate(ownedSignal, id), signal),
     removeModel: (id?: string) => own(() => removeModel(id)),
+    /** Explicit internal-preview operation; failure never automatically replays a turn or changes backend. */
+    setDiagnosticBackend: (backend: Backend) => own(async (signal) => {
+      if (!INTERNAL_PREVIEW_ENABLED || (backend !== 'cpu' && backend !== 'gpu'))
+        throw new ProviderError('RUNTIME_UNSUPPORTED');
+      if (provider.state === 'READY' && diagnosticBackend === backend) return;
+      if (!(await provider.supportsBackend(backend)))
+        throw new ProviderError('RUNTIME_UNSUPPORTED', `${backend.toUpperCase()} backend is unavailable on this device.`);
+      manager ??= await createExpoModelManager();
+      const active = (await manager.recover()).active;
+      if (!active) throw new ProviderError('MODEL_MISSING');
+      if (signal.aborted) throw new Error('Model setup canceled');
+      agent.cancel();
+      await provider.release();
+      try {
+        await provider.load({ ...active, contextTokens: reviewedModel(active.id).defaultContextTokens }, backend);
+        diagnosticBackend = backend;
+        manager.setRuntimeError(undefined);
+      } catch (error) {
+        const code = error instanceof ProviderError ? error.code : 'UNEXPECTED_NATIVE_FAILURE';
+        manager.setRuntimeError(`${backend.toUpperCase()}_INITIALIZATION_FAILED: ${code}`);
+        if (backend === 'gpu')
+          throw new ProviderError(code, `GPU initialization failed (${code}). Select CPU explicitly after native cleanup.`);
+        throw error;
+      }
+    }),
     resolvePlace: async (id: string) => (await retrieval.getPlaceDetails(id)).data ??
       (await retrieval.getPreviewPlaceDetails(id)).data,
     getManager: () => manager,

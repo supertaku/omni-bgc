@@ -11,6 +11,8 @@ import { getOfficeLocationReference } from '../features/offices/service';
 import { parsePhpCentavos } from '../domain/money';
 import { INTERNAL_PREVIEW_ENABLED, resolvePreviewPlace, canonicalPreviewId } from '../preview/directory';
 import { displayFoodPrice } from '../features/food/service';
+import { UUID } from '../data/parser';
+import { aiElapsed, aiTick, aiTrace } from './diagnostics';
 
 type HybridTurn = {
   payloads: AssistantPayload[];
@@ -19,6 +21,14 @@ type HybridTurn = {
   execution: 'deterministic' | 'llm' | 'fallback';
 };
 const text = (message: string): AssistantPayload => ({ kind: 'text', text: message });
+const uniqueMatches = (matches: { id: string; preview: boolean }[]) => {
+  const byId = new Map<string, { id: string; preview: boolean }>();
+  for (const match of matches) {
+    const id = canonicalPreviewId(match.id);
+    if (!byId.has(id)) byId.set(id, match);
+  }
+  return [...byId.values()];
+};
 
 /** Direct requests and model proposals share the same validation and factual authority. */
 export async function runHybridTurn(
@@ -33,11 +43,19 @@ export async function runHybridTurn(
   options: AgentRunOptions = {},
   origin?: Origin | null,
 ): Promise<HybridTurn> {
+  const startedAt = aiTick();
+  let routingMs = 0, modelMs = 0, retrievalMs = 0, compositionMs = 0, modelCalls = 0, toolCalls = 0;
+  const finish = (turn: HybridTurn): HybridTurn => {
+    aiTrace({ route: turn.execution, status: turn.status, rounds: modelCalls,
+      toolCalls, routingMs, modelMs, retrievalMs, compositionMs, totalMs: aiElapsed(startedAt),
+      canceled: turn.status === 'canceled' });
+    return turn;
+  };
   const reply = (
     payloads: AssistantPayload[],
     status: AgentStatus = 'completed',
     execution: HybridTurn['execution'] = 'deterministic',
-  ): HybridTurn => ({ payloads, places: [], status, execution });
+  ): HybridTurn => finish({ payloads, places: [], status, execution });
   if (options.signal?.aborted) return reply([], 'canceled');
   if (
     !query.trim() ||
@@ -45,21 +63,33 @@ export async function runHybridTurn(
     /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(query)
   )
     return reply([text('Enter a non-empty message of at most 2,048 characters.')], 'denied');
-  const plan = planDeterministicRequest(query, places);
+  let plan = planDeterministicRequest(query, places);
+  const ordinalRequested = plan?.kind === 'ordinal-focus';
+  if (plan?.kind === 'ordinal-focus') {
+    const id = options.resolvedPlaceIds?.[plan.ordinal - 1];
+    if (typeof id !== 'string' || !UUID.test(id))
+      return reply([text('That earlier result is no longer available. Search again or use its exact name.')], 'unavailable');
+    plan = { kind: 'focus', query: '', placeId: canonicalPreviewId(id) };
+  }
+  routingMs = aiElapsed(startedAt);
   let failedModel = false;
   if ((!plan || (plan.kind === 'message' && isGeneralConversation(query))) && deps.canInfer()) {
+    const modelStarted = aiTick();
     try {
+      modelCalls++;
       const turn = await deps.agent.run(query, options);
+      modelMs = aiElapsed(modelStarted);
       if (!['failed', 'unavailable'].includes(turn.status))
-        return {
+        return finish({
           payloads: turn.payloads,
           places: turn.places,
           status: turn.status,
           execution: ['canceled', 'denied'].includes(turn.status) ? 'fallback' : 'llm',
-        };
+        });
       failedModel = true;
     } catch {
       failedModel = true;
+      modelMs = aiElapsed(modelStarted);
     }
   }
   if (options.signal?.aborted) return reply([], 'canceled', 'fallback');
@@ -138,11 +168,13 @@ export async function runHybridTurn(
     ordinaryMenuBranchId: plan.kind === 'menus' ? plan.placeId : undefined,
     userPriceBounds: plan.bounds,
     resolvedPlaceIds: new Set(),
+    ...(ordinalRequested && plan.placeId ? { expectedActionPlaceIds: new Set([plan.placeId]) } : {}),
   };
   let calls = 0;
   const run = async (name: ToolName, args: Record<string, unknown>) => {
     assertNotAborted(controller.signal);
     if (++calls > 4) throw new Error('Direct tool limit');
+    toolCalls++;
     options.onTool?.(name, 'running');
     const result = await deps.executor.execute(
       { name, arguments: args },
@@ -154,7 +186,9 @@ export async function runHybridTurn(
     return result;
   };
   const work = async (): Promise<HybridTurn> => {
+    const retrievalStarted = aiTick();
     const results: ToolResult[] = [];
+    let followUpIncomplete = '';
     const q = plan.query ? { query: plan.query } : {};
     switch (plan.kind) {
       case 'places': {
@@ -167,6 +201,24 @@ export async function runHybridTurn(
         if (context.researchEnabled && INTERNAL_PREVIEW_ENABLED && (!plan.placeId || results[0].status !== 'ok'))
           results.push(await run(plan.placeId && !proximity ? 'get_preview_place_details' : 'search_preview_directory',
             plan.placeId && !proximity ? { placeId: canonicalPreviewId(plan.placeId) } : { ...q, limit: 20 }));
+        if (plan.followUp) {
+          const found = uniqueMatches(results.flatMap<{ id: string; preview: boolean }>((r) => r.status !== 'ok' ? [] : Array.isArray(r.data)
+            ? (r.data as Place[]).map((place) => ({ id: place.id, preview: r.name === 'search_preview_directory' }))
+            : [{ id: (r.data as Place).id, preview: r.name === 'get_preview_place_details' }]));
+          if (plan.followUp === 'map') {
+            if (found.length === 1)
+              results.push(await run('focus_map_place', { placeId: found[0]!.id }));
+            else if (found.length > 1) followUpIncomplete = 'Several places matched. Choose one exact result to show on the map.';
+          } else {
+            const alreadyDetailed = new Set(results.filter((r) => r.status === 'ok' &&
+              ['get_place_details', 'get_preview_place_details'].includes(r.name)).map((r) => (r.data as Place).id));
+            for (const place of found.filter((place) => !alreadyDetailed.has(place.id)).slice(0, 4 - calls))
+              results.push(await run(place.preview ? 'get_preview_place_details' : 'get_place_details', { placeId: place.id }));
+            if (found.length > results.filter((r) => r.status === 'ok' &&
+              ['get_place_details', 'get_preview_place_details'].includes(r.name)).length)
+              followUpIncomplete = 'I showed details for the first matching records within this reply. Select another result for its full details.';
+          }
+        }
         break;
       }
       case 'menus': {
@@ -196,6 +248,20 @@ export async function runHybridTurn(
         results.push(await run('find_approved_offices', { ...q, limit: 12 }));
         if (context.researchEnabled && INTERNAL_PREVIEW_ENABLED)
           results.push(await run('search_preview_directory', { ...q, category: 'office', limit: 20 }));
+        if (plan.followUp) {
+          const found = uniqueMatches(results.flatMap<{ id: string; preview: boolean }>((r) => r.status !== 'ok' ? [] : r.name === 'find_approved_offices'
+            ? (r.data as { placeId: string }[]).map((office) => ({ id: office.placeId, preview: false }))
+            : (r.data as Place[]).map((place) => ({ id: place.id, preview: true }))));
+          if (plan.followUp === 'map') {
+            if (found.length === 1) results.push(await run('focus_map_place', { placeId: found[0]!.id }));
+            else if (found.length > 1) followUpIncomplete = 'Several offices matched. Choose one exact result to show on the map.';
+          } else {
+            for (const office of found.slice(0, 4 - calls))
+              results.push(await run(office.preview ? 'get_preview_place_details' : 'get_office_details', { placeId: office.id }));
+            if (found.length > results.filter((r) => ['get_office_details', 'get_preview_place_details'].includes(r.name)).length)
+              followUpIncomplete = 'I showed details for the first matching offices within this reply. Select another result for its full details.';
+          }
+        }
         break;
       case 'hours':
         if (!plan.placeId || !context.researchEnabled)
@@ -219,6 +285,8 @@ export async function runHybridTurn(
         results.push(await run('get_verified_entrances', { placeId: plan.placeId }));
         break;
     }
+    retrievalMs = aiElapsed(retrievalStarted);
+    const compositionStarted = aiTick();
     const current: ToolResult[] = [];
     for (const result of results)
       current.push(await revalidateToolResult(result, deps.executor.retrieval, controller.signal));
@@ -229,6 +297,7 @@ export async function runHybridTurn(
         ? successful.filter((r) => !(r.name === 'find_menu_items' && r.status === 'empty'))
         : successful;
     let payloads = composeGroundedAnswer(displayed, '', query);
+    if (followUpIncomplete) payloads.push(text(followUpIncomplete));
     const groups = payloads.filter((p): p is Extract<AssistantPayload, { kind: 'places' }> => p.kind === 'places');
     if (groups.length > 1) {
       const ids = [...new Set(groups.flatMap((p) => p.placeIds).map(canonicalPreviewId))];
@@ -365,12 +434,16 @@ export async function runHybridTurn(
       if (extra.length)
         return { payloads: extra, places: [...samples], status: 'completed', execution };
     }
-    return {
+    compositionMs = aiElapsed(compositionStarted);
+    return finish({
       payloads,
       places: fresh,
-      status: current.some((r) => r.status === 'denied') ? 'denied' : 'completed',
+      status: current.some((r) => r.status === 'denied') ? 'denied'
+        : ordinalRequested && !current.some((r) => r.name === 'focus_map_place' && r.status === 'ok') ? 'unavailable'
+        : followUpIncomplete || (plan.followUp === 'map' && !current.some((r) => r.name === 'focus_map_place' && r.status === 'ok')) ? 'partial'
+        : 'completed',
       execution,
-    };
+    });
   };
   let listener: () => void = () => undefined;
   const canceled = new Promise<never>((_, reject) => {
