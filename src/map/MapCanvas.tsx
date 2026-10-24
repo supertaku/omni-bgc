@@ -464,6 +464,7 @@ export function MapCanvas({
         {contextSource && activeScope.id === 'omni-bgc:service-area:bgc-commercial-v2' && (
           <VectorSource id="surrounding-context" url={contextSource}>
             <Layer
+              key="context-green"
               id="context-green"
               type="fill"
               source-layer="geometry"
@@ -471,6 +472,7 @@ export function MapCanvas({
               paint={{ 'fill-color': '#A8C69A', 'fill-opacity': 0.85 }}
             />
             <Layer
+              key="context-water"
               id="context-water"
               type="fill"
               source-layer="geometry"
@@ -478,6 +480,7 @@ export function MapCanvas({
               paint={{ 'fill-color': '#83C6CB' }}
             />
             <Layer
+              key="context-road-casing"
               id="context-road-casing"
               type="line"
               source-layer="geometry"
@@ -486,18 +489,16 @@ export function MapCanvas({
               paint={{
                 'line-color': '#B9B8AF',
                 'line-width': [
-                  'case',
-                  [
-                    'in',
-                    ['get', 'highway'],
-                    ['literal', ['footway', 'path', 'steps', 'cycleway', 'pedestrian']],
-                  ],
-                  ['interpolate', ['linear'], ['zoom'], 14, 1.5, 18, 5],
-                  ['interpolate', ['linear'], ['zoom'], 14, 2, 18, 9],
+                  'interpolate', ['linear'], ['zoom'],
+                  14, ['case', ['in', ['get', 'highway'],
+                    ['literal', ['footway', 'path', 'steps', 'cycleway', 'pedestrian']]], 1.5, 2],
+                  18, ['case', ['in', ['get', 'highway'],
+                    ['literal', ['footway', 'path', 'steps', 'cycleway', 'pedestrian']]], 5, 9],
                 ],
               }}
             />
             <Layer
+              key="context-roads"
               id="context-roads"
               type="line"
               source-layer="geometry"
@@ -520,6 +521,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="context-paths"
               id="context-paths"
               type="line"
               source-layer="geometry"
@@ -539,6 +541,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="context-buildings"
               id="context-buildings"
               type="fill"
               source-layer="geometry"
@@ -546,6 +549,7 @@ export function MapCanvas({
               paint={{ 'fill-color': illustratedRoofColor, 'fill-outline-color': '#304E45' }}
             />
             <Layer
+              key="context-building-massing"
               id="context-building-massing"
               type="fill-extrusion"
               source-layer="geometry"
@@ -564,6 +568,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="context-road-labels"
               id="context-road-labels"
               type="symbol"
               source-layer="geometry"
@@ -583,6 +588,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="st-lukes-label"
               id="st-lukes-label"
               type="symbol"
               source-layer="geometry"
@@ -633,6 +639,7 @@ export function MapCanvas({
             }}
           >
             <Layer
+              key="place-clusters"
               id="place-clusters"
               type="circle"
               filter={['has', 'point_count']}
@@ -644,6 +651,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="place-cluster-category"
               id="place-cluster-category"
               type="symbol"
               filter={['has', 'point_count']}
@@ -667,6 +675,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="important-place-pins"
               id="important-place-pins"
               type="symbol"
               minzoom={14}
@@ -681,6 +690,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="place-pins"
               id="place-pins"
               type="symbol"
               minzoom={14}
@@ -695,6 +705,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="place-names"
               id="place-names"
               type="symbol"
               minzoom={19}
@@ -730,6 +741,7 @@ export function MapCanvas({
             }}
           >
             <Layer
+              key="search-result-rings"
               id="search-result-rings"
               type="circle"
               paint={{
@@ -757,6 +769,7 @@ export function MapCanvas({
             }}
           >
             <Layer
+              key="selected-place-ring"
               id="selected-place-ring"
               type="circle"
               paint={{
@@ -767,6 +780,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="selected-place-pin"
               id="selected-place-pin"
               type="symbol"
               layout={{
@@ -777,6 +791,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="selected-place-name"
               id="selected-place-name"
               type="symbol"
               layout={{
@@ -828,6 +843,7 @@ export function MapCanvas({
               }}
             >
               <Layer
+                key="origin-dot"
                 id="origin-dot"
                 type="circle"
                 paint={{
@@ -850,11 +866,13 @@ export function MapCanvas({
             }}
           >
             <Layer
+              key="static-transit-casing"
               id="static-transit-casing"
               type="line"
               paint={{ 'line-color': '#FFFFFF', 'line-width': 8 }}
             />
             <Layer
+              key="static-transit-line"
               id="static-transit-line"
               type="line"
               paint={{ 'line-color': '#694500', 'line-width': 4, 'line-dasharray': [2, 1] }}
@@ -876,6 +894,7 @@ export function MapCanvas({
             }}
           >
             <Layer
+              key="static-transit-stop"
               id="static-transit-stop"
               type="circle"
               paint={{
@@ -886,6 +905,7 @@ export function MapCanvas({
               }}
             />
             <Layer
+              key="static-transit-stop-name"
               id="static-transit-stop-name"
               type="symbol"
               minzoom={17}
@@ -913,12 +933,14 @@ export function MapCanvas({
             }}
           >
             <Layer
+              key="route-casing"
               id="route-casing"
               type="line"
               layout={{ 'line-cap': 'round', 'line-join': 'round' }}
               paint={{ 'line-color': '#FFFFFF', 'line-width': 10 }}
             />
             <Layer
+              key="route-line"
               id="route-line"
               type="line"
               layout={{ 'line-cap': 'round', 'line-join': 'round' }}
@@ -939,6 +961,7 @@ export function MapCanvas({
             }}
           >
             <Layer
+              key="route-destination-pin"
               id="route-destination-pin"
               type="symbol"
               layout={{

@@ -3,7 +3,7 @@ import { fetch } from 'expo/fetch';
 import * as SQLite from 'expo-sqlite';
 import { nativeLocalAi } from '../../modules/omni-local-ai';
 import { OPEN_OPTIONS, rows, run } from '../data/ownership';
-import { ReviewedModel, reviewedModel } from './modelCatalog';
+import { MODEL_CATALOG, ReviewedModel, reviewedModel, storedModelMetadata } from './modelCatalog';
 import {
   ModelManager,
   type ModelPointers,
@@ -20,25 +20,35 @@ const abort = (signal?: AbortSignal) => {
 function retryAfterMs(value: string | null): number {
   if (!value) return 0;
   const seconds = Number(value);
-  const requested = Number.isFinite(seconds) && seconds >= 0
-    ? seconds * 1000
-    : Math.max(0, Date.parse(value) - Date.now());
+  const requested =
+    Number.isFinite(seconds) && seconds >= 0
+      ? seconds * 1000
+      : Math.max(0, Date.parse(value) - Date.now());
   return Math.min(requested, 10_000);
 }
 function abortableDelay(milliseconds: number, signal?: AbortSignal): Promise<void> {
   abort(signal);
   return new Promise((resolve, reject) => {
     const timer = setTimeout(done, milliseconds);
-    function done() { signal?.removeEventListener('abort', stopped); resolve(); }
-    function stopped() { clearTimeout(timer); signal?.removeEventListener('abort', stopped); reject(new Error('MODEL_SETUP_CANCELLED')); }
+    function done() {
+      signal?.removeEventListener('abort', stopped);
+      resolve();
+    }
+    function stopped() {
+      clearTimeout(timer);
+      signal?.removeEventListener('abort', stopped);
+      reject(new Error('MODEL_SETUP_CANCELLED'));
+    }
     signal?.addEventListener('abort', stopped, { once: true });
   });
 }
 function retryableDownloadError(error: unknown): boolean {
   if (!(error instanceof Error)) return false;
-  return error.message === 'MODEL_DOWNLOAD_NETWORK_ERROR' ||
+  return (
+    error.message === 'MODEL_DOWNLOAD_NETWORK_ERROR' ||
     error.message === 'MODEL_DOWNLOAD_TRUNCATED' ||
-    /^MODEL_DOWNLOAD_HTTP_(408|429|5\d\d)$/.test(error.message);
+    /^MODEL_DOWNLOAD_HTTP_(408|429|5\d\d)$/.test(error.message)
+  );
 }
 export function validateModelImportUri(uri: string): void {
   if (
@@ -85,7 +95,7 @@ function stored(value: unknown): StoredModel | null {
   if (!value || typeof value !== 'object' || Array.isArray(value))
     throw new Error('MODEL_POINTER_INVALID');
   const candidate = value as StoredModel,
-    model = reviewedModel(candidate.id);
+    model = storedModelMetadata(candidate.id);
   if (
     candidate.verified !== true ||
     candidate.sha256 !== model.sha256 ||
@@ -122,6 +132,15 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
       throw new Error('MODEL_PATH_INVALID');
     return new File(`file://${path}`);
   };
+  const modelAtPath = (path: string) => {
+    check(path);
+    const model = MODEL_CATALOG.find(
+      (entry) =>
+        path === `${root}/${entry.sha256}.partial` || path === `${root}/${entry.sha256}.litertlm`,
+    );
+    if (!model) throw new Error('MODEL_NOT_REVIEWED');
+    return model;
+  };
   async function index<T>(work: (db: SQLite.SQLiteDatabase) => Promise<T>): Promise<T> {
     const db = await SQLite.openDatabaseAsync('omni-ai-model-index.sqlite', OPEN_OPTIONS);
     try {
@@ -153,7 +172,7 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
       abort(signal);
       const source = new File(sourceUri);
       if (!source.exists) throw new Error('MODEL_IMPORT_MISSING');
-      const maximum = reviewedModel('gemma-4-e2b-it-litertlm-2026-08').bytes;
+      const maximum = modelAtPath(destination).bytes;
       if (source.size !== maximum) throw new Error('MODEL_IMPORT_SIZE_MISMATCH');
       target.create({ overwrite: true });
       const reader = source.open(FileMode.ReadOnly);
@@ -179,89 +198,29 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
     },
     download: async (model: ReviewedModel, destination, progress, signal) => {
       const transfer = async () => {
-      if (model.url !== reviewedModel(model.id).url || !allowedTransferUrl(model.url))
-        throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
-      const file = check(destination);
-      let offset = file.exists ? file.size : 0;
-      if (offset > model.bytes) {
-        file.delete();
-        offset = 0;
-      }
-      if (offset === model.bytes) {
-        progress(offset);
-        return;
-      }
-      abort(signal);
-      const headers: Record<string, string> = offset
-        ? { Range: `bytes=${offset}-`, 'Accept-Encoding': 'identity' }
-        : { 'Accept-Encoding': 'identity' };
-      let url = model.url;
-      let response: Awaited<ReturnType<typeof fetch>>;
-      for (let redirects = 0; ; redirects++) {
+        if (model.url !== reviewedModel(model.id).url || !allowedTransferUrl(model.url))
+          throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
+        const file = check(destination);
+        let offset = file.exists ? file.size : 0;
+        if (offset > model.bytes) {
+          file.delete();
+          offset = 0;
+        }
+        if (offset === model.bytes) {
+          progress(offset);
+          return;
+        }
         abort(signal);
-        if (!allowedTransferUrl(url)) throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
-        try {
-          response = await fetch(url, { signal, redirect: 'manual', headers });
-        } catch (error) {
-          if (signal?.aborted) throw new Error('MODEL_SETUP_CANCELLED');
-          const message = error instanceof Error ? error.message : '';
-          if (/securityexception|permission|not permitted/i.test(message))
-            throw new Error('MODEL_DOWNLOAD_PERMISSION_DENIED');
-          throw new Error('MODEL_DOWNLOAD_NETWORK_ERROR', { cause: error });
-        }
-        if (![301, 302, 303, 307, 308].includes(response.status)) break;
-        const location = response.headers.get('location');
-        await response.body?.cancel();
-        if (!location || location.length > 16384 || redirects >= 4)
-          throw new Error('MODEL_DOWNLOAD_REDIRECT_INVALID');
-        try {
-          url = new URL(location, url).toString();
-        } catch {
-          throw new Error('MODEL_DOWNLOAD_REDIRECT_INVALID');
-        }
-        // Validate before the next request, so a hostile Location never reaches the network.
-        if (!allowedTransferUrl(url)) throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
-      }
-      if (![200, 206].includes(response.status)) {
-        const delay = retryAfterMs(response.headers.get('retry-after'));
-        await response.body?.cancel().catch(() => undefined);
-        const error = new Error(`MODEL_DOWNLOAD_HTTP_${response.status}`);
-        if ([408, 429].includes(response.status) || response.status >= 500)
-          (error as Error & { retryAfterMs?: number }).retryAfterMs = delay;
-        throw error;
-      }
-      if (!allowedTransferUrl(response.url)) {
-        await response.body?.cancel();
-        throw new Error('MODEL_DOWNLOAD_RESPONSE_INVALID');
-      }
-      if (
-        response.status === 206 &&
-        response.headers.get('content-range') !==
-          `bytes ${offset}-${model.bytes - 1}/${model.bytes}`
-      ) {
-        await response.body?.cancel();
-        throw new Error('MODEL_DOWNLOAD_RANGE_INVALID');
-      }
-      if (response.status === 200 && offset) {
-        file.delete();
-        offset = 0;
-      }
-      const length = response.headers.get('content-length');
-      if (length !== null && Number(length) !== model.bytes - offset) {
-        await response.body?.cancel();
-        throw new Error('MODEL_DOWNLOAD_SIZE_MISMATCH');
-      }
-      if (!response.body) throw new Error('MODEL_DOWNLOAD_STREAM_UNAVAILABLE');
-      if (!file.exists) file.create();
-      const handle = file.open(FileMode.Append),
-        reader = response.body.getReader();
-      let received = offset;
-      try {
-        while (true) {
+        const headers: Record<string, string> = offset
+          ? { Range: `bytes=${offset}-`, 'Accept-Encoding': 'identity' }
+          : { 'Accept-Encoding': 'identity' };
+        let url = model.url;
+        let response: Awaited<ReturnType<typeof fetch>>;
+        for (let redirects = 0; ; redirects++) {
           abort(signal);
-          let result: ReadableStreamReadResult<Uint8Array>;
+          if (!allowedTransferUrl(url)) throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
           try {
-            result = await reader.read();
+            response = await fetch(url, { signal, redirect: 'manual', headers });
           } catch (error) {
             if (signal?.aborted) throw new Error('MODEL_SETUP_CANCELLED');
             const message = error instanceof Error ? error.message : '';
@@ -269,21 +228,81 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
               throw new Error('MODEL_DOWNLOAD_PERMISSION_DENIED');
             throw new Error('MODEL_DOWNLOAD_NETWORK_ERROR', { cause: error });
           }
-          if (result.done) break;
-          if (received + result.value.length > model.bytes)
-            throw new Error('MODEL_DOWNLOAD_SIZE_MISMATCH');
-          // Never collect all weights in JS or pass the multi-GB artifact to Expo Crypto.
-          for (let cursor = 0; cursor < result.value.length; cursor += BUFFER_BYTES)
-            handle.writeBytes(result.value.subarray(cursor, cursor + BUFFER_BYTES));
-          received += result.value.length;
-          progress(received);
+          if (![301, 302, 303, 307, 308].includes(response.status)) break;
+          const location = response.headers.get('location');
+          await response.body?.cancel();
+          if (!location || location.length > 16384 || redirects >= 4)
+            throw new Error('MODEL_DOWNLOAD_REDIRECT_INVALID');
+          try {
+            url = new URL(location, url).toString();
+          } catch {
+            throw new Error('MODEL_DOWNLOAD_REDIRECT_INVALID');
+          }
+          // Validate before the next request, so a hostile Location never reaches the network.
+          if (!allowedTransferUrl(url)) throw new Error('MODEL_DOWNLOAD_ORIGIN_INVALID');
         }
-        if (received !== model.bytes) throw new Error('MODEL_DOWNLOAD_TRUNCATED');
-      } finally {
-        handle.close();
-        await reader.cancel().catch(() => undefined);
-        reader.releaseLock();
-      }
+        if (![200, 206].includes(response.status)) {
+          const delay = retryAfterMs(response.headers.get('retry-after'));
+          await response.body?.cancel().catch(() => undefined);
+          const error = new Error(`MODEL_DOWNLOAD_HTTP_${response.status}`);
+          if ([408, 429].includes(response.status) || response.status >= 500)
+            (error as Error & { retryAfterMs?: number }).retryAfterMs = delay;
+          throw error;
+        }
+        if (!allowedTransferUrl(response.url)) {
+          await response.body?.cancel();
+          throw new Error('MODEL_DOWNLOAD_RESPONSE_INVALID');
+        }
+        if (
+          response.status === 206 &&
+          response.headers.get('content-range') !==
+            `bytes ${offset}-${model.bytes - 1}/${model.bytes}`
+        ) {
+          await response.body?.cancel();
+          throw new Error('MODEL_DOWNLOAD_RANGE_INVALID');
+        }
+        if (response.status === 200 && offset) {
+          file.delete();
+          offset = 0;
+        }
+        const length = response.headers.get('content-length');
+        if (length !== null && Number(length) !== model.bytes - offset) {
+          await response.body?.cancel();
+          throw new Error('MODEL_DOWNLOAD_SIZE_MISMATCH');
+        }
+        if (!response.body) throw new Error('MODEL_DOWNLOAD_STREAM_UNAVAILABLE');
+        if (!file.exists) file.create();
+        const handle = file.open(FileMode.Append),
+          reader = response.body.getReader();
+        let received = offset;
+        try {
+          while (true) {
+            abort(signal);
+            let result: ReadableStreamReadResult<Uint8Array>;
+            try {
+              result = await reader.read();
+            } catch (error) {
+              if (signal?.aborted) throw new Error('MODEL_SETUP_CANCELLED');
+              const message = error instanceof Error ? error.message : '';
+              if (/securityexception|permission|not permitted/i.test(message))
+                throw new Error('MODEL_DOWNLOAD_PERMISSION_DENIED');
+              throw new Error('MODEL_DOWNLOAD_NETWORK_ERROR', { cause: error });
+            }
+            if (result.done) break;
+            if (received + result.value.length > model.bytes)
+              throw new Error('MODEL_DOWNLOAD_SIZE_MISMATCH');
+            // Never collect all weights in JS or pass the multi-GB artifact to Expo Crypto.
+            for (let cursor = 0; cursor < result.value.length; cursor += BUFFER_BYTES)
+              handle.writeBytes(result.value.subarray(cursor, cursor + BUFFER_BYTES));
+            received += result.value.length;
+            progress(received);
+          }
+          if (received !== model.bytes) throw new Error('MODEL_DOWNLOAD_TRUNCATED');
+        } finally {
+          handle.close();
+          await reader.cancel().catch(() => undefined);
+          reader.releaseLock();
+        }
       };
       for (let attempt = 0; ; attempt++) {
         try {
@@ -300,9 +319,14 @@ export async function createExpoModelStorage(): Promise<ModelStorage> {
     finalize: async (partial, destination) => {
       const source = check(partial),
         target = check(destination);
+      const model = modelAtPath(destination);
+      if (
+        partial !== `${root}/${model.sha256}.partial` ||
+        destination !== `${root}/${model.sha256}.litertlm`
+      )
+        throw new Error('MODEL_PATH_INVALID');
       if (target.exists) {
         // A same-checksum artifact may already be active: never overwrite it, verify then discard duplicate.
-        const model = reviewedModel('gemma-4-e2b-it-litertlm-2026-08');
         if (target.size !== model.bytes || (await bridge.sha256File(destination)) !== model.sha256)
           throw new Error('MODEL_EXISTING_ARTIFACT_CORRUPT');
         source.delete();

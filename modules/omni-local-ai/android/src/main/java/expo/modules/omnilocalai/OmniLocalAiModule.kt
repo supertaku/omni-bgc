@@ -27,18 +27,15 @@ import java.util.concurrent.Executors
 import java.util.concurrent.CancellationException
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicReference
-import java.util.concurrent.ScheduledFuture
-import java.util.concurrent.TimeUnit
 
 class OmniLocalAiModule : Module() {
   // worker serializes initialization, send invocation and cleanup; control never queues behind JNI.
   private val worker = Executors.newSingleThreadExecutor()
   private val control = Executors.newCachedThreadPool()
-  private val health = Executors.newSingleThreadScheduledExecutor()
   private val conversationLock = Any()
   private val ownership = Ownership()
   private var engine: Engine? = null
+  private var toolResponseText = false
   @Volatile private var conversation: Conversation? = null
   @Volatile private var loading = false
   @Volatile private var destroying = false
@@ -58,7 +55,7 @@ class OmniLocalAiModule : Module() {
         if (power != null) {
           val listener = PowerManager.OnThermalStatusChangedListener { status ->
             sendEvent("onThermalStatus", mapOf(
-              "blocked" to (status >= PowerManager.THERMAL_STATUS_SEVERE),
+              "blocked" to false,
               "status" to status
             ))
           }
@@ -69,7 +66,7 @@ class OmniLocalAiModule : Module() {
       }
     }
     AsyncFunction("getCapabilities") {
-      mapOf("android" to true, "abi" to Build.SUPPORTED_ABIS.toList(), "backends" to listOf("cpu", "gpu"), "thermalBlocked" to thermalBlocked())
+      mapOf("android" to true, "abi" to Build.SUPPORTED_ABIS.toList(), "backends" to listOf("cpu", "gpu"), "thermalBlocked" to false, "thermalStatus" to thermalStatus())
     }
     // Read-only QA metadata; no caller-controlled path or command. Exact preview package only.
     AsyncFunction("getEvaluationIdentity") { promise: Promise ->
@@ -113,7 +110,6 @@ class OmniLocalAiModule : Module() {
         complete(promise) {
           try {
             perf("initialize_worker_start", trace)
-            if (thermalBlocked()) throw failure("THERMAL_BLOCK")
             val file = privateFile(input.string("verifiedAbsoluteModelPath"))
             if (!file.isFile) throw failure("MODEL_MISSING")
             perf("initialize_hash_start", trace)
@@ -126,7 +122,10 @@ class OmniLocalAiModule : Module() {
             Engine.setNativeMinLogSeverity(LogSeverity.ERROR)
             val created = Engine(EngineConfig(modelPath = file.absolutePath, backend = backend, maxNumTokens = context, cacheDir = File(modelRoot(), "runtime-cache").apply { mkdirs() }.absolutePath))
             engine = created
-            try { created.initialize() } catch (error: Throwable) { ownership.poison(); throw error }
+            try {
+              created.initialize()
+              toolResponseText = NativeMessages.requiresToolResponseText(input.string("expectedSha256").lowercase())
+            } catch (error: Throwable) { ownership.poison(); throw error }
             perf("engine_initialize_complete", trace)
             null
           } catch (error: Throwable) {
@@ -147,15 +146,13 @@ class OmniLocalAiModule : Module() {
         val sequence = AtomicInteger(0)
         val firstCallback = AtomicBoolean(false)
         val firstText = AtomicBoolean(false)
-        val thermalCancellation = AtomicBoolean(false)
-        val thermalCheck = AtomicReference<ScheduledFuture<*>?>(null)
+        val invalidProposal = AtomicBoolean(false)
         fun emit(type: String, fields: Map<String, Any?>) {
           if (!destroying && ownership.matches(id, epoch)) sendEvent("onGeneration", fields + mapOf("type" to type, "requestId" to id, "epoch" to epoch, "sequence" to sequence.getAndIncrement()))
         }
         fun terminal(reason: String, error: Throwable? = null) {
           if (!ownership.terminal(id, epoch)) return
           perf("terminal_callback", trace, mapOf("reason" to reason, "code" to error?.let { code(it) }))
-          thermalCheck.getAndSet(null)?.cancel(false)
           // Queue closure after send invocation returns and terminal callback finishes.
           worker.execute {
             try {
@@ -173,12 +170,11 @@ class OmniLocalAiModule : Module() {
           }
         }
         try {
-          if (thermalBlocked()) throw failure("THERMAL_BLOCK")
           val rawMessages = input["messages"] as? List<*> ?: throw failure("TOOL_PROTOCOL_INVALID")
           val tools = (input["tools"] as? List<*>) ?: emptyList<Any>()
           require(tools.size <= 16 && gson.toJson(tools).length <= 32768)
           val names = tools.map { (it as? Map<*, *>)?.get("name") as? String ?: throw NativeProtocolException() }.toSet()
-          val messages = NativeMessages.decode(rawMessages, names)
+          val messages = NativeMessages.decode(rawMessages, names, toolResponseText)
           val output = input.number("maxOutputTokens").toInt(); require(output in 1..512)
           val providers = tools.map { schema ->
             val json = gson.toJson(schema)
@@ -189,11 +185,6 @@ class OmniLocalAiModule : Module() {
           }
           val current = engine!!.createConversation(ConversationConfig(initialMessages = messages.dropLast(1), tools = providers, automaticToolCalling = false, maxOutputToken = output, thinkingConfig = ThinkingConfig(enableThinking = false, thinkingTokenBudget = 0)))
           conversation = current
-          thermalCheck.set(health.scheduleAtFixedRate({
-            if (ownership.matches(id, epoch) && thermalBlocked() && thermalCancellation.compareAndSet(false, true)) {
-              control.execute { try { cancelCurrent(id, epoch) } catch (_: Throwable) { ownership.poison() } }
-            }
-          }, 5, 5, TimeUnit.SECONDS))
           perf("generate_send_start", trace)
           current.sendMessageAsync(messages.last(), object : MessageCallback {
             override fun onMessage(message: Message) {
@@ -201,18 +192,19 @@ class OmniLocalAiModule : Module() {
               val text = message.contents.contents.filterIsInstance<Content.Text>().joinToString("") { it.text }
               if (text.isNotEmpty() && firstText.compareAndSet(false, true)) perf("first_text_delta", trace)
               if (text.isNotEmpty()) emit("delta", mapOf("text" to text, "mode" to "delta"))
-              for (proposal in message.toolCalls) emit("tool", mapOf("value" to mapOf("version" to 1, "name" to proposal.name, "arguments" to proposal.arguments)))
+              for (proposal in message.toolCalls) {
+                try { emit("tool", mapOf("value" to NativeMessages.bridgeToolCall(proposal))) }
+                catch (_: NativeProtocolException) { invalidProposal.set(true) }
+              }
             }
             override fun onDone() {
-              when (ownership.completionReason(thermalCancellation.get())) {
-                CompletionReason.THERMAL_BLOCK -> terminal("error", failure("THERMAL_BLOCK"))
+              when (ownership.completionReason()) {
                 CompletionReason.CANCELLED -> terminal("cancelled")
-                CompletionReason.COMPLETE -> terminal("complete")
+                CompletionReason.COMPLETE -> if (invalidProposal.get()) terminal("error", NativeProtocolException()) else terminal("complete")
               }
             }
             override fun onError(throwable: Throwable) {
-              if (thermalCancellation.get()) terminal("error", failure("THERMAL_BLOCK"))
-              else terminal(if (throwable is CancellationException) "cancelled" else "error", throwable)
+              terminal(if (throwable is CancellationException) "cancelled" else "error", throwable)
             }
           }, maxOutputToken = output)
           perf("generate_send_return", trace)
@@ -254,7 +246,7 @@ class OmniLocalAiModule : Module() {
       worker.execute { complete(promise) { try {
         if (!ownership.idle()) throw failure("SESSION_POISONED")
         perf("engine_close_start", trace)
-        engine?.let { if (it.isInitialized()) it.close() }; engine = null
+        engine?.let { if (it.isInitialized()) it.close() }; engine = null; toolResponseText = false
         perf("engine_close_complete", trace)
         null
       } catch (error: Throwable) { perf("release_failed", trace, mapOf("code" to code(error))); throw error }
@@ -275,8 +267,8 @@ class OmniLocalAiModule : Module() {
   private fun destroyWhenIdle() {
     if (!destroying || loading || !ownership.idle()) return
     try {
-      engine?.let { if (it.isInitialized()) it.close() }; engine = null
-      health.shutdown(); control.shutdown(); worker.shutdown()
+      engine?.let { if (it.isInitialized()) it.close() }; engine = null; toolResponseText = false
+      control.shutdown(); worker.shutdown()
     } catch (_: Throwable) { ownership.poison() }
   }
   // JNI cancel and delete must not race between upstream isAlive checks and native calls.
@@ -314,10 +306,11 @@ class OmniLocalAiModule : Module() {
     }
     return digest.digest().joinToString("") { "%02x".format(it) }
   }
-  private fun thermalBlocked(): Boolean {
-    if (Build.VERSION.SDK_INT < 29) return false
-    val power = appContext.reactContext?.getSystemService(PowerManager::class.java) ?: return false
-    return power.currentThermalStatus >= PowerManager.THERMAL_STATUS_SEVERE
+  // Observational only: Android retains its own throttling and shutdown protections.
+  private fun thermalStatus(): Int {
+    if (Build.VERSION.SDK_INT < 29) return 0
+    val power = appContext.reactContext?.getSystemService(PowerManager::class.java) ?: return 0
+    return power.currentThermalStatus
   }
   private fun failure(code: String) = CodedException(code, "Local inference unavailable ($code).", null)
   private fun code(error: Throwable): String = when (error) { is OutOfMemoryError -> "OOM"; is NativeProtocolException -> "TOOL_PROTOCOL_INVALID"; is CodedException -> error.code; else -> "UNEXPECTED_NATIVE_FAILURE" }

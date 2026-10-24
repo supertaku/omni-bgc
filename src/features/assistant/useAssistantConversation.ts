@@ -9,6 +9,7 @@ import { foodResearch } from '../food/directory';
 import { createAssistantRuntime, type AssistantRuntime } from '../../ai/assistantRuntime';
 import type { ModelStatus } from '../../ai/modelManager';
 import { resultPlaceIds, resolveMapResultRecords } from './mapResults';
+import { resolveCurrentPlace } from '../explore/placeOpening';
 
 const research = createFoodResearchAnswer(foodResearch);
 let messageSerial = 0;
@@ -20,7 +21,7 @@ const message = (payload: AssistantPayload): ConversationMessage => ({
 /** UI epochs own visibility; native provider independently owns resource quiescence. */
 export function useAssistantConversation(
   places: Place[],
-  focus: (place: Place) => boolean,
+  focus: (place: Place) => boolean | Promise<boolean>,
   onOpenPlace?: (place: Place) => void,
   origin?: Origin | null,
   onMapResults?: (places: Place[], show: boolean) => boolean,
@@ -84,6 +85,7 @@ export function useAssistantConversation(
                 category: place.category,
                 ...(place.building ? { building: place.building } : {}),
                 ...(place.floor ? { floor: place.floor } : {}),
+                ...(payload.kind === 'place' && place.description ? { description: place.description.slice(0, 1000) } : {}),
                 status: place.status,
                 fictionalSample: isDemoPlace(place),
               })),
@@ -129,7 +131,6 @@ export function useAssistantConversation(
     const visibilityEpoch = epoch;
     const initialEpoch = epoch.current;
     let unsubscribe: (() => void) | undefined;
-    let unsubscribeThermal: (() => void) | undefined;
     void createAssistantRuntime((place) => current.current.focus(place))
       .then(async (created) => {
         if (!active || !live.current) {
@@ -137,12 +138,6 @@ export function useAssistantConversation(
           return;
         }
         runtime.current = created;
-        const thermal = created.onThermalStatus((blocked) => {
-          const manager = created.getManager();
-          if (blocked) manager?.setRuntimeError('THERMAL_BLOCK');
-          else if (manager?.getStatus().runtimeError === 'THERMAL_BLOCK') manager.setRuntimeError();
-        });
-        unsubscribeThermal = () => thermal?.remove();
         try {
           if (clearRequested.current) {
             await created.history.clear();
@@ -215,14 +210,6 @@ export function useAssistantConversation(
         if (active && live.current) setStatus('Local AI unavailable · directory fallback ready');
       });
     const background = AppState.addEventListener('change', (state) => {
-      if (state === 'active') {
-        const created = runtime.current;
-        if (created) void created.refreshThermal().then((blocked) => {
-          const manager = created.getManager();
-          if (blocked) manager?.setRuntimeError('THERMAL_BLOCK');
-          else if (manager?.getStatus().runtimeError === 'THERMAL_BLOCK') manager.setRuntimeError();
-        }).catch(() => undefined);
-      }
       if (state !== 'active' && !pickerVisible.current) {
         epoch.current++;
         request.current?.abort();
@@ -243,7 +230,6 @@ export function useAssistantConversation(
       visibilityEpoch.current++;
       request.current?.abort();
       unsubscribe?.();
-      unsubscribeThermal?.();
       background.remove();
       const owned = runtime.current;
       runtime.current = null;
@@ -474,12 +460,9 @@ export function useAssistantConversation(
     }
   };
   const openPlace = async (place: Place) => {
-    if (place.status !== 'approved') {
-      current.current.onOpenPlace?.(place);
-      return;
-    }
     const openingEpoch = epoch.current;
-    const latest = await runtime.current?.resolvePlace(place.id).catch(() => null);
+    const latest = await resolveCurrentPlace(place.id, current.current.places,
+      async id => runtime.current?.resolvePlace(id));
     if (!live.current || epoch.current !== openingEpoch) return;
     if (latest) current.current.onOpenPlace?.(latest);
     else

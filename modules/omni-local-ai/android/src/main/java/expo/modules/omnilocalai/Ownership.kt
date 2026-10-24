@@ -1,6 +1,6 @@
 package expo.modules.omnilocalai
 
-internal enum class CompletionReason { COMPLETE, CANCELLED, THERMAL_BLOCK }
+internal enum class CompletionReason { COMPLETE, CANCELLED }
 
 /** No JNI call runs under this monitor. A timeout never grants ownership. */
 internal class Ownership {
@@ -21,8 +21,8 @@ internal class Ownership {
   fun idle(): Boolean = synchronized(lock) { active == null && !poisoned }
   fun cancel(id: String, epoch: Int): Boolean = synchronized(lock) { if (active != Pair(id, epoch)) false else { cancelling = true; true } }
   fun cancelling(): Boolean = synchronized(lock) { cancelling }
-  fun completionReason(thermalBlocked: Boolean): CompletionReason = synchronized(lock) {
-    when { thermalBlocked -> CompletionReason.THERMAL_BLOCK; cancelling -> CompletionReason.CANCELLED; else -> CompletionReason.COMPLETE }
+  fun completionReason(): CompletionReason = synchronized(lock) {
+    if (cancelling) CompletionReason.CANCELLED else CompletionReason.COMPLETE
   }
   fun cleanupSucceeded(id: String, epoch: Int) = synchronized(lock) { if (active == Pair(id, epoch)) active = null }
   fun poison() = synchronized(lock) { poisoned = true }

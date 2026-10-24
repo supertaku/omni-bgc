@@ -27,20 +27,25 @@ export function ExplorerPager({screen,onChange,map,assistant,keyboardVisible,sha
     return()=>{active=false;listener.remove();};
   },[]);
   useEffect(()=>{
+    let active=true;
     transitionRef.current=true;setTransitioning(true);
     const animation=Animated.timing(offset,{toValue:screen==='Map'?0:1,duration:reduceMotion?0:280,
       easing:Easing.out(Easing.cubic),useNativeDriver:true});
-    animation.start(({finished})=>{if(finished){transitionRef.current=false;setTransitioning(false);}});
-    return()=>animation.stop();
+    animation.start(({finished})=>{
+      if(!active)return;
+      if(!finished)offset.setValue(screen==='Map'?0:1);
+      transitionRef.current=false;setTransitioning(false);
+    });
+    return()=>{active=false;animation.stop();transitionRef.current=false;};
   },[screen,reduceMotion,offset]);
   const translate=offset.interpolate({inputRange:[0,1],outputRange:[0,-width]});
   return <View style={styles.viewport} onLayout={event=>setMeasuredWidth(event.nativeEvent.layout.width)}>
     <Animated.View style={[styles.track,{width:width*2,transform:[{translateX:translate}]}]}>
-      <View style={[styles.page,{width}]} pointerEvents={screen==='Map'&&!transitioning?'auto':'none'}
+      <View style={[styles.page,{width}]} pointerEvents={screen==='Map'?'auto':'none'}
         accessibilityElementsHidden={screen!=='Map'} importantForAccessibility={screen==='Map'?'auto':'no-hide-descendants'}>
         {map}
       </View>
-        <View collapsable={false} style={[styles.page,{width}]} pointerEvents={screen==='Assistant'&&!transitioning?'auto':'none'}
+        <View collapsable={false} style={[styles.page,{width}]} pointerEvents={screen==='Assistant'?'auto':'none'}
           accessibilityElementsHidden={screen!=='Assistant'} importantForAccessibility={screen==='Assistant'?'auto':'no-hide-descendants'}>
           {assistant}
         </View>

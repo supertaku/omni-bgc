@@ -1,14 +1,11 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const ts = require('typescript');
+require.extensions['.ts'] = (module, filename) => module._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText, filename);
 const Module = require('node:module');
 const path = require('node:path');
 const filename = path.resolve(__dirname, '../src/features/assistant/mapResults.ts');
-const mod = new Module(filename, module);
-mod._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
-  compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
-}).outputText, filename);
-const { resultPlaceIds, resolveMapResultRecords } = mod.exports;
+const { resultPlaceIds, resolveMapResultRecords } = require(filename);
 assert.deepEqual(resultPlaceIds([
   {kind:'places',placeIds:['a','b']}, {kind:'place',placeId:'a'},
   {kind:'food-menus',items:[{placeId:'c'}]}, {kind:'food-hours',placeId:'d'},
@@ -60,6 +57,31 @@ assert.equal(resultPlaceIds([{kind:'places',placeIds:Array.from({length:120},(_,
     assert.deepEqual(highlights,[]);
     assert.equal(fit,null);
     assert.deepEqual(selected,retained?fresh:null,'selection is refreshed or revoked with its authoritative source');
+  }
+  let chooseArrow, navigationEffect;
+  function findOpening(node) {
+    if(ts.isVariableDeclaration(node) && node.name.getText(tree)==='choose') chooseArrow=node.initializer.getText(tree);
+    if(ts.isCallExpression(node) && node.expression.getText(tree)==='useEffect'
+      && node.arguments[1]?.getText(tree)==='[tab, panel, query, category, confirming, installing, basePlaces]') navigationEffect=node.arguments[0].getText(tree);
+    ts.forEachChild(node,findOpening);
+  }
+  findOpening(tree);
+  assert.ok(chooseArrow && navigationEffect, 'pending place openings are invalidated on navigation/source change');
+  const compiledChoose=ts.transpileModule(`const open = ${chooseArrow};`,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
+  const compiledNavigation=ts.transpileModule(`const navigate = ${navigationEffect};`,{compilerOptions:{target:ts.ScriptTarget.ES2022}}).outputText;
+  const {resolveCurrentPlace}=require('../src/features/explore/placeOpening.ts');
+  for(const navigated of [false,true]) {
+    let complete, chosen;
+    const pending=new Promise(resolve=>complete=resolve), selectionEpoch={current:0};
+    const deps={confirming:false,installing:false,selectionEpoch,resolveCurrentPlace,places:[stale],getPlaceDetails:()=>pending,
+      setMessage:()=>{},setLocationFocus:()=>{},setFitCoordinates:()=>{},setMapResults:()=>{},setHighlightedPlaceIds:()=>{},
+      setTabSafely:()=>{},selectPlace:place=>chosen=place,officeFocus:place=>place.coordinate,officeScope:null,coverageAt:()=> 'service'};
+    const open=Function('deps',`const {${Object.keys(deps).join(',')}}=deps;${compiledChoose};return open;`)(deps);
+    const opening=open(stale);
+    if(navigated) Function('selectionEpoch',compiledNavigation+';navigate();')(selectionEpoch);
+    complete(stale);
+    assert.equal(await opening,!navigated);
+    assert.equal(!!chosen,!navigated,'a delayed lookup must not reopen dismissed details');
   }
   console.log('PASS result IDs, current-source map resolution, candidate/text-only preservation and supported building IDs');
 })().catch(error=>{console.error(error);process.exitCode=1;});

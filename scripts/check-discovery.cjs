@@ -31,6 +31,12 @@ assert.deepEqual(planDeterministicRequest('are there any coffee shops', [place])
 assert.equal(planDeterministicRequest('sort ramen by price', [place]).priceSort, 'asc');
 assert.equal(planDeterministicRequest('ramen high to low', [place]).priceSort, 'desc');
 assert.equal(directoryCategory('cafés'), 'coffee');
+assert.equal(directoryCategory('coffee shops'), 'coffee');
+assert.equal(directoryCategory('coffee shop'), 'coffee');
+assert.equal(directoryCategory('coffee shops uptown'), undefined, 'category recognition preserves unknown qualifiers');
+assert.deepEqual(planDeterministicRequest('find coffee shops in BGC', [place]), { kind: 'places', query: 'coffee' });
+assert.equal(planDeterministicRequest('coffee menu', [place]).kind, 'menus');
+assert.equal(planDeterministicRequest('coffee under PHP 150', [place]).kind, 'menus');
 assert.ok(lexicalSearchQueries('coffee').includes('cafe'));
 assert.ok(lexicalSearchQueries('kape').includes('cafe'));
 assert.equal(planDeterministicRequest('find Luna Coffee', [place]).placeId, place.id,
@@ -46,6 +52,39 @@ assert.equal(oneEditAway('luna', 'lunaa'), true);
 assert.equal(oneEditAway('luna', 'luneaa'), false);
 assert.equal(planDeterministicRequest('nearby coffee shops', [place]).kind, 'places',
   'proximity search stays deterministic and lets the host ask for origin');
+
+// Exercise the actual research adapter and directory fallback with retained source records.
+const { foodPlaces, foodResearch } = load('src/features/food/directory.ts');
+const { createFoodResearchAnswer } = load('src/features/food/assistant.ts');
+const { answerDirectoryQuery, placeMatchesCategory } = load('src/features/assistant/directory.ts');
+const researchAnswer = createFoodResearchAnswer(foodResearch);
+for (const query of [
+  'Find a coffee place and show its details',
+  'Find a coffee place in Uptown and tell me about it',
+  'Recommend a quiet coffee place with outdoor seating',
+  'Find coffee nonexistentqualifier and show details',
+]) {
+  assert.equal(researchAnswer(query, foodPlaces), null,
+    `${query} must reach the shared planner/model instead of an implicit coffee menu lookup`);
+}
+const expectedCoffeeIds = new Set(foodPlaces.filter((record) => placeMatchesCategory(record, 'coffee')).map((record) => record.id));
+assert.ok(expectedCoffeeIds.size > 0, 'retained directory includes coffee category places');
+for (const query of ['find coffee shops in BGC', 'coffee', 'cafes', 'cafés', 'coffee shops']) {
+  const answer = answerDirectoryQuery(query, foodPlaces, undefined, researchAnswer);
+  const results = answer.find((payload) => payload.kind === 'places');
+  assert.ok(results?.placeIds.length, `${query} must produce selectable places while model is unavailable`);
+  assert.deepEqual(results.placeIds, [...expectedCoffeeIds].slice(0, 12), `${query} preserves exact recorded coffee place identities`);
+  assert.equal(results.total, expectedCoffeeIds.size, `${query} includes all matching recorded places`);
+  assert.ok(!answer.some((payload) => payload.kind === 'food-menus'), `${query} must not turn into a drink menu search`);
+}
+const qualified = answerDirectoryQuery('find coffee shops nonexistentqualifier', foodPlaces, undefined, researchAnswer);
+assert.ok(!qualified.some((payload) => payload.kind === 'places'), 'unknown qualifiers cannot silently broaden discovery');
+for (const query of ['coffee menu', 'coffee under PHP 150', 'coffee and bread', 'coffee and ramen']) {
+  assert.ok(researchAnswer(query, foodPlaces)?.some((payload) => payload.kind === 'food-menus' ||
+    (payload.kind === 'text' && /menu items/i.test(payload.text))), `${query} retains explicit menu/price intent`);
+}
+assert.equal(researchAnswer('find coffee shops in BGC verified sources only', foodPlaces), null,
+  'research exclusion still prevents candidate answers');
 
 const { getOfficeLocationReference, THINKING_MACHINES_CANDIDATE_ID } = load('src/features/offices/service.ts');
 const reference = getOfficeLocationReference(THINKING_MACHINES_CANDIDATE_ID);

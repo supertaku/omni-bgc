@@ -7,6 +7,8 @@ import type { ToolResult } from './toolExecutor';
 import type { ItineraryPreview } from './itineraryPreview';
 import { decodeToolProposal } from './tools';
 import { assertNotAborted } from './toolExecutor';
+import { canonicalPreviewId, previewDetails } from '../preview/directory';
+import { placeDetailFocus } from '../features/assistant/detailPresentation';
 
 /** Unrestricted local prose is never used to answer BGC factual or action questions. */
 export function isGeneralConversation(query: string): boolean {
@@ -57,6 +59,19 @@ export async function revalidateToolResult(
     case 'get_place_details':
       refreshed = await retrieval.getPlaceDetails(r.appliedFilters.placeId as string);
       break;
+    case 'search_preview_directory':
+      refreshed = await retrieval.searchPreviewDirectory(r.appliedFilters);
+      break;
+    case 'get_preview_place_details':
+      refreshed = await retrieval.getPreviewPlaceDetails(r.appliedFilters.placeId as string);
+      break;
+    case 'focus_map_place': {
+      const id = (r.data as { placeId?: string } | null)?.placeId;
+      const place = id ? await retrieval.getPlaceDetails(id) : null;
+      const preview = !place?.data && id && r.appliedFilters.previewAllowed === true ? await retrieval.getPreviewPlaceDetails(id) : null;
+      assertNotAborted(signal);
+      return place?.data || preview?.data ? r : { ...r, status: 'unavailable', data: null, sourceRecordIds: [], citations: [], warnings: ['That place is no longer available. Try a fresh search.'] };
+    }
     case 'get_verified_entrances':
       refreshed = await retrieval.getVerifiedEntrances(r.appliedFilters.placeId as string);
       break;
@@ -180,7 +195,9 @@ export function composeGroundedAnswer(
       payloads.push({
         kind: 'text',
         text:
-          r.authority === 'research'
+          ['search_preview_directory', 'get_preview_place_details'].includes(r.name)
+            ? 'I couldn’t find a place match for that. Try another place or company name.'
+            : r.authority === 'research'
             ? 'I couldn’t find a menu match for that. Try another dish or price range.'
             : ['find_approved_offices', 'get_office_details'].includes(r.name)
               ? 'I couldn’t find an office match for that yet.'
@@ -201,9 +218,21 @@ export function composeGroundedAnswer(
         });
         break;
       }
+      case 'search_preview_directory': {
+        const places = r.data as Place[];
+        payloads.push({ kind: 'places', title: 'Places', placeIds: places.map((p) => p.id), total: places.length });
+        break;
+      }
+      case 'get_preview_place_details': {
+        const place = r.data as Place;
+        const focus = placeDetailFocus(query), address = previewDetails(place.id)?.office?.address;
+        payloads.push({ kind: 'place', placeId: place.id, detailFocus: focus,
+          ...(address && address.length <= 1000 && (focus === 'location' || focus === 'overview') ? { detailAddress: address } : {}) });
+        break;
+      }
       case 'get_place_details': {
         const place = r.data as Place;
-        payloads.push({ kind: 'place', placeId: place.id });
+        payloads.push({ kind: 'place', placeId: place.id, detailFocus: placeDetailFocus(query) });
         break;
       }
       case 'get_verified_entrances': {
@@ -234,11 +263,11 @@ export function composeGroundedAnswer(
           });
         payloads.push({
           kind: 'food-menus',
-          title: 'Research listings · not approved branch prices',
+          title: 'Menu items',
           total: rows.reduce((n, row) => n + row.items.length, 0),
           items: rows.flatMap((row) =>
             row.items.map((item) => ({
-              placeId: row.restaurant.id,
+              placeId: canonicalPreviewId(row.restaurant.id),
               restaurantName: row.restaurant.name,
               item,
               evidence: row.evidence,
@@ -249,7 +278,7 @@ export function composeGroundedAnswer(
           for (const row of rows)
             payloads.push({
               kind: 'food-hours',
-              placeId: row.restaurant.id,
+              placeId: canonicalPreviewId(row.restaurant.id),
               restaurantName: row.restaurant.name,
               hours: row.restaurant.hours,
               evidence: row.evidence,
@@ -261,6 +290,13 @@ export function composeGroundedAnswer(
         const offices = Array.isArray(r.data)
           ? (r.data as OfficeDetails[])
           : [r.data as OfficeDetails];
+        if (r.name === 'get_office_details') {
+          const office = offices[0];
+          payloads.push({ kind: 'place', placeId: office.placeId, detailFocus: placeDetailFocus(query),
+            ...(office.address && office.address.length <= 1000 ? { detailAddress: office.address } : {}) });
+          break;
+        }
+        payloads.push({ kind: 'places', title: 'Offices', placeIds: offices.map((o) => o.placeId), total: offices.length });
         for (const office of offices)
           payloads.push({
             kind: 'text',
@@ -277,7 +313,7 @@ export function composeGroundedAnswer(
         break;
       }
       case 'focus_map_place':
-        payloads.push({ kind: 'text', text: 'Here it is on the map.' });
+        payloads.push({ kind: 'text', text: 'Here are its details.' });
         break;
       case 'get_itinerary_preview':
       case 'preview_itinerary_change':
@@ -319,5 +355,12 @@ export function composeGroundedAnswer(
       severity: 'info',
       text: 'I can’t confirm live availability, what’s open right now, dietary safety, traffic, or travel times. Route directions aren’t available.',
     });
+  const placeGroups = payloads.filter((p): p is Extract<AssistantPayload, { kind: 'places' }> => p.kind === 'places');
+  if (placeGroups.length > 1) {
+    const ids = [...new Set(placeGroups.flatMap((p) => p.placeIds).map(canonicalPreviewId))];
+    const first = payloads.findIndex((p) => p.kind === 'places');
+    const combined: AssistantPayload = { kind: 'places', title: 'Places', placeIds: ids, total: ids.length };
+    return [...payloads.slice(0, first), combined, ...payloads.slice(first).filter((p) => p.kind !== 'places')];
+  }
   return payloads;
 }

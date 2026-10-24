@@ -2,20 +2,20 @@
   "formatVersion": 1,
   "displayOnly": true,
   "navigationEligible": false,
-  "coverageSha256": "5c83ff0dfe43097009c409979348476bc04a4518f6316401bcedabe12aa29287",
+  "coverageSha256": "856d5b93bf1cc65cd960cc12ab35e5a94a6d3680c7f664180c615e1f7526c090",
   "bbox": [
-    121.04457295374114,
+    121.04318238580666,
     14.54279633333322,
-    121.05932776091223,
-    14.560503439648421
+    121.06071940318019,
+    14.56185859903389
   ],
   "minzoom": 14,
   "maxzoom": 18,
   "files": [
     {
       "path": "context.pmtiles",
-      "bytes": 317964,
-      "sha256": "f3cec59cfe49a41c808407226db0f62081564401ef67d38ca0d56924de7ee1a3"
+      "bytes": 648241,
+      "sha256": "927a4da19e634b2e02f5d5278bcff9bc90cce88a82e91c9225b06cd0adfefb73"
     }
   ]
 }

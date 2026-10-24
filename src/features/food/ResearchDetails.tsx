@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 import { Body, palette } from '../../ui/components';
 import type { FoodEvidence, FoodHours, FoodMenuItem } from './contracts';
 import { displayFoodPrice } from './service';
 import { foodResearch } from './directory';
 import { restaurantHoursLines } from './presentation';
+import { INTERNAL_PREVIEW_ENABLED } from '../../preview/directory';
+import { foodImageKey, previewImage } from '../../preview/media';
 
 export function FoodSourceDisclosure({ evidence }: { evidence: FoodEvidence | null }) {
   const [open, setOpen] = useState(false);
@@ -34,6 +36,7 @@ export function FoodMenuRow({ item }: { item: FoodMenuItem; evidence: FoodEviden
   const price = displayFoodPrice(item);
   const tags = [...new Set([item.category, ...item.tags].filter(Boolean))].join(' · ');
   return <View style={{ paddingVertical: 12, gap: 4, borderBottomWidth: 1, borderColor: palette.divider }}>
+    {INTERNAL_PREVIEW_ENABLED ? <Image source={previewImage(item.imageKey ?? foodImageKey(item.name))} style={{width:'100%',height:145,borderRadius:10}} accessibilityLabel={`Illustrative photograph of ${item.name}`} /> : null}
     <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
       <Text style={{ flex: 1, fontFamily: 'OmniBodySemiBold', color: palette.ink, fontSize: 16 }}>{item.name}</Text>
       {price ? <Body>{price}</Body> : null}

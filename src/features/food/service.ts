@@ -1,5 +1,6 @@
 import type { FoodEvidence, FoodFilters, FoodMenuItem, FoodRestaurant } from './contracts';
 import { parsePhpCentavos } from '../../domain/money';
+import { INTERNAL_PREVIEW_ENABLED, canonicalPreviewId } from '../../preview/directory';
 
 export const normalizeFoodText = (value: string) =>
   value
@@ -25,6 +26,15 @@ const priceTypes = new Set([
   'published-research',
 ]);
 const nullableText = (value: unknown) => value === null || typeof value === 'string';
+/** Accept a complete level label only; raw address/prose remains in source evidence. */
+export function displayFoodFloor(value: string | null): string | null {
+  if (!value) return null;
+  const label = value.trim();
+  const compact = label.normalize('NFKC').toLowerCase().replace(/[\s./-]+/g, '');
+  return /^(?:gf|ground(?:floor|level)?|lgf?|lowerground(?:floor|level)?|ugf?|upperground(?:floor|level)?|[1-9]\d{0,2}(?:f|(?:st|nd|rd|th)?floor)|(?:floor|level)[1-9]\d{0,2}|b[1-9]\d?|basement(?:[1-9]\d?)?|lobby|streetlevel)$/.test(compact)
+    ? label
+    : null;
+}
 function freezeTree<T>(value: T): T {
   if (value && typeof value === 'object' && !Object.isFrozen(value)) {
     Object.values(value).forEach(freezeTree);
@@ -54,6 +64,8 @@ export function validateFoodDirectory(
       typeof r.name !== 'string' ||
       !r.name ||
       typeof r.type !== 'string' ||
+      (r.description !== undefined && typeof r.description !== 'string') ||
+      (r.imageKey !== undefined && typeof r.imageKey !== 'string') ||
       !Array.isArray(r.items)
     )
       return false;
@@ -104,6 +116,8 @@ export function validateFoodDirectory(
         !i.id ||
         i.restaurantId !== r.id ||
         i.origin !== 'research' ||
+        (i.imageKey !== undefined && typeof i.imageKey !== 'string') ||
+        (i.preview !== undefined && typeof i.preview !== 'boolean') ||
         typeof i.name !== 'string' ||
         !i.name ||
         i.currency !== 'PHP' ||
@@ -141,19 +155,19 @@ const fieldsMatch = (r: FoodRestaurant, f: FoodFilters) =>
   matches(r.zone ?? '', f.zone) &&
   matches(r.type, f.type);
 
-export function createFoodResearchService(input: unknown) {
+export function createFoodResearchService(input: unknown, preview = INTERNAL_PREVIEW_ENABLED) {
   const available = validateFoodDirectory(input);
   // Exclude raw import diagnostics from every retrieved object/model-facing result.
   const restaurants: FoodRestaurant[] = available
     ? input.restaurants.map((r) => ({
-        id: r.id,
+        id: preview ? canonicalPreviewId(r.id) : r.id,
         externalId: r.externalId,
         origin: 'research',
         name: r.name,
         type: r.type,
         zone: r.zone,
         building: r.building,
-        floor: r.floor,
+        floor: displayFoodFloor(r.floor),
         locationOriginal: r.locationOriginal,
         locationSpecificity: r.locationSpecificity,
         locationSourceUrl: r.locationSourceUrl,
@@ -165,9 +179,11 @@ export function createFoodResearchService(input: unknown) {
         menuBranch: r.menuBranch,
         notes: r.notes,
         researchDate: r.researchDate,
+        description: r.description,
+        imageKey: r.imageKey,
         items: r.items.map((i) => ({
           id: i.id,
-          restaurantId: i.restaurantId,
+          restaurantId: preview ? canonicalPreviewId(i.restaurantId) : i.restaurantId,
           origin: 'research',
           name: i.name,
           section: i.section,
@@ -183,6 +199,8 @@ export function createFoodResearchService(input: unknown) {
           branch: i.branch,
           researchStatus: i.researchStatus,
           researchDate: i.researchDate,
+          imageKey: i.imageKey,
+          preview: i.preview,
         })),
       }))
     : [];
@@ -215,6 +233,12 @@ export function createFoodResearchService(input: unknown) {
         ] as [string, FoodRestaurant][],
     ),
   );
+  if (available && preview) {
+    for (const source of input.restaurants) {
+      const projected = byId.get(canonicalPreviewId(source.id));
+      if (projected) byId.set(source.id, projected);
+    }
+  }
   const items = restaurants.flatMap((r) => r.items.map((item) => ({ restaurant: r, item })));
   const itemById = new Map(items.map((entry) => [entry.item.id, entry]));
   const prices = new Map(
@@ -241,6 +265,7 @@ export function createFoodResearchService(input: unknown) {
       .every((t) => words!.has(t));
   }
   function searchFoodMenuItems(f: FoodFilters = {}) {
+    if (preview && f.restaurantId) f = { ...f, restaurantId: canonicalPreviewId(f.restaurantId) };
     const min = f.minPhp === undefined ? null : parsePhpCentavos(f.minPhp);
     const max = f.maxPhp === undefined ? null : parsePhpCentavos(f.maxPhp);
     if (
@@ -253,7 +278,7 @@ export function createFoodResearchService(input: unknown) {
       const price = prices.get(i.id)!;
       return (
         fieldsMatch(r, f) &&
-        ((min === null && max === null) || displayFoodPrice(i) !== null) &&
+        ((min === null && max === null) || displayFoodPrice(i, preview) !== null) &&
         indexedMatch(itemText(i), f.category) &&
         indexedMatch(menuTexts.get(i.id)!, f.query) &&
         (min === null || price >= min) &&
@@ -268,6 +293,7 @@ export function createFoodResearchService(input: unknown) {
     };
   }
   function searchFoodEstablishments(f: FoodFilters = {}) {
+    if (preview && f.restaurantId) f = { ...f, restaurantId: canonicalPreviewId(f.restaurantId) };
     const min = f.minPhp === undefined ? null : parsePhpCentavos(f.minPhp),
       max = f.maxPhp === undefined ? null : parsePhpCentavos(f.maxPhp);
     if (
@@ -284,7 +310,7 @@ export function createFoodResearchService(input: unknown) {
         ((min === null && max === null) ||
           r.items.some(
             (i) =>
-              displayFoodPrice(i) !== null &&
+              displayFoodPrice(i, preview) !== null &&
               (min === null || prices.get(i.id)! >= min) &&
               (max === null || prices.get(i.id)! <= max),
           )),
@@ -337,8 +363,10 @@ export function createFoodResearchService(input: unknown) {
   };
 }
 
-/** Only itemized published amounts with branch and source evidence enter presentation/budgets. */
-export function displayFoodPrice(i: FoodMenuItem): string | null {
+/** Preview amounts are explicit; strict callers retain itemized branch/source gates. */
+export function displayFoodPrice(i: FoodMenuItem, preview = INTERNAL_PREVIEW_ENABLED): string | null {
+  if (i.currency !== 'PHP' || parsePhpCentavos(i.amount) === null) return null;
+  if (preview) return `₱${i.amount.replace(/\.00$/, '')}`;
   if (i.priceEvidence !== 'published-menu' || !i.branch?.trim() ||
       !i.priceSourceUrl || !i.menuSourceUrl || parsePhpCentavos(i.amount) === null) return null;
   return `₱${i.amount.replace(/\.00$/, '')}`;

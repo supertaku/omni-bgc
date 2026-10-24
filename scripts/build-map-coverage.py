@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if (ROOT / 'artifacts/map-python').exists():
     sys.path.insert(0, str(ROOT / 'artifacts/map-python'))
 from pyproj import Transformer
-from shapely.geometry import mapping, shape
+from shapely.geometry import LineString, mapping, shape
 from shapely import transform as transform_geometry
 
 def transform(fn, geometry):
@@ -38,11 +38,21 @@ def build_coverage():
     service = shape(scope['geometry'])
     if not service.is_valid or service.is_empty:
         raise ValueError('Invalid reviewed service geometry')
-    render = transform(unproject_fn, project(service).buffer(100, quad_segs=16))
+    projected = project(service)
+    base = projected.buffer(100, quad_segs=16)
+    # Preserve the existing southeast/south arc around SM Aura, including both ends.
+    protected = LineString(list(service.exterior.coords)[16:47])
+    guard = project(protected).buffer(250, quad_segs=16)
+    expanded = projected.buffer(250, quad_segs=16).difference(guard)
+    render = base.union(expanded)
+    # Different arc tessellations can leave detached numerical crescents at guard ends.
+    if render.geom_type == 'MultiPolygon':
+        render = next(part for part in render.geoms if part.covers(base))
+    render = transform(unproject_fn, render)
     bounds = render.bounds
     receipt = {
         'formatVersion': 1,
-        'id': 'omni-bgc:display-coverage:bgc-commercial-100m-v1',
+        'id': 'omni-bgc:display-coverage:bgc-commercial-asymmetric-250m-v2',
         'sourceScopeId': SCOPE_ID,
         'sourceScopeManifestSha256': SCOPE_SHA256,
         'sourceGeometrySha256': GEOMETRY_SHA256,
@@ -50,6 +60,13 @@ def build_coverage():
         'source': 'Locally reviewed commercial-v2 engineering service polygon; not a surveyed administrative boundary',
         'referenceComparison': 'Uploaded BGC screenshot is visual intent only; exact street-by-street boundary reconciliation remains unverified',
         'buffer': {'metres': 100, 'crs': 'EPSG:32651', 'quadSegments': 16},
+        'extension': {
+            'additionalMetres': 150,
+            'totalUnprotectedMetres': 250,
+            'protectedSide': 'SM Aura southern/southeastern service boundary arc, vertices 16 through 46 inclusive',
+            'protectedSourceBoundary': mapping(protected),
+            'method': 'Union previous 100m coverage with service 250m buffer outside protected arc 250m guard; retain component covering previous area, discard detached tessellation crescents; rounded endpoint guards taper extension',
+        },
         'serviceGeometry': mapping(service),
         'renderGeometry': mapping(render),
         'bounds': [[bounds[0], bounds[1]], [bounds[2], bounds[3]]],

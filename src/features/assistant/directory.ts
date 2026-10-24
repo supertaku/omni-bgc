@@ -7,6 +7,7 @@ import { excludesFoodResearch, stripFoodSourcePreference } from '../food/sourceP
 import { answerOfficeQuery } from '../offices/assistant';
 import { getOfficeLocationReference } from '../offices/service';
 import { DIRECTORY_CATEGORIES, directoryCategory, normalizeDirectoryText } from '../../data/lexical';
+import { INTERNAL_PREVIEW_ENABLED } from '../../preview/directory';
 
 const normalize = normalizeDirectoryText;
 const fillers = new Set([
@@ -132,7 +133,7 @@ export function answerDirectoryQuery(
     return place.status === 'candidate' && reference !== null &&
       [reference.name, reference.building, 'Thinking Machines'].some((name) => text.includes(normalize(name)));
   });
-  if (candidateOffice) {
+  if (candidateOffice && !INTERNAL_PREVIEW_ENABLED) {
     const reference = getOfficeLocationReference(candidateOffice.id)!;
     if (excludesFoodResearch(query))
       return missing('I couldn’t find a verified office match for that in the current reviewed office records.');
@@ -286,7 +287,7 @@ export function answerDirectoryQuery(
           : `Found ${matches.length} places in the local directory.`,
     },
     collection('Places to explore', matches),
-    ...(matches.some((place) => place.status !== 'approved')
+    ...(!INTERNAL_PREVIEW_ENABLED && matches.some((place) => place.status !== 'approved')
       ? [{ kind: 'text' as const, text: 'Some results are recorded directory candidates, not reviewed listings.' }]
       : []),
   ];

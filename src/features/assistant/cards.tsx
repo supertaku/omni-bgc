@@ -1,14 +1,18 @@
-import { FoodHoursView, FoodSourceDisclosure } from '../food/ResearchDetails';
-import { Pressable, Text, View } from 'react-native';
+import { FoodHoursView } from '../food/ResearchDetails';
+import { Image, Pressable, Text, View } from 'react-native';
 import type { Citation, Place } from '../../contracts';
-import type { AssistantActions, AssistantPayload, PlaceDisplaySnapshot } from './contracts';
+import type { AssistantActions, AssistantPayload, PlaceDisplaySnapshot, PlaceDetailFocus } from './contracts';
 import { assistantStyles as s } from './styles';
 import { isDemoPlace } from '../explore/demoDirectory';
 import { WALKING_DIRECTIONS_DEFERRED, VISIT_PLANNING_DEFERRED } from './directory';
 import { displayFoodPrice } from '../food/service';
-import { CitationList } from '../../ui/components';
+import { CategoryArtwork, Icon } from '../../ui/components';
+import { highlightSegments } from './inlineHighlights';
+import { INTERNAL_PREVIEW_ENABLED, canonicalPreviewId, resolvePreviewPlace } from '../../preview/directory';
+import { previewImage, placeImageKey, foodImageKey } from '../../preview/media';
+import { isRetiredChatNotice } from './detailPresentation';
 
-/** Only the name is interactive; opening still goes through the conversation's fresh-ID guard. */
+/** Menu rows still open through the conversation's fresh-ID guard. */
 function ResultName({
   name,
   index,
@@ -29,10 +33,27 @@ function ResultName({
       onPress={() => onOpenPlace(place)}
       style={s.resultNameButton}
     >
-      <Text style={[s.body, s.resultLink]}>{label}</Text>
+      <Text style={s.resultOrdinal}>{index + 1}</Text>
+      <Text style={[s.body, s.resultLink, s.resultNameText]}>{name}</Text>
+      <Icon name="chevron" size={16} color="#245EA6" />
     </Pressable>
   ) : (
-    <Text style={s.body}>{label}</Text>
+    <Text style={[s.body, s.inlinePlace]}>{label}</Text>
+  );
+}
+
+function AnswerHeading({ title, count }: { title: string; count?: number }) {
+  return (
+    <View style={s.answerHeading}>
+      <Text accessibilityRole="header" style={s.answerTitle}>
+        {title}
+      </Text>
+      {count !== undefined ? (
+        <Text style={s.answerCount}>
+          {count} {count === 1 ? 'result' : 'results'}
+        </Text>
+      ) : null}
+    </View>
   );
 }
 
@@ -42,7 +63,7 @@ const supportedFact = (sample: boolean, citation?: Citation) =>
     citation?.verificationMethod === 'synthetic-preview' &&
     citation.sourceId === 'OMNI-UX-V2-FICTIONAL-PREVIEW');
 
-/** Kept as the existing entry point; result presentation is now an ordinary text row. */
+/** Shared recorded-result row; interaction still uses fresh record resolution. */
 export function PlaceCard({
   place,
   display,
@@ -60,20 +81,122 @@ export function PlaceCard({
   const building = display ? display.building : place?.building;
   const floor = display ? display.floor : place?.floor;
   const sample = display?.fictionalSample ?? (!!place && isDemoPlace(place));
-  const stale = (display?.status ?? place?.status) === 'stale';
-  return (
-    <View style={s.resultRow}>
-      <ResultName name={name} index={index} place={place} onOpenPlace={onOpenPlace} />
-      <Text style={s.resultMeta}>
-        {[category.replace(/[_-]/g, ' '), building, floor ? `Floor ${floor}` : null]
-          .filter(Boolean)
-          .join(' · ')}
-      </Text>
-      {sample ? <Text style={s.resultMeta}>Fictional example</Text> : null}
-      {!sample && (display?.status ?? place?.status) === 'candidate' ? <Text style={s.resultMeta}>Recorded candidate</Text> : null}
-      {stale ? <Text style={s.resultMeta}>These details may have changed.</Text> : null}
-    </View>
+  const status = display?.status ?? place?.status;
+  const content = (
+    <>
+      <View style={s.placeCardTop}>
+        <View style={s.placeArtFrame}>
+          {INTERNAL_PREVIEW_ENABLED ? <Image source={previewImage(place?.imageKey ?? placeImageKey(category))} style={{width:52,height:52,borderRadius:12}} accessibilityLabel={`${category} illustration`} /> : <CategoryArtwork category={category} size={52} />}
+          <Text accessible={false} style={s.placeOrdinal}>
+            {index + 1}
+          </Text>
+        </View>
+        <View style={s.placeCardBody}>
+          <Text style={s.placeCardName}>{name}</Text>
+          {category ? (
+            <View style={s.placePills}>
+              <Text style={s.categoryPill}>{category.replace(/[_-]/g, ' ')}</Text>
+            </View>
+          ) : null}
+        </View>
+        {place ? <Icon name="chevron" size={18} color="#245EA6" /> : null}
+      </View>
+      {building || floor ? (
+        <View style={s.placeLocation}>
+          <Icon name="location" size={15} color="#405B79" />
+          <Text style={s.placeLocationText}>
+            {[building, floor ? `Floor ${floor}` : null].filter(Boolean).join(' · ')}
+          </Text>
+        </View>
+      ) : null}
+      <View style={s.placePills}>
+        {sample ? <Text style={s.resultStatus}>Fictional example</Text> : null}
+        {!INTERNAL_PREVIEW_ENABLED && !sample && status === 'candidate' ? (
+          <Text style={s.resultStatus}>Recorded candidate</Text>
+        ) : null}
+        {!INTERNAL_PREVIEW_ENABLED && !sample && status === 'approved' ? (
+          <Text style={s.approvedPill}>Approved record</Text>
+        ) : null}
+        {status === 'stale' ? <Text style={s.resultStatus}>Details may have changed</Text> : null}
+      </View>
+    </>
   );
+  return place ? (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={[
+        `Result ${index + 1}: ${name}`,
+        category,
+        building,
+        floor ? `Floor ${floor}` : null,
+        sample
+          ? 'Fictional example'
+          : !INTERNAL_PREVIEW_ENABLED && status === 'candidate'
+            ? 'Recorded candidate'
+            : !INTERNAL_PREVIEW_ENABLED && status === 'approved'
+              ? 'Approved record'
+              : null,
+        status === 'stale' ? 'Details may have changed' : null,
+      ]
+        .filter(Boolean)
+        .join('. ')}
+      accessibilityHint="Opens this place's current details"
+      onPress={() => onOpenPlace(place)}
+      style={({ pressed }) => [s.placeResultCard, pressed && s.placeCardPressed]}
+    >
+      {content}
+    </Pressable>
+  ) : (
+    <View style={s.placeResultCard}>{content}</View>
+  );
+}
+
+function DetailField({ label, value }: { label: string; value: string }) {
+  return <View style={s.detailField}>
+    <Text style={s.detailLabel}>{label}</Text>
+    <Text selectable style={s.detailValue}>{value}</Text>
+  </View>;
+}
+
+/** Field selection comes from the question; every displayed value comes from a source record. */
+function PlaceDetailAnswer({ place, display, focus = 'overview', address, onOpenPlace }: {
+  place?: Place;
+  display?: PlaceDisplaySnapshot;
+  focus?: PlaceDetailFocus;
+  address?: string;
+  onOpenPlace: AssistantActions['onOpenPlace'];
+}) {
+  const record = display ?? place;
+  if (!record) return null;
+  const description = record.description;
+  const labels: Record<PlaceDetailFocus, string> = {
+    overview: 'Place details', location: 'Location', floor: 'Floor', description: 'About this place', category: 'Place type',
+  };
+  return <View style={s.detailCard}>
+    <View style={s.detailRibbon}>
+      <Icon name={focus === 'floor' || focus === 'location' ? 'location' : 'info'} size={16} color="#FFFFFF" />
+      <Text style={s.detailRibbonText}>{labels[focus]}</Text>
+    </View>
+    <View style={s.detailHero}>
+      {INTERNAL_PREVIEW_ENABLED
+        ? <Image source={previewImage(placeImageKey(record.category))} style={s.detailThumb} accessibilityLabel={`${record.category} illustration`} />
+        : <CategoryArtwork category={record.category} size={80} />}
+      <View style={s.placeCardBody}>
+        <Text accessibilityRole="header" style={s.detailName}>{record.name}</Text>
+        <View style={s.placePills}><Text style={s.categoryPill}>{record.category.replace(/[_-]/g, ' ')}</Text></View>
+      </View>
+    </View>
+    {focus === 'floor' ? <DetailField label="FLOOR" value={record.floor || 'The floor is not recorded for this place.'} /> : null}
+    {focus === 'location' || focus === 'overview' ? <DetailField label={address ? 'ADDRESS' : 'LOCATION'} value={address || [record.building, record.floor ? `Floor ${record.floor}` : null].filter(Boolean).join(' · ') || 'A street address or building is not recorded.'} /> : null}
+    {focus === 'category' ? <DetailField label="PLACE TYPE" value={record.category.replace(/[_-]/g, ' ')} /> : null}
+    {focus === 'description' || focus === 'overview' ? <View style={s.detailDescription}>
+      <Text style={s.detailLabel}>ABOUT</Text>
+      <Text selectable style={s.body}>{description || 'A description isn’t available in this reply.'}</Text>
+    </View> : null}
+    {place ? <Pressable accessibilityRole="button" accessibilityLabel={`Open full details for ${record.name}`} onPress={() => onOpenPlace(place)} style={s.detailOpen}>
+      <Text style={s.detailOpenText}>Open place</Text><Icon name="chevron" size={17} color="#245EA6" />
+    </Pressable> : null}
+  </View>;
 }
 
 export function MessageContent({
@@ -87,7 +210,8 @@ export function MessageContent({
   displayPlaces?: PlaceDisplaySnapshot[];
   actions: AssistantActions;
 }) {
-  const resolve = (id: string) => places.find((place) => place.id === id);
+  if (isRetiredChatNotice(payload)) return null;
+  const resolve = (id: string) => places.find((place) => place.id === canonicalPreviewId(id)) ?? resolvePreviewPlace(id) ?? undefined;
   const resolveDisplay = (id: string) => displayPlaces.find((place) => place.id === id);
   switch (payload.kind) {
     case 'user':
@@ -101,7 +225,23 @@ export function MessageContent({
     case 'text':
       return (
         <Text accessibilityLabel={`Assistant: ${payload.text}`} style={s.body}>
-          {payload.text}
+          {highlightSegments(payload.text, [
+            ...displayPlaces.map((place) => place.name),
+            ...places.map((place) => place.name),
+          ]).map((segment, index) => (
+            <Text
+              key={index}
+              style={
+                segment.kind === 'place'
+                  ? s.inlinePlace
+                  : segment.kind === 'category'
+                    ? s.inlineCategory
+                    : undefined
+              }
+            >
+              {segment.text}
+            </Text>
+          ))}
           {payload.partial ? '…' : ''}
         </Text>
       );
@@ -113,13 +253,10 @@ export function MessageContent({
       });
       return (
         <View style={s.collection}>
-          <Text style={s.body}>
-            {matches.length
-              ? matches.length === 1
-                ? 'Here’s one to check out.'
-                : `Here are ${matches.length} places to check out.`
-              : 'Those places aren’t available anymore. Try another search.'}
-          </Text>
+          <AnswerHeading title={payload.title} count={matches.length} />
+          {!matches.length ? (
+            <Text style={s.body}>Those places aren’t available anymore. Try another search.</Text>
+          ) : null}
           {matches.map(({ place, display }, index) => (
             <PlaceCard
               key={place?.id ?? display?.id}
@@ -139,7 +276,7 @@ export function MessageContent({
       const place = resolve(payload.placeId);
       const display = resolveDisplay(payload.placeId);
       return place || display ? (
-        <PlaceCard place={place} display={display} onOpenPlace={actions.onOpenPlace} />
+        <PlaceDetailAnswer place={place} display={display} focus={payload.detailFocus} address={payload.detailAddress} onOpenPlace={actions.onOpenPlace} />
       ) : (
         <Text style={s.body}>That place isn’t available anymore. Try its name again.</Text>
       );
@@ -147,20 +284,21 @@ export function MessageContent({
     case 'food-menus':
       return (
         <View style={s.collection}>
-          <Text style={s.body}>Here are a few menu picks.</Text>
-          <Text style={s.caption}>Recorded menu · sources and details in the restaurant menu.</Text>
-          {payload.items.some(({ item }) => !displayFoodPrice(item)) ? <Text style={s.caption}>Item prices unavailable.</Text> : null}
+          <AnswerHeading title={payload.title} count={payload.items.length} />
+          {payload.items.some(({ item }) => !displayFoodPrice(item)) ? (
+            <Text style={s.caption}>Item prices unavailable.</Text>
+          ) : null}
           {payload.items.map(({ placeId, restaurantName, item }, index) => (
             <View key={`${placeId}:${item.id}`} style={s.resultRow}>
-              <ResultName
-                name={item.name}
-                index={index}
-                place={resolve(placeId)}
-                onOpenPlace={actions.onOpenPlace}
-              />
-              <Text style={s.body}>
-                {restaurantName}{displayFoodPrice(item) ? ` · ${displayFoodPrice(item)}` : ''}
-              </Text>
+              <View style={s.detailHero}>
+                {INTERNAL_PREVIEW_ENABLED ? <Image source={previewImage(item.imageKey ?? foodImageKey(item.name))} style={s.detailThumb} accessibilityLabel={`Illustrative photograph of ${item.name}`} /> : null}
+                <View style={s.placeCardBody}>
+                  <ResultName name={item.name} index={index} place={resolve(placeId)} onOpenPlace={actions.onOpenPlace} />
+                  <Text style={s.resultMeta}>{restaurantName}</Text>
+                  {displayFoodPrice(item) ? <Text style={s.detailPrice}>{displayFoodPrice(item)}</Text> : null}
+                </View>
+              </View>
+              {item.description ? <Text style={s.body}>{item.description}</Text> : null}
             </View>
           ))}
           {payload.total > payload.items.length ? (
@@ -173,13 +311,14 @@ export function MessageContent({
     case 'menus':
       return (
         <View style={s.collection}>
-          <Text style={s.body}>Here’s what I found on the menus.</Text>
+          <AnswerHeading title={payload.title} count={payload.items.length} />
           {payload.items.map(({ placeId, item }, index) => {
             const place = resolve(placeId);
             const display = resolveDisplay(placeId);
             const sample = display?.fictionalSample ?? (!!place && isDemoPlace(place));
             return (
               <View key={`${placeId}:${item.id}`} style={s.resultRow}>
+                {INTERNAL_PREVIEW_ENABLED ? <Image source={previewImage(foodImageKey(item.name))} style={{width:76,height:76,borderRadius:10}} accessibilityLabel={`Illustrative photograph of ${item.name}`} /> : null}
                 <ResultName
                   name={item.name}
                   index={index}
@@ -187,14 +326,18 @@ export function MessageContent({
                   onOpenPlace={actions.onOpenPlace}
                 />
                 {display || place ? (
-                  <Text style={s.resultMeta}>{display?.name ?? place?.name}</Text>
+                  <Text style={[s.resultMeta, s.inlinePlace]}>{display?.name ?? place?.name}</Text>
                 ) : null}
                 <Text style={s.body}>
-                  {supportedFact(sample, item.priceCitation) && (item.price || item.priceValue)
-                    ? (item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`)
-                    : 'Price not recorded'}
+                  {supportedFact(sample, item.priceCitation) && (item.price || item.priceValue) ? (
+                    <Text style={s.resultPrice}>
+                      {item.price ?? `${item.priceValue?.currency} ${item.priceValue?.amount}`}
+                    </Text>
+                  ) : (
+                    'Price not recorded'
+                  )}
                 </Text>
-                {sample ? <Text style={s.resultMeta}>Fictional example menu</Text> : null}
+                {sample ? <Text style={s.resultStatus}>Fictional example menu</Text> : null}
                 {item.citation.status === 'stale' ? (
                   <Text style={s.resultMeta}>Price and availability may have changed.</Text>
                 ) : null}
@@ -224,8 +367,7 @@ export function MessageContent({
             place={resolve(payload.placeId)}
             onOpenPlace={actions.onOpenPlace}
           />
-          <FoodHoursView hours={hours} />
-          <FoodSourceDisclosure evidence={payload.evidence} />
+          <View style={s.detailField}><Text style={s.detailLabel}>HOURS</Text><FoodHoursView hours={hours} /></View>
         </View>
       );
     }
@@ -255,7 +397,7 @@ export function MessageContent({
     case 'itinerary':
       return <Text style={s.body}>{VISIT_PLANNING_DEFERRED}</Text>;
     case 'evidence':
-      return <CitationList citations={payload.citations} />;
+      return null;
     case 'status':
       return (
         <Text

@@ -6,6 +6,7 @@ import type {
 } from '../features/assistant/contracts';
 import { OPEN_OPTIONS, rows, run, serialOwner } from '../data/ownership';
 import { UUID } from '../data/parser';
+import { PLACE_DETAIL_FOCI } from '../features/assistant/contracts';
 
 const DATABASE = 'omni-ai-conversations.sqlite';
 const MAX_MESSAGES = 200;
@@ -134,7 +135,11 @@ const foodItem = (value: unknown): boolean =>
     'branch',
     'researchStatus',
     'researchDate',
+    'imageKey',
+    'preview',
   ]) &&
+  (value.imageKey === undefined || string(value.imageKey, 100)) &&
+  (value.preview === undefined || typeof value.preview === 'boolean') &&
   string(value.id, 200) &&
   string(value.restaurantId, 200) &&
   value.origin === 'research' &&
@@ -186,12 +191,13 @@ const foodEvidence = (value: unknown): boolean =>
     value.rightsReview === 'pending');
 const placeSnapshot = (value: unknown): value is PlaceDisplaySnapshot =>
   record(value) &&
-  only(value, ['id', 'name', 'category', 'building', 'floor', 'status', 'fictionalSample']) &&
+  only(value, ['id', 'name', 'category', 'building', 'floor', 'description', 'status', 'fictionalSample']) &&
   string(value.id, 200) &&
   string(value.name, 300) &&
   string(value.category, 100) &&
   (value.building === undefined || string(value.building, 200)) &&
   (value.floor === undefined || string(value.floor, 100)) &&
+  (value.description === undefined || string(value.description, 1000)) &&
   ['approved', 'candidate', 'stale'].includes(String(value.status)) &&
   typeof value.fictionalSample === 'boolean';
 function validPayload(value: unknown): value is AssistantPayload {
@@ -202,7 +208,7 @@ function validPayload(value: unknown): value is AssistantPayload {
     status: ['kind', 'text', 'severity'],
     capability: ['kind', 'text', 'state'],
     places: ['kind', 'title', 'placeIds', 'total'],
-    place: ['kind', 'placeId', 'distanceM'],
+    place: ['kind', 'placeId', 'distanceM', 'detailFocus', 'detailAddress'],
     menus: ['kind', 'title', 'items', 'total'],
     'food-menus': ['kind', 'title', 'items', 'total'],
     'food-hours': ['kind', 'placeId', 'restaurantName', 'hours', 'evidence'],
@@ -248,6 +254,8 @@ function validPayload(value: unknown): value is AssistantPayload {
     case 'place':
       return (
         string(value.placeId, 200) &&
+        (value.detailAddress === undefined || string(value.detailAddress, 1000)) &&
+        (value.detailFocus === undefined || PLACE_DETAIL_FOCI.includes(value.detailFocus as typeof PLACE_DETAIL_FOCI[number])) &&
         (value.distanceM === undefined ||
           (typeof value.distanceM === 'number' &&
             Number.isFinite(value.distanceM) &&

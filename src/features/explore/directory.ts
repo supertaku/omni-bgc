@@ -11,6 +11,7 @@ import {
   getOfficeLocationReference,
 } from '../offices/service';
 import { DIRECTORY_CATEGORIES, directoryAliasGroups, directoryTokenMatches, normalizeDirectoryText } from '../../data/lexical';
+import { INTERNAL_PREVIEW_ENABLED, previewPlaces, enrichPreviewPlace, canonicalPreviewId } from '../../preview/directory';
 
 // Separate presentation records preserve original source status and never enter
 // the canonical SQLite exporter or satisfy routing/entrance approval gates.
@@ -19,20 +20,37 @@ const researchIds = new Set(foodPlaces.map((place) => place.id));
 export function browsingPlaces(approved: Place[]): Place[] {
   const reviewedIds = new Set(approved.map((place) => place.id));
   // Keep distinct immutable IDs, even for ambiguous identical branch names.
-  return [
+  const combined = [
     ...approved,
     ...officeTextPlaces().filter((place) => !reviewedIds.has(place.id)),
     ...localDirectory.filter((place) => !reviewedIds.has(place.id)),
     ...foodPlaces.filter((place) => !reviewedIds.has(place.id)),
     ...[getOfficeLocationReference('research:offices:sha256:60ad312182ca4a0ddadbb7ac30e103500174c4205ed42f7b1d5d5d50fef47054:row-0120')].flatMap((reference) => reference ? [{
       id: reference.candidateId, name: reference.name, category: 'office', coordinate: reference.coordinate,
+      locationKind: 'building-anchor' as const,
       building: reference.building, aliases: ['Thinking Machines', 'Twenty-four Seven McKinley'],
       entrances: [], menus: [], citations: reference.citations, status: 'candidate' as const,
     }] : []),
     ...demoPlaces.filter((place) => !reviewedIds.has(place.id)),
   ];
+  if (!INTERNAL_PREVIEW_ENABLED) return combined;
+  const merged = new Map<string, Place>();
+  for (const record of [...combined, ...previewPlaces]) {
+    const place = enrichPreviewPlace(record);
+    const id = canonicalPreviewId(place.id);
+    const existing = merged.get(id);
+    if (!existing) merged.set(id, { ...place, id });
+    else merged.set(id, {
+      ...place, ...existing,
+      sourceIds: [...new Set([...(existing.sourceIds ?? []), ...(place.sourceIds ?? []), record.id])],
+      aliases: [...new Set([...existing.aliases, ...place.aliases, place.name])],
+    });
+  }
+  return [...merged.values()];
 }
 export function matchesCategory(place: Place, category: string): boolean {
+  if (INTERNAL_PREVIEW_ENABLED && place.preview && place.status === 'candidate' && place.category === 'office')
+    return category === 'All' || category === 'Offices';
   const candidateOffice = !!getOfficeLocationReference(place.id);
   if (candidateOffice) return category === 'All' || category === 'Offices';
   if (place.category === 'office') {

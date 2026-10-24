@@ -18,6 +18,8 @@ assert.deepEqual(contextManifest.bbox, coverage.bounds.flat());
 assert.equal(contextManifest.coverageSha256, coverage.sha256);
 assert.equal(provenance.coverageSha256, coverage.sha256);
 assert.equal(coverage.buffer.metres, 100);
+assert.equal(coverage.extension.additionalMetres, 150);
+assert.equal(coverage.extension.totalUnprotectedMetres, 250);
 assert.equal(coverage.buffer.crs, 'EPSG:32651');
 assert.equal(contextManifest.minzoom, 14);
 assert.equal(contextManifest.maxzoom, 18);

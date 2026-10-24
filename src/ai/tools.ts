@@ -2,11 +2,13 @@ import { UUID } from '../data/parser';
 import { parsePhpCentavos } from '../domain/money';
 import { checkedPhpBounds } from '../domain/priceBounds';
 
-export const TOOL_CONTRACT_REVISION = 'omni-local-tools-v3';
+export const TOOL_CONTRACT_REVISION = 'omni-local-tools-v4';
 export const MAX_PROPOSAL_BYTES = 8192;
 export const TOOL_NAMES = [
   'find_places',
   'get_place_details',
+  'search_preview_directory',
+  'get_preview_place_details',
   'get_verified_entrances',
   'find_menu_items',
   'search_food_research',
@@ -21,6 +23,8 @@ export type ToolName = (typeof TOOL_NAMES)[number];
 export type ToolArguments = {
   find_places: { query?: string; category?: string; limit?: number };
   get_place_details: { placeId: string };
+  search_preview_directory: { query?: string; category?: string; limit?: number };
+  get_preview_place_details: { placeId: string };
   get_verified_entrances: { placeId: string };
   find_menu_items: {
     query?: string;
@@ -177,6 +181,8 @@ export function decodeToolProposal(raw: unknown, hostCallId: string): ToolPropos
   const schemas: Record<ToolName, [string[], string[]]> = {
     find_places: [['query', 'category', 'limit'], []],
     get_place_details: [['placeId'], ['placeId']],
+    search_preview_directory: [['query', 'category', 'limit'], []],
+    get_preview_place_details: [['placeId'], ['placeId']],
     get_verified_entrances: [['placeId'], ['placeId']],
     find_menu_items: [
       ['query', 'minPricePhp', 'maxPricePhp', 'branchId', 'limit', 'requiredTags'],
@@ -259,6 +265,15 @@ const specs: Record<
     properties: { placeId: id },
     required: ['placeId'],
   },
+  search_preview_directory: {
+    description: 'Offline internal-preview directory of places, restaurants and offices. Returns canonical UUIDs and field provenance. Generated descriptions are illustrative, and office presence is not confirmed. Excluded for verified-only requests. Max20.',
+    properties: { query: str, category: str, limit },
+  },
+  get_preview_place_details: {
+    description: 'Read an exact preview canonical UUID and field provenance. This does not approve facts, entrances, occupancy, or walking routes.',
+    properties: { placeId: id },
+    required: ['placeId'],
+  },
   get_verified_entrances: {
     description:
       'Read current approved eligible entrance IDs/labels from canonical source records. Exact place UUID only; never model coordinates or walking directions.',
@@ -319,7 +334,7 @@ const specs: Record<
     properties: {},
   },
   focus_map_place: {
-    description: 'Reversible UI focus on a retrieved approved canonical UUID; no raw coordinates.',
+    description: 'Open a retrieved current canonical UUID on the map and show details. Preview building anchors are approximate; unlocated places show details only. No raw coordinates or routing.',
     properties: { placeId: id },
     required: ['placeId'],
   },

@@ -42,6 +42,7 @@ export function useAppInitialization(
         current.filter(
           (place) =>
             place.category !== 'office' ||
+            (place.preview && place.status === 'candidate') ||
             !!getOfficeLocationReference(place.id) ||
             (!!getOfficeDetails(place.id) && operatingOffice(getOfficeDetails(place.id)!)),
         ),

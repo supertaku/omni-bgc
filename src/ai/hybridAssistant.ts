@@ -4,11 +4,13 @@ import type { AgentOrchestrator, AgentRunOptions, AgentStatus } from './AgentOrc
 import type { ToolExecutor, ToolResult, ToolExecutionContext } from './toolExecutor';
 import type { ToolName } from './tools';
 import { assertNotAborted } from './toolExecutor';
-import { composeGroundedAnswer, revalidateToolResult } from './answerComposer';
+import { composeGroundedAnswer, isGeneralConversation, revalidateToolResult } from './answerComposer';
 import { planDeterministicRequest } from './deterministicIntent';
 import { excludesFoodResearch } from '../domain/foodSourcePolicy';
 import { getOfficeLocationReference } from '../features/offices/service';
 import { parsePhpCentavos } from '../domain/money';
+import { INTERNAL_PREVIEW_ENABLED, resolvePreviewPlace, canonicalPreviewId } from '../preview/directory';
+import { displayFoodPrice } from '../features/food/service';
 
 type HybridTurn = {
   payloads: AssistantPayload[];
@@ -45,7 +47,7 @@ export async function runHybridTurn(
     return reply([text('Enter a non-empty message of at most 2,048 characters.')], 'denied');
   const plan = planDeterministicRequest(query, places);
   let failedModel = false;
-  if (!plan && deps.canInfer()) {
+  if ((!plan || (plan.kind === 'message' && isGeneralConversation(query))) && deps.canInfer()) {
     try {
       const turn = await deps.agent.run(query, options);
       if (!['failed', 'unavailable'].includes(turn.status))
@@ -77,7 +79,7 @@ export async function runHybridTurn(
   const candidateOffice = plan.kind === 'places' && plan.placeId
     ? getOfficeLocationReference(plan.placeId)
     : null;
-  if (candidateOffice && !proximity) {
+  if (!INTERNAL_PREVIEW_ENABLED && candidateOffice && !proximity) {
     const candidate = places.find((place) => place.id === candidateOffice.candidateId && place.status === 'candidate');
     if (!candidate)
       return reply([text('I can’t confirm that sourced candidate in the current local records.')], 'unavailable');
@@ -92,7 +94,7 @@ export async function runHybridTurn(
       places: [candidate], status: 'completed', execution: 'deterministic',
     };
   }
-  const directCandidate = plan.kind === 'places' && plan.placeId
+  const directCandidate = !INTERNAL_PREVIEW_ENABLED && plan.kind === 'places' && plan.placeId
     ? places.find((place) => place.id === plan.placeId && place.status === 'candidate' && !getOfficeLocationReference(place.id))
     : undefined;
   if (directCandidate && !proximity) {
@@ -103,12 +105,14 @@ export async function runHybridTurn(
       ? { payloads: candidatePayloads, places: [directCandidate], status: 'completed', execution: 'deterministic' }
       : reply([text('I couldn’t confirm a current recorded match for that candidate.')], 'unavailable');
   }
-  if (plan.kind === 'message') return reply([text(plan.text)]);
+  if (plan.kind === 'message') return reply([text(plan.text)], 'completed', execution);
   if (plan.kind === 'suggestion') {
     try {
-      const current = await deps.executor.retrieval.getPlaceDetails(plan.placeId);
+      let current = await deps.executor.retrieval.getPlaceDetails(plan.placeId);
+      if (!current.data && !excludesFoodResearch(query))
+        current = await deps.executor.retrieval.getPreviewPlaceDetails(plan.placeId);
       assertNotAborted(options.signal);
-      return current.data?.id === plan.placeId && current.data.status === 'approved'
+      return current.data && current.data.id === canonicalPreviewId(plan.placeId)
         ? reply([text(`Did you mean ${current.data.name}? Try its exact name to see its details.`)])
         : reply([text('I couldn’t confirm a matching place. Try a shorter name.')]);
     } catch {
@@ -153,14 +157,18 @@ export async function runHybridTurn(
     const results: ToolResult[] = [];
     const q = plan.query ? { query: plan.query } : {};
     switch (plan.kind) {
-      case 'places':
+      case 'places': {
         results.push(
           await run(
             plan.placeId && !proximity ? 'get_place_details' : 'find_places',
             plan.placeId && !proximity ? { placeId: plan.placeId } : { ...q, limit: proximity ? 100 : 12 },
           ),
         );
+        if (context.researchEnabled && INTERNAL_PREVIEW_ENABLED && (!plan.placeId || results[0].status !== 'ok'))
+          results.push(await run(plan.placeId && !proximity ? 'get_preview_place_details' : 'search_preview_directory',
+            plan.placeId && !proximity ? { placeId: canonicalPreviewId(plan.placeId) } : { ...q, limit: 20 }));
         break;
+      }
       case 'menus': {
         const approved = await run('find_menu_items', {
           ...q,
@@ -170,12 +178,12 @@ export async function runHybridTurn(
           limit: 20,
         });
         results.push(approved);
-        if (approved.status === 'empty' && context.researchEnabled && !plan.priceSort)
+        if (approved.status === 'empty' && context.researchEnabled)
           results.push(
             await run('search_food_research', {
               ...q,
               ...(plan.placeId &&
-              places.some((p) => p.id === plan.placeId && p.status !== 'approved')
+              (resolvePreviewPlace(plan.placeId) || places.some((p) => p.id === plan.placeId && p.status !== 'approved'))
                 ? { restaurantId: plan.placeId }
                 : {}),
               ...plan.bounds,
@@ -186,6 +194,8 @@ export async function runHybridTurn(
       }
       case 'offices':
         results.push(await run('find_approved_offices', { ...q, limit: 12 }));
+        if (context.researchEnabled && INTERNAL_PREVIEW_ENABLED)
+          results.push(await run('search_preview_directory', { ...q, category: 'office', limit: 20 }));
         break;
       case 'hours':
         if (!plan.placeId || !context.researchEnabled)
@@ -200,8 +210,10 @@ export async function runHybridTurn(
         break;
       case 'focus':
         results.push(await run('get_place_details', { placeId: plan.placeId }));
-        if (results[0].status === 'ok')
-          results.push(await run('focus_map_place', { placeId: plan.placeId }));
+        if (results[0].status !== 'ok' && context.researchEnabled && INTERNAL_PREVIEW_ENABLED)
+          results.push(await run('get_preview_place_details', { placeId: canonicalPreviewId(plan.placeId!) }));
+        if (results.some((r) => r.status === 'ok'))
+          results.push(await run('focus_map_place', { placeId: canonicalPreviewId(plan.placeId!) }));
         break;
       case 'entrances':
         results.push(await run('get_verified_entrances', { placeId: plan.placeId }));
@@ -210,15 +222,21 @@ export async function runHybridTurn(
     const current: ToolResult[] = [];
     for (const result of results)
       current.push(await revalidateToolResult(result, deps.executor.retrieval, controller.signal));
+    const successful = current.some((r) => r.status === 'ok') ? current.filter((r) => r.status !== 'empty') : current;
     const displayed =
       plan.kind === 'menus' &&
       current.some((r) => r.name === 'search_food_research' && r.status === 'ok')
-        ? current.filter((r) => !(r.name === 'find_menu_items' && r.status === 'empty'))
-        : current;
+        ? successful.filter((r) => !(r.name === 'find_menu_items' && r.status === 'empty'))
+        : successful;
     let payloads = composeGroundedAnswer(displayed, '', query);
+    const groups = payloads.filter((p): p is Extract<AssistantPayload, { kind: 'places' }> => p.kind === 'places');
+    if (groups.length > 1) {
+      const ids = [...new Set(groups.flatMap((p) => p.placeIds).map(canonicalPreviewId))];
+      payloads = [{ kind: 'places', title: 'Places', placeIds: ids, total: ids.length }, ...payloads.filter((p) => p.kind !== 'places')];
+    }
     const verifiedOnly = excludesFoodResearch(query);
     const candidatePlaces = !verifiedOnly && plan.kind === 'places'
-      ? places.filter((place) => place.status === 'candidate' && !getOfficeLocationReference(place.id))
+      ? places.filter((place) => place.status === 'candidate' && !resolvePreviewPlace(place.id) && !getOfficeLocationReference(place.id))
       : [];
     const distanceToOrigin = (place: Place) => {
       if (!proximityOrigin || !place.coordinate) return Number.POSITIVE_INFINITY;
@@ -236,13 +254,12 @@ export async function runHybridTurn(
     if (candidateIds.length) {
       const existing = payloads.find((p) => p.kind === 'places');
       if (existing?.kind === 'places') {
-        existing.title = 'Approved places and recorded candidates';
+        existing.title = 'Places';
         existing.placeIds = [...new Set([...existing.placeIds, ...candidateIds])];
         existing.total = existing.placeIds.length;
       } else {
         payloads.push({ kind: 'places', title: 'Recorded local matches', placeIds: candidateIds.slice(0, 100), total: candidateIds.length });
       }
-      payloads.push(text('Additional results are recorded directory candidates, not reviewed listings.'));
     }
     if (plan.kind === 'hours') payloads = payloads.filter((p) => p.kind !== 'food-menus');
     if (plan.kind === 'menus' && plan.priceSort) {
@@ -258,10 +275,21 @@ export async function runHybridTurn(
               });
             return { ...payload, items, total: items.length };
           })()
-        : payload);
-      payloads.push(text(payloads.some((payload) => payload.kind === 'menus')
-        ? 'Sorted by recorded eligible PHP prices; items without a current approved price record are omitted.'
-        : 'No approved menu items with eligible prices matched, so there is nothing to sort.'));
+        : payload.kind === 'food-menus'
+          ? (() => {
+              const items = payload.items.filter(({ item }) => displayFoodPrice(item) !== null)
+                .sort((a, b) => {
+                  const amountA = parsePhpCentavos(a.item.amount)!;
+                  const amountB = parsePhpCentavos(b.item.amount)!;
+                  const order = amountA < amountB ? -1 : amountA > amountB ? 1 : 0;
+                  return (plan.priceSort === 'desc' ? -order : order) || a.item.id.localeCompare(b.item.id);
+                });
+              return { ...payload, items, total: items.length };
+            })()
+          : payload);
+      payloads.push(text(payloads.some((payload) => payload.kind === 'menus' || payload.kind === 'food-menus')
+        ? 'Sorted by eligible PHP prices in these results.'
+        : 'No menu items with eligible prices matched, so there is nothing to sort.'));
     }
     const ids = [
       ...new Set(
@@ -270,8 +298,9 @@ export async function runHybridTurn(
             ? p.placeIds
             : p.kind === 'place'
               ? [p.placeId]
-              : p.kind === 'menus'
+              : p.kind === 'menus' || p.kind === 'food-menus'
                 ? p.items.map((i) => i.placeId)
+                : p.kind === 'food-hours' ? [p.placeId]
                 : [],
         ),
       ),
@@ -279,7 +308,9 @@ export async function runHybridTurn(
     const fresh: Place[] = [];
     for (const id of ids.slice(0, proximity ? 100 : 12)) {
       if (candidatePlaces.some((place) => place.id === id)) continue;
-      const found = await deps.executor.retrieval.getPlaceDetails(id);
+      let found = await deps.executor.retrieval.getPlaceDetails(id);
+      if (!found.data && context.researchEnabled)
+        found = await deps.executor.retrieval.getPreviewPlaceDetails(id);
       assertNotAborted(controller.signal);
       if (found.data?.id === id) fresh.push(found.data);
     }
@@ -307,7 +338,9 @@ export async function runHybridTurn(
                   total: p.items.filter((i) => valid.has(i.placeId)).length,
                 },
               ]
-            : [p],
+            : p.kind === 'food-menus'
+              ? [{ ...p, items: p.items.filter((i) => valid.has(i.placeId)), total: p.items.filter((i) => valid.has(i.placeId)).length }]
+              : [p],
     );
     if (proximity && proximityOrigin) {
       fresh.sort((a, b) => distanceToOrigin(a) - distanceToOrigin(b) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));

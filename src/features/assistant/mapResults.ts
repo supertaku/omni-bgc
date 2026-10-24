@@ -1,5 +1,6 @@
 import type { AssistantPayload } from './contracts';
 import type { Place } from '../../contracts';
+import { resolveCurrentPlace } from '../explore/placeOpening';
 
 /** IDs only: coordinates and source authority must be resolved from current records. */
 export function resultPlaceIds(payloads: readonly AssistantPayload[]): string[] {
@@ -23,9 +24,8 @@ export async function resolveMapResultRecords(
 ): Promise<Place[]> {
   const records: Place[] = [];
   for (const id of [...new Set(ids)].slice(0, 100)) {
-    const candidate = directory.find((place) => place.id === id && place.status === 'candidate');
-    const place = candidate ?? await resolveApproved(id).catch(() => null);
-    if (place?.id === id && (candidate || place.status === 'approved')) records.push(place);
+    const place = await resolveCurrentPlace(id, directory, resolveApproved);
+    if (place && !records.some(record => record.id === place.id)) records.push(place);
   }
   return records;
 }

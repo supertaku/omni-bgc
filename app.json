@@ -20,7 +20,7 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.ACCESS_COARSE_LOCATION"
       ],
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/brand/adaptive-foreground.png",
         "monochromeImage": "./assets/brand/monochrome.png",

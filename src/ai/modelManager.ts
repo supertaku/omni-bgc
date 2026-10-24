@@ -183,7 +183,23 @@ export class ModelManager {
   /** Revalidates disk after every process start; corrupt active falls back only to verified previous. */
   recover(): Promise<ModelPointers> {
     return this.own(async () => {
-      const pointers = await this.storage.readPointers();
+      let pointers = await this.storage.readPointers();
+      const retained = (model: StoredModel | null) =>
+        model && MODEL_CATALOG.some((entry) => entry.id === model.id) ? model : null;
+      const supported = {
+        active: retained(pointers.active),
+        previous: retained(pointers.previous),
+        staged: retained(pointers.staged),
+      };
+      if (
+        supported.active !== pointers.active ||
+        supported.previous !== pointers.previous ||
+        supported.staged !== pointers.staged
+      ) {
+        // Retire withdrawn pointers only; downloaded files are user data and remain untouched.
+        await this.guard.withModelMutation(() => this.storage.writePointers(supported));
+        pointers = supported;
+      }
       if (pointers.active) {
         try {
           await this.verifyStored(pointers.active);
@@ -498,7 +514,7 @@ export function createProviderSmokeRunner(
       )
         throw new Error('MODEL_SMOKE_GENERATION_INVALID');
       const probe = input(
-        'Call omni_model_smoke to retrieve a startup token. Do not guess the token.',
+        'Call omni_model_smoke exactly once. Then reply with only the token field returned by that tool. Do not call it again or invent a token.',
         96,
       );
       const tools = [
@@ -539,7 +555,7 @@ export function createProviderSmokeRunner(
           {
             role: 'tool',
             toolName: 'omni_model_smoke',
-            text: JSON.stringify({ token, instruction: 'Reply with this token only.' }),
+            text: JSON.stringify({ token }),
           },
         ],
       });

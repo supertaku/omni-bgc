@@ -1,6 +1,6 @@
 # The Fort — latest handoff
 
-Latest delivery: [v0.5.0 ARM64 APK](../apks/000005_omni-bgc_v0.5.0_arm64_release_20261023T070054Z_a8e1546.apk) · [v0.5.0 implementation, checks and manual acceptance](v0.5.0-handoff.md).
+Latest delivery: [v0.5.0 ARM64 APK](../apks/000012_omni-bgc_v0.5.0_arm64_release_20261024T101025Z_02925c4.apk) · [v0.5.0 implementation, checks and manual acceptance](v0.5.0-handoff.md).
 
 The following section records the previous v0.4.0 delivery and is retained as historical context.
 

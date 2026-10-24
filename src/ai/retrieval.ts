@@ -1,6 +1,6 @@
 import type { Citation, Place, SavedState } from '../contracts';
 import type { BranchMenuItem, MenuFilters, PlaceFilters } from '../data/retrieval';
-import { approvedEvidence } from '../data/lexical';
+import { approvedEvidence, normalizeDirectoryText, DIRECTORY_CATEGORIES, directoryAliasGroups } from '../data/lexical';
 import { UUID } from '../data/parser';
 import { parsePhpCentavos } from '../domain/money';
 import { checkedPhpBounds } from '../domain/priceBounds';
@@ -8,6 +8,10 @@ import type { createFoodResearchService } from '../features/food/service';
 import type { FoodFilters, FoodEvidence, FoodMenuItem } from '../features/food/contracts';
 import type { OfficeDetails, OfficeFilters } from '../features/offices/contracts';
 import { operatingOffice } from '../features/offices/service';
+import {
+  INTERNAL_PREVIEW_ENABLED, previewPlaces, previewVersion,
+  resolvePreviewPlace, canonicalPreviewId, previewDetails,
+} from '../preview/directory';
 
 export type Authority = 'approved' | 'research' | 'local' | 'ui';
 export type EvidenceEnvelope<T> = {
@@ -76,9 +80,41 @@ function envelope<T>(
 const researchWarning =
   'Prices and availability can vary by branch. Estimates and starting prices may differ from your final choice. Check current hours with the restaurant.';
 
+function previewEnvelope(places: Place[], filters: Record<string, unknown>) {
+  const data = places.map((place) => ({
+    ...place, menus: [],
+    previewEvidence: { version: previewVersion, fields: previewDetails(place.id)?.fields ?? {} },
+  }));
+  const result = envelope('research', data, data.map((p) => p.id), data.flatMap((p) => p.citations), filters);
+  result.sourceFingerprint = JSON.stringify([previewVersion, data.map((p) => [p.id, p.previewEvidence, p.coordinate])]);
+  return result;
+}
+
+const previewCategoryMatches = (place: Place, category: string) => {
+  const value = normalizeDirectoryText(place.category);
+  const key = normalizeDirectoryText(category).replace(/s$/, '');
+  const synonyms = DIRECTORY_CATEGORIES[key] ?? [key];
+  return synonyms.some((word) => value.includes(word)) || value === key;
+};
+
 /** The only AI factual facade. Canonical/research/local results remain disjoint. */
 export function createUnifiedRetrieval(deps: RetrievalDependencies) {
   return {
+    async searchPreviewDirectory(filters: { query?: string; category?: string; limit?: number } = {}) {
+      const groups = directoryAliasGroups(filters.query ?? '');
+      const count = Math.max(1, Math.min(20, Math.trunc(Number.isFinite(filters.limit) ? filters.limit! : 12)));
+      const matches = INTERNAL_PREVIEW_ENABLED ? previewPlaces.filter((p) => {
+        const words = normalizeDirectoryText([p.name, p.category, p.building, p.floor, ...p.aliases].filter(Boolean).join(' ')).split(' ');
+        return (!filters.category || previewCategoryMatches(p, filters.category)) && groups.every((alternatives) =>
+          alternatives.some((token) => words.includes(token) || (token === 'offices' && p.category === 'office')));
+      }).slice(0, count) : [];
+      return previewEnvelope(matches, filters);
+    },
+    async getPreviewPlaceDetails(placeId: string) {
+      const place = INTERNAL_PREVIEW_ENABLED ? resolvePreviewPlace(placeId) : null;
+      const result = previewEnvelope(place ? [place] : [], { placeId: canonicalPreviewId(placeId) });
+      return { ...result, data: result.data[0] ?? null };
+    },
     async findPlaces(filters: PlaceFilters & { limit?: number } = {}) {
       const found = (await deps.findPlaces(filters))
         .filter(approvedPlace)
@@ -243,6 +279,7 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
         [researchWarning],
       );
       if (!service?.available) result.status = 'unavailable';
+      result.sourceFingerprint = JSON.stringify([previewVersion, data]);
       return result;
     },
     async getFoodResearchDetails(
@@ -276,7 +313,7 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
               },
             ]
           : [];
-      return envelope(
+      const result = envelope(
         'research',
         data,
         data.map((r) => r.restaurant.id),
@@ -284,6 +321,8 @@ export function createUnifiedRetrieval(deps: RetrievalDependencies) {
         { restaurantId, offset, limit, ...priceBounds },
         [researchWarning],
       );
+      result.sourceFingerprint = JSON.stringify([previewVersion, data]);
+      return result;
     },
     async findApprovedOffices(filters: OfficeFilters = {}) {
       const data = (

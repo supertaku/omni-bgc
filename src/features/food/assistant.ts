@@ -4,6 +4,7 @@ import type { createFoodResearchService } from './service';
 import { normalizeFoodText } from './service';
 import { parseUserPhpPriceBounds } from '../../domain/priceBounds';
 import { excludesFoodResearch } from './sourcePolicy';
+import { directoryCategory } from '../../data/lexical';
 
 /** Explicit injection keeps legacy canonical-only evaluations isolated from research. */
 export function createFoodResearchAnswer(service: ReturnType<typeof createFoodResearchService>) {
@@ -104,6 +105,13 @@ export function createFoodResearchAnswer(service: ReturnType<typeof createFoodRe
       .filter((t) => !fillers.has(t) && !/^\d+$/.test(t))
       .map((t) => aliases[t] ?? t)
       .join(' ');
+    // Coffee discovery/conversation belongs to the planner/model, including qualifiers.
+    const explicitMenuRequest = !!priceBounds ||
+      /\b(menus?|dishes?|desserts?|meat|seafood|chicken|poultry|noodles|ramen|rice|bread|fish|tea|prices?|budget)\b/.test(text);
+    if (
+      !named.length && !explicitMenuRequest &&
+      (directoryCategory(terms) || /\bcoffee\b|(?:^|\s)caf[eé]s?(?:\s|$)/.test(text))
+    ) return null;
     // A branch-specific name query selects each exact research branch, never a joined menu.
     if (
       menu &&

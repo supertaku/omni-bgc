@@ -1,0 +1,227 @@
+{
+  "sources": [
+    {
+      "id": "official-shake-shack-locations-20261024",
+      "url": "https://shakeshack.ph/locations",
+      "observedAt": "2026-10-24",
+      "status": "retrieved",
+      "license": "Facts paraphrased from official public location listing; source website rights retained",
+      "summary": "Central Square branch is on the lower ground floor. Listed hours: Monday–Thursday 07:00–22:00; Friday–Sunday 07:00–23:00."
+    },
+    {
+      "id": "official-raging-bull-20261024",
+      "url": "https://www.shangri-la.com/manila/shangrilaatthefort/dining/restaurants/raging-bull-chophouse-and-bar/",
+      "observedAt": "2026-10-24",
+      "status": "retrieved",
+      "license": "Facts paraphrased from official public restaurant page; source website rights retained",
+      "summary": "Steakhouse at Level 3 of Shangri-La The Fort. Listed lunch 11:30–14:30; dinner 17:00–22:30; bar 17:00–00:00."
+    },
+    {
+      "id": "official-fat-seed-20261024",
+      "url": "https://fatseed.com.ph/pages/branch-bgc",
+      "observedAt": "2026-10-24",
+      "status": "retrieved",
+      "license": "Facts paraphrased from official public branch page; source website rights retained",
+      "summary": "BGC branch at One Maridien, 9th Avenue corner 27th Street. Listed daily hours 07:00–22:00."
+    },
+    {
+      "id": "official-mitsukoshi-20261024",
+      "url": "https://mitsukoshifederal.com/pages/contact",
+      "observedAt": "2026-10-24",
+      "status": "retrieved",
+      "license": "Facts paraphrased from official public mall page; source website rights retained",
+      "summary": "Mitsukoshi BGC is at 8th Avenue corner 36th Street. Mall/store hours do not establish individual tenant opening hours."
+    },
+    {
+      "id": "official-starbucks-menu-20261024",
+      "url": "https://www.starbucks.ph/menu",
+      "observedAt": "2026-10-24",
+      "status": "inaccessible",
+      "reason": "403 response during research; no newly sourced menu or prices"
+    },
+    {
+      "id": "official-nikkei-locations-20261024",
+      "url": "https://www.nikkei.com.ph/hours-location",
+      "status": "retrieved",
+      "summary": "Nikkei Nama One Bonifacio High Street is at 2F; Sunday 11:00–21:00, Monday–Thursday 12:00–21:00, Friday–Saturday 11:00–23:00. Nikkei Robata is separately at Uptown Ritz.",
+      "observedAt": "2026-10-24",
+      "license": "Public source facts paraphrased where retrieved; original site rights retained"
+    },
+    {
+      "id": "official-coco-branches-20261024",
+      "url": "https://cocoichibanya.mugengroup.ph/branches/",
+      "status": "conflicting",
+      "reason": "Official branch page contains duplicated Forbestown address under a Greenhills heading; no location changes inferred from conflicting section.",
+      "observedAt": "2026-10-24",
+      "license": "Public source facts paraphrased where retrieved; original site rights retained"
+    },
+    {
+      "id": "official-wildflour-20261024",
+      "url": "https://wildflour.com.ph/wildflour/",
+      "status": "inaccessible",
+      "reason": "404 Not Found during research; retained imported evidence remains unchanged",
+      "observedAt": "2026-10-24",
+      "license": "Public source facts paraphrased where retrieved; original site rights retained"
+    },
+    {
+      "id": "official-uptown-operator-20261024",
+      "url": "https://www.megaworldcorp.com/malls/uptown-mall",
+      "status": "inaccessible",
+      "reason": "Fetch timeout; mall relationship uses retained imported data and retained OSM geometry",
+      "observedAt": "2026-10-24",
+      "license": "Public source facts paraphrased where retrieved; original site rights retained"
+    }
+  ],
+  "restaurants": [
+    {
+      "nameMatch": "Shake Shack",
+      "sourceId": "official-shake-shack-locations-20261024",
+      "floor": "LGF",
+      "description": "Burgers, fries and shakes at the Central Square branch on the lower ground floor.",
+      "hours": {
+        "text": "Mon–Thu 07:00–22:00; Fri–Sun 07:00–23:00",
+        "kind": "restaurant",
+        "weeklySchedule": [
+          {
+            "day": 1,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 2,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 3,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 4,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 5,
+            "start": "07:00",
+            "end": "23:00"
+          },
+          {
+            "day": 6,
+            "start": "07:00",
+            "end": "23:00"
+          },
+          {
+            "day": 0,
+            "start": "07:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    },
+    {
+      "nameMatch": "Raging Bull Chophouse & Bar",
+      "sourceId": "official-raging-bull-20261024",
+      "floor": "3F",
+      "description": "A steakhouse at Shangri-La The Fort, serving grilled beef and other grill dishes.",
+      "hours": {
+        "text": "Lunch daily 11:30–14:30; dinner daily 17:00–22:30; bar 17:00–00:00",
+        "kind": "restaurant",
+        "weeklySchedule": null
+      }
+    },
+    {
+      "nameMatch": "The Fat Seed",
+      "sourceId": "official-fat-seed-20261024",
+      "building": "One Maridien",
+      "hours": {
+        "text": "Daily 07:00–22:00",
+        "kind": "restaurant",
+        "weeklySchedule": [
+          {
+            "day": 0,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 1,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 2,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 3,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 4,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 5,
+            "start": "07:00",
+            "end": "22:00"
+          },
+          {
+            "day": 6,
+            "start": "07:00",
+            "end": "22:00"
+          }
+        ]
+      }
+    },
+    {
+      "nameMatch": "Nikkei Nama Bar",
+      "sourceId": "official-nikkei-locations-20261024",
+      "floor": "2F",
+      "hours": {
+        "text": "Sun 11:00–21:00; Mon–Thu 12:00–21:00; Fri–Sat 11:00–23:00",
+        "kind": "restaurant",
+        "weeklySchedule": [
+          {
+            "day": 0,
+            "start": "11:00",
+            "end": "21:00"
+          },
+          {
+            "day": 1,
+            "start": "12:00",
+            "end": "21:00"
+          },
+          {
+            "day": 2,
+            "start": "12:00",
+            "end": "21:00"
+          },
+          {
+            "day": 3,
+            "start": "12:00",
+            "end": "21:00"
+          },
+          {
+            "day": 4,
+            "start": "12:00",
+            "end": "21:00"
+          },
+          {
+            "day": 5,
+            "start": "11:00",
+            "end": "23:00"
+          },
+          {
+            "day": 6,
+            "start": "11:00",
+            "end": "23:00"
+          }
+        ]
+      }
+    }
+  ]
+}

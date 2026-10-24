@@ -91,10 +91,10 @@ export class NativeLiteRtProvider implements LocalAIProvider {
     };
   }
   async thermalBlocked(): Promise<boolean> {
-    return (await this.bridge?.getCapabilities())?.thermalBlocked === true;
+    return false; // Android thermal reports are observational; the app adds no thermal veto.
   }
   onThermalStatus(listener: (blocked: boolean) => void): { remove(): void } | undefined {
-    return this.bridge?.addListener('onThermalStatus', (event) => listener(event.blocked));
+    return this.bridge?.addListener('onThermalStatus', () => listener(false));
   }
   async load(model: VerifiedModel, backend: Backend): Promise<void> {
     if (!this.bridge) throw new ProviderError('RUNTIME_UNSUPPORTED');
@@ -110,7 +110,6 @@ export class NativeLiteRtProvider implements LocalAIProvider {
       const capabilities = await this.bridge.getCapabilities();
       if (!capabilities.android || !capabilities.backends.includes(backend))
         throw new ProviderError('RUNTIME_UNSUPPORTED');
-      if (capabilities.thermalBlocked) throw new ProviderError('THERMAL_BLOCK');
       initialization = this.bridge
         .initialize({
           verifiedAbsoluteModelPath: model.absolutePath,

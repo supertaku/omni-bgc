@@ -1,6 +1,7 @@
 import type { Coordinate, Place } from '../../contracts';
 import { coverageAt, pilotScope, type MapScope } from '../../map/scope';
 import { getOfficeDetails, getOfficeLocationReference, operatingOffice, searchOffices } from './service';
+import { resolvePreviewPlace } from '../../preview/directory';
 
 let activeScope: MapScope | null = null;
 export function setOfficeMapScope(scope: MapScope | null) {
@@ -17,6 +18,8 @@ export function officeMapCoverage(
 }
 export function officeFocus(place: Place | null): Coordinate | null {
   if (!place) return null;
+  const preview = place.preview && place.status === 'candidate' ? resolvePreviewPlace(place.id) : null;
+  if (preview) return preview.coordinate && activeScope && coverageAt(activeScope, preview.coordinate) === 'service' ? preview.coordinate : null;
   const reference = getOfficeLocationReference(place.id);
   if (reference) return activeScope && coverageAt(activeScope, reference.coordinate) === 'service' ? reference.coordinate : null;
   return place.category !== 'office'
@@ -27,7 +30,7 @@ export function officeFocus(place: Place | null): Coordinate | null {
 }
 /** One existing canonical building marker per approved tenant group, never an entrance. */
 export function officeMapPlaces(input: Place[], scope: MapScope | null = activeScope): Place[] {
-  const result = input.filter((place) => place.category !== 'office');
+  const result = input.filter((place) => place.category !== 'office' || (place.preview && place.status === 'candidate' && !!place.coordinate && !!scope && coverageAt(scope, place.coordinate) === 'service'));
   const groups = new Map<string, Place[]>();
   for (const place of input) {
     if (place.category !== 'office' || officeMapCoverage(place.id, scope) !== 'mapped') continue;

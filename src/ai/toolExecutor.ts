@@ -3,6 +3,7 @@ import type { ItineraryPreview, PreviewOperation, PreviewStop } from './itinerar
 import type { EvidenceEnvelope, UnifiedRetrieval, Authority } from './retrieval';
 import { decodeToolProposal, utf8Bytes, type ToolName, type ToolProposal } from './tools';
 import { applyExplicitPhpBounds, type PhpPriceBounds } from '../domain/priceBounds';
+import { canonicalPreviewId } from '../preview/directory';
 
 export type ToolActionAdapters = {
   focusMapPlace?: (place: Place) => boolean | Promise<boolean>;
@@ -83,6 +84,14 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
       case 'get_place_details':
         r = result(p, await retrieval.getPlaceDetails(p.arguments.placeId));
         break;
+      case 'search_preview_directory':
+      case 'get_preview_place_details':
+        r = context.researchEnabled
+          ? result(p, p.name === 'search_preview_directory'
+              ? await retrieval.searchPreviewDirectory(p.arguments)
+              : await retrieval.getPreviewPlaceDetails(p.arguments.placeId))
+          : unavailable(p, 'This request excludes preview content. I can check approved records instead.', true);
+        break;
       case 'get_verified_entrances':
         r = result(p, await retrieval.getVerifiedEntrances(p.arguments.placeId));
         break;
@@ -161,7 +170,7 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
           : unavailable(p, 'This request excludes recorded research listings.', true);
         break;
       case 'focus_map_place': {
-        const id = p.arguments.placeId;
+        const id = canonicalPreviewId(p.arguments.placeId);
         if (context.expectedActionPlaceIds && !context.expectedActionPlaceIds.has(id)) {
           r = unavailable(p, "That isn't the place you referred to. Try its exact name.", true);
           break;
@@ -169,36 +178,36 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
         if (!context.resolvedPlaceIds.has(id)) {
           r = unavailable(
             p,
-            'Search for that exact approved place first, then I can show it on the map.',
+            'Search for that exact place first, then I can open its details.',
             true,
           );
           break;
         }
-        const latest = await retrieval.getPlaceDetails(id);
+        let latest = await retrieval.getPlaceDetails(id);
+        if (!latest.data && context.researchEnabled)
+          latest = await retrieval.getPreviewPlaceDetails(id);
         assertNotAborted(context.signal);
         if (!latest.data) {
-          r = unavailable(p, "That place isn't available from the approved records anymore.");
+          r = unavailable(p, "That place isn't available from the current records anymore.");
           break;
         }
         const c = latest.data.coordinate;
         if (
           !actions.focusMapPlace ||
-          !c ||
-          c.length !== 2 ||
-          !c.every(Number.isFinite) ||
-          Math.abs(c[0]) > 180 ||
-          Math.abs(c[1]) > 90
+          (c && (c.length !== 2 || !c.every(Number.isFinite) ||
+            Math.abs(c[0]) > 180 || Math.abs(c[1]) > 90))
         ) {
-          r = unavailable(p, "I don't have an approved map location for that place.");
+          r = unavailable(p, "I can't open that place right now.");
           break;
         }
         const focused = await actions.focusMapPlace(latest.data);
         r = {
           ...result(p, latest),
           authority: 'ui',
+          appliedFilters: { placeId: id, previewAllowed: context.researchEnabled },
           status: focused ? 'ok' : 'unavailable',
-          data: focused ? { placeId: id, focused: true } : null,
-          warnings: focused ? [] : ["That place isn't covered by the current map."],
+          data: focused ? { placeId: id, opened: true } : null,
+          warnings: focused ? [] : ["I couldn't open that place right now."],
         };
         break;
       }
@@ -305,11 +314,18 @@ export function createToolExecutor(retrieval: UnifiedRetrieval, actions: ToolAct
     const serialized = JSON.stringify(r);
     if (serialized.length > 131072 || utf8Bytes(serialized) > 131072)
       return unavailable(p, "That's too much to show in one reply. Try a more specific search.");
-    // Only successfully returned source-approved identities are eligible for subsequent actions.
-    if (r.status === 'ok' && ['find_places', 'get_place_details'].includes(r.name)) {
+    // Reads grant a request-local UI reference, never entrance/itinerary approval.
+    if (r.status === 'ok' && ['find_places', 'get_place_details', 'search_preview_directory', 'get_preview_place_details'].includes(r.name)) {
       const places = Array.isArray(r.data) ? (r.data as Place[]) : [r.data as Place];
       places.forEach((place) => context.resolvedPlaceIds.add(place.id));
     }
+    if (r.status === 'ok' && ['find_approved_offices', 'get_office_details'].includes(r.name)) {
+      const offices = Array.isArray(r.data) ? r.data : [r.data];
+      for (const office of offices as { placeId: string }[]) context.resolvedPlaceIds.add(office.placeId);
+    }
+    if (r.status === 'ok' && ['search_food_research', 'get_food_research_details'].includes(r.name))
+      for (const row of r.data as import('./retrieval').ResearchRow[])
+        context.resolvedPlaceIds.add(canonicalPreviewId(row.restaurant.id));
     if (
       r.status === 'ok' &&
       ['get_itinerary_preview', 'preview_itinerary_change'].includes(r.name)

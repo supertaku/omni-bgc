@@ -25,6 +25,7 @@ function load(relative, mocks = {}) {
         serialOwner: () => (work) => work(),
       };
     if (name === '../data/parser') return { UUID: /^[0-9a-f]{8}-[0-9a-f-]{27}$/i };
+    if (/\.(webp|png)$/.test(name)) return 1; // Metro asset handles are a host-only boundary.
     if (name.startsWith('.')) {
       const target = path.resolve(path.dirname(filename), name);
       if (fs.existsSync(target + '.tsx')) return load(target + '.tsx', mocks);
@@ -139,6 +140,13 @@ assert.equal(
   1,
   'actual bundled research menu rows pass the bounded history validator',
 );
+const enrichedFood = { ...foodPayload, items: foodPayload.items.map(row => ({ ...row, item: { ...row.item, imageKey: 'dish-ramen', preview: true } })) };
+assert.equal(historyProjection([{ id: 'preview-food', payload: enrichedFood }]).length, 1);
+for (const invalid of [{ preview: 'true' }, { imageKey: 'x'.repeat(101) }, { command: 'ignored' }]) {
+  const payload = { ...foodPayload, items: [{ ...foodPayload.items[0], item: { ...foodPayload.items[0].item, ...invalid } }] };
+  assert.throws(() => historyProjection([{ id: 'invalid-preview-food', payload }]), /display schema/);
+}
+assert.equal(historyProjection([{ id: 'floor-detail', payload: { kind: 'place', placeId, detailFocus: 'floor' } }]).length, 1, 'requested detail focus survives chat history');
 const hoursPayload = {
   kind: 'food-hours',
   placeId: restaurant.id,
@@ -160,6 +168,7 @@ const { MessageContent } = load('src/features/assistant/cards.tsx', {
   './styles': { assistantStyles: {} },
   '../../ui/components': { CitationList: () => null },
 });
+assert.equal(MessageContent({ payload: { kind: 'evidence', title: 'Sources & freshness', citations: [citation] }, places: [], actions: { onOpenPlace: () => {} } }), null, 'chat hides source/freshness disclosures without deleting stored evidence');
 const sampleCitation = {
   ...citation,
   status: 'candidate',
@@ -197,6 +206,30 @@ const text = (node) => {
   if (typeof node.type === 'function') return text(node.type(node.props));
   return text(node.props?.children);
 };
+const detailPlace = { id: placeId, name: 'Detail fixture', category: 'cafe', building: 'Fixture Tower', floor: '3F', description: 'A description from the current local record.', status: 'approved', aliases: [], menus: [], entrances: [], citations: [], coordinate: null };
+const details = focus => MessageContent({ payload: { kind: 'place', placeId, detailFocus: focus }, places: [detailPlace], actions: { onOpenPlace: () => {} } });
+assert.ok(text(details('overview')).includes(detailPlace.description), 'overview answers include the available description');
+assert.ok(text(details('floor')).includes('3F'));
+assert.ok(!text(details('floor')).includes(detailPlace.description), 'a floor question does not dump unrelated description');
+const { placeDetailFocus } = load('src/features/assistant/detailPresentation.ts');
+assert.equal(placeDetailFocus('What floor is Detail fixture on?'), 'floor');
+assert.equal(placeDetailFocus('Where is Detail fixture located?'), 'location');
+assert.equal(placeDetailFocus('Describe Detail fixture'), 'description');
+const { planDeterministicRequest } = load('src/ai/deterministicIntent.ts');
+assert.equal(planDeterministicRequest('What floor is Detail fixture on?', [detailPlace]).kind, 'places', 'an exact named field read needs no model');
+assert.equal(planDeterministicRequest('What floor is Ramen fixture on?', [{ ...detailPlace, name: 'Ramen fixture' }]).kind, 'places', 'a food word in a business name does not turn a floor question into a menu search');
+const { composeGroundedAnswer } = load('src/ai/answerComposer.ts');
+const focused = composeGroundedAnswer([{ name: 'get_place_details', status: 'ok', data: detailPlace, citations: [], warnings: [] }], '', 'What floor is Detail fixture on?');
+assert.equal(focused.find(p => p.kind === 'place').detailFocus, 'floor');
+const officeDetail = composeGroundedAnswer([{ name: 'get_office_details', status: 'ok', data: { placeId, address: 'Fixture Tower, 10th Street' }, citations: [], warnings: [] }], '', 'What is its address?').find(p => p.kind === 'place');
+assert.equal(officeDetail.detailAddress, 'Fixture Tower, 10th Street');
+assert.equal(officeDetail.detailFocus, 'location');
+assert.equal(MessageContent({ payload: { kind: 'status', severity: 'info', text: 'Prices and availability can vary by branch. Estimates and starting prices may differ from your final choice. Check current hours with the restaurant.' }, places: [], actions: { onOpenPlace: () => {} } }), null);
+assert.throws(() => historyProjection([{ id: 'bad-focus', payload: { kind: 'place', placeId, detailFocus: 'execute' } }]), /display schema/);
+const oldDisplay = { id: placeId, name: detailPlace.name, category: 'cafe', status: 'approved', fictionalSample: false, description: 'The original recorded description.' };
+const restoredDetail = MessageContent({ payload: { kind: 'place', placeId, detailFocus: 'description' }, places: [detailPlace], displayPlaces: [oldDisplay], actions: { onOpenPlace: () => {} } });
+assert.ok(text(restoredDetail).includes(oldDisplay.description));
+assert.ok(!text(restoredDetail).includes(detailPlace.description), 'restored descriptions do not acquire changed live facts');
 assert(
   text(rendered).includes('PHP 250'),
   'historical fictional sample must retain its original recorded display price',

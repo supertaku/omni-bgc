@@ -81,6 +81,7 @@ export function planDeterministicRequest(
   const sourceQuery = stripFoodSourcePreference(remaining);
   if (/\b(itinerary|visit|stops|trip|first|second|third|these|those|that|them|explain|compare|recommend|best|quiet|cozy|except|without)\b/i.test(sourceQuery))
     return null;
+  if (/\b(?:and|then)\s+(?:show|open|find|look|give)\b/i.test(sourceQuery)) return null;
   const raw = literal(sourceQuery);
   const allNames = places.flatMap((place) => [place.name, ...place.aliases].map((name) => ({ place, name: literal(name) })))
     .filter((entry) => entry.name && ` ${raw} `.includes(` ${entry.name} `))
@@ -113,6 +114,12 @@ export function planDeterministicRequest(
   if (/\b(entrances?|access)\b/.test(text))
     return match && !itemQuery ? { kind: 'entrances', query: match.name, placeId } : null;
   if (/\b(hours|schedule)\b/.test(text)) return { kind: 'hours', query: target, placeId };
+  const detailQualifier = /^(?:(?:what|which|on|location|address|floor|level|description|describe|category|type|cuisine|located|its|s)\s*)*$/;
+  const outsideName = match ? raw.replace(match.name, ' ') : '';
+  if (match && detailQualifier.test(itemQuery) &&
+      /\b(what|which|where|floor|level|location|address|description|describe|details|about|category|type|cuisine)\b/.test(outsideName) &&
+      !/\b(menu|menus|dish|dishes|prices?|budget)\b/.test(outsideName))
+    return { kind: 'places', query: match.name, placeId };
   if (match?.place.category === 'office' && match.place.status !== 'approved')
     return { kind: 'places', query: match.name, placeId };
   if (/\b(offices?|companies|company|headquarters|tenants?)\b/.test(text))
@@ -128,7 +135,8 @@ export function planDeterministicRequest(
       bounds: price.kind === 'valid' ? price.bounds : undefined,
       priceSort,
     };
-  if (match && !itemQuery) return { kind: 'places', query: match.name, placeId };
+  if (match && !itemQuery)
+    return { kind: 'places', query: match.name, placeId };
   const category = directoryCategory(cleaned);
   if (category) return { kind: 'places', query: category };
   const fuzzyTokens = target.split(' ').filter(Boolean);

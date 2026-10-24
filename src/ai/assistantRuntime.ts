@@ -8,7 +8,7 @@ import { ItineraryPreviewOwner } from './itineraryPreview';
 import { ConversationStore } from './conversationStore';
 import { createExpoModelManager } from './modelStorage';
 import { createProviderSmokeRunner, type ModelManager } from './modelManager';
-import { GEMMA_4_E2B, reviewedModel } from './modelCatalog';
+import { QWEN3_06B, reviewedModel } from './modelCatalog';
 import { runHybridTurn } from './hybridAssistant';
 import { confirmedOrigin } from './confirmedOrigin';
 import type { AgentRunOptions } from './AgentOrchestrator';
@@ -16,7 +16,7 @@ import { answerDirectoryQuery } from '../features/assistant/directory';
 import { createFoodResearchAnswer } from '../features/food/assistant';
 import { foodResearch } from '../features/food/directory';
 
-export async function createAssistantRuntime(focus: (place: Place) => boolean) {
+export async function createAssistantRuntime(focus: (place: Place) => boolean | Promise<boolean>) {
   const provider = new NativeLiteRtProvider();
   const retrieval = await createAppRetrieval();
   const itineraryPreview = new ItineraryPreviewOwner(
@@ -38,7 +38,7 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
   let closingRequested = false;
   let lifecycle: Promise<unknown> = Promise.resolve();
   let activeOperation: AbortController | null = null;
-  let selectedModelId = GEMMA_4_E2B.id;
+  let selectedModelId = QWEN3_06B.id;
   const loadModel = (model: Parameters<typeof provider.load>[0]) =>
     provider.load({ ...model, contextTokens: reviewedModel(model.id).defaultContextTokens }, 'cpu');
   // Serialize runtime operations around the existing manager/provider owners;
@@ -178,7 +178,6 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
         selectedModelId = reviewedModel(id).id;
         manager ??= await createExpoModelManager();
         await manager.inspect(id);
-        if (await provider.thermalBlocked()) manager.setRuntimeError('THERMAL_BLOCK');
       }),
     setup: (signal: AbortSignal, id?: string) =>
       own((ownedSignal) => setup(ownedSignal, id), signal),
@@ -190,7 +189,8 @@ export async function createAssistantRuntime(focus: (place: Place) => boolean) {
     activate: (signal: AbortSignal, id?: string) =>
       own((ownedSignal) => activate(ownedSignal, id), signal),
     removeModel: (id?: string) => own(() => removeModel(id)),
-    resolvePlace: async (id: string) => (await retrieval.getPlaceDetails(id)).data,
+    resolvePlace: async (id: string) => (await retrieval.getPlaceDetails(id)).data ??
+      (await retrieval.getPreviewPlaceDetails(id)).data,
     getManager: () => manager,
     refreshThermal: () => provider.thermalBlocked(),
     onThermalStatus: (listener: (blocked: boolean) => void) => provider.onThermalStatus(listener),

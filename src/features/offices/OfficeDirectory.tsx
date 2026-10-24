@@ -13,6 +13,7 @@ import {
 } from './service';
 import { internalOfficeResearchEnabled, officeResearch } from './research';
 import type { OfficeDetails } from './contracts';
+import { INTERNAL_PREVIEW_ENABLED } from '../../preview/directory';
 
 export function officePlace(office: OfficeDetails): Place {
   return {
@@ -50,6 +51,22 @@ export function OfficeDirectory({
     setOffset(0);
     setExpanded(null);
   };
+  if (INTERNAL_PREVIEW_ENABLED) {
+    const tokens = officeText(query).split(' ').filter(Boolean);
+    const matching = places.filter(place => place.category === 'office' && tokens.every(token =>
+      officeText([place.name, place.building, place.floor, ...place.aliases].filter(Boolean).join(' ')).split(' ').some(word => word === token)));
+    return <View style={{gap:12}}>
+      <Body muted>Company offices · available offline</Body>
+      <TextInput value={query} onChangeText={search} accessibilityLabel="Search companies, office buildings, industries or districts" placeholder="Company, building, industry or district" placeholderTextColor={palette.muted} style={ui.input} returnKeyType="search" />
+      <Body muted>{matching.length} offices{matching.length ? ` · ${offset + 1}–${Math.min(offset + 30, matching.length)}` : ''}</Body>
+      {matching.slice(offset, offset + 30).map(place => <PlaceRow key={place.id} place={place} onPress={() => onChoose(place)} />)}
+      {!matching.length ? <Body>No matching offices. Try a company name or building.</Body> : null}
+      <View style={ui.row}>
+        {offset > 0 ? <Action label="Previous offices" onPress={() => setOffset(Math.max(0,offset - 30))} /> : null}
+        {offset + 30 < matching.length ? <Action label="More offices" onPress={() => setOffset(offset + 30)} /> : null}
+      </View>
+    </View>;
+  }
   return (
     <View style={{ gap: 12 }}>
       <Body muted>

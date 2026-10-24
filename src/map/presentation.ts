@@ -3,29 +3,33 @@ import type { Coordinate, Place } from '../contracts';
 import landmarks from './landmarks.json';
 
 const significantNames = new Set(landmarks.entries.map((entry) => entry.name));
-// Original game-map palette; source families choose styling, never geographic identity.
+// Original illustrated city palette: glass, stone and brick roofs; green is reserved for landscaping.
 export const illustratedRoofColor: ExpressionSpecification = [
   'match',
   ['get', 'visual_family'],
-  ['office', 'offices'],
-  '#397B78',
-  ['commercial', 'retail', 'mall', 'supermarket'],
-  '#C18A48',
+  ['office', 'offices', 'glass-office'],
+  '#5789B0',
+  'midrise-office',
+  '#7898B6',
+  ['commercial', 'retail', 'lowrise-retail', 'mall', 'supermarket'],
+  '#C8A17A',
   ['residential', 'apartments', 'mixed-use'],
-  '#527345',
+  '#9B94B5',
   'hotel',
-  '#984C51',
+  '#A68BAA',
   ['school', 'university', 'college', 'institutional'],
-  '#426F50',
+  '#AD7370',
   ['hospital', 'healthcare'],
-  '#759BA0',
+  '#8BAFC2',
   ['transportation', 'train_station', 'station'],
-  '#947A56',
+  '#7F91A1',
   ['parking', 'garages'],
-  '#727A82',
+  '#8B909A',
   ['civic', 'public', 'government'],
-  '#927251',
-  '#4C796B',
+  '#C0AF95',
+  // Decorative materials only: an unknown building's identity and height remain unknown.
+  ['match', ['%', ['abs', ['to-number', ['get', 'osm_id'], 0]], 4],
+    1, '#83A7C4', 2, '#D1C6AE', 3, '#B4A6C4', '#D8D5C9'],
 ];
 
 /** Independent presentation revisions share exact geographic resources and layer order. */
@@ -45,23 +49,23 @@ export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolea
       layer.paint['fill-extrusion-opacity'] = 1;
       if (flat || quiet) layer.layout = { ...layer.layout, visibility: 'none' };
     }
-    if (layer.id === 'canvas') layer.paint['background-color'] = flat ? '#D8DAB5' : '#EAE1C8';
+    if (layer.id === 'canvas') layer.paint['background-color'] = flat ? '#DCDAD1' : '#E4E0D6';
     if (layer.id === 'gardens') layer.paint['fill-color'] = flat ? '#82AC57' : '#91B567';
     if (layer.id === 'garden-texture') {
       layer.minzoom = 15;
       layer.paint['fill-opacity'] = flat ? 0.55 : 0.4;
     }
     if (layer.id === 'plazas') {
-      layer.paint['fill-color'] = '#E3CB96';
-      layer.paint['fill-outline-color'] = '#B49E76';
+      layer.paint['fill-color'] = '#D6CDBC';
+      layer.paint['fill-outline-color'] = '#ADA69A';
     }
     if (layer.id === 'building-footprints') {
       layer.paint['fill-color'] = illustratedRoofColor;
-      layer.paint['fill-outline-color'] = '#304E45';
+      layer.paint['fill-outline-color'] = '#425062';
     }
     if (layer.id === 'building-edges') {
       layer.minzoom = 15;
-      layer.paint['line-color'] = '#304E45';
+      layer.paint['line-color'] = '#425062';
       layer.paint['line-width'] = [
         'interpolate',
         ['linear'],
@@ -85,11 +89,11 @@ export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolea
       layer.minzoom = 14;
       layer.paint['fill-extrusion-color'] = illustratedRoofColor;
     }
-    if (layer.id === 'street-edge') layer.paint['line-color'] = '#C5BEA6';
-    if (layer.id === 'street') layer.paint['line-color'] = flat ? '#666D68' : '#626E70';
+    if (layer.id === 'street-edge') layer.paint['line-color'] = '#C8C6BE';
+    if (layer.id === 'street') layer.paint['line-color'] = flat ? '#6D727A' : '#68727E';
     if (layer.id === 'path-edge') {
       layer.minzoom = 14.5;
-      layer.paint['line-color'] = '#AEAA90';
+      layer.paint['line-color'] = '#B4B1A8';
     }
     if (layer.id === 'walkways') {
       layer.minzoom = 14.5;
@@ -97,12 +101,12 @@ export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolea
         'match',
         ['get', 'surface'],
         'asphalt',
-        '#929A90',
+        '#949AA0',
         'concrete',
-        '#E3DEC7',
+        '#DFDDD5',
         ['paving_stones', 'tiles'],
-        '#DCCC9C',
-        '#E4D3A5',
+        '#D5CDBF',
+        '#DDD6C8',
       ];
     }
     if (layer.id === 'source-crosswalks') {
@@ -116,8 +120,8 @@ export function renderMapStyle(activeStyle: string, flat: boolean, quiet: boolea
     if (layer.id === 'road-labels') {
       layer.minzoom = 17;
       layer.layout = { ...layer.layout, 'text-size': 10, 'text-padding': 20 };
-      layer.paint['text-color'] = '#30473C';
-      layer.paint['text-halo-color'] = '#F2EDD9';
+      layer.paint['text-color'] = '#364657';
+      layer.paint['text-halo-color'] = '#F0EEE6';
     }
     if (
       quiet &&

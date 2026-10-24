@@ -11,6 +11,8 @@ export type FoodHours = {
   weeklySchedule: { day: number; start: string; end: string }[] | null;
 };
 export type FoodMenuItem = {
+  imageKey?: string;
+  preview?: boolean;
   id: string;
   restaurantId: string;
   origin: 'research';
@@ -30,6 +32,8 @@ export type FoodMenuItem = {
   researchDate: string;
 };
 export type FoodRestaurant = {
+  description?: string;
+  imageKey?: string;
   id: string;
   externalId: string;
   origin: 'research';

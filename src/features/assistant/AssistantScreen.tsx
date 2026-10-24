@@ -12,6 +12,7 @@ import type { Origin, Place } from '../../contracts';
 import { BrandMark, Icon, palette } from '../../ui/components';
 import type { AssistantActions, AssistantPayload, PlaceDisplaySnapshot } from './contracts';
 import { MessageContent } from './cards';
+import { isRetiredChatNotice } from './detailPresentation';
 import { useAssistantConversation } from './useAssistantConversation';
 import { assistantStyles as s } from './styles';
 import { ModelScreen } from './ModelScreen';
@@ -19,7 +20,7 @@ import { resultPlaceIds } from './mapResults';
 export type AssistantScreenProps = AssistantActions & {
   places: Place[];
   onBackMap: () => void;
-  onFocusMapPlace?: (place: Place) => boolean;
+  onFocusMapPlace?: (place: Place) => boolean | Promise<boolean>;
   origin?: Origin | null;
   onMapResults?: (places: Place[], show: boolean) => boolean;
   modelsOpen?: boolean;
@@ -77,6 +78,8 @@ export function AssistantScreen({
     key?: string,
     displayPlaces: PlaceDisplaySnapshot[] = [],
   ) => {
+    // Hide the retired notice in restored conversations as well as new answers.
+    if (isRetiredChatNotice(payload)) return null;
     const content = (
       <MessageContent
         payload={payload}
@@ -86,16 +89,18 @@ export function AssistantScreen({
       />
     );
     if (payload.kind === 'user') return <View key={key}>{content}</View>;
+    const structured = ['places', 'place', 'menus', 'food-menus', 'food-hours', 'itinerary-preview'].includes(payload.kind);
     return (
-      <View key={key} style={s.assistantMessage}>
-        <BrandMark size={28} />
-        <View style={s.assistantBubble}>
+      <View key={key} style={[s.assistantMessage, structured && s.answerMessage]}>
+        {!structured ? <BrandMark size={28} /> : null}
+        <View style={[s.assistantBubble, structured && s.answerPanel]}>
+          {structured ? <View style={s.answerBrand}><BrandMark size={22} /><Text style={s.answerBrandText}>THE FORT · CITY GUIDE</Text></View> : null}
           {content}
           {resultPlaceIds([payload]).length ? (
             <Pressable accessibilityRole="button" accessibilityLabel="Show these results on the map"
-              style={controlButton} disabled={busy}
+              style={s.resultsMapButton} disabled={busy} accessibilityState={{ disabled: busy }}
               onPress={() => { void showMapResults(resultPlaceIds([payload])); }}>
-              <Icon name="map" size={18} /><Text style={s.mapButtonText}>Show on map</Text>
+              <Icon name="map" size={19} color="#FFFFFF" /><Text style={s.resultsMapButtonText}>Show on map</Text><Icon name="chevron" size={17} color="#FFFFFF" />
             </Pressable>
           ) : null}
         </View>
@@ -123,7 +128,7 @@ export function AssistantScreen({
         status={setupStatus}
         modelReady={modelReady}
         operationStatus={status}
-        onBack={() => onModelsChange?.(false)}
+        onBack={() => { pendingScroll.current = true; onModelsChange?.(false); }}
         onOperation={modelOperation}
         onStop={cancel}
         onClear={clear}
@@ -164,8 +169,9 @@ export function AssistantScreen({
           keyboardDismissMode="on-drag"
           onContentSizeChange={() => {
             if (pendingScroll.current) {
-              timeline.current?.scrollToEnd({ animated: false });
               pendingScroll.current = false;
+              // Fabric must commit the resized card before measuring the scroll destination.
+              requestAnimationFrame(() => timeline.current?.scrollToEnd({ animated: false }));
             }
           }}
         >
@@ -212,6 +218,7 @@ export function AssistantScreen({
               accessibilityLabel="Message the local BGC directory"
               accessibilityHint="Search by place, building, category or dish name"
               multiline
+              disableFullscreenUI
               maxLength={1000}
               textAlignVertical="top"
               value={draft}

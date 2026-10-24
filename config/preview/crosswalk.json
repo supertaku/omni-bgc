@@ -1,0 +1,117 @@
+{
+  "merges": [
+    {
+      "sourceId": "f8a9f893-7173-5e48-a80d-8d0b5668b872",
+      "canonicalId": "4d346150-70aa-531a-a67e-5d67b4aca414",
+      "basis": "Same Shake Shack name and Central Square branch in both retained datasets; official branch locator confirms Central Square",
+      "sourceIds": [
+        "official-shake-shack-locations-20261024"
+      ]
+    },
+    {
+      "sourceId": "a001aff7-c95d-5972-893f-d4ccdf0e43de",
+      "canonicalId": "82f85fa1-6eff-5262-85e2-4fee91df419b",
+      "basis": "Same Burnt Bean name; research BHS Central and directory C2 BHS Central establish the branch",
+      "sourceIds": [
+        "BGC-F007",
+        "assets/generated/directory/places.json"
+      ]
+    },
+    {
+      "sourceId": "07e6f985-d4d1-5f89-93cb-75e031a129fa",
+      "canonicalId": "80432069-78f7-551f-81a7-e2de27f807ce",
+      "basis": "Same Lorenzo's Way name and BHS Central branch; directory specifies C2",
+      "sourceIds": [
+        "assets/generated/directory/places.json"
+      ]
+    },
+    {
+      "sourceId": "fd9184dc-dca9-5686-9bd7-e00624371f37",
+      "canonicalId": "e3b08eca-61ae-5c2a-b7ec-7c03ea86e3ba",
+      "basis": "Same Mango Tree name and BHS Central branch; directory specifies C3",
+      "sourceIds": [
+        "assets/generated/food-research/directory.json",
+        "assets/generated/directory/places.json"
+      ]
+    },
+    {
+      "sourceId": "51cc7dfb-4c99-581c-8b96-8b898bc34343",
+      "canonicalId": "fbd42b7f-81af-5520-af9d-0c56b1731615",
+      "basis": "Same Ooma name and BHS Central branch; directory specifies C3",
+      "sourceIds": [
+        "assets/generated/food-research/directory.json",
+        "assets/generated/directory/places.json"
+      ]
+    },
+    {
+      "sourceId": "546f2f8c-0d7a-54e2-b359-1c708f0b388c",
+      "canonicalId": "b0e7fd3b-287c-58c9-8e8a-7c2f2c1c21d6",
+      "basis": "Same SaladStop name and explicit Central Square branch; Uptown branch kept separate",
+      "sourceIds": [
+        "assets/generated/food-research/directory.json",
+        "assets/generated/directory/places.json"
+      ]
+    },
+    {
+      "sourceId": "138cf0c9-a935-56bf-86f1-f062dcebe398",
+      "canonicalId": "cc954dfe-28f8-5c2e-b169-1e9da1ab5046",
+      "basis": "Same The Alley by Vikings name and BHS Central branch; directory specifies C1",
+      "sourceIds": [
+        "assets/generated/food-research/directory.json",
+        "assets/generated/directory/places.json"
+      ]
+    },
+    {
+      "sourceId": "8279985e-98ca-5dbf-a764-9152ad3210f4",
+      "canonicalId": "e1ab1a16-c1c6-5f8e-bb54-e967b945c42a",
+      "basis": "Same Fat Seed name and explicit One Maridien branch in both source datasets; official branch page confirms 9th Avenue and 27th Street",
+      "sourceIds": [
+        "official-fat-seed-20261024",
+        "assets/generated/directory/places.json"
+      ]
+    },
+    {
+      "sourceId": "e330cda7-f7c7-5729-8ac1-f4bc0586867d",
+      "canonicalId": "6abf18d3-5521-5d74-a9cb-039f69c635c6",
+      "basis": "Retained restaurant locationOriginal specifies Shangri-La The Fort GF; directory Arabica point specifies Shangri-La at the Fort G/F. Mitsukoshi branch remains distinct.",
+      "sourceIds": [
+        "assets/generated/food-research/directory.json",
+        "assets/generated/directory/places.json"
+      ]
+    }
+  ],
+  "buildingAliases": {
+    "Central Square — Bonifacio High Street": "Central Square",
+    "Central Square, Bonifacio High Street Central": "Central Square",
+    "Shangri-La The Fort": "Shangri-La at the Fort",
+    "SM Aura Premier": "SM Aura",
+    "Market! Market! — Fiesta Market": "Fiesta Market!",
+    "Market! Market! — Food Choices": "Market! Market!",
+    "Uptown Place Mall": "Uptown Mall",
+    "Verve Residences 1": "The Verve Residences One",
+    "The Verve Residences 1": "The Verve Residences One",
+    "W Highstreet": "W High Street",
+    "Bonifacio Stopover Corporate Center": "Bonifacio Stop Over Corporate Center",
+    "Twenty-Four Seven McKinley": "Twenty-four Seven McKinley",
+    "Twenty-Five Seven McKinley": "Twenty-five Seven McKinley",
+    "Fort Legend Tower": "Fort Legend Towers",
+    "One/NEO": "One/Neo",
+    "Two/NEO": "Two/Neo",
+    "Four/NEO": "Four/Neo",
+    "Seven/NEO": "Seven/Neo",
+    "Seven/NEO (former Net Park)": "Seven/Neo",
+    "Net Park / Seven/NEO": "Seven/Neo",
+    "Net Park": "Seven/Neo",
+    "The Finance Centre": "The Financial Centre",
+    "Picadilly Star": "Picadilly Star",
+    "W Fifth Avenue Building": "W Fifth Avenue",
+    "W Fifth Building": "W Fifth Avenue",
+    "W Fifth Center": "W Fifth Avenue",
+    "Ore Central Building": "Orè Central",
+    "V&A Law Center": "V & A Law Center",
+    "Serendra / Serendra Piazza": "Serendra",
+    "Bonifacio Stopover Pavilion": "Bonifacio Stopover",
+    "Uptown Ritz": "Uptown Ritz Residences",
+    "One Uptown Residences": "One Uptown Residence"
+  }
+}

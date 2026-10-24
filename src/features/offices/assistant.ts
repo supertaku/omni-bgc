@@ -1,6 +1,9 @@
 import type { Place } from '../../contracts';
 import type { AssistantPayload } from '../assistant/contracts';
 import { searchOffices, getOfficeDetails, operatingOffice, officeDistrictLabel } from './service';
+import { INTERNAL_PREVIEW_ENABLED } from '../../preview/directory';
+import { excludesFoodResearch } from '../../domain/foodSourcePolicy';
+import { searchDirectory } from '../explore/directory';
 
 /** Same fresh approved office records as the UI. No research/model/network facts. */
 export function answerOfficeQuery(
@@ -16,6 +19,15 @@ export function answerOfficeQuery(
       ' ',
     )
     .trim();
+  if (INTERNAL_PREVIEW_ENABLED && !excludesFoodResearch(query)) {
+    const preview = searchDirectory([...places], text, 'Offices');
+    const exact = preview.filter(place => [place.name, ...place.aliases].some(name => name.toLowerCase() === text.toLowerCase()));
+    if ((intent || exact.length) && preview.length) return [{
+      kind: 'places', title: 'Company offices',
+      placeIds: (exact.length ? exact : preview).slice(0,12).map(place => place.id),
+      total: exact.length || preview.length,
+    }];
+  }
   const current = new Set(
     places.filter((place) => place.status === 'approved').map((place) => place.id),
   );

@@ -8,7 +8,7 @@ const UTC = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/;
 
 /** Shared user-facing directory vocabulary for map and assistant search. */
 export const DIRECTORY_CATEGORIES: Readonly<Record<string, readonly string[]>> = {
-  coffee: ['coffee', 'cafe', 'cafes', 'café', 'cafés', 'bakery', 'bakeries'],
+  coffee: ['coffee', 'coffee shop', 'coffee shops', 'cafe', 'cafes', 'café', 'cafés', 'bakery', 'bakeries'],
   food: ['food', 'restaurant', 'restaurants', 'dining', 'eat'],
   shop: ['shop', 'shops', 'shopping', 'retail', 'mall', 'malls'],
   park: ['park', 'parks', 'garden', 'gardens'],

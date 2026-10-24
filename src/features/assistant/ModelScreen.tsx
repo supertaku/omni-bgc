@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import type { ModelStatus } from '../../ai/modelManager';
-import { GEMMA_4_E2B, MODEL_CATALOG } from '../../ai/modelCatalog';
+import { QWEN3_06B, MODEL_CATALOG } from '../../ai/modelCatalog';
 import { AppDialog, type AppDialogAction } from '../../ui/AppDialog';
 import { BrandMark, Icon, palette } from '../../ui/components';
 import { assistantStyles as s } from './styles';
@@ -33,7 +33,6 @@ const stateCopy: Record<ModelStatus['state'], string> = {
 };
 const knownErrors: Record<string, string> = {
   OOM: 'The phone could not allocate enough memory. Close other apps, then try Use again. The verified download is retained.',
-  THERMAL_BLOCK: 'Your phone is too warm for local AI. Let it cool before trying Use again.',
   SESSION_POISONED:
     'The native engine has not safely released its resources. Wait for setup to finish, or reopen the app before retrying.',
   CANCEL_TIMEOUT:
@@ -117,7 +116,7 @@ export function ModelScreen({
   onClear,
 }: ModelScreenProps) {
   const [confirmation, setConfirmation] = useState<Confirmation>(null);
-  const model = MODEL_CATALOG.find((entry) => entry.id === status?.modelId) ?? GEMMA_4_E2B;
+  const model = MODEL_CATALOG.find((entry) => entry.id === status?.modelId) ?? QWEN3_06B;
   const modelReady = runtimeReady && status?.state === 'ACTIVE';
   const size = `${(model.bytes / 1_000_000_000).toFixed(2)} GB`;
   const installed = status?.artifactState !== undefined && status.artifactState !== 'MISSING';
@@ -125,7 +124,6 @@ export function ModelScreen({
   const canDownload = status?.artifactState === 'MISSING' || status?.artifactState === 'PARTIAL';
   const canActivate =
     !busy &&
-    status?.runtimeError !== 'THERMAL_BLOCK' &&
     (downloaded ||
       status?.artifactState === 'PRESENT' ||
       status?.state === 'PENDING_NATIVE_SMOKE_TEST' ||
@@ -220,11 +218,7 @@ export function ModelScreen({
                 <Text style={m.rowLabel}>{entry.displayName}</Text>
                 <Text style={s.caption}>
                   {(entry.bytes / 1_000_000).toFixed(0)} MB ·{' '}
-                  {entry.id === GEMMA_4_E2B.id
-                    ? 'legacy / experimental'
-                    : entry.bytes < 500_000_000
-                      ? 'lightweight candidate'
-                      : 'optional candidate'}
+                  {entry.bytes < 500_000_000 ? 'lightweight candidate' : 'optional candidate'}
                 </Text>
               </Pressable>
             ))}
@@ -275,19 +269,17 @@ export function ModelScreen({
             <View style={m.stateRow}>
               {busy ? <ActivityIndicator color={palette.blue} /> : null}
               <Text accessibilityLiveRegion="polite" style={m.stateText}>
-                {status?.runtimeError === 'THERMAL_BLOCK'
-                  ? `${downloaded ? 'Installed' : 'Local AI'} · cooling required`
-                  : status?.state === 'DOWNLOADING'
-                    ? 'Downloading…'
-                    : status?.artifactState === 'PARTIAL'
-                      ? 'Download paused'
-                      : status?.state === 'ACTIVE' && !modelReady
-                        ? status.runtimeError
-                          ? 'Installed · couldn’t start'
-                          : 'Installed'
-                        : status
-                          ? stateCopy[status.state]
-                          : 'Checking setup…'}
+                {status?.state === 'DOWNLOADING'
+                  ? 'Downloading…'
+                  : status?.artifactState === 'PARTIAL'
+                    ? 'Download paused'
+                    : status?.state === 'ACTIVE' && !modelReady
+                      ? status.runtimeError
+                        ? 'Installed · couldn’t start'
+                        : 'Installed'
+                      : status
+                        ? stateCopy[status.state]
+                        : 'Checking setup…'}
                 {status?.state === 'DOWNLOADING' && progress !== null ? ` ${progress}%` : ''}
               </Text>
             </View>
@@ -296,21 +288,7 @@ export function ModelScreen({
                 {error}
               </Text>
             ) : null}
-            {status?.runtimeError === 'THERMAL_BLOCK' ? (
-              <Pressable
-                accessibilityRole="button"
-                disabled={busy}
-                style={m.quietRow}
-                onPress={() => {
-                  void onOperation('select', model.id);
-                }}
-              >
-                <Text style={m.secondaryText}>Check cooling status</Text>
-              </Pressable>
-            ) : null}
-            {status?.artifactState === 'VERIFIED' &&
-            !modelReady &&
-            status.runtimeError !== 'THERMAL_BLOCK' ? (
+            {status?.artifactState === 'VERIFIED' && !busy && !modelReady ? (
               <Text style={s.caption}>Tap Use model to start or retry local AI.</Text>
             ) : null}
             {status?.artifactState === 'PARTIAL' && status.state !== 'DOWNLOADING' ? (

@@ -26,40 +26,11 @@ export type ReviewedModel = Readonly<{
   knownLimitations: readonly string[];
 }>;
 
-const revision = 'b3ca0d2f076785a8f4b2219ddbd2bdb99954eae1';
-export const GEMMA_4_E2B: ReviewedModel = Object.freeze({
+/** Withdrawn identity retained only to decode and retire saved pointers; never selectable/loadable. */
+export const LEGACY_GEMMA_4_E2B = Object.freeze({
   id: 'gemma-4-e2b-it-litertlm-2026-08',
-  displayName: 'Gemma 4 E2B',
-  tier: 'T1',
-  publisher: 'litert-community (base model: Google)',
-  sourceRepo: 'litert-community/gemma-4-E2B-it-litert-lm',
-  sourceRevision: revision,
-  artifactFilename: 'gemma-4-E2B-it.litertlm',
-  url: `https://huggingface.co/litert-community/gemma-4-E2B-it-litert-lm/resolve/${revision}/gemma-4-E2B-it.litertlm`,
-  runtimeFormat: 'litertlm',
-  modelArchitecture: 'Gemma 4 E2B instruction tuned',
-  tokenizerChatTemplateVersion: `embedded .litertlm; companion chat_template.jinja at ${revision}`,
   bytes: 2588147712,
   sha256: '181938105e0eefd105961417e8da75903eacda102c4fce9ce90f50b97139a63c',
-  license: 'Apache-2.0',
-  licenseUrl: 'https://ai.google.dev/gemma/docs/gemma_4_license',
-  obligations: Object.freeze([
-    'Keep Apache 2.0 license, attribution and any upstream NOTICE with redistribution.',
-    'Preserve upstream copyright and state modifications; no trademark grant.',
-    'Do not redistribute weights through this application without separate parent review.',
-  ]),
-  gated: false,
-  approvalStatus: 'PROVISIONAL_PENDING_M10',
-  defaultContextTokens: 2048,
-  maxContextTokens: 32768,
-  testedBackends: Object.freeze([]),
-  supportedABI: Object.freeze(['arm64-v8a']),
-  testedDeviceProfile: null,
-  knownLimitations: Object.freeze([
-    'No Omni/POCO inference, memory, thermal, GPU or quality evidence before M10.',
-    'Runtime owns the embedded tokenizer/template; companion Jinja is provenance, not executable app input.',
-    'English-first; Filipino and Taglish efficacy is unmeasured.',
-  ]),
 });
 
 /** Metadata reviewed 2026-10-23 against HF LFS pointers and pinned model cards. */
@@ -71,7 +42,20 @@ function qwen(
 ): ReviewedModel {
   const artifactFilename = `Qwen3-${size}_dynamic_wi4b32_afp32.litertlm`;
   return Object.freeze({
-    ...GEMMA_4_E2B,
+    tier: 'T1',
+    runtimeFormat: 'litertlm',
+    license: 'Apache-2.0',
+    obligations: Object.freeze([
+      'Keep Apache 2.0 license, attribution and any upstream NOTICE with redistribution.',
+      'Preserve upstream copyright and state modifications; no trademark grant.',
+      'Do not redistribute weights through this application without separate parent review.',
+    ]),
+    gated: false,
+    approvalStatus: 'PROVISIONAL_PENDING_M10',
+    defaultContextTokens: 2048,
+    testedBackends: Object.freeze([]),
+    supportedABI: Object.freeze(['arm64-v8a']),
+    testedDeviceProfile: null,
     id: `qwen3-${size.toLowerCase()}-dynamic-int4-litertlm`,
     displayName: `Qwen3 ${size}`,
     publisher: 'litert-community (base model: Qwen)',
@@ -105,13 +89,14 @@ export const QWEN3_17B = qwen(
   977184032,
   '2a72330b504a6596d53a2c00923c57173b10f1b83e6a541213ffec08d1fc5de8',
 );
-export const MODEL_CATALOG: readonly ReviewedModel[] = Object.freeze([
-  GEMMA_4_E2B,
-  QWEN3_06B,
-  QWEN3_17B,
-]);
+export const MODEL_CATALOG: readonly ReviewedModel[] = Object.freeze([QWEN3_06B, QWEN3_17B]);
 export function reviewedModel(id: string): ReviewedModel {
   const model = MODEL_CATALOG.find((entry) => entry.id === id);
   if (!model) throw new Error('MODEL_NOT_REVIEWED');
   return model;
+}
+
+/** Storage decoding only. Runtime/download operations must use reviewedModel instead. */
+export function storedModelMetadata(id: string): Pick<ReviewedModel, 'id' | 'bytes' | 'sha256'> {
+  return id === LEGACY_GEMMA_4_E2B.id ? LEGACY_GEMMA_4_E2B : reviewedModel(id);
 }

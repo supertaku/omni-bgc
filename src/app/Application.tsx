@@ -3,7 +3,6 @@ import * as Location from 'expo-location';
 import {
   Dimensions,
   KeyboardAvoidingView,
-  Platform,
   StatusBar,
   StyleSheet,
   Text,
@@ -17,7 +16,7 @@ import { Notice, palette, Sheet } from '../ui/components';
 import { getPackStatus } from '../updates';
 import { officeFocus, officeMapPlaces, setOfficeMapScope } from '../features/offices/map';
 import type { MapScope } from '../map/scope';
-import { coversCoordinate } from '../map/scope';
+import { coversCoordinate, coverageAt } from '../map/scope';
 import { AssistantScreen } from '../features/assistant/AssistantScreen';
 import { FloatingChatButton, MapChrome } from '../features/explore/MapChrome';
 import { PlacePeek } from '../features/explore/PlaceDetails';
@@ -32,6 +31,8 @@ import { useExplorerNavigation, type Panel } from './useExplorerNavigation';
 import { useContentPackActions } from './useContentPackActions';
 import { AppDialog } from '../ui/AppDialog';
 import { renderExplorePanel } from '../features/explore/ExplorePanels';
+import { resolveCurrentPlace } from '../features/explore/placeOpening';
+import { getPlaceDetails } from '../data/retrieval';
 export function Application() {
   const [fontsLoaded, fontError] = useOfflineFonts();
   const [cameraResetKey, setCameraResetKey] = useState(0);
@@ -83,7 +84,7 @@ export function Application() {
     setTabSafely,
     dismiss,
     open: openPanel,
-    choose,
+    choose: selectPlace,
     setPanel,
     setSelected,
     setQuery,
@@ -142,6 +143,31 @@ export function Application() {
     };
   }, [panel, setPackChecking, setPackStatus]);
   const [officeScope, setOfficeScope] = useState<MapScope | null>(null);
+  const selectionEpoch = useRef(0);
+  useEffect(() => {
+    selectionEpoch.current++;
+  }, [tab, panel, query, category, confirming, installing, basePlaces]);
+  useEffect(() => () => { selectionEpoch.current++; }, []);
+  const choose = async (requested: Place): Promise<boolean> => {
+    if (confirming || installing) return false;
+    const openingEpoch = ++selectionEpoch.current;
+    const place = await resolveCurrentPlace(requested.id, places, getPlaceDetails);
+    if (openingEpoch !== selectionEpoch.current) return false;
+    if (!place) {
+      setMessage('This place is no longer available. Search again to refresh the results.');
+      return false;
+    }
+    setLocationFocus(null);
+    setFitCoordinates(null);
+    setMapResults(previous => [...previous.filter(entry => entry.id !== place.id), place]);
+    setHighlightedPlaceIds([place.id]);
+    setTabSafely('Map');
+    selectPlace(place);
+    if (!place.coordinate && !officeFocus(place)) setMessage('Map location is unavailable. Place details are available below.');
+    else if (officeScope && coverageAt(officeScope, place.coordinate ?? officeFocus(place)!) !== 'service')
+      setMessage('This location is outside the current offline map. Place details are available below.');
+    return true;
+  };
   const selectManualOrigin = (coordinate: Coordinate) => {
     if (
       !coordinate.every(Number.isFinite) ||
@@ -299,7 +325,7 @@ export function Application() {
       <StatusBar barStyle="dark-content" backgroundColor={palette.canvas} />
       <KeyboardAvoidingView
         style={styles.root}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior="padding"
       >
         <View style={styles.body} onLayout={(e) => setBodyHeight(e.nativeEvent.layout.height)}>
           <ExplorerPager
@@ -320,7 +346,7 @@ export function Application() {
                   fitCoordinates={fitCoordinates}
                   rightInset={panel && landscape ? Math.min(480, width * 0.66) + 24 : 0}
                   bottomInset={bottomInset}
-                  focusCoordinate={locationFocus ?? officeFocus(selected)}
+                  focusCoordinate={locationFocus ?? (officeScope && officeFocus(selected) && coverageAt(officeScope, officeFocus(selected)!) === 'service' ? officeFocus(selected) : null)}
                   onScopeReady={(scope) => {
                     setOfficeMapScope(scope);
                     setOfficeScope(scope);
@@ -347,7 +373,7 @@ export function Application() {
                   onPlacePress={(id) => {
                     const place = places.find((p) => p.id === id);
                     if (choosingOrigin && place?.coordinate) selectManualOrigin(place.coordinate);
-                    else if (place) { setLocationFocus(null); setFitCoordinates(null); choose(place); }
+                    else if (place) { setLocationFocus(null); setFitCoordinates(null); void choose(place); }
                   }}
                 />
                 {!panel ? (
@@ -412,27 +438,9 @@ export function Application() {
                   places={places}
                   onFocusMapPlace={(place) => {
                     if (confirming || installing) return false;
-                    const coordinate = officeFocus(place);
-                    if (
-                      place.status !== 'approved' ||
-                      !coordinate ||
-                      !officeScope ||
-                      !coversCoordinate(officeScope.geometry, coordinate)
-                    )
-                      return false;
-                    setTabSafely('Map');
-                    setLocationFocus(null);
-                    setFitCoordinates(null);
-                    choose(place);
-                    return true;
+                    return choose(place);
                   }}
-                  onOpenPlace={(place) => {
-                    setLocationFocus(null);
-                    setFitCoordinates(null);
-                    setMapResults((previous) => [...previous.filter((entry) => entry.id !== place.id), place]);
-                    setTabSafely('Map');
-                    choose(place);
-                  }}
+                  onOpenPlace={choose}
                 />
               </View>
             }

@@ -15,11 +15,13 @@ export type CapabilityState =
   | 'citation-missing'
   | 'structured-result'
   | 'partial-message';
+export const PLACE_DETAIL_FOCI = ['overview', 'location', 'floor', 'description', 'category'] as const;
+export type PlaceDetailFocus = typeof PLACE_DETAIL_FOCI[number];
 export type AssistantPayload =
   | { kind: 'user'; text: string }
   | { kind: 'text'; text: string; partial?: boolean }
   | { kind: 'places'; title: string; placeIds: string[]; total: number }
-  | { kind: 'place'; placeId: string; distanceM?: number }
+  | { kind: 'place'; placeId: string; distanceM?: number; detailFocus?: PlaceDetailFocus; detailAddress?: string }
   | { kind: 'menus'; title: string; items: { placeId: string; item: MenuItem }[]; total: number }
   | {
       kind: 'food-menus';
@@ -51,6 +53,7 @@ export type PlaceDisplaySnapshot = {
   category: string;
   building?: string;
   floor?: string;
+  description?: string;
   status: Place['status'];
   fictionalSample: boolean;
 };

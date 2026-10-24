@@ -4,6 +4,9 @@ import { Action, Body, Heading, Notice, ui } from '../../ui/components';
 import { getOfficeDetails, officeDistrictLabel, officeExpired, searchOffices } from './service';
 import { officeMapCoverage } from './map';
 import { officePlace } from './OfficeDirectory';
+import { PlaceCover } from '../explore/PlaceIdentity';
+import { PreviewSources } from '../explore/PreviewSources';
+import { canonicalPreviewId, INTERNAL_PREVIEW_ENABLED } from '../../preview/directory';
 
 export function OfficeDetailsView({
   place,
@@ -22,7 +25,9 @@ export function OfficeDetailsView({
     coverage = officeMapCoverage(place.id);
   return (
     <View style={{ gap: 10 }}>
+      <PlaceCover place={place} />
       <Heading>{office.name}</Heading>
+      {place.description ? <Body>{place.description}</Body> : null}
       <Body>{office.organizationName}</Body>
       <Body muted>
         {office.presence.replace(/_/g, ' ')} · {officeDistrictLabel(office.district)}
@@ -91,6 +96,7 @@ export function OfficeDetailsView({
           onChoose={onChoose}
         />
       ) : null}
+      <PreviewSources id={place.id} />
     </View>
   );
 }
@@ -104,10 +110,12 @@ export function OfficeTenantList({
   onChoose?: (place: Place) => void;
 }) {
   const tenants = searchOffices({ buildingId, limit: 100 });
-  if (!tenants.total) return null;
+  const additional = INTERNAL_PREVIEW_ENABLED ? places.filter(place => place.preview && place.category === 'office' && place.buildingId === canonicalPreviewId(buildingId) && !tenants.items.some(office => office.placeId === place.id)) : [];
+  if (!tenants.total && !additional.length) return null;
   return (
     <View style={{ gap: 8 }}>
-      <Heading>Reviewed company offices in this building</Heading>
+      <Heading>{INTERNAL_PREVIEW_ENABLED ? 'Company offices in this building' : 'Reviewed company offices in this building'}</Heading>
+      {additional.map(place => <View key={place.id} style={ui.card}><Body>{place.name}</Body>{onChoose ? <Action label={`View ${place.name} office`} onPress={() => onChoose(place)} /> : null}</View>)}
       {tenants.items.map((office) => (
         <View key={office.placeId} style={ui.card}>
           <Body>{office.name}</Body>

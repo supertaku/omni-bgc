@@ -32,7 +32,7 @@ function load(relative, mocks = {}) {
 }
 (async () => {
   const { ModelManager } = load('src/ai/modelManager.ts');
-  const { GEMMA_4_E2B: model } = load('src/ai/modelCatalog.ts');
+  const { QWEN3_06B: model } = load('src/ai/modelCatalog.ts');
   const candidate = {
     id: model.id,
     sha256: model.sha256,
@@ -217,6 +217,19 @@ function load(relative, mocks = {}) {
       (payload) => payload.kind === 'places' && payload.placeIds.includes(place.id),
     ),
   );
+  let casualInput;
+  const casual = new AgentOrchestrator({ ...agentProvider, stream: async (input) => {
+    casualInput = input;
+    return { requestId: input.requestId, epoch: input.epoch, text: 'Hello! How can I help?', toolProposals: [], finishReason: 'complete', nativeQuiescent: true };
+  } }, executor);
+  const casualTurn = await casual.run('hello', {
+    recentMessages: [{ role: 'user', text: 'Old ramen lookup' }, { role: 'assistant', text: 'Unrelated restaurant result' }],
+    resolvedPlaceIds: [place.id],
+  });
+  assert.equal(casualTurn.status, 'completed');
+  assert.equal(casualInput.messages.length, 2, 'casual chat excludes unrelated lookup history and rendered place observations');
+  assert.equal(casualInput.messages[1].text, 'hello');
+  assert.deepEqual(casualInput.tools, []);
   const denied = await executor.execute(
     { name: 'search_food_research', arguments: { query: 'coffee' } },
     'host',
@@ -293,6 +306,20 @@ function load(relative, mocks = {}) {
   assert.equal(aborted.status, 'canceled');
   assert.equal(hybridCalls.length, beforeAbort, 'aborted request cannot execute retrieval tools');
   const { toolObservation } = load('src/ai/prompt.ts');
+  const { planDeterministicRequest } = load('src/ai/deterministicIntent.ts');
+  for (const query of ['Find a coffee place and show its details', 'Look up offices and show their recorded details'])
+    assert.equal(planDeterministicRequest(query, [place]), null, 'compound lookup/action requests keep their intent for the model');
+  let greetingCalls = 0;
+  const greetingDeps = { ...hybridDeps, agent: { run: async () => {
+    greetingCalls++; return { status: 'completed', payloads: [{ kind: 'text', text: 'Hello from the local model.' }], places: [] };
+  } } };
+  const nativeGreeting = await runHybridTurn('hello', [place], greetingDeps);
+  assert.equal(nativeGreeting.execution, 'llm', 'an active local model answers general conversation');
+  assert.equal(greetingCalls, 1);
+  const modelOffGreeting = await runHybridTurn('hello', [place], { ...greetingDeps, canInfer: () => false });
+  assert.equal(modelOffGreeting.execution, 'deterministic');
+  assert.equal(greetingCalls, 1, 'model-off greeting retains deterministic fallback');
+  assert(modelOffGreeting.payloads.length);
   const approvedObservation = JSON.parse(toolObservation({
     name: 'find_menu_items', callId: 'approved-price', status: 'ok', authority: 'approved',
     warnings: [], data: [{ branchId: place.id, coordinate: [121, 14], item: {
@@ -334,6 +361,12 @@ function load(relative, mocks = {}) {
   let modelOffCalls = 0;
   const bundledDeps = { agent: { run: async () => { modelOffCalls++; throw new Error('must remain off'); } },
     executor: bundledExecutor, canInfer: () => false, answerDirectory: async () => [] };
+  const { answerDirectoryQuery } = load('src/features/assistant/directory.ts');
+  const coffeeAnswer = await runHybridTurn('find coffee shops in BGC', foodPlaces, {
+    ...bundledDeps, answerDirectory: answerDirectoryQuery,
+  });
+  assert(coffeeAnswer.payloads.some((p) => p.kind === 'places' && p.placeIds.length), 'coffee answer retains actual result cards');
+  assert(!coffeeAnswer.payloads.some((p) => p.kind === 'text' && /Additional results are recorded directory candidates/.test(p.text)), 'result cards do not append internal review narration');
   const researchMenu = await runHybridTurn('menu of Wooshi', foodPlaces, bundledDeps);
   assert.equal(researchMenu.execution, 'deterministic');
   assert.equal(modelOffCalls, 0);
@@ -398,7 +431,7 @@ function load(relative, mocks = {}) {
     released = resolve;
   });
   const bridge = {
-    getCapabilities: async () => ({ android: true, backends: ['cpu'] }),
+    getCapabilities: async () => ({ android: true, backends: ['cpu'], thermalBlocked: true }),
     initialize: () =>
       new Promise((resolve) => {
         finishInitialize = resolve;
@@ -426,6 +459,7 @@ function load(relative, mocks = {}) {
     true,
     'keep lease while JNI initialize is pending',
   );
+  assert.equal(typeof finishInitialize, 'function', 'severe reported status must not prevent entering native initialization');
   finishInitialize();
   await cleanup;
   await new Promise((resolve) => setImmediate(resolve));
@@ -434,6 +468,40 @@ function load(relative, mocks = {}) {
     false,
     'release lease only after late initialization finishes and native cleanup succeeds',
   );
+
+  let generationListener;
+  let nativeCancels = 0;
+  let autoComplete = true;
+  const severeBridge = {
+    getCapabilities: async () => ({android:true,backends:['cpu'],thermalBlocked:true}),
+    initialize: async () => {},
+    awaitNativeIdle: async () => ({idle:true}), release: async () => {},
+    addListener: (_event, listener) => { generationListener = listener; return {remove(){}}; },
+    generate: async (request) => {
+      if (autoComplete) generationListener({type:'terminal',requestId:request.requestId,epoch:request.epoch,sequence:0,reason:'complete'});
+    },
+    cancel: async () => { nativeCancels++; return {accepted:true,nativeQuiescent:true}; },
+  };
+  const severe = new NativeLiteRtProvider(severeBridge, coordinator, 100, 1000, 100);
+  await severe.load({...candidate,contextTokens:2048},'cpu');
+  assert.equal(await severe.thermalBlocked(), false, 'thermal telemetry is not an app veto');
+  let observedBlock;
+  severe.onThermalStatus((blocked) => { observedBlock = blocked; });
+  generationListener({blocked:true,status:3});
+  assert.equal(observedBlock,false,'severe callbacks cannot disable local AI');
+  const request = {requestId:'severe-1',epoch:10001,messages:[{role:'user',text:'Hi'}],contextTokens:2048,maxOutputTokens:32,toolContractRevision:'test',allowedCapabilities:[]};
+  assert.equal((await severe.generate(request)).finishReason,'complete','severe report must not veto generation');
+  autoComplete = false;
+  const pending = severe.generate({...request,requestId:'severe-2',epoch:10002});
+  const cancelled = await severe.cancel('severe-2');
+  assert.equal(cancelled.nativeQuiescent,true);
+  assert.equal((await pending).finishReason,'cancelled');
+  assert.equal(nativeCancels,1,'explicit cancellation remains native-owned');
+  await assert.rejects(severe.generate({...request,requestId:'old-epoch',epoch:10001}), /TOOL_PROTOCOL_INVALID/);
+  assert.equal(coordinator.isLeased(candidate.absolutePath),true,'lease retained until explicit native release');
+  await severe.release();
+  assert.equal(coordinator.isLeased(candidate.absolutePath),false);
+  console.log('PASS severe telemetry does not veto load/generation; explicit cancellation, epoch and release fences remain');
   console.log(
     'PASS exact query routing, strict tool schemas and late native initialization cleanup',
   );
